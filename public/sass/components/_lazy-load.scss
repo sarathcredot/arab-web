@@ -28,7 +28,7 @@
     right: 0;
     top: 0;
     bottom: 0;
-    background: #f4f4f4;
+    // background: #f4f4f4;
 }
 
 .media-with-lazy {
@@ -46,7 +46,7 @@
 		img {
 			position: absolute;
 			width: 100%;
-			height: 100%;
+			// height: 100%;
 			top: 0;
 			transition: all .5s;
 			object-fit: cover;
@@ -71,7 +71,7 @@
 			display: block;
 			padding-top: 100%;
 			width: 100%;
-			background-color: #f4f4f4;
+			// background-color: #f4f4f4;
 		}
 	}
 

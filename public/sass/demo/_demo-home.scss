@@ -544,12 +544,12 @@ hr {
     }
 
     .col-6 {
-        border-right: 1px solid rgba(0,0,0,0.09);
-        border-bottom: 1px solid #eee;
+        // border-right: 1px solid rgba(0,0,0,0.09);
+        // border-bottom: 1px solid #eee;
 
-        &:nth-child(3n) {
-            border-right: 0;
-        }
+        // &:nth-child(3n) {
+        //     border-right: 0;
+        // }
 	}
 }
 
@@ -575,7 +575,7 @@ hr {
 
     .products-with-divide {
         margin-bottom: 0;
-        border: 2px solid rgba(0,0,0,0.09);
+        // border: 2px solid rgba(0,0,0,0.09);
 
         > .row {
             margin-bottom: -1px;
@@ -620,12 +620,14 @@ hr {
 }
 
 .deal-product {
-    border: 2px solid $primary-color;
-
+    border-right: 1px solid rgba(185, 185, 185, 1);
+.customimg{
+    margin-top:"71px"
+}
     &:hover {
         .btn-add-cart {
-            background: $primary-color;
-            border-color: $primary-color;
+            background: rgba(227, 6, 19, 1);
+            border-color: rgba(227, 6, 19, 1);
         }
 
         .product-action {
@@ -662,13 +664,18 @@ hr {
     }
 
     .product-details {
-        margin-top: -1.6rem;
+        margin-top: 53px;
     }
 
     .product-title {
-        margin-bottom: 4px;
+        margin-top: 24px;
+        margin-bottom: 30px;
         font-size: 2rem;
-        font-family: $font-family;
+        font-family: 
+        Poppins;
+        font-weight: 500;
+        color: rgba(0,0,0,1);
+
     }
 
     .price-box {
@@ -1522,13 +1529,13 @@ hr {
 
     .deal-products-section {
         .products-with-divide {   
-            .col-6 {
-                border-right: 1px solid rgba(0,0,0,0.09);
+            // .col-6 {
+            //     border-right: 1px solid rgba(0,0,0,0.09);
         
-                &:nth-child(4n) {
-                    border-right: 0;
-                }
-            }
+            //     &:nth-child(4n) {
+            //         border-right: 0;
+            //     }
+            // }
         }
     }
 }
