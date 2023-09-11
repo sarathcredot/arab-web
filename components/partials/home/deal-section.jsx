@@ -20,6 +20,7 @@ function DealSection({ products }) {
         delay={100}
         duration={1000}
         triggerOnce
+        // style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
       >
         <div className="row">
           <div className="col-lg-4 col-md-5 mb-2 mb-md-0">
@@ -49,14 +50,15 @@ function DealSection({ products }) {
                 {products
                   ? products
                       .filter((item) => item.until === null)
-                      .slice(0, 8)
+                      .slice(0, 6)
                       .map((item, index) => (
                         <div
-                          className="col-xl-3 col-sm-4 col-6"
+                          className="col-xl-4 col-sm-4 col-6"
                           key={"All Products:" + index}
+                          style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
                         >
                           <ProductOne
-                            adClass="inner-quickview inner-icon"
+                            // adClass="inner-quickview inner-icon"
                             product={item}
                           />
                         </div>

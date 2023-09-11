@@ -12,22 +12,25 @@ function BannerSection() {
         <div className="col-md-8 ">
           <img
             src="images/home/banners/homeimage2.svg"
-            style={{ width: "100%", height: "470px", objectFit: "cover" }}
+            className="bannerimg"
+            // style={{ width: "100%", height: "470px", objectFit: "cover" }}
           />
         </div>
 
         <div className="col-md-4">
           <img
             src="images/home/banners/homeimage3.svg"
-            style={{ width: "100%", height: "470px", objectFit: "cover" }}
+            className="bannerimg"
+            // style={{ width: "100%", height: "470px", objectFit: "cover" }}
           />
         </div>
       </div>
       <div className="row pt-4">
         <div className="col-md-12 ">
           <img
+            className="home_banner3"
             src="images/home/banners/homeimage4.svg"
-            style={{ width: "100%", height: "272px", objectFit: "cover" }}
+            // style={{ width: "100%", height: "272px", objectFit: "cover" }}
           />
         </div>
       </div>

@@ -255,9 +255,9 @@ figure {
 		padding: 0 .8rem;
 		flex-direction: column;
 		-ms-flex-direction: column;
-		align-items: center;
+		align-items: left;
 		-ms-flex-align: center;
-		justify-content: center;
+		justify-content: left;
 		-ms-flex-pack: center;
 	}
 
@@ -283,7 +283,7 @@ figure {
 // 1.6) Title
 	.product-title {
 		max-width: 100%;
-		font-weight: 400;
+		font-weight: 500;
 		font-size: 1.5rem;
 		font-family: $second-font-family;
 		line-height: 1.35;
@@ -485,6 +485,7 @@ figure {
 	color: $primary-color-dark;
 	font-size: 1.8rem;
 	line-height: .8;
+	font-weight: 800;
 }
 
 .price-box {

@@ -65,11 +65,14 @@ function ProductFour(props) {
   }
 
   return (
-    <div className={`product-default media-with-lazy ${adClass}`}>
+    <div
+      className={`product-default media-with-lazy ${adClass}`}
+      style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
+    >
       {/* <figure> */}
       <ALink href={`/product/${link}/${product.slug}`}>
-        <span>
-          <img src="images/iphone.svg" />
+        <span style={{ display: "flex", justifyContent: "center" }}>
+          <img src="images/iphone.svg" style={{ marginTop: "74px" }} />
         </span>
         {/* <LazyLoadImage
             alt="product"
@@ -95,12 +98,12 @@ function ProductFour(props) {
           )} */}
       </ALink>
 
-      {product.until && product.until !== null && (
+      {/* {product.until && product.until !== null && (
         <ProductCountdown adClass="custom-product-countdown" />
-      )}
+      )} */}
       {/* </figure> */}
 
-      <div className="product-details">
+      <div className="product-details" style={{ alignItems: "center" }}>
         <div className="category-wrap">
           <div className="category-list">
             {product.categories
@@ -110,6 +113,12 @@ function ProductFour(props) {
                       href={{
                         pathname: "/shop",
                         query: { category: item.slug },
+                      }}
+                      style={{
+                        color: "rgba(227, 6, 19, 1)",
+                        fontSize: "12px",
+                        fontWeight: "700",
+                        justifyContent: "center",
                       }}
                     >
                       {item.name}
@@ -121,13 +130,13 @@ function ProductFour(props) {
           </div>
         </div>
 
-        <h3 className="product-title">
+        <h3 className="product-title" style={{ justifyContent: "center" }}>
           <ALink href={`/product/default/${product.slug}`}>
             {product.name}
           </ALink>
         </h3>
 
-        <div className="ratings-container">
+        {/* <div className="ratings-container">
           <div className="product-ratings">
             <span
               className="ratings"
@@ -137,7 +146,7 @@ function ProductFour(props) {
               {product.ratings.toFixed(2)}
             </span>
           </div>
-        </div>
+        </div> */}
 
         <div className="price-box">
           {product.price[0] == product.price[1] ? (
@@ -151,11 +160,11 @@ function ProductFour(props) {
             </span>
           ) : (
             <>
-              <span className="old-price">
-                {"$" + product.price[1].toFixed(2)}
-              </span>
               <span className="product-price">
                 {"$" + product.price[0].toFixed(2)}
+              </span>
+              <span className="old-price">
+                {"$" + product.price[1].toFixed(2)}
               </span>
             </>
           )}
@@ -177,11 +186,11 @@ function ProductFour(props) {
               title="Add To Cart"
               onClick={onAddCartClick}
             >
-              <i className="icon-shopping-cart"></i>
+              {/* <i className="icon-shopping-cart"></i> */}
               <span>ADD TO CART</span>
             </a>
           )}
-          <a
+          {/* <a
             href="#"
             className={`btn-icon-wish ${
               isInWishlist() ? "added-wishlist" : ""
@@ -192,15 +201,15 @@ function ProductFour(props) {
             }`}
           >
             <i className="icon-heart"></i>
-          </a>
-          <a
+          </a> */}
+          {/* <a
             href="#"
             className="btn-quickview"
             title="Quick View"
             onClick={onQuickViewClick}
           >
             <i className="fas fa-external-link-alt"></i>
-          </a>
+          </a> */}
         </div>
       </div>
     </div>

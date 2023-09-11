@@ -19,6 +19,7 @@ import GiftCollection from "../components/partials/home/gift-collection";
 import GardenCollection from "../components/partials/home/garden-collection";
 import SelectedCollection from "../components/partials/home/selected-collection";
 import RecentCollection from "../components/partials/home/recent-collection";
+import TopBrand from "../components/partials/home/top-brand";
 
 function Home() {
   const { data, loading, error } = useQuery(GET_HOME_DATA, {
@@ -56,6 +57,7 @@ function Home() {
           <BannerSection />
 
           <DealSection products={bestSelling} />
+          <TopBrand />
         </div>
 
         <CategoryFilterSection />
