@@ -92,7 +92,7 @@ function ProductOne(props) {
             src="images/iphone.svg"
             threshold={500}
             effect="black and white"
-            width={130}
+            width="130px"
             height="auto"
             objectFit="contain"
           /> */}
@@ -155,9 +155,12 @@ function ProductOne(props) {
         </a>
       </figure>
 
-      <div className="product-details">
+      <div
+        className="product-details"
+        style={{ alignItems: "left", justifyContent: "left" }}
+      >
         <div className="category-wrap">
-          <div className="category-list">
+          <div className="category-list mb-1">
             {product.categories
               ? product.categories.map((item, index) => (
                   <React.Fragment key={item.slug + "-" + index}>
@@ -165,6 +168,10 @@ function ProductOne(props) {
                       href={{
                         pathname: "/shop",
                         query: { category: item.slug },
+                      }}
+                      style={{
+                        color: "red",
+                        fontWeight: "700",
                       }}
                     >
                       {item.name}
@@ -195,7 +202,7 @@ function ProductOne(props) {
           </ALink>
         </h3>
 
-        <div className="ratings-container">
+        {/* <div className="ratings-container">
           <div className="product-ratings">
             <span
               className="ratings"
@@ -205,25 +212,37 @@ function ProductOne(props) {
               {product.ratings.toFixed(2)}
             </span>
           </div>
-        </div>
+        </div> */}
 
-        <div className="price-box">
+        <div className="price-box mt-2">
           {product.price[0] == product.price[1] ? (
             <span className="product-price">
-              {"$" + product.price[0].toFixed(2)}
+              <span style={{ fontWeight: "400", paddingRight: "10px" }}>
+                OMR
+              </span>{" "}
+              {product.price[0].toFixed(2)}{" "}
+              <span
+                style={{
+                  fontWeight: "400",
+                  paddingLeft: "10px",
+                  textDecorationLine: "line-through",
+                }}
+              >
+                {product.price[0] + 200}
+              </span>
             </span>
           ) : product.variants.length > 0 ? (
             <span className="product-price">
-              {"$" + product.price[0].toFixed(2)} &ndash;{" "}
-              {"$" + product.price[1].toFixed(2)}
+              {"OMR" + product.price[0].toFixed(2)} &ndash;{" "}
+              {"OMR" + product.price[1].toFixed(2)}
             </span>
           ) : (
             <>
               <span className="old-price">
-                {"$" + product.price[1].toFixed(2)}
+                {"OMR" + product.price[1].toFixed(2)}
               </span>
               <span className="product-price">
-                {"$" + product.price[0].toFixed(2)}
+                {"OMR" + product.price[0].toFixed(2)}
               </span>
             </>
           )}

@@ -20,6 +20,7 @@ function MainMenu({ router }) {
     cat2: "",
     cat3: "",
     cat4: "",
+    cat5: "",
   });
   const [activeItem, setActiveItem] = useState("");
   const [activeItem2, setActiveItem2] = useState("");
@@ -119,7 +120,7 @@ function MainMenu({ router }) {
   return (
     <>
       <nav
-        className={`main-nav w-100 skeleton-body skel-shop-products ${
+        className={`w-100 skeleton-body skel-shop-products ${
           !loading ? "loaded" : ""
         }`}
       >
@@ -128,12 +129,16 @@ function MainMenu({ router }) {
             <li
               key={item.key}
               className={`custom__menu__item px-2 ${
-                item.key === activeItem ? "activate" : ""
+                item.key === parentcategory.cat1 ? "activate" : ""
               }`}
               onClick={() => {
-                console.log("click");
-                setParentcategory((e) => ({ ...e, cat1: item.key }));
-                setActiveItem(item.key);
+                setParentcategory((e) => ({
+                  cat1: item.key,
+                  cat2: "",
+                  cat3: "",
+                  cat4: "",
+                  cat5: "",
+                }));
               }}
             >
               <span className="custom__menu__item-image">
@@ -143,18 +148,47 @@ function MainMenu({ router }) {
             </li>
           ))}
         </ul>
+        {/* mobile responsive menu */}
+        <ul className="custom__mobilemenu w-100">
+          {mainNav.map((item) => (
+            <li
+              className="custom__mobilemenu__item"
+              onClick={() => {
+                setParentcategory((e) => ({
+                  cat1: item.key,
+                  cat2: "",
+                  cat3: "",
+                  cat4: "",
+                  cat5: "",
+                }));
+              }}
+            >
+              <div className="custom__mobilemenu__item-circle">
+                <span className="custom__mobilemenu__item-image">
+                  <img src={item.icon} alt={item.label} />
+                </span>
+              </div>
+              <p>{item.label}</p>
+            </li>
+          ))}
+        </ul>
         {parentcategory?.cat1 ? (
           <ul className="custom__menufirstchild w-100">
             {child1.map((item) => (
               <li
                 key={item.key}
                 className={`custom__menufirstchild__item px-2 ${
-                  item.key === activeItem2 ? "customactive" : ""
+                  item.key === parentcategory.cat2 ? "customactive" : ""
                 }`}
                 onClick={() => {
                   console.log("click");
-                  setParentcategory((e) => ({ ...e, cat2: item.key }));
-                  setActiveItem2(item.key);
+                  setParentcategory((e) => ({
+                    ...e,
+                    cat2: item.key,
+                    cat3: "",
+                    cat4: "",
+                    cat5: "",
+                  }));
                 }}
               >
                 <p className="custom__menufirstchild__item-label">
@@ -173,12 +207,16 @@ function MainMenu({ router }) {
                 <li
                   key={item.key}
                   className={`custom__menusecondchild__item px-4 ${
-                    item.key === activeItem3 ? "customactive" : ""
+                    item.key === parentcategory.cat3 ? "customactive" : ""
                   }`}
                   onClick={() => {
                     console.log("click");
-                    setParentcategory((e) => ({ ...e, cat3: item.key }));
-                    setActiveItem3(item.key);
+                    setParentcategory((e) => ({
+                      ...e,
+                      cat3: item.key,
+                      cat4: "",
+                      cat5: "",
+                    }));
                   }}
                 >
                   <p className="custom__menusecondchild__item-label">
@@ -197,12 +235,15 @@ function MainMenu({ router }) {
                 <li
                   key={item.key}
                   className={`custom__menusecondchild__item px-4 ${
-                    item.key === activeItem4 ? "customactive" : ""
+                    item.key === parentcategory.cat4 ? "customactive" : ""
                   }`}
                   onClick={() => {
                     console.log("click");
-                    setParentcategory((e) => ({ ...e, cat4: item.key }));
-                    setActiveItem4(item.key);
+                    setParentcategory((e) => ({
+                      ...e,
+                      cat4: item.key,
+                      cat5: "",
+                    }));
                   }}
                 >
                   <p className="custom__menusecondchild__item-label">
@@ -221,9 +262,11 @@ function MainMenu({ router }) {
                 <li
                   key={item.key}
                   className={`custom__menulastchild__item px-4 ${
-                    item.key === activeItem5 ? "customactive" : ""
+                    item.key === parentcategory.cat5 ? "customactive" : ""
                   }`}
-                  onClick={() => setActiveItem5(item.key)}
+                  onClick={() =>
+                    setParentcategory((e) => ({ ...e, cat5: item.key }))
+                  }
                 >
                   <span className="custom__menulastchild__item-image">
                     <img src={item.icon} alt={item.label} />
