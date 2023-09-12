@@ -2,13 +2,13 @@ import React from 'react';
 import ALink from '../../../common/ALink';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
-export default function SingleTabOne ( props ) {
+export default function SingleTabOne(props) {
     const { adClass = "", product } = props;
 
-    function activeHandler ( e ) {
+    function activeHandler(e) {
         e.preventDefault();
-        document.querySelector( '.add-product-review .active' ) && document.querySelector( '.add-product-review .active' ).classList.remove( 'active' );
-        e.currentTarget.classList.add( 'active' );
+        document.querySelector('.add-product-review .active') && document.querySelector('.add-product-review .active').classList.remove('active');
+        e.currentTarget.classList.add('active');
     }
 
     return (
@@ -16,29 +16,29 @@ export default function SingleTabOne ( props ) {
             <div className="skel-pro-tabs"></div>
             {
                 product &&
-                <Tabs className={ `product-single-tabs ${adClass}` } selectedTabClassName="active" selectedTabPanelClassName="show">
+                <Tabs className={`product-single-tabs ${adClass}`} selectedTabClassName="active" selectedTabPanelClassName="show">
                     <TabList className="nav nav-tabs">
                         <Tab className="nav-item">
-                            <ALink href="#" className="nav-link">Description</ALink>
+                            <ALink href="#" className="nav-link" style={{ fontFamily: "Poppines" }}>OverView</ALink>
                         </Tab>
 
                         <Tab className="nav-item">
-                            <ALink href="#" className="nav-link">Size Guide</ALink>
+                            <ALink href="#" className="nav-link" style={{ fontFamily: "Poppines" }}>Specifications</ALink>
                         </Tab>
 
 
-                        <Tab className="nav-item">
+                        {/* <Tab className="nav-item">
                             <ALink href="#" className="nav-link">Additional Information</ALink>
                         </Tab>
 
                         <Tab className="nav-item">
                             <ALink href="#" className="nav-link">Reviews ({ product.reviews })</ALink>
-                        </Tab>
+                        </Tab> */}
                     </TabList>
 
-                    <TabPanel className="tab-pane fade">
+                    {/* <TabPanel className="tab-pane fade">
                         <div className="product-desc-content">
-                            <p>{ product.short_description }</p>
+                            <p>{product.short_description}</p>
                             <ul>
                                 <li>Any Product types that You want - Simple, Configurable</li>
                                 <li>Downloadable/Digital Products, Virtual Products</li>
@@ -46,10 +46,104 @@ export default function SingleTabOne ( props ) {
                             </ul>
                             <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
                         </div>
-                    </TabPanel>
+                    </TabPanel> */}
+
+                    <div className="container" style={{ marginTop: "79px" }} >
+                        <div
+                            style={{
+                                width: "1368px",
+                                height: "1052px",
+
+                            }}
+                        >
+                            <img
+                                src="images\brands\deatail-banner-1.svg"
+
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                width: "1368px",
+                                height: "1052px",
+
+                            }}
+                        >
+                            <img
+                                src="images\brands\product-detail-banner-2.svg"
+
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                width: "1368px",
+                                height: "1052px",
+
+                            }}
+                        >
+                            <img
+                                src="images\brands\detail-3.svg"
+
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                width: "1368px",
+                                height: "1052px",
+
+                            }}
+                        >
+                            <img
+                                src="images\brands\detail-4.svg"
+
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                width: "1368px",
+                                height: "1052px",
+
+                            }}
+                        >
+                            <img
+                                src="images\brands\deatil-5.svg"
+
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                width: "1368px",
+                                height: "1052px",
+
+                            }}
+                        >
+                            <img
+                                src="images\brands\detail-6.svg"
+
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                        </div>
+                        <div
+                            style={{
+                                width: "1368px",
+                                height: "1052px",
+
+                            }}
+                        >
+                            <img
+                                src="images\brands\detail-7.svg"
+
+                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                            />
+                        </div>
+                    </div>
 
 
-                    <TabPanel className="tab-pane fade">
+                    {/* <TabPanel className="tab-pane fade">
                         <div className="product-size-content">
                             <div className="row">
                                 <div className="col-md-4">
@@ -108,10 +202,10 @@ export default function SingleTabOne ( props ) {
                                 </div>
                             </div>
                         </div>
-                    </TabPanel>
+                    </TabPanel> */}
 
 
-                    <TabPanel className="tab-pane fade">
+                    {/* <TabPanel className="tab-pane fade">
                         <table className="table table-striped mt-2">
                             <tbody>
                                 <tr>
@@ -135,9 +229,9 @@ export default function SingleTabOne ( props ) {
                                 </tr>
                             </tbody>
                         </table>
-                    </TabPanel>
+                    </TabPanel> */}
 
-                    <TabPanel className="tab-pane fade">
+                    {/* <TabPanel className="tab-pane fade">
                         <div className="product-reviews-content">
                             {
                                 product.reviews !== 0 ?
@@ -236,7 +330,7 @@ export default function SingleTabOne ( props ) {
                                 </div>
                             </div>
                         </div>
-                    </TabPanel>
+                    </TabPanel> */}
                 </Tabs>
             }
         </>

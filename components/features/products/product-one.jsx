@@ -192,7 +192,7 @@ function ProductOne(props) {
               }`}
             style={{ width: "70px", height: "70px", marginLeft: "20px" }}
           >
-            <i class="icon-plus" style={{ borderRadius: "200px", display: "inline-block", padding: "10px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
+            <i class="icon-plus" style={{ height:"40px",width:"40px", borderRadius: "200px", display: "inline-block", padding: "11px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
           </a>
 
 
