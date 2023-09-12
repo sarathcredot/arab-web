@@ -83,18 +83,18 @@
 			}
 
 			&:before,
-			&:after {
-				display: inline-block;
-				position: absolute;
-				top: 50.4%;
-    			right: 2px;
-				width: 10px;
-				height: 2px;
-				margin-top: -1px;
-				transition: all .35s;
-				background: $primary-color-dark;
-				content: '';
-			}
+			// &:after {
+			// 	display: inline-block;
+			// 	position: absolute;
+			// 	top: 50.4%;
+    		// 	right: 2px;
+			// 	width: 10px;
+			// 	height: 2px;
+			// 	margin-top: -1px;
+			// 	transition: all .35s;
+			// 	background: $primary-color-dark;
+			// 	content: '';
+			// }
 
 			&.collapsed:after {
 				transform: rotate(-90deg);
