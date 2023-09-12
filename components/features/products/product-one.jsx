@@ -92,7 +92,7 @@ function ProductOne(props) {
             src="images/iphone.svg"
             threshold={500}
             effect="black and white"
-            width={130}
+            width="130px"
             height="auto"
             objectFit="contain"
           /> */}
@@ -155,7 +155,10 @@ function ProductOne(props) {
         </a> */}
       </figure>
 
-      <div className="product-details">
+      <div
+        className="product-details"
+        style={{ alignItems: "left", justifyContent: "left" }}
+      >
         <div className="category-wrap">
 
           <div className="category-list">
@@ -228,12 +231,24 @@ function ProductOne(props) {
         {/* <div className="price-box">
           {product.price[0] == product.price[1] ? (
             <span className="product-price">
-              {"$" + product.price[0].toFixed(2)}
+              <span style={{ fontWeight: "400", paddingRight: "10px" }}>
+                OMR
+              </span>{" "}
+              {product.price[0].toFixed(2)}{" "}
+              <span
+                style={{
+                  fontWeight: "400",
+                  paddingLeft: "10px",
+                  textDecorationLine: "line-through",
+                }}
+              >
+                {product.price[0] + 200}
+              </span>
             </span>
           ) : product.variants.length > 0 ? (
             <span className="product-price">
-              {"$" + product.price[0].toFixed(2)} &ndash;{" "}
-              {"$" + product.price[1].toFixed(2)}
+              {"OMR" + product.price[0].toFixed(2)} &ndash;{" "}
+              {"OMR" + product.price[1].toFixed(2)}
             </span>
           ) : (
             <>
