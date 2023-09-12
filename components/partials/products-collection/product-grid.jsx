@@ -7,7 +7,7 @@ export default function ProductsGrid ( props ) {
     return (
         <>
             <div className="custom-divide-line">
-                <div className={ `row row-joined  products-group skeleton-body skel-shop-products ${addClass} ${!loading ? 'loaded' : ''}` }>
+                <div className={ `row row-joined  products-group skeleton-body skel-shop-products ${addClass} ${!loading ? 'loaded' : ''}` } style={{marginRight:"-1px", marginLeft:"-1px"}}>
                     {
                         loading ?
                             new Array( parseInt( perPage ) ).fill( 1 ).map( ( item, index ) =>

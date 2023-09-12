@@ -20,14 +20,14 @@ function ProductOne(props) {
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +
-          (
-            (100 * (product.price[1] - product.price[0])) /
-            product.price[1]
-          ).toFixed(0) +
-          "%"
+      (
+        (100 * (product.price[1] - product.price[0])) /
+        product.price[1]
+      ).toFixed(0) +
+      "%"
       : product.variants.find((variant) => variant.sale_price)
-      ? "Sale"
-      : false;
+        ? "Sale"
+        : false;
   }
 
   function isInWishlist() {
@@ -143,59 +143,66 @@ function ProductOne(props) {
           )}
         </div> */}
 
-        {product.until && product.until !== null && <ProductCountdown />}
+        {/* {product.until && product.until !== null && <ProductCountdown />} */}
 
-        <a
+        {/* <a
           href="#"
           className="btn-quickview"
           title="Quick View"
           onClick={onQuickViewClick}
         >
           Quick View
-        </a>
+        </a> */}
       </figure>
 
       <div className="product-details">
         <div className="category-wrap">
+
           <div className="category-list">
             {product.categories
               ? product.categories.map((item, index) => (
-                  <React.Fragment key={item.slug + "-" + index}>
-                    <ALink
-                      href={{
-                        pathname: "/shop",
-                        query: { category: item.slug },
-                      }}
-                    >
-                      {item.name}
-                    </ALink>
-                    {index < product.categories.length - 1 ? ", " : ""}
-                  </React.Fragment>
-                ))
+                <React.Fragment key={item.slug + "-" + index}>
+                  <ALink
+                    href={{
+                      pathname: "/shop",
+                      query: { category: item.slug },
+                    }}
+                  >
+                    {item.name}
+                  </ALink>
+                  {index < product.categories.length - 1 ? ", " : ""}
+                </React.Fragment>
+              ))
               : ""}
           </div>
 
+          {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
+
           <a
             href="#"
-            className={`btn-icon-wish ${
-              isInWishlist() ? "added-wishlist" : ""
-            }`}
+            className={`btn ${isInWishlist() ? "" : ""
+              }`}
             onClick={onWishlistClick}
-            title={`${
-              isInWishlist() === true ? "Go to Wishlist" : "Add to Wishlist"
-            }`}
+            title={`${isInWishlist() === true ? "Go to Wishlist" : "Add to Wishlist"
+
+
+              }`}
+            style={{ width: "70px", height: "70px", marginLeft: "20px" }}
           >
-            <i className="icon-heart"></i>
+            <i class="icon-plus" style={{ borderRadius: "200px", display: "inline-block", padding: "10px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
           </a>
+
+
+
         </div>
 
         <h3 className="product-title">
-          <ALink href={`/product/default/${product.slug}`}>
+          <ALink href={`/product/default/${product.slug}`} style={{ fontWight: "500px", fontSize: "14px", }}>
             {product.name}
           </ALink>
         </h3>
 
-        <div className="ratings-container">
+        {/* <div className="ratings-container">
           <div className="product-ratings">
             <span
               className="ratings"
@@ -205,9 +212,20 @@ function ProductOne(props) {
               {product.ratings.toFixed(2)}
             </span>
           </div>
-        </div>
+        </div> */}
 
         <div className="price-box">
+          <span >OMR</span>
+          <span className="product-price" style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "800px", fontSize: "16px", lineHeight: "15px", marginLeft: "10px" }} >
+            {product.price[0].toFixed(2)}
+          </span>
+          <span className="old-price" style={{ marginLeft: "10px", color: "#777777" }}>
+            {+ product.price[1].toFixed(2)}
+          </span>
+
+        </div>
+
+        {/* <div className="price-box">
           {product.price[0] == product.price[1] ? (
             <span className="product-price">
               {"$" + product.price[0].toFixed(2)}
@@ -219,15 +237,16 @@ function ProductOne(props) {
             </span>
           ) : (
             <>
-              <span className="old-price">
-                {"$" + product.price[1].toFixed(2)}
+            <span className="product-price" >
+                {"OMR"  + product.price[0].toFixed(2)}
               </span>
-              <span className="product-price">
-                {"$" + product.price[0].toFixed(2)}
+              <span className="old-price" style={{marginLeft:"20px"}}>
+                {"OMR" + product.price[1].toFixed(2)}
               </span>
+              
             </>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

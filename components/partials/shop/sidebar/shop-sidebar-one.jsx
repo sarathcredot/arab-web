@@ -126,10 +126,13 @@ function ShopSidebarOne ( props ) {
 
     return (
         <>
+
+
             <div className="sidebar-overlay" onClick={ closeSidebar }></div>
-            <aside className={ `sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${ !loading ? 'loaded' : '' } ${ props.display === 'none' ? 'd-lg-none' : '' } ${ props.right ? '' : 'order-lg-first' }` }>
-                <StickyBox className="sidebar-wrapper" offsetTop={ 70 }>
-                    <div className="widget">
+            
+            <aside className={ `sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${ !loading ? 'loaded' : '' } ${ props.display === 'none' ? 'd-lg-none' : '' } ${ props.right ? '' : 'order-lg-first' }` } style={{paddingLeft:"0", paddingRight:"0",}} >
+                <StickyBox className="sidebar-wrapper" offsetTop={ 70 } >
+                    <div className="widget" style={{padding:"0"}}>
                         {
                             loading ?
                                 <div className="skel-widget"></div>
@@ -137,22 +140,23 @@ function ShopSidebarOne ( props ) {
                                 <SlideToggle>
                                     { ( { onToggle, setCollapsibleElement, toggleState } ) => (
                                         <>
-                                            <h3 className="widget-title">
-                                                <a href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } } className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' }>Categories</a>
+                                        
+                                            <h3 className="widget-title"  style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"359px", marginLeft:"0px", paddingBottom:"20px"}}>
+                                                <a href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } } className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } style={{marginLeft:"20px", marginTop:"20px"}}>Categories</a>
                                             </h3>
                                             <div className="overflow-hidden" ref={ setCollapsibleElement }>
-                                                <div className="widget-body">
+                                                <div className="widget-body" style={{marginLeft:"20px"}}>
                                                     <Tree
                                                         className="no-icon cat-list border-0"
                                                         selectable={ true }
                                                         showIcon={ false }
                                                         defaultExpandedKeys={ query.category ? [ query.category ] : [] }
-                                                        switcherIcon={ ( props ) => {
-                                                            return ( !props.isLeaf ?
-                                                                <span className="toggle"></span>
-                                                                : ''
-                                                            )
-                                                        } }
+                                                        // switcherIcon={ ( props ) => {
+                                                        //     return ( !props.isLeaf ?
+                                                        //         <span className="toggle"></span>
+                                                        //         : ''
+                                                        //     )
+                                                        // } }
                                                         selectedKeys={ query.category ? [ query.category ] : [] }
                                                         treeData={ categories }
                                                         onSelect={ filterByCategory }
@@ -171,7 +175,7 @@ function ShopSidebarOne ( props ) {
                         </div>
                     }
 
-                    <div className="widget widget-price overflow-hidden">
+                    <div className="widget widget-price overflow-hidden" style={{padding:"0"}}>
                         {
                             loading ?
                                 <div className="skel-widget"></div>
@@ -181,12 +185,12 @@ function ShopSidebarOne ( props ) {
                                     { ( { onToggle, setCollapsibleElement, toggleState } ) =>
                                         (
                                             <>
-                                                <h3 className="widget-title">
-                                                    <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" role="button" onClick={ ( e ) => { e.preventDefault(), onToggle() } }>Price</a>
+                                                <h3 className="widget-title" style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"359px", marginLeft:"0px", paddingBottom:"20px"}}>
+                                                    <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" role="button" onClick={ ( e ) => { e.preventDefault(), onToggle() } }  style={{marginLeft:"20px", marginTop:"20px"}}>Price</a>
                                                 </h3>
 
                                                 <div ref={ setCollapsibleElement }>
-                                                    <div className="widget-body pb-0">
+                                                    <div className="widget-body pb-2" style={{padding:"20px"}}>
                                                         <form action="#">
                                                             <div className="price-slider-wrapper">
                                                                 <InputRange
@@ -199,11 +203,11 @@ function ShopSidebarOne ( props ) {
 
                                                             <div
                                                                 className="filter-price-action d-flex align-items-center justify-content-between flex-wrap">
-                                                                <div className="filter-price-text">
-                                                                    Price: <span id="filter-price-range">${ priceRange.min } &mdash; ${ priceRange.max }</span>
+                                                                <div className="filter-price-text" style={{fontFamily:"Poppins",fontWeight:"500px", fontSize:"12px"}}>
+                                                                    Price: <span id="filter-price-range">OMR { priceRange.min } &mdash; { priceRange.max }</span>
                                                                 </div>
 
-                                                                <button type="submit" className="btn btn-primary" onClick={ ( e ) => filterByPrice( e ) }>Filter</button>
+                                                                <button type="submit" className="btn " style={{backgroundColor:"black",color:"white"}}  onClick={ ( e ) => filterByPrice( e ) }>Filter</button>
                                                             </div>
                                                         </form>
                                                     </div>
@@ -214,7 +218,7 @@ function ShopSidebarOne ( props ) {
                         }
                     </div>
 
-                    <div className="widget widget-color">
+                    <div className="widget widget-color" style={{padding:"0"}}>
                         {
                             loading ?
                                 <div className="skel-widget"></div>
@@ -222,19 +226,26 @@ function ShopSidebarOne ( props ) {
                                 <SlideToggle>
                                     { ( { onToggle, setCollapsibleElement, toggleState } ) => (
                                         <>
-                                            <h3 className="widget-title">
-                                                <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } }>Color</a>
+
+                                            <div >
+                                            <h3 className="widget-title"  style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"359px", marginLeft:"0px", paddingBottom:"20px"}}>
+                                                <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } } style={{marginLeft:"20px", marginTop:"20px"}}>Color</a>
+                                               
                                             </h3>
+
+                                            </div>
+                                            
                                             <div className="overflow-hidden" ref={ setCollapsibleElement }>
-                                                <div className="widget-body pb-0">
-                                                    <ul className="config-swatch-list">
+                                                <div className="widget-body pb-4" >
+                                                    <ul className="config-swatch-list" style={{width:"359px",height:"48px" , gap:"2px",padding:"20px"}}>
                                                         {
                                                             shopColors.map( ( item, index ) => (
-                                                                <li className={ containsAttrInUrl( 'colors', item.name ) ? 'active' : '' } key={ `color-${ index }` }>
+                                                                <li className={ containsAttrInUrl( 'colors', item.name ) ? 'active' : '' } key={ `color-${ index }` } style={{width:"38px",height:"38px", }} >
                                                                     <ALink
                                                                         href={ { query: { ...query, page: 1, colors: getUrlForAttrs( 'colors', item.name ) } } }
-                                                                        style={ { backgroundColor: item.color } }
+                                                                        style={ { backgroundColor: item.color,borderRadius: '50%', } }
                                                                         scroll={ false }
+                                                                      
                                                                     ></ALink>
                                                                 </li>
                                                             ) )
@@ -248,7 +259,7 @@ function ShopSidebarOne ( props ) {
                         }
                     </div>
 
-                    <div className="widget widget-brand">
+                    {/* <div className="widget widget-brand">
                         {
                             loading ?
                                 <div className="skel-widget"></div>
@@ -279,7 +290,7 @@ function ShopSidebarOne ( props ) {
                                     ) }
                                 </SlideToggle>
                         }
-                    </div>
+                    </div> */}
                 </StickyBox>
             </aside>
         </>
