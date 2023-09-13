@@ -13,7 +13,8 @@ function RelatedProducts ( props ) {
         !loading && !products.length ?
             ''
             :
-            <section className={ `products-section  pt-0 pb-2 ${adClass}` }>
+            <>
+            <section className={ `products-section  pt-0 pb-2 ${adClass}` } style={{marginTop:"100px"}}>
                 <div className={ isContainer ? 'container' : '' }>
                     <h2 className="section-title pb-3">Related Products</h2>
                     {
@@ -38,7 +39,32 @@ function RelatedProducts ( props ) {
                             </OwlCarousel>
                     }
                 </div>
+
+             
+
             </section>
+
+
+        
+
+
+            {/* <div
+          style={{
+            width: "1728px",
+            height: "502px",
+         
+          }}
+        > */}
+          <img
+            src="images\brands\deatail-banner.svg" 
+          
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
+        {/* </div> */}
+            </>
+            
+
+
     )
 }
 
