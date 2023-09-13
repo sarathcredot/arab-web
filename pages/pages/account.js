@@ -36,10 +36,10 @@ export default function Account() {
             <div className="container account-container custom-account-container">
                 <Tabs selectedTabClassName="active" selectedTabPanelClassName="active show" defaultIndex={0} className="tab">
                     <div className="row">
-                        <div className="sidebar widget widget-dashboard col-lg-3 order-0">
-                            <StickyBox className="sticky-wrapper" offsetTop={70}>
+                        <div className="sidebar widget widget-dashboard col-lg-12 order-0">
+                            {/* <StickyBox className="sticky-wrapper" offsetTop={70}>
                                 <h2 className="text-uppercase">My Account</h2>
-                                {/* react tab */}
+                                
                                 <TabList className="nav nav-tabs list flex-column mb-0" role="tablist">
                                     <Tab className="nav-item">
                                         <span className="nav-link">Dashboard</span>
@@ -68,20 +68,22 @@ export default function Account() {
                                         <ALink className="nav-link" href="/pages/login">Logout</ALink>
                                     </li>
                                 </TabList>
-                            </StickyBox>
+                            </StickyBox> */}
                         </div>
-                        <div className="col-lg-9 order-lg-last order-1 tab-content">
+                        <div className="col-lg-12 order-lg-last order-1 tab-content">
                             <TabPanel className="tab-pane fade" id="dashboard">
                                 <div className="dashboard-content">
                                     <p>
-                                        Hello <strong className="text-dark">Editor</strong> (not <strong className="text-dark">Editor</strong>? <ALink href="/pages/login" className="btn btn-link ">Log out</ALink>)
+                                        Hello <strong className="text-dark">Editor</strong> 
                                     </p>
 
                                     <p>
-                                        From your account dashboard you can view your <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-order').click()}>recent orders</span>, manage your
+                                    From your account dashboard you can view your recent orders manage your shipping and billing addresses, and edit your account details <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-order').click()}>recent orders</span>, manage your
                                         <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-address').click()}> shipping and billing addresses</span>, and <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-account').click()}>edit your password and account
                                             details.</span>
                                     </p>
+
+                                    
 
                                     <div className="mb-4"></div>
 
