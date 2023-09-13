@@ -107,7 +107,6 @@ function offers() {
           >
             <img
               src="images\banners\offerBanner2.svg"
-             
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>

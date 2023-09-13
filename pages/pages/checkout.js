@@ -32,9 +32,9 @@ function CheckOut ( { cartList } ) {
                         :
                         <>
                             <div className="checkout-discount">
-                                <SlideToggle duration={ 300 } collapsed >
+                                {/* <SlideToggle duration={ 300 } collapsed >
                                     { ( { onToggle, setCollapsibleElement, toggleState } ) => (
-                                        <h4>Returning customer? <button className="btn btn-link btn-toggle" onClick={ onToggle }>Login</button>
+                                        // <h4>Returning customer? <button className="btn btn-link btn-toggle" onClick={ onToggle }>Login</button>
                                             <div className="login-form-container" ref={ setCollapsibleElement } style={ { overflow: 'hidden' } }>
                                                 <div className="login-section feature-box">
                                                     <div className="feature-box-content">
@@ -77,9 +77,9 @@ function CheckOut ( { cartList } ) {
                                                     </div>
                                                 </div>
                                             </div>
-                                        </h4>
+                                        // </h4>
                                     ) }
-                                </SlideToggle >
+                                </SlideToggle > */}
                             </div>
                             <div className="checkout-discount">
                                 <SlideToggle duration={ 200 } collapsed >
