@@ -59,7 +59,17 @@ function Wishlist(props) {
         </div>
       </div>
 
-      <div className="container">
+      <div
+        className="container"
+        style={{
+          marginTop: "3rem",
+          borderBottom: "1px solid",
+          borderColor: "#E2E2E2",
+        }}
+      >
+        <h4>Orders</h4>
+      </div>
+      <div className="container" style={{ marginTop: "20px" }}>
         <div className="success-alert">
           {flag === 1 ? <p>Product successfully removed.</p> : ""}
           {flag === 2 ? <p>Product added to cart successfully.</p> : ""}
@@ -131,8 +141,8 @@ function Wishlist(props) {
                       </h5>
                     </td>
 
-                    <td style={{color:"black"}}>12/9/2023</td>
-                    <td style={{color:"#44961D"}}>Shiped </td>
+                    <td style={{ color: "black" }}>12/9/2023</td>
+                    <td style={{ color: "#44961D" }}>Shiped </td>
                     <td style={{ color: "black" }}>
                       <div className="price-box">
                         {item.price[0] == item.price[1] ? (
@@ -154,7 +164,7 @@ function Wishlist(props) {
                         )}
                       </div>
                     </td>
-                    
+
                     <td className="action">
                       <a
                         href="ajax/product-quick-view"
