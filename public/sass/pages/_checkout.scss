@@ -505,23 +505,23 @@
 		height: 49px;
 	}
 
-	.select-custom,
-	.form-group {
-		margin-bottom: 1.7rem;
-	}
+	// .select-custom,
+	// .form-group {
+	// 	margin-bottom: 1.7rem;
+	// }
 
-	.checkout-steps {
-		.custom-control-label {
-			&::before,
-			&::after {
-				top: 0px;
-			}
-		}
+	// .checkout-steps {
+	// 	.custom-control-label {
+	// 		&::before,
+	// 		&::after {
+	// 			top: 0px;
+	// 		}
+	// 	}
 
-		.select-custom::after {
-			top: 66%;
-		}
-	}
+	// 	.select-custom::after {
+	// 		top: 66%;
+	// 	}
+	// }
 
 	.custom-control {
 		margin-top: 3.3rem;

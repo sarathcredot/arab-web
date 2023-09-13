@@ -93,7 +93,7 @@ function Shop() {
       <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
         <div className="container">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item">
+            <li className="breadcrumb-item" style={{border: "1px solid #ccc", borderRadius: "10px", width:"50px",height:"50px"}}>
               <ALink href="/">
                 <i className="icon-home"></i>
               </ALink>
@@ -370,11 +370,7 @@ function Shop() {
 
       <div className="" style={{ padding: "37px" }}>
         <div
-          style={{
-            width: "1450px",
-            height: "404.82px",
-         
-          }}
+          
         >
           <img
             src="images\brands\banner Image Lising.svg" 

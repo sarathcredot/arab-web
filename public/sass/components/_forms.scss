@@ -161,18 +161,18 @@ label {
 		}
 	}
 
-	&:after {
-		display: inline-block;
-		position: absolute;
-		top: 50%;
-		right: 1.9rem;
-		transform: translateY(-50%);
-		font-family: 'porto';
-		font-size: 1.6rem;
-		content: '\e81c';
-		padding-bottom: 2px;
-		font-weight: 400;
-	}
+	// &:after {
+	// 	display: inline-block;
+	// 	position: absolute;
+	// 	top: 50%;
+	// 	right: 1.9rem;
+	// 	transform: translateY(-50%);
+	// 	font-family: 'porto';
+	// 	font-size: 1.6rem;
+	// 	content: '\e81c';
+	// 	padding-bottom: 2px;
+	// 	font-weight: 400;
+	// }
 
 	.form-control,
 	.form-control-sm {
