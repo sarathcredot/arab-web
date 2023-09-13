@@ -20,14 +20,14 @@ function ProductOne(props) {
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +
-      (
-        (100 * (product.price[1] - product.price[0])) /
-        product.price[1]
-      ).toFixed(0) +
-      "%"
+          (
+            (100 * (product.price[1] - product.price[0])) /
+            product.price[1]
+          ).toFixed(0) +
+          "%"
       : product.variants.find((variant) => variant.sale_price)
-        ? "Sale"
-        : false;
+      ? "Sale"
+      : false;
   }
 
   function isInWishlist() {
@@ -86,27 +86,6 @@ function ProductOne(props) {
               }}
             />
           </span>
-          {/* <LazyLoadImage
-            alt="product"
-            // src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[0].url}
-            src="images/iphone.svg"
-            threshold={500}
-            effect="black and white"
-            width="130px"
-            height="auto"
-            objectFit="contain"
-          /> */}
-          {/* {product.pictures.length >= 2 ? (
-            <LazyLoadImage
-              alt="product"
-              src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[1].url}
-              threshold={500}
-              effect="black and white"
-              wrapperClassName="product-image-hover"
-            />
-          ) : (
-            ""
-          )} */}
         </ALink>
 
         <div className="label-group">
@@ -153,6 +132,8 @@ function ProductOne(props) {
         >
           Quick View
         </a> */}
+
+        {/* {product.until && product.until !== null && <ProductCountdown />} */}
       </figure>
 
       <div
@@ -160,72 +141,54 @@ function ProductOne(props) {
         style={{ alignItems: "left", justifyContent: "left" }}
       >
         <div className="category-wrap">
-
           <div className="category-list">
             {product.categories
               ? product.categories.map((item, index) => (
-                <React.Fragment key={item.slug + "-" + index}>
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: item.slug },
-                    }}
-                  >
-                    {item.name}
-                  </ALink>
-                  {index < product.categories.length - 1 ? ", " : ""}
-                </React.Fragment>
-              ))
+                  <React.Fragment key={item.slug + "-" + index}>
+                    <ALink
+                      href={{
+                        pathname: "/shop",
+                        query: { category: item.slug },
+                      }}
+                    >
+                      {item.name}
+                    </ALink>
+                    {index < product.categories.length - 1 ? ", " : ""}
+                  </React.Fragment>
+                ))
               : ""}
           </div>
-
-          {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
-
-          <a
-            href="#"
-            className={`btn ${isInWishlist() ? "" : ""
-              }`}
-            onClick={onWishlistClick}
-            title={`${isInWishlist() === true ? "Go to Wishlist" : "Add to Wishlist"
-
-
-              }`}
-            style={{ width: "70px", height: "70px", marginLeft: "20px" }}
-          >
-            <i class="icon-plus" style={{ height:"40px",width:"40px", borderRadius: "200px", display: "inline-block", padding: "11px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
-          </a>
-
-
-
         </div>
 
         <h3 className="product-title">
-          <ALink href={`/product/default/${product.slug}`} style={{ fontWight: "500px", fontSize: "14px", }}>
+          <ALink
+            href={`/product/default/${product.slug}`}
+            style={{ fontWight: "500px", fontSize: "14px" }}
+          >
             {product.name}
           </ALink>
         </h3>
 
-        {/* <div className="ratings-container">
-          <div className="product-ratings">
-            <span
-              className="ratings"
-              style={{ width: 20 * product.ratings + "%" }}
-            ></span>
-            <span className="tooltiptext tooltip-top">
-              {product.ratings.toFixed(2)}
-            </span>
-          </div>
-        </div> */}
-
         <div className="price-box">
-          <span >OMR</span>
-          <span className="product-price" style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "800px", fontSize: "16px", lineHeight: "15px", marginLeft: "10px" }} >
+          <span>OMR</span>
+          <span
+            className="product-price"
+            style={{
+              fontFamily: "Plus Jakarta Sans",
+              fontWeight: "800px",
+              fontSize: "16px",
+              lineHeight: "15px",
+              marginLeft: "10px",
+            }}
+          >
             {product.price[0].toFixed(2)}
           </span>
-          <span className="old-price" style={{ marginLeft: "10px", color: "#777777" }}>
-            {+ product.price[1].toFixed(2)}
+          <span
+            className="old-price"
+            style={{ marginLeft: "10px", color: "#777777" }}
+          >
+            {+product.price[1].toFixed(2)}
           </span>
-
         </div>
 
         {/* <div className="price-box">

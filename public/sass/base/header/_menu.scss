@@ -791,3 +791,8 @@ scrollbar-width: thin;
 .custom__mobilemenu::-webkit-scrollbar{
 	display: none;
 }
+
+.ffr  {
+	overflow: auto !important;
+	background-color: red;
+}
