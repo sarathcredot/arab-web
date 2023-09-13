@@ -12,20 +12,49 @@ import { HomeSlider } from "../../../utils/data/slider";
 // Import Keyframes
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
-function HomeSection() {
+function HomeSection({ offer }) {
   return (
+
+
+
     <OwlCarousel adClass="home-slider nav-circle mb-2" options={HomeSlider}>
       <div className="home-slide home-slide1 banner">
-        <figure className="mb-0">
-          <LazyLoadImage
-            alt="Home Slide"
-            src="images/home/slider/home1.svg"
-            threshold={500}
-            effect="black and white"
-            width="100%"
-            height={350}
-          />
-        </figure>
+        {offer ?
+          <>
+            <figure className="mb-0">
+              <LazyLoadImage
+                alt="Home Slide"
+                src="images\banners\offers.svg"
+                threshold={500}
+                effect="black and white"
+                width="100%"
+                height={350}
+              />
+            </figure>
+
+
+
+          </> :
+          <>
+            <figure className="mb-0">
+              <LazyLoadImage
+                alt="Home Slide"
+                src="images/home/slider/home1.svg"
+                threshold={500}
+                effect="black and white"
+                width="100%"
+                height={350}
+              />
+            </figure>
+
+          
+
+          </>
+
+
+
+        }
+
 
         <div className="container d-flex align-items-sm-center justify-content-sm-between justify-content-center flex-column flex-sm-row">
           <div className="banner-content content-left text-sm-right mb-sm-0 mb-2">
@@ -71,16 +100,38 @@ function HomeSection() {
       </div>
 
       <div className="home-slide home-slide2 banner banner-md-vw">
-        <figure className="mb-0">
-          <LazyLoadImage
-            alt="Home Slide"
-            src="images/home/slider/home1.svg"
-            threshold={500}
-            effect="black and white"
-            width="100%"
-            height={350}
-          />
-        </figure>
+        {offer ? <>
+          <figure className="mb-0">
+            <LazyLoadImage
+              alt="Home Slide"
+              src="images\banners\offers.svg"
+              threshold={500}
+              effect="black and white"
+              width="100%"
+              height={350}
+            />
+          </figure>
+
+
+        </> :
+          <>
+            <figure className="mb-0">
+              <LazyLoadImage
+                alt="Home Slide"
+                src="images/home/slider/home1.svg"
+                threshold={500}
+                effect="black and white"
+                width="100%"
+                height={350}
+              />
+            </figure>
+
+
+          </>
+
+
+        }
+
 
         <div className="container d-flex align-items-sm-center justify-content-center justify-content-sm-between flex-column-reverse flex-sm-row">
           <div className="banner-content content-left mt-2 mt-sm-0">

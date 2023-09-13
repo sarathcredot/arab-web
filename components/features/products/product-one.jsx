@@ -159,7 +159,7 @@ function ProductOne(props) {
         className="product-details"
         style={{ alignItems: "left", justifyContent: "left" }}
       >
-        <div className="category-wrap">
+        <div className="category-wrap" style={{display:"flex", marginTop:"0", alignItems:"center",justifyContent:"center"}}>
 
           <div className="category-list">
             {product.categories

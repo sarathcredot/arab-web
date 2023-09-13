@@ -15,10 +15,65 @@ function RecentCollection ( props ) {
     const { bestSelling } = props;
 
     return (
+        <>
+        <section className="recent-products-section" style={{marginTop:"10p"}}>
+            <Reveal keyframes={ fadeIn } delay={ 100 } duration={ 1000 } triggerOnce style={{marginTop:"30px"}}>
+                <div className="heading shop-list d-flex align-items-center flex-wrap bg-gray mb-0 pl-0 pr-0" style={{borderBottom:"1px solid " ,borderColor:"#EEEEEE"}} >
+                
+                    <h4 className="section-title text-transform-none mb-0 mr-0">SmartPhones</h4>
+                    <ALink className="view-all ml-auto" href="/shop">View All<i className="fas fa-long-arrow-alt-right"></i></ALink>
+                    
+                    
+                </div>
+
+                <OwlCarousel adClass="products-slider carousel-with-bg nav-circle pb-0" options={ productSlider }>
+                    {
+                        bestSelling ?
+                            bestSelling.slice( 0, 7 ).map( ( item, index ) => (
+                                <ProductOne
+                                    adClass="inner-quickview inner-icon"
+                                    product={ item }
+                                    key={ "product-one" + index }
+                                />
+                            ) )
+                            :
+                            [ 0, 1, 2, 3 ].map( ( item, index ) =>
+                                <div className="skel-pro skel-pro-grid" key={ "product-one" + index }></div>
+                            )
+                    }
+                </OwlCarousel>
+            </Reveal >
+        </section >
         <section className="recent-products-section">
-            <Reveal keyframes={ fadeIn } delay={ 100 } duration={ 1000 } triggerOnce>
-                <div className="heading shop-list d-flex align-items-center flex-wrap bg-gray mb-0 pl-0 pr-0">
-                    <h4 className="section-title text-transform-none mb-0 mr-0">Recently Viewed Products</h4>
+            <Reveal keyframes={ fadeIn } delay={ 100 } duration={ 1000 } triggerOnce style={{marginTop:"30px"}} >
+                <div className="heading shop-list d-flex align-items-center flex-wrap bg-gray mb-0 pl-0 pr-0" style={{borderBottom:"1px solid " ,borderColor:"#EEEEEE"}}>
+                    <h4 className="section-title text-transform-none mb-0 mr-0">Games</h4>
+                    <ALink className="view-all ml-auto" href="/shop">View All<i className="fas fa-long-arrow-alt-right"></i></ALink>
+                </div>
+
+                <OwlCarousel adClass="products-slider carousel-with-bg nav-circle pb-0" options={ productSlider }  >
+                    {
+                        bestSelling ?
+                            bestSelling.slice( 0, 7 ).map( ( item, index ) => (
+                                <ProductOne
+                                    adClass="inner-quickview inner-icon"
+                                    product={ item }
+                                    key={ "product-one" + index }
+                                   
+                                />
+                            ) )
+                            :
+                            [ 0, 1, 2, 3 ].map( ( item, index ) =>
+                                <div className="skel-pro skel-pro-grid" key={ "product-one" + index }></div>
+                            )
+                    }
+                </OwlCarousel>
+            </Reveal >
+        </section >
+        <section className="recent-products-section">
+            <Reveal keyframes={ fadeIn } delay={ 100 } duration={ 1000 } triggerOnce  style={{marginTop:"30px"}}>
+                <div className="heading shop-list d-flex align-items-center flex-wrap bg-gray mb-0 pl-0 pr-0" style={{borderBottom:"1px solid " ,borderColor:"#EEEEEE"}}>
+                    <h4 className="section-title text-transform-none mb-0 mr-0">Accessories</h4>
                     <ALink className="view-all ml-auto" href="/shop">View All<i className="fas fa-long-arrow-alt-right"></i></ALink>
                 </div>
 
@@ -40,7 +95,9 @@ function RecentCollection ( props ) {
                 </OwlCarousel>
             </Reveal >
         </section >
+        </>
 
+       
     );
 }
 
