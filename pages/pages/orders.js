@@ -49,12 +49,13 @@ function Wishlist(props) {
            */}
 
           <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+          <li className="">
+              <ALink href="/pages/account">My Account</ALink>
+            </li>
             <li className="active">
               <ALink href="/pages/orders">Orders</ALink>
             </li>
-            <li className="">
-              <ALink href="/pages/myaccount">My Account</ALink>
-            </li>
+           
           </ul>
         </div>
       </div>
