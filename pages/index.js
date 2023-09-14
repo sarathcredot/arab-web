@@ -22,6 +22,8 @@ import RecentCollection from "../components/partials/home/recent-collection";
 import TopBrand from "../components/partials/home/top-brand";
 import Footerbanner from "../components/partials/home/footerbanner";
 
+
+
 function Home() {
   const { data, loading, error } = useQuery(GET_HOME_DATA, {
     variables: { productsCount: 15 },
