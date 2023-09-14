@@ -17,7 +17,7 @@ export default function Account() {
 
     return (
         <main className="main">
-            <div className="page-header">
+            {/* <div className="page-header">
                 <div className="container d-flex flex-column align-items-center">
                     <nav aria-label="breadcrumb" className="breadcrumb-nav">
                         <div className="container">
@@ -31,7 +31,34 @@ export default function Account() {
 
                     <h1>My Account</h1>
                 </div>
-            </div>
+            </div> */}
+            <div className="page-header">
+        <div className="container d-flex flex-column align-items-center">
+          {/* <nav aria-label="breadcrumb" className="breadcrumb-nav">
+                        <div className="container">
+                            <ol className="breadcrumb">
+                                <li className="breadcrumb-item"><ALink href="/">Home</ALink></li>
+                                <li className="breadcrumb-item active" aria-current="page">
+                                    Wishlist
+                                </li>
+                            </ol>
+                        </div>
+                    </nav> */}
+
+          {/* <h1>orders</h1>
+           */}
+
+          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+           
+            <li className="">
+              <ALink href="/pages/myaccount">My Account</ALink>
+            </li>
+            <li className="active">
+              <ALink href="/pages/account">Dashboard</ALink>
+            </li>
+          </ul>
+        </div>
+      </div>
 
             <div className="container account-container custom-account-container">
                 <Tabs selectedTabClassName="active" selectedTabPanelClassName="active show" defaultIndex={0} className="tab">
@@ -73,23 +100,28 @@ export default function Account() {
                         <div className="col-lg-12 order-lg-last order-1 tab-content">
                             <TabPanel className="tab-pane fade" id="dashboard">
                                 <div className="dashboard-content">
-                                    <p>
-                                        Hello <strong className="text-dark">Editor</strong> 
+                                    <p style={{fontWeight:"400px",  fontSize:"14px",  lineHeight:"20px" ,fontFamily:"Poppins"}} >
+                                        Hello <strong className="text-dark" style={{fontSize:"26px",  lineHeight:"20px",fontFamily:"Poppins"}}>UserName</strong> 
                                     </p>
 
-                                    <p>
-                                    From your account dashboard you can view your recent orders manage your shipping and billing addresses, and edit your account details <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-order').click()}>recent orders</span>, manage your
-                                        <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-address').click()}> shipping and billing addresses</span>, and <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-account').click()}>edit your password and account
-                                            details.</span>
-                                    </p>
+                                        <p style={{fontWeight:'400px', size:"14px",lineHeight:"26px", fontFamily:"Poppins"}}>
+                                        From your account dashboard you can view your recent orders manage your shipping and billing addresses, and edit your account details
+                                            {/* <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-address').click()}> shipping and billing addresses</span>, and <span className="btn btn-link link-to-tab" onClick={() => document.getElementById('link-account').click()}>edit your password and account
+                                                details.</span> */}
+                                        </p>
 
                                     
 
                                     <div className="mb-4"></div>
 
+
+                                <div className="container">
+
+                                    <div className="container" style={{width:"1048.75px", height:"597px", display:"flex", alignItems:"center",  justifyContent:"center" }}>
+
                                     <div className="row row-lg">
                                         <div className="col-6 col-md-4">
-                                            <div className="feature-box text-center pb-4" onClick={() => document.getElementById('link-order').click()}>
+                                            <div className="feature-box text-center pb-4" onClick={() => document.getElementById('link-order').click()} style={{width:"321.46px", height:"276.71p"}}>
                                                 <span className="link-to-tab"><i
                                                     className="sicon-social-dropbox"></i></span>
                                                 <div className="feature-box-content">
@@ -99,7 +131,7 @@ export default function Account() {
                                         </div>
 
                                         <div className="col-6 col-md-4">
-                                            <div className="feature-box text-center pb-4" onClick={() => document.getElementById('link-download').click()}>
+                                            <div className="feature-box text-center pb-4" onClick={() => document.getElementById('link-download').click()} style={{width:"321.46px", height:"276.71p"}}>
                                                 <span className="link-to-tab"><i
                                                     className="sicon-cloud-download"></i></span>
                                                 <div className=" feature-box-content">
@@ -109,7 +141,7 @@ export default function Account() {
                                         </div>
 
                                         <div className="col-6 col-md-4">
-                                            <div className="feature-box text-center pb-4" onClick={() => document.getElementById('link-address').click()}>
+                                            <div className="feature-box text-center pb-4" onClick={() => document.getElementById('link-address').click()} style={{width:"321.46px", height:"276.71p"}}>
                                                 <span className="link-to-tab"><i className="sicon-location-pin"></i></span>
                                                 <div className="feature-box-content">
                                                     <h3>ADDRESSES</h3>
@@ -118,7 +150,7 @@ export default function Account() {
                                         </div>
 
                                         <div className="col-6 col-md-4">
-                                            <div className="feature-box text-center pb-4" onClick={() => document.getElementById('link-account').click()}>
+                                            <div className="feature-box text-center pb-4" onClick={() => document.getElementById('link-account').click()} style={{width:"321.46px", height:"276.71p"}}>
                                                 <span className="link-to-tab"><i className="icon-user-2"></i></span>
                                                 <div className="feature-box-content p-0">
                                                     <h3>ACCOUNT DETAILS</h3>
@@ -127,7 +159,7 @@ export default function Account() {
                                         </div>
 
                                         <div className="col-6 col-md-4">
-                                            <div className="feature-box text-center pb-4">
+                                            <div className="feature-box text-center pb-4" style={{width:"321.46px", height:"276.71p"}}>
                                                 <ALink href="/pages/wishlist"><i className="sicon-heart"></i></ALink>
                                                 <div className="feature-box-content">
                                                     <h3>WISHLIST</h3>
@@ -136,14 +168,18 @@ export default function Account() {
                                         </div>
 
                                         <div className="col-6 col-md-4">
-                                            <div className="feature-box text-center pb-4">
+                                            <div className="feature-box text-center pb-4" style={{width:"321.46px", height:"276.71p"}}>
                                                 <ALink href="/pages/login"><i className="sicon-logout"></i></ALink>
                                                 <div className="feature-box-content">
                                                     <h3>LOGOUT</h3>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div> 
                                     </div>
+                                </div>
+
+                                    
                                 </div>
                             </TabPanel>
 
