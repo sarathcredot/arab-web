@@ -60,6 +60,8 @@
 
 .heading,
 .shop-list {
+   
+
     .view-all {
         border-bottom: 1px solid transparent;
         line-height: 1;
@@ -162,7 +164,11 @@ hr {
     pointer-events: none;
     z-index: -1;
 }
-
+.applesection-container{
+    width: 90%;
+    margin: 0 auto;
+    background-color: white;
+}
 @keyframes slideX {
     0% {
         transform: translateX(0);
@@ -746,7 +752,7 @@ hr {
         height: calc(100% + 1px);
 
         .product-details {
-            margin-top: 15px;
+            margin-top: 60px;
             margin-bottom: 4px;
         }
 
@@ -760,20 +766,20 @@ hr {
     }
 
     .nav {
-        margin-bottom: 2.8rem;
+        margin-bottom: 12.8rem;
     }
 
     .shop-list {
-        background: #fff;
+        background: rgba(0, 0, 0, 1);
     }
 }
 
 .nav-tabs .nav-item.active .nav-link {
-    color: $primary-color;
+    color: rgba(227, 6, 19, 1);
 }
 
 .shop-list {
-    padding: 3.2rem;
+    // padding: 3.2rem;
 
     a:not(.view-all):hover {
         text-decoration: underline;
@@ -810,10 +816,10 @@ hr {
 }
 
 .banner3 {
-    margin-left: -5px;
+    margin-left: -31px;
     background-repeat: no-repeat;
     background-size: cover;
-    padding-top: 669px;
+    padding-top: 725px;
 
     h4 {
         margin-left: -1.2rem;
@@ -979,6 +985,8 @@ hr {
 
 // 2.8) Categories Container
 .categories-container {
+    width: 90%;
+    margin: 0 auto;
     padding: 3.6rem 4rem 4.7rem;
 
     .section-title {
@@ -1382,7 +1390,8 @@ hr {
 
         &.active .nav-link {
             font-weight: 600;
-            color: $primary-color;
+            color:
+            rgba(227, 6, 19, 1);
         }
 
         &:hover .nav-link {
@@ -1555,6 +1564,7 @@ hr {
     .category-filter-section {
         .nav {
             margin-bottom: 7.8rem;
+            padding: 3.2rem;
         }
     }
 }
