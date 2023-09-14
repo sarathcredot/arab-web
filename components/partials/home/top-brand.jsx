@@ -26,13 +26,13 @@ function TopBrand(props) {
         items: 5, // Number of items to show on medium screens
       },
       992: {
-        items: 6, // Number of items to show on large screens
+        items: 7, // Number of items to show on large screens
       },
     },
     nav: true,
     navText: [
-      "<div>Next</div>", // You can use icons or text here
-      "<div>Prev</div>", // Customize as needed
+      "<div >Next</div>", // You can use icons or text here
+      "<div style={{marginBottom:-38px}}>Prev</div>", // Customize as needed
     ],
   };
 
@@ -50,19 +50,21 @@ function TopBrand(props) {
   return (
     <>
       <div>
-        <h4>Top Brands</h4>
+        <h4 className="mb-4">Top Brands</h4>
       </div>
-      <OwlCarousel options={options}>
-        {brands.map((brand, index) => (
-          <div key={index} className="item">
-            <img
-              src={brand}
-              alt={`Brand ${index + 1}`}
-              style={{ width: "128px", height: "128px" }}
-            />
-          </div>
-        ))}
-      </OwlCarousel>
+      <div>
+        <OwlCarousel options={options} adClass="w-full ">
+          {brands.map((brand, index) => (
+            <div key={index} className="item mb-4">
+              <img
+                src={brand}
+                alt={`Brand ${index + 1}`}
+                style={{ width: "128px", height: "128px" }}
+              />
+            </div>
+          ))}
+        </OwlCarousel>
+      </div>
     </>
   );
 }
