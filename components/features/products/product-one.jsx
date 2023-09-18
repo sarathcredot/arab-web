@@ -5,7 +5,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Import Actions
 import { actions as WishlistAction } from "../../../store/wishlist";
-import { actions as CartAction } from "../../../store/cart";
+import cart, { actions as CartAction } from "../../../store/cart";
 import { actions as ModalAction } from "../../../store/modal";
 
 // Import Custom Component
@@ -34,6 +34,14 @@ function ProductOne(props) {
     return (
       product &&
       props.wishlist.findIndex((item) => item.slug === product.slug) > -1
+    );
+  }
+
+
+  function isInCart() {
+    return (
+      product &&
+      props.cart.findIndex((item) => item.slug === cart.slug) > -1
     );
   }
 
@@ -183,10 +191,10 @@ function ProductOne(props) {
 
           <a
             href="#"
-            className={`btn ${isInWishlist() ? "" : ""
+            className={`btn ${(e)=>onAddCartClick(e) ? "" : ""
               }`}
-            onClick={onWishlistClick}
-            title={`${isInWishlist() === true ? "Go to Wishlist" : "Add to Wishlist"
+            onClick={(e)=>onAddCartClick(e)}
+            title={`${ (e)=>isInCart(e) === true ? "Go cart" : "Add to Cart"
 
 
               }`}

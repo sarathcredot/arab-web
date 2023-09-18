@@ -83,6 +83,7 @@ function CartMenu(props) {
         <div className="dropdownmenu-wrapper">
           <div className="dropdown-cart-header">Shopping Cart</div>
 
+          
           {cartItems.length > 0 ? (
             <>
               <div className="dropdown-cart-products">
@@ -120,8 +121,7 @@ function CartMenu(props) {
                       </h2>
 
                       <span className="cart-product-info">
-                        <span className="cart-product-qty">{cart.qty}</span> × $
-                        {cart.price.toFixed(2)}
+                        <span className="cart-product-qty">{cart.qty}</span> × OMR {cart.price.toFixed(2)}
                       </span>
                     </div>
 
@@ -157,7 +157,7 @@ function CartMenu(props) {
                 <span>SUBTOTAL:</span>
 
                 <span className="cart-total-price float-right">
-                  ${getCartTotal(cartItems).toFixed(2)}
+                  OMR {getCartTotal(cartItems).toFixed(2)}
                 </span>
               </div>
 
