@@ -116,6 +116,16 @@
 	}
 }
 
+.content-box:hover{
+	border-color: #E30613;
+}
+
+.hover-image:hover {
+	fill: #E30613 !important;	
+  }
+  
+
+
 @include mq("sm", max) {
 	.dashboard-content {
 		.feature-box h3 {

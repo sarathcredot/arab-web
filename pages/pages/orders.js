@@ -168,12 +168,10 @@ function Wishlist(props) {
 
                     <td className="action">
                       <a
-                        href="ajax/product-quick-view"
+                        href="#"
                         className="btn btn-quickview mt-1 mt-md-0"
                         title="Quick View"
-                        onClick={(e) => {
-                          onQuickViewClick(e, item);
-                        }}
+                        
                         style={{ border: "1px solid" }}
                       >
                         Cancel

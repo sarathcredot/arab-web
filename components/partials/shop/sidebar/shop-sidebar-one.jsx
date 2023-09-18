@@ -141,7 +141,7 @@ function ShopSidebarOne ( props ) {
                                     { ( { onToggle, setCollapsibleElement, toggleState } ) => (
                                         <>
                                         
-                                            <h3 className="widget-title"  style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"359px", marginLeft:"0px", paddingBottom:"20px"}}>
+                                            <h3 className="widget-title"  style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"298px", marginLeft:"0px", paddingBottom:"20px"}}>
                                                 <a href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } } className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } style={{marginLeft:"20px", marginTop:"20px"}}>Categories</a>
                                             </h3>
                                             <div className="overflow-hidden" ref={ setCollapsibleElement }>
@@ -185,7 +185,7 @@ function ShopSidebarOne ( props ) {
                                     { ( { onToggle, setCollapsibleElement, toggleState } ) =>
                                         (
                                             <>
-                                                <h3 className="widget-title" style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"359px", marginLeft:"0px", paddingBottom:"20px"}}>
+                                                <h3 className="widget-title" style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"298px", marginLeft:"0px", paddingBottom:"20px"}}>
                                                     <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" role="button" onClick={ ( e ) => { e.preventDefault(), onToggle() } }  style={{marginLeft:"20px", marginTop:"20px"}}>Price</a>
                                                 </h3>
 
@@ -228,7 +228,7 @@ function ShopSidebarOne ( props ) {
                                         <>
 
                                             <div >
-                                            <h3 className="widget-title"  style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"359px", marginLeft:"0px", paddingBottom:"20px"}}>
+                                            <h3 className="widget-title"  style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"298px", marginLeft:"0px", paddingBottom:"20px"}}>
                                                 <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } } style={{marginLeft:"20px", marginTop:"20px"}}>Color</a>
                                                
                                             </h3>
