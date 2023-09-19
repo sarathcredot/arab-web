@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import ALink from "../../components/common/ALink";
 import StartAffliation from "../../components/features/affliation/StartAffliation";
 import Loading from "../../components/features/affliation/Loading";
@@ -6,6 +6,23 @@ import Form from "../../components/features/affliation/form";
 import Dashbord from "../../components/features/affliation/dashbord";
 
 function affliation() {
+  const [showForm, setShowForm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [currentStep, setCurrentStep] = useState("startAffliation");
+  const toggleForm = () => {
+    setShowForm(!showForm);
+    setCurrentStep("form")
+  }
+
+
+  const handleSaveBankDetails = () => {
+    
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 3000); 
+    setCurrentStep("dashboard");
+  };
   return (
     <div>
       <main className="main main-test">
@@ -55,8 +72,18 @@ function affliation() {
           <h2 className="step-title">Affliation</h2>
         
         </div>
-        <div className="" style={{paddingBottom:"70px",marginTop:"50px"}} >
-        <Form /> 
+        
+        <div className="container" style={{paddingBottom:"70px",marginTop:"50px"}} >
+        {currentStep === "startAffliation" && (
+            <StartAffliation toggleForm={toggleForm} />
+          )}
+          {currentStep === "form" && (
+            <Form onSaveBankDetails={handleSaveBankDetails} />
+          )}
+          {isLoading?<Loading />:currentStep === "dashboard" && (
+            <Dashbord />
+          )}
+
         </div>
         
       </main>
@@ -66,9 +93,9 @@ function affliation() {
 
       
 <div className="container" style={{marginTop:"8rem"}}>
- {/* <Loading /> */}
+ 
 {/* <Dashbord /> */}
- {/* <StartAffliation /> */}
+ 
  
 </div>
     
