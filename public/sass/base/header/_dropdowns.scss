@@ -548,7 +548,11 @@
 		display: none;
 	}
 }
-
+// @media (max-width:700){
+// 	.header-dropdown{
+// 		display: none !important;
+// 	}
+// }
 @media (max-width: 480px) {
 	.cart-dropdown, .compare-dropdown {
 		.dropdown-menu {

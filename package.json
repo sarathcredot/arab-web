@@ -3,8 +3,8 @@
   "version": "2.1.0",
   "private": true,
   "scripts": {
-    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && next",
-    "build": "export NODE_OPTIONS=--openssl-legacy-provider && next build & next export",
+    "dev": "set NODE_OPTIONS=--openssl-legacy-provider && next",
+    "build": "set NODE_OPTIONS=--openssl-legacy-provider && next build & next export",
     "start": "next start"
   },
   "dependencies": {
@@ -35,6 +35,7 @@
     "react-input-range": "^1.3.0",
     "react-lazy-load-image-component": "^1.6.0",
     "react-modal": "^3.14.3",
+    "react-otp-input": "^3.0.4",
     "react-owl-carousel2": "^0.3.0",
     "react-redux": "^7.2.5",
     "react-slide-toggle": "^0.3.5",

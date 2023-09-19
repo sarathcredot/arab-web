@@ -103,7 +103,7 @@ function ProductFour(props) {
       )} */}
       {/* </figure> */}
 
-      <div className="product-details">
+      <div className="product-details" style={{ alignItems: "center" }}>
         <div className="category-wrap">
           <div className="category-list">
             {product.categories
@@ -118,6 +118,7 @@ function ProductFour(props) {
                         color: "rgba(227, 6, 19, 1)",
                         fontSize: "12px",
                         fontWeight: "700",
+                        justifyContent: "center",
                       }}
                     >
                       {item.name}
@@ -129,7 +130,7 @@ function ProductFour(props) {
           </div>
         </div>
 
-        <h3 className="product-title">
+        <h3 className="product-title" style={{ justifyContent: "center" }}>
           <ALink href={`/product/default/${product.slug}`}>
             {product.name}
           </ALink>

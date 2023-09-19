@@ -93,7 +93,7 @@ function Shop() {
       <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
         <div className="container">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item">
+            <li className="breadcrumb-item" >
               <ALink href="/">
                 <i className="icon-home"></i>
               </ALink>
@@ -178,8 +178,29 @@ function Shop() {
         </div>
       </nav>
 
-      <div className="container pt-2">
-        <div className="row">
+      <div className="container ">
+        <div
+          style={{
+            width: "228px",
+            height: "26px",
+            marginTop: "60px",
+            marginBottom: "33px",
+          }}
+        >
+          <p
+            style={{
+              fontWeight: "400px",
+              fontSize: "13px",
+              lineHeight: "26px",
+            }}
+          >
+            12 Search Results Found
+          </p>
+        </div>
+        <div
+          className="row"
+          
+        >
           <div className="col-lg-9 main-content">
             <nav className="toolbox sticky-header mobile-sticky">
               <div className="toolbox-left">
@@ -250,7 +271,7 @@ function Shop() {
                   <span>Filter</span>
                 </a>
 
-                <div className="toolbox-item toolbox-sort">
+                {/* <div className="toolbox-item toolbox-sort">
                   <label>Sort By:</label>
 
                   <div className="select-custom">
@@ -270,11 +291,11 @@ function Shop() {
                       </option>
                     </select>
                   </div>
-                </div>
+                </div> */}
               </div>
 
               <div className="toolbox-right">
-                <div className="toolbox-item toolbox-show">
+                {/* <div className="toolbox-item toolbox-show">
                   <label>Show:</label>
 
                   <div className="select-custom">
@@ -289,9 +310,9 @@ function Shop() {
                       <option value="36">36</option>
                     </select>
                   </div>
-                </div>
+                </div> */}
 
-                <div className="toolbox-item layout-modes">
+                {/* <div className="toolbox-item layout-modes">
                   <ALink
                     href={{ pathname: router.pathname, query: query }}
                     className="layout-btn btn-grid active"
@@ -306,7 +327,7 @@ function Shop() {
                   >
                     <i className="icon-mode-list"></i>
                   </ALink>
-                </div>
+                </div> */}
               </div>
             </nav>
 
@@ -315,33 +336,47 @@ function Shop() {
               loading={loading}
               perPage={perPage}
             />
-
-            {loading || (products && products.length) ? (
-              <nav className="toolbox toolbox-pagination border-0">
-                <div className="toolbox-item toolbox-show">
-                  <label>Show:</label>
-
-                  <div className="select-custom">
-                    <select
-                      name="count"
-                      className="form-control"
-                      value={perPage}
-                      onChange={(e) => onPerPageChange(e)}
-                    >
-                      <option value="12">12</option>
-                      <option value="24">24</option>
-                      <option value="36">36</option>
-                    </select>
-                  </div>
-                </div>
-                <Pagination totalPage={totalPage} />
-              </nav>
-            ) : (
-              ""
-            )}
           </div>
 
           <ShopSidebarOne />
+        </div>
+      </div>
+
+      {loading || (products && products.length) ? (
+        <div className="container">
+          <nav className="toolbox toolbox-pagination border-0">
+            <div className="toolbox-item toolbox-show">
+              <label>Show:</label>
+
+              <div className="select-custom">
+                <select
+                  name="count"
+                  className="form-control"
+                  value={perPage}
+                  onChange={(e) => onPerPageChange(e)}
+                >
+                  <option value="12">12</option>
+                  <option value="24">24</option>
+                  <option value="36">36</option>
+                </select>
+              </div>
+            </div>
+            {/* <Pagination totalPage={totalPage} /> */}
+          </nav>
+        </div>
+      ) : (
+        ""
+      )}
+
+      <div className=" container" style={{ paddingTop: "37px" }}>
+        <div
+          
+        >
+          <img
+            src="images\brands\banner Image Lising.svg" 
+          
+            style={{ width: "100%", height: "100%", objectFit: "cover" }}
+          />
         </div>
       </div>
 

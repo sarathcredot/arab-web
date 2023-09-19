@@ -26,24 +26,24 @@
 
 		&.active {
 			a {
-				color: $primary-color;
+				color: #E30613;
 
 				&:hover{
-					color: $primary-color;
+					color: #E30613;
 				}
 			}
 
 			+ li a {
-				color: #919292;
+				color: black;
 
 				&:hover{
-					color: $primary-color;
+					color: #E30613;
 				}
 			}
 		}
 
 		&.disabled a {
-			color: #919292;
+			color: black;
 		}
 
 		&:not(:first-child) {
@@ -54,7 +54,7 @@
 				left: -3.3rem;
 				top: -.8rem;
 				content: '\e81a';
-				color: #999;
+				color: black;
 				font-family: "porto";
 				font-size: 3rem;
 			}
@@ -333,14 +333,16 @@
 .login-form-container, 
 .checkout-discount {
 	.feature-box {
-		box-shadow: 0 2px 4px 0px rgba(0,0,0,0.05);
+		box-shadow: 3px 4px 18px 0px rgba(0, 0, 0, 0.11);
+
 		margin-bottom: 2.9rem;
 		
 		.feature-box-content {
-			border-top: 4px solid #e7e7e7;
-			border-bottom: 1px solid #e7e7e7;
-			border-left: 1px solid #ececec;
-			border-right: 1px solid #ececec;
+			border: 1px solid #E9E9E9;
+			// border-top: 4px solid #e7e7e7;
+			// border-bottom: 1px solid #e7e7e7;
+			// border-left: 1px solid #ececec;
+			// border-right: 1px solid #ececec;
 			padding: 1rem 2rem;
 		}
 	}
@@ -363,7 +365,7 @@
 			font-family: $font-family;
 
 			&:hover {
-				background-color: $primary-color;
+				background-color: red;
 				color: #fff;
 			}
 		}
@@ -414,7 +416,7 @@
 
 .checkout-discount {
 	.form-control {
-		min-height: 33px;
+		min-height: 60px;
 	}
 
 	.form-control, .input-group-append {
@@ -442,7 +444,8 @@
 		padding-top: 1rem;
 
 		.input-group {
-			max-width: 319px;
+			max-width: 668px;
+			height: 81px;
 		}
 
 		.btn {
@@ -487,12 +490,14 @@
 	.checkout-discount {
 		.form-control {
 			margin-right: 1.4rem;
-			height: 33px;
+			height: 49px;
 			font-size: 1.2rem;
 		}
 
 		.btn.btn-sm {
-			height: 33px;
+			height: 60px;
+			color: white;
+			background-color: black;
 		}
 	}
 
@@ -505,23 +510,23 @@
 		height: 49px;
 	}
 
-	.select-custom,
-	.form-group {
-		margin-bottom: 1.7rem;
-	}
+	// .select-custom,
+	// .form-group {
+	// 	margin-bottom: 1.7rem;
+	// }
 
-	.checkout-steps {
-		.custom-control-label {
-			&::before,
-			&::after {
-				top: 0px;
-			}
-		}
+	// .checkout-steps {
+	// 	.custom-control-label {
+	// 		&::before,
+	// 		&::after {
+	// 			top: 0px;
+	// 		}
+	// 	}
 
-		.select-custom::after {
-			top: 66%;
-		}
-	}
+	// 	.select-custom::after {
+	// 		top: 66%;
+	// 	}
+	// }
 
 	.custom-control {
 		margin-top: 3.3rem;

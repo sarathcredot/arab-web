@@ -71,7 +71,7 @@ function Cart ( props ) {
                                         <tbody>
                                             {
                                                 cartList.map( ( item, index ) => (
-                                                    <tr key={ "cart-item" + index } className="product-row">
+                                                    <tr key={ "cart-item" + index } className="product-row" style={{color:"black"}}>
                                                         <td>
                                                             <figure className="product-image-container">
                                                                 <ALink href={ `/product/default/${item.slug}` } className="product-image">
@@ -87,12 +87,12 @@ function Cart ( props ) {
                                                             </h5>
                                                         </td>
                                                         <td>
-                                                            ${ item.price.toFixed( 2 ) }
+                                                            OMR { item.price.toFixed( 2 ) }
                                                         </td>
                                                         <td>
                                                             <Qty value={ item.qty } max={ item.stock } onChangeQty={ qty => onChangeQty( index, qty ) } />
                                                         </td>
-                                                        <td className="text-right"><span className="subtotal-price">${ ( item.price * item.qty ).toFixed( 2 ) }</span></td>
+                                                        <td className="text-right"><span className="subtotal-price">OMR { ( item.price * item.qty ).toFixed( 2 ) }</span></td>
                                                     </tr>
                                                 ) )
                                             }
@@ -108,8 +108,8 @@ function Cart ( props ) {
                                                                 <div className="input-group">
                                                                     <input type="text" className="form-control form-control-sm"
                                                                         placeholder="Coupon Code" required />
-                                                                    <div className="input-group-append">
-                                                                        <button className="btn btn-sm" type="submit">Apply Coupon</button>
+                                                                    <div className="input-group-append" >
+                                                                        <button className="btn btn-sm" type="submit" style={{backgroundColor:"black" ,color:"white"}}>Apply Coupon</button>
                                                                     </div>
                                                                 </div>
                                                             </form>
@@ -117,7 +117,7 @@ function Cart ( props ) {
                                                     </div>
 
                                                     <div className="float-right">
-                                                        <button type="submit" className="btn btn-shop btn-update-cart" onClick={ updateCart }>
+                                                        <button type="submit" className="btn btn-shop btn-update-cart" style={{border:"1px solid"}} onClick={ updateCart }>
                                                             Update Cart
                                                         </button>
                                                     </div>
@@ -136,9 +136,9 @@ function Cart ( props ) {
                                         <tbody>
                                             <tr>
                                                 <td>Subtotal</td>
-                                                <td>${ getCartTotal( cartList ).toFixed( 2 ) }</td>
+                                                  <td style={{color:"black"}}>OMR { getCartTotal( cartList ).toFixed( 2 ) }</td>
                                             </tr>
-
+{/* 
                                             <tr>
                                                 <td colSpan="2" className="text-left">
                                                     <h4>Shipping</h4>
@@ -196,13 +196,13 @@ function Cart ( props ) {
                                                     </button>
                                                     </form>
                                                 </td>
-                                            </tr>
+                                            </tr> */}
                                         </tbody>
 
                                         <tfoot>
                                             <tr>
                                                 <td>Total</td>
-                                                <td>${ getCartTotal( cartList ).toFixed( 2 ) }</td>
+                                                <td>OMR { getCartTotal( cartList ).toFixed( 2 ) }</td>
                                             </tr>
                                         </tfoot>
                                     </table>

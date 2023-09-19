@@ -5,7 +5,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Import Actions
 import { actions as WishlistAction } from "../../../store/wishlist";
-import { actions as CartAction } from "../../../store/cart";
+import cart, { actions as CartAction } from "../../../store/cart";
 import { actions as ModalAction } from "../../../store/modal";
 
 // Import Custom Component
@@ -20,20 +20,28 @@ function ProductOne(props) {
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +
-          (
-            (100 * (product.price[1] - product.price[0])) /
-            product.price[1]
-          ).toFixed(0) +
-          "%"
+      (
+        (100 * (product.price[1] - product.price[0])) /
+        product.price[1]
+      ).toFixed(0) +
+      "%"
       : product.variants.find((variant) => variant.sale_price)
-      ? "Sale"
-      : false;
+        ? "Sale"
+        : false;
   }
 
   function isInWishlist() {
     return (
       product &&
       props.wishlist.findIndex((item) => item.slug === product.slug) > -1
+    );
+  }
+
+
+  function isInCart() {
+    return (
+      product &&
+      props.cart.findIndex((item) => item.slug === cart.slug) > -1
     );
   }
 
@@ -92,7 +100,7 @@ function ProductOne(props) {
             src="images/iphone.svg"
             threshold={500}
             effect="black and white"
-            width={130}
+            width="130px"
             height="auto"
             objectFit="contain"
           /> */}
@@ -143,59 +151,69 @@ function ProductOne(props) {
           )}
         </div> */}
 
-        {product.until && product.until !== null && <ProductCountdown />}
+        {/* {product.until && product.until !== null && <ProductCountdown />} */}
 
-        <a
+        {/* <a
           href="#"
           className="btn-quickview"
           title="Quick View"
           onClick={onQuickViewClick}
         >
           Quick View
-        </a>
+        </a> */}
       </figure>
 
-      <div className="product-details">
-        <div className="category-wrap">
+      <div
+        className="product-details"
+        style={{ alignItems: "left", justifyContent: "left" }}
+      >
+        <div className="category-wrap" style={{display:"flex", marginTop:"0", alignItems:"center",justifyContent:"center"}}>
+
           <div className="category-list">
             {product.categories
               ? product.categories.map((item, index) => (
-                  <React.Fragment key={item.slug + "-" + index}>
-                    <ALink
-                      href={{
-                        pathname: "/shop",
-                        query: { category: item.slug },
-                      }}
-                    >
-                      {item.name}
-                    </ALink>
-                    {index < product.categories.length - 1 ? ", " : ""}
-                  </React.Fragment>
-                ))
+                <React.Fragment key={item.slug + "-" + index}>
+                  <ALink
+                    href={{
+                      pathname: "/shop",
+                      query: { category: item.slug },
+                    }}
+                  >
+                    {item.name}
+                  </ALink>
+                  {index < product.categories.length - 1 ? ", " : ""}
+                </React.Fragment>
+              ))
               : ""}
           </div>
 
+          {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
+
           <a
             href="#"
-            className={`btn-icon-wish ${
-              isInWishlist() ? "added-wishlist" : ""
-            }`}
-            onClick={onWishlistClick}
-            title={`${
-              isInWishlist() === true ? "Go to Wishlist" : "Add to Wishlist"
-            }`}
+            className={`btn ${(e)=>onAddCartClick(e) ? "" : ""
+              }`}
+            onClick={(e)=>onAddCartClick(e)}
+            title={`${ (e)=>isInCart(e) === true ? "Go cart" : "Add to Cart"
+
+
+              }`}
+            style={{ width: "70px", height: "70px", marginLeft: "20px" }}
           >
-            <i className="icon-heart"></i>
+            <i class="icon-plus" style={{ height:"40px",width:"40px", borderRadius: "200px", display: "inline-block", padding: "11px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
           </a>
+
+
+
         </div>
 
         <h3 className="product-title">
-          <ALink href={`/product/default/${product.slug}`}>
+          <ALink href={`/product/default/${product.slug}`} style={{ fontWight: "500px", fontSize: "14px", }}>
             {product.name}
           </ALink>
         </h3>
 
-        <div className="ratings-container">
+        {/* <div className="ratings-container">
           <div className="product-ratings">
             <span
               className="ratings"
@@ -205,29 +223,53 @@ function ProductOne(props) {
               {product.ratings.toFixed(2)}
             </span>
           </div>
-        </div>
+        </div> */}
 
         <div className="price-box">
+          <span >OMR</span>
+          <span className="product-price" style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "800px", fontSize: "16px", lineHeight: "15px", marginLeft: "10px" }} >
+            {product.price[0].toFixed(2)}
+          </span>
+          <span className="old-price" style={{ marginLeft: "10px", color: "#777777" }}>
+            {+ product.price[1].toFixed(2)}
+          </span>
+
+        </div>
+
+        {/* <div className="price-box">
           {product.price[0] == product.price[1] ? (
             <span className="product-price">
-              {"$" + product.price[0].toFixed(2)}
+              <span style={{ fontWeight: "400", paddingRight: "10px" }}>
+                OMR
+              </span>{" "}
+              {product.price[0].toFixed(2)}{" "}
+              <span
+                style={{
+                  fontWeight: "400",
+                  paddingLeft: "10px",
+                  textDecorationLine: "line-through",
+                }}
+              >
+                {product.price[0] + 200}
+              </span>
             </span>
           ) : product.variants.length > 0 ? (
             <span className="product-price">
-              {"$" + product.price[0].toFixed(2)} &ndash;{" "}
-              {"$" + product.price[1].toFixed(2)}
+              {"OMR" + product.price[0].toFixed(2)} &ndash;{" "}
+              {"OMR" + product.price[1].toFixed(2)}
             </span>
           ) : (
             <>
-              <span className="old-price">
-                {"$" + product.price[1].toFixed(2)}
+            <span className="product-price" >
+                {"OMR"  + product.price[0].toFixed(2)}
               </span>
-              <span className="product-price">
-                {"$" + product.price[0].toFixed(2)}
+              <span className="old-price" style={{marginLeft:"20px"}}>
+                {"OMR" + product.price[1].toFixed(2)}
               </span>
+              
             </>
           )}
-        </div>
+        </div> */}
       </div>
     </div>
   );

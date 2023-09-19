@@ -19,6 +19,10 @@ import GiftCollection from "../components/partials/home/gift-collection";
 import GardenCollection from "../components/partials/home/garden-collection";
 import SelectedCollection from "../components/partials/home/selected-collection";
 import RecentCollection from "../components/partials/home/recent-collection";
+import TopBrand from "../components/partials/home/top-brand";
+import Footerbanner from "../components/partials/home/footerbanner";
+
+
 
 function Home() {
   const { data, loading, error } = useQuery(GET_HOME_DATA, {
@@ -33,17 +37,13 @@ function Home() {
   if (error) {
     return <div>{error.message}</div>;
   }
+  
 
   return (
     <>
       <main className="home">
         <div className="bg-gray">
           <HomeSection className="pb-5" />
-          {/* <div className="container pb-3">
-            <CategorySection />*round category section
-
-            <PromoSection />
-          </div> */}
         </div>
 
         <div
@@ -51,41 +51,26 @@ function Home() {
             loading ? "" : "loaded"
           }`}
         >
-          {/* <InfoSection /> free shilping and return section*/}
-
           <BannerSection />
 
           <DealSection products={bestSelling} />
+          <TopBrand />
         </div>
-
-        <CategoryFilterSection />
 
         <div
           className={`bg-gray skeleton-body skel-shop-products ${
             loading ? "" : "loaded"
           }`}
         >
-          <div className="container">
-            <ElectronicCollection products={electronic} />
-            <GiftCollection products={giftAndGadgets} />
-            <GardenCollection
-              latest={latest}
-              bestSelling={bestSelling}
-              topRated={topRated}
-              loading={loading}
-            />
-            <BrandSection />
-            <SelectedCollection
-              latest={latest}
-              bestSelling={bestSelling}
-              topRated={topRated}
-            />
-            <RecentCollection bestSelling={bestSelling} />
-          </div>
+          <ElectronicCollection products={electronic} />
+
+          {/* <RecentCollection bestSelling={bestSelling} /> */}
         </div>
+        <CategoryFilterSection />
+        <Footerbanner />
       </main>
 
-      <NewsletterModal />
+      {/* <NewsletterModal /> */}
     </>
   );
 }
