@@ -3,8 +3,8 @@
   "version": "2.1.0",
   "private": true,
   "scripts": {
-    "dev": "NODE_OPTIONS=--openssl-legacy-provider && next",
-    "build": "NODE_OPTIONS=--openssl-legacy-provider && next build & next export",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && next",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && next build & next export",
     "start": "next start"
   },
   "dependencies": {

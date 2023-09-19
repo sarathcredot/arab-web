@@ -10,7 +10,10 @@
 .newsletter-popup-content {
     max-width: 357px;
 }
-
+.electronic-section{
+    padding-top: 80px;
+    padding-bottom: 30px;
+}
 .custom-divide-line,
 .home {
     .product-default figure {
@@ -152,6 +155,7 @@ hr {
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
+    height: "354px"!important;
 }
 
 .text-animate {
@@ -168,6 +172,7 @@ hr {
     width: 90%;
     margin: 0 auto;
     background-color: white;
+    padding-bottom: 60px;
 }
 @keyframes slideX {
     0% {
@@ -537,6 +542,8 @@ hr {
     margin-bottom: .7rem;
     font-size: 2.2rem;
     font-weight: 600;
+    padding-bottom: 4.7rem;
+    padding-top: 4rem;
 
     i {
         margin-left: 3px;
@@ -572,6 +579,7 @@ hr {
 
 .deal-products-section {
     padding: 2.6rem 0 4.5rem;
+    padding-top: 5.5rem;
 
     .product-countdown-container {
         bottom: auto;
@@ -728,7 +736,7 @@ hr {
 
 // 2.7) Category Filter Section
 .category-filter-section {
-    padding: 4rem 0 4.8rem;
+    padding: 6rem 0 4.8rem;
 
     > .container > .row {
         overflow: hidden;
@@ -910,7 +918,7 @@ hr {
 
 .banner5,
 .banner4 {
-    padding-top: 150px;
+    padding-top: 324px;
 
     h4 {
         margin-bottom: 8px;
@@ -1503,6 +1511,7 @@ hr {
             margin-left: -21px;
         }
     }
+   
 }
 
 @media(min-width: 992px) {
@@ -1701,6 +1710,23 @@ hr {
 }
 
 @media(max-width: 767px) {
+    .categories-container{
+        width: 100%;
+    }
+    // .bg-image{
+    //     height: 0;
+    // }
+    .applesection-container{
+        width: 100%;
+    }
+    .electronic-section{
+        padding-top: 15px;
+        padding-bottom: 1px;
+    }
+    .section-title{
+    margin-bottom: 1.7rem;
+    padding-top: 0 !important;
+    padding-bottom: 0;}
     .heading {        
         .section-title {
             width: calc( 100% - 65px );
@@ -1781,8 +1807,8 @@ hr {
         padding: 2.5rem 2rem;
     }
 
-    .banner5, 
-    .banner4 {
+    .banner5
+    {
         padding-top: 250px;
 
         .content-left {

@@ -51,8 +51,8 @@ function Home() {
           <BannerSection />
 
           <DealSection products={bestSelling} />
-          <TopBrand />
         </div>
+        <TopBrand />
 
         <div
           className={`bg-gray skeleton-body skel-shop-products ${

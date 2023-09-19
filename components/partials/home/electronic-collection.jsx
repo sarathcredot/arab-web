@@ -23,7 +23,10 @@ function ElectronicCollection({ products }) {
   const electronic = data && data.electronic.data;
   return (
     <Reveal keyframes={fadeIn} delay={100} duration={1000} triggerOnce>
-      <section className="electronic-section">
+      <section
+        className="electronic-section"
+        // style={{ paddingTop: "80px", paddingBottom: "30px" }}
+      >
         <div className="categories-container bg-white">
           <div className="container">
             <h4 className="section-title text-transform-none">
@@ -31,12 +34,11 @@ function ElectronicCollection({ products }) {
             </h4>
 
             <div className="row">
-              <div className="col-md-12 mb-2 mb-md-0">
+              <div className="col-md-12 col-sm-12 mb-2 mb-md-0">
                 <div
                   className="banner banner4 bg-image"
                   style={{
                     backgroundImage: "url(images/home/banners/applebanner.svg)",
-                    height: "354px",
                   }}
                 ></div>
               </div>

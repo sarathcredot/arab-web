@@ -150,6 +150,10 @@ function ProductOne(props) {
                         pathname: "/shop",
                         query: { category: item.slug },
                       }}
+                      style={{
+                        color: "rgba(227, 6, 19, 1)",
+                        fontWeight: "700",
+                      }}
                     >
                       {item.name}
                     </ALink>

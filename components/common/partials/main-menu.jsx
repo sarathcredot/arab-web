@@ -200,7 +200,7 @@ function MainMenu({ router }) {
         ) : null}
         {parentcategory?.cat2 ? (
           <>
-            <p className="pb-4 customheading">SELECT SUB CATEGORY</p>
+            <p className=" customheading">SELECT SUB CATEGORY</p>
 
             <ul className="custom__menusecondchild w-100">
               {child2.map((item) => (
