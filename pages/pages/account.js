@@ -271,6 +271,7 @@ export default function Account() {
                             {/* <span className="link-to-tab">
                               <i className="sicon-location-pin"></i>
                             </span> */}
+                             <ALink href="/pages/affliation">
                             <div
                               style={{
                                 width: "321.46px",
@@ -305,6 +306,8 @@ export default function Account() {
                                 </div>
                               </div>
                             </div>
+                            </ALink>
+
                             <div className="feature-box-content">
                               <h3   style={{ marginTop: "20px" }}>AFFILIATION</h3>
                             </div>

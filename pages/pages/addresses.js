@@ -22,7 +22,7 @@ function addresses() {
       </nav>
       <div
         className=" d-flex flex-column align-items-center"
-        style={{ backgroundColor: "#F9F9F9" }}
+        style={{ backgroundColor: "#F9F9F9", marginTop:"10px" }}
       >
         {/* <h1>orders</h1>*/}
 

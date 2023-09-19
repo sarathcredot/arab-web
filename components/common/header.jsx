@@ -137,6 +137,7 @@ function Header({ adClass = "", wishlist }) {
               <div
                 className={`d-flex justify-content-center align-items-center ${styles.offerdiv}`}
               >
+                <ALink href="/pages/offers" className="logo">
                 <img
                   src="images/ticket-discount.svg"
                   alt="Offer"
@@ -144,6 +145,9 @@ function Header({ adClass = "", wishlist }) {
                   height="30"
                   style={{ marginRight: "8px" }}
                 />
+
+                </ALink>
+                
                 <span>OFFERZONE</span>
               </div>
               <div

@@ -3,9 +3,9 @@ import React from 'react'
 function Loading() {
   return (
     <div>
-<div
+      <div
         className=" container d-flex justify-content-center align-items-center"
-        style={{ height: "200px",  marginTop: "30px" }}
+        style={{ height: "200px", marginTop: "30px" }}
       >
         <div className="d-flex align-items-center justify-content-center"
           style={{
@@ -39,7 +39,7 @@ function Loading() {
 
       </div>
 
-    
+
 
 
 

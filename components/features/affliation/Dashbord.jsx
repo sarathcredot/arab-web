@@ -10,7 +10,7 @@ function Dashbord() {
                         <h4>Affiliate Earnings</h4>
                         <div className="content-with-image" >
                             <p className='' style={{ marginTop: "20px" }}><span className="number">420</span>AD Points</p>
-                            <img src="images\icon\money Vector.svg" alt="" />
+                            <img src="images\icon\coins 1.svg" alt="" />
 
                         </div>
 
@@ -23,12 +23,12 @@ function Dashbord() {
                         <h4>Link Clicks</h4>
                         <div className="content-with-image" >
                             <p className='' style={{ marginTop: "20px" }}><span className="number">84</span>Clicks</p>
-                            <img src="images\icon\money Vector.svg" alt="" />
+                            <img src="images\icon\hand-tap 1.svg" alt="" />
 
                         </div>
 
                     </div>
-                    <p style={{ padding: "20px", color: "black" }}>Share Product links for more Referals</p>
+                    <p style={{ padding: "10px", color: "black" }}>Share Product links for more Referals</p>
                 </div>
 
                 <div className="card gradient-3">
@@ -36,7 +36,7 @@ function Dashbord() {
                         <h4>Successful Purchase</h4>
                         <div className="content-with-image" >
                             <p className='' style={{ marginTop: "20px" }}><span className="number">27</span>Buys</p>
-                            <img src="images\icon\money Vector.svg" alt="" />
+                            <img src="images\icon\packet 1.svg" alt="" />
 
                         </div>
 
