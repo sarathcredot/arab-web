@@ -1,12 +1,12 @@
 import React from 'react'
 
-function StartAffliation() {
+function StartAffliation({toggleForm }) {
   return (
     <div>
 
       <div
         className=" container d-flex justify-content-center align-items-center"
-        style={{ height: "200px",  marginTop: "30px" }}
+        style={{ height: "200px", marginTop: "30px" }}
       >
         <div className="d-flex align-items-center justify-content-center"
           style={{
@@ -43,14 +43,14 @@ function StartAffliation() {
       <div className='container d-flex justify-content-center align-content-center' >
 
 
-                      <button
-              type="submit"
-              className="btn  "
-              style={{ border: "1px solid" ,width:"223px",height:"50px",color:"black", backgroundColor:"white"}}
-              
-            >
-           START AFFILIATION
-            </button>
+        <button
+          type="submit"
+          className="btn  "
+          style={{ border: "1px solid", width: "223px", height: "50px", color: "black", backgroundColor: "white" }}
+          onClick={toggleForm}
+        >
+          START AFFILIATION
+        </button>
       </div>
 
 

@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 
 
-function Form() {
+function Form({onSaveBankDetails}) {
+
+    const [uploadedFile, setUploadedFile] = useState(null);
+    const fileInputRef = useRef(null);
+
+    const handleFileChange = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+            setUploadedFile(file);
+        }
+    };
+
+    const handleRemoveFile = () => {
+        setUploadedFile(null);
+        // Reset the file input value to allow reselection of the same file
+        if (fileInputRef.current) {
+            fileInputRef.current.value = '';
+        }
+    };
+
+
+    const handleSaveBankDetailsClick = () => {
+        // Call the onSaveBankDetails function to trigger the loading state
+        onSaveBankDetails();
+    };
+
     return (
         <div>
             <div className='container' >
-                <div className='d-flex'>
+                <div className='row'>
                     <div className='col-md-6'>
                         <div className='input-container d-flex flex-column align-items-center'>
                             <label htmlFor="file-input" className="file-label">
-                                <input type="file" id="file-input" style={{ display: "none" }} />
+                                <input type="file" id="file-input" style={{ display: "none" }}  onChange={handleFileChange}  ref={fileInputRef}/>
                                 <div className="file-icon d-flex justify-content-center align-items-center " style={{ paddingTop: "70px" }}>
                                     <div className='icon d-flex justify-content-center align-items-center'>
                                         <i className="fas fa-plus fa-2x"></i>
@@ -22,21 +47,25 @@ function Form() {
 
                             </p>
                         </div>
-                        <div className='uploade'>
-                            <p>Uploaded File</p>
-                            <div className='uplode-content'>
-                                <div className="icon-container">
-                                    <img
-                                        src="images\icon\Vector documnt.svg"
-                                        alt="Uploaded Icon"
-                                    />
+                        {uploadedFile && (
+                            <div className='uploade'>
+                                <p>Uploaded File</p>
+                                <div className='uplode-content'>
+                                    <div className="icon-container">
+                                        <img
+                                            src="images\icon\Vector documnt.svg"
+                                            alt="Uploaded Icon"
+                                        />
+                                    </div>
+                                    <div className="text-container">
+                                        <p>{uploadedFile.name}</p>
+                                    </div>
+                                    
+                                        <i className="fas fa-times" onClick={handleRemoveFile}></i>
+                                    
                                 </div>
-                                <div className="text-container">
-                                    <p>Government ID</p>
-                                </div>
-                                <i className="fas fa-times" ></i>
                             </div>
-                        </div>
+                        )}
 
                     </div>
                     <div className='col-md-6'>
@@ -65,7 +94,7 @@ function Form() {
                                         <input type="text" className="form-control" />
                                     </div>
 
-                                    <button className="styled-button">Save Bank Details</button>
+                                    <button className="styled-button" onClick={handleSaveBankDetailsClick}>Save Bank Details</button>
                                 </div>
                             </div>
                         </div>
