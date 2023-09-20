@@ -65,8 +65,9 @@ function offers() {
         >
           <div
             style={{
-              width: "1727px",
-              height: "604px",
+              width: "100%",
+              height: "auto",
+              maxWidth:"100%",
               backgroundColor: "white",
               marginTop: "40px",
             }}
@@ -99,15 +100,16 @@ function offers() {
 
         <div
             style={{
-              width: "1728px",
-              height: "550px",
+              width: "100%",
+              maxWidth:"100%",
+              height: "auto",
               backgroundColor: "white",
               marginTop: "40px",
             }}
           >
             <img
               src="images\banners\offerBanner2.svg"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
+              style={{ width: "100%", height: "auto", objectFit: "cover" }}
             />
           </div>
       </main>

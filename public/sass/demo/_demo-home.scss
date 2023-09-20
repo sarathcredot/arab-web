@@ -194,7 +194,8 @@ hr {
     }
 
     [class*='owl-']:not(.disabled):hover {
-        background: #f4f4f4;
+        background: black;
+        color: white;
     }
 
     .owl-next,
