@@ -201,7 +201,7 @@ function Shop() {
           className="row"
           
         >
-          <div className="col-lg-9 main-content">
+          <div className="col-lg-9 main-content" style={{border:"1px solid " ,  }}>
             <nav className="toolbox sticky-header mobile-sticky">
               <div className="toolbox-left">
                 <a
