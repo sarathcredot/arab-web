@@ -104,8 +104,8 @@ function Wishlist(props) {
           <div className="wishlist-table-container">
             <div className="table table-wishlist mb-0">
               <div className="wishlist-empty-page text-center">
-                <i className="far fa-heart"></i>
-                <p>No products added to the wishlist</p>
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                <p>No products Ordered</p>
                 <ALink
                   href="/shop"
                   className="btn btn-dark btn-add-cart product-type-simple btn-shop font1 w-auto"

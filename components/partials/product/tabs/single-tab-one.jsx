@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ALink from '../../../common/ALink';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 
@@ -9,6 +9,13 @@ export default function SingleTabOne(props) {
         e.preventDefault();
         document.querySelector('.add-product-review .active') && document.querySelector('.add-product-review .active').classList.remove('active');
         e.currentTarget.classList.add('active');
+    }
+
+    const [activeTab, setActiveTab] = useState(0); // Initialize the active tab
+
+    function activeHandler(e, tabIndex) {
+        e.preventDefault();
+        setActiveTab(tabIndex); // Update the active tab when a tab is clicked
     }
 
     return (
@@ -36,21 +43,12 @@ export default function SingleTabOne(props) {
                         </Tab> */}
                     </TabList>
 
-                    {/* <TabPanel className="tab-pane fade">
-                        <div className="product-desc-content">
-                            <p>{product.short_description}</p>
-                            <ul>
-                                <li>Any Product types that You want - Simple, Configurable</li>
-                                <li>Downloadable/Digital Products, Virtual Products</li>
-                                <li>Inventory Management with Backordered items</li>
-                            </ul>
-                            <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
-                        </div>
-                    </TabPanel> */}
+                    
 
+                    <TabPanel className="tab-pane fade">
                     <div className="container" style={{ marginTop: "79px" }} >
                         <div
-                            
+
                         >
                             <img
                                 src="images\brands\deatail-banner-1.svg"
@@ -59,7 +57,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-                           
+
                         >
                             <img
                                 src="images\brands\product-detail-banner-2.svg"
@@ -68,7 +66,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-                            
+
                         >
                             <img
                                 src="images\brands\detail-3.svg"
@@ -77,7 +75,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-                           
+
                         >
                             <img
                                 src="images\brands\detail-4.svg"
@@ -86,7 +84,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-                           
+
                         >
                             <img
                                 src="images\brands\deatil-5.svg"
@@ -95,7 +93,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-                           
+
                         >
                             <img
                                 src="images\brands\detail-6.svg"
@@ -104,7 +102,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-                           
+
                         >
                             <img
                                 src="images\brands\detail-7.svg"
@@ -113,6 +111,48 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                     </div>
+                    </TabPanel>
+
+
+                    <TabPanel className="tab-pane fade">
+
+                        
+                        <div className="product-desc-content">
+                            {/* <p>{product.short_description}</p> */}
+                            <ul>
+                                <li>Bluetooth: V5.0</li>
+                                <li>Screen Size: 1.39 inches</li>
+                                <li>Screen Resolution and Brightness: 360*360, 500 Nits Daylight-Bright Display, 2.5D Curved Glass</li>
+                                <li>Battery Capacity: 400 mAh</li>
+                                <li>Sports Modes: 100+</li>
+                                <li>Health Monitoring: SpO2, 24*7 Heart Rate Monitoring, Blood Pressure, High Heart Rate Alert</li>
+                                <li>Health Tracking: Menstrual Cycle, Sleep</li>
+                                <li>Smart Features: Sedentary Alert, Weather, Alarm, Timer, Flashlight, Find Phone</li>
+                                <li>Smart Controls: Remote Camera and Music Player</li>
+                                <li>Bluetooth Calling with inbuilt mic, speaker and dialer</li>
+                                <li>All Messages Notifications</li>
+                                <li>Custom & 100+ Watch Faces</li>
+                                <li>Charging Time: 2 Hrs</li>
+                                <li>Battery Life: 10 Days</li>
+                                <li>Water Resistance Level: IP68</li>
+                                <li>Compatible: Android & iOS</li>
+                            </ul>
+                            {/* <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> */}
+                        </div>
+
+                        <div className='container' style={{ padding: "15px" }}>
+                            <div
+
+                            >
+                                <img
+                                    src="images\brands\detail-7.svg"
+
+                                    style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                />
+                            </div>
+
+                        </div>
+                    </TabPanel>
 
 
                     {/* <TabPanel className="tab-pane fade">

@@ -1188,20 +1188,27 @@ main .sticky-header {
 	li {
 		margin-bottom: 9px;
 		letter-spacing: 0;
+		list-style-type: disc;
+		color: #000;
+font-family: Poppins;
+font-size: 1rem;
+font-style: normal;
+font-weight: 400;
+line-height: 2.375rem; 
 
-		&:before {
-			content: '\f058';
-			position: absolute;
-			left: 4rem;
-			display: inline-block;
-			margin-top: -2px;
-			vertical-align: middle;
-			font-family: "Font Awesome 5 Free";
-			font-weight: 900;
-			margin-right: 1.8rem;
-			color: #21293c;
-			font-size: 1.6rem;
-		}
+		// &:before {
+		// 	content: '\f058';
+		// 	position: absolute;
+		// 	left: 4rem;
+		// 	display: inline-block;	
+		// 	margin-top: -2px;
+		// 	// vertical-align: middle;
+		// 	font-family: "Font Awesome 5 Free";
+		// 	font-weight: 900;
+		// 	margin-right: 1.8rem;
+		// 	color: #21293c;
+		// 	font-size: 1.6rem;
+		// }
 	}
 
 	img.float-right,
