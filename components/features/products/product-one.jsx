@@ -167,7 +167,7 @@ function ProductOne(props) {
         className="product-details"
         style={{ alignItems: "left", justifyContent: "left" }}
       >
-        <div className="category-wrap" style={{display:"flex", marginTop:"0", alignItems:"center",justifyContent:"center"}}>
+        <div className="category-wrap" style={{display:"flex", marginTop:"30px", alignItems:"center",justifyContent:"center"}}>
 
           <div className="category-list">
             {product.categories
@@ -187,7 +187,7 @@ function ProductOne(props) {
               : ""}
           </div>
 
-          {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
+         
 
           <a
             href="#"
@@ -198,9 +198,9 @@ function ProductOne(props) {
 
 
               }`}
-            style={{ width: "70px", height: "70px", marginLeft: "20px" }}
+            style={{ maxWidth: "70px", maxHeight: "70px", marginLeft: "20px"  ,borderRadius: "50%" ,marginTop:"10px" }}
           >
-            <i class="icon-plus" style={{ height:"40px",width:"40px", borderRadius: "200px", display: "inline-block", padding: "11px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
+            <i className="icon-plus" style={{ height:"40px",Width:"40px", borderRadius: "50%", display: "inline-block", padding: "11px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
           </a>
 
 
@@ -227,7 +227,7 @@ function ProductOne(props) {
 
         <div className="price-box">
           <span >OMR</span>
-          <span className="product-price" style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "800px", fontSize: "16px", lineHeight: "15px", marginLeft: "10px" }} >
+          <span className="product-price" style={{ fontFamily: "Poppins", fontWeight: "800px", fontSize: "16px", lineHeight: "15px", marginLeft: "10px" }} >
             {product.price[0].toFixed(2)}
           </span>
           <span className="old-price" style={{ marginLeft: "10px", color: "#777777" }}>

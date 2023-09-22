@@ -31,6 +31,7 @@ function OwlCarousel(props) {
         className={`owl-carousel ${isTheme ? "owl-theme" : ""} ${adClass}`}
         options={settings}
         events={events}
+        
       >
         {props.children}
       </Carousel>
