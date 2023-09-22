@@ -171,7 +171,7 @@ function Shop() {
               </>
             ) : (
               <li className="breadcrumb-item active" aria-current="page">
-                Shop
+                 <ALink className="activeitem" href="/pages/shope">Shope</ALink>
               </li>
             )}
           </ol>

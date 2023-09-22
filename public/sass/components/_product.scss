@@ -181,11 +181,22 @@ figure {
 	margin-bottom: 2rem;
 	transition: box-shadow .3s ease-in-out;
 
+	.category-list{
+		color: #E30613;
+font-family: Plus Jakarta Sans;
+font-size: 10px;
+font-style: normal;
+font-weight: 700;
+line-height: 15px;
+	}
+
 	a {
 		color: inherit;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
+
+		
 
 		&:hover {
 			color: $primary-color;

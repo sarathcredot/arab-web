@@ -46,12 +46,14 @@ function ProductDefault () {
                                 product && product.categories.map( ( item, index ) => (
                                     <React.Fragment key={ `category-${index}` }>
                                         <ALink href={ { pathname: "/shop", query: { category: item.slug } } }>{ item.name }</ALink>
-                                        { index < product.categories.length - 1 ? ',' : '' }
+                                        { index < product.categories.length - 1 ? '' : '' }
                                     </React.Fragment>
                                 ) )
                             }
                         </li>
-                        <li className="breadcrumb-item active" aria-current="page">{ product && product.name }</li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                        <ALink className="activeitem" href="">{ product && product.name }</ALink>
+                        </li>
                     </ol>
                 </div>
             </nav>

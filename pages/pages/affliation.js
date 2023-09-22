@@ -38,7 +38,7 @@ function affliation() {
                 <ALink href="/pages/account">Account</ALink>
               </li>
               <li className="breadcrumb-item active" aria-current="page">
-                affliation
+              <ALink className="activeitem" href="/pages/affliation">affliation</ALink>
               </li>
             </ol>
           </div>
@@ -73,16 +73,8 @@ function affliation() {
         
         </div>
         
-        <div className="container" style={{paddingBottom:"70px",marginTop:"50px"}} >
-        {currentStep === "startAffliation" && (
-            <StartAffliation toggleForm={toggleForm} />
-          )}
-          {currentStep === "form" && (
-            <Form onSaveBankDetails={handleSaveBankDetails} />
-          )}
-          {isLoading?<Loading />:currentStep === "dashboard" && (
-            <Dashbord />
-          )}
+        <div className="container" style={{paddingBottom:"90px",marginTop:"50px"}} >
+        
 
         </div>
         
@@ -92,9 +84,19 @@ function affliation() {
      
 
       
-<div className="container" style={{marginTop:"8rem"}}>
+<div classNam style={{ marginBottom:"50px"}}>
  
 {/* <Dashbord /> */}
+
+{currentStep === "startAffliation" && (
+            <StartAffliation toggleForm={toggleForm} />
+          )}
+          {currentStep === "form" && (
+            <Form onSaveBankDetails={handleSaveBankDetails} />
+          )}
+          {isLoading?<Loading />:currentStep === "dashboard" && (
+            <Dashbord />
+          )}
  
  
 </div>
