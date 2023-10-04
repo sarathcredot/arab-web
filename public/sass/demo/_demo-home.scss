@@ -828,6 +828,7 @@ hr {
     background-repeat: no-repeat;
     background-size: cover;
     padding-top: 725px;
+    height: 100%;
 
     h4 {
         margin-left: -1.2rem;
@@ -1487,7 +1488,7 @@ hr {
 
         .view-all {
             margin-right: 2px;
-            top: 4.2rem;
+            top: 2.2rem;
         }
     }
 }
@@ -1517,14 +1518,14 @@ hr {
 @media(min-width: 992px) {
     .category-filter-section {
         .shop-list {
-            margin-right: -1.5rem;
+            margin-right: -1.1rem;
         }
     }
 
     .category-filter-section{
         .products-with-divide {
             > .row {
-                margin-left: -20px;
+                margin-left: -22px;
             }
         }
     }

@@ -93,7 +93,7 @@ function Shop() {
       <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
         <div className="container">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item">
+            <li className="breadcrumb-item" >
               <ALink href="/">
                 <i className="icon-home"></i>
               </ALink>
@@ -199,7 +199,7 @@ function Shop() {
         </div>
         <div
           className="row"
-          style={{ border: "1px solid", borderColor: "#B9B9B9" }}
+          
         >
           <div className="col-lg-9 main-content">
             <nav className="toolbox sticky-header mobile-sticky">
@@ -368,13 +368,9 @@ function Shop() {
         ""
       )}
 
-      <div className="" style={{ padding: "37px" }}>
+      <div className=" container" style={{ paddingTop: "37px" }}>
         <div
-          style={{
-            width: "1450px",
-            height: "404.82px",
-         
-          }}
+          
         >
           <img
             src="images\brands\banner Image Lising.svg" 

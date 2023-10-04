@@ -26,24 +26,24 @@
 
 		&.active {
 			a {
-				color: $primary-color;
+				color: #E30613;
 
 				&:hover{
-					color: $primary-color;
+					color: #E30613;
 				}
 			}
 
 			+ li a {
-				color: #919292;
+				color: black;
 
 				&:hover{
-					color: $primary-color;
+					color: #E30613;
 				}
 			}
 		}
 
 		&.disabled a {
-			color: #919292;
+			color: black;
 		}
 
 		&:not(:first-child) {
@@ -54,7 +54,7 @@
 				left: -3.3rem;
 				top: -.8rem;
 				content: '\e81a';
-				color: #999;
+				color: black;
 				font-family: "porto";
 				font-size: 3rem;
 			}
@@ -510,23 +510,23 @@
 		height: 49px;
 	}
 
-	.select-custom,
-	.form-group {
-		margin-bottom: 1.7rem;
-	}
+	// .select-custom,
+	// .form-group {
+	// 	margin-bottom: 1.7rem;
+	// }
 
-	.checkout-steps {
-		.custom-control-label {
-			&::before,
-			&::after {
-				top: 0px;
-			}
-		}
+	// .checkout-steps {
+	// 	.custom-control-label {
+	// 		&::before,
+	// 		&::after {
+	// 			top: 0px;
+	// 		}
+	// 	}
 
-		.select-custom::after {
-			top: 66%;
-		}
-	}
+	// 	.select-custom::after {
+	// 		top: 66%;
+	// 	}
+	// }
 
 	.custom-control {
 		margin-top: 3.3rem;

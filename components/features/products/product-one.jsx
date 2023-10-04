@@ -5,7 +5,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Import Actions
 import { actions as WishlistAction } from "../../../store/wishlist";
-import { actions as CartAction } from "../../../store/cart";
+import cart, { actions as CartAction } from "../../../store/cart";
 import { actions as ModalAction } from "../../../store/modal";
 
 // Import Custom Component
@@ -34,6 +34,12 @@ function ProductOne(props) {
     return (
       product &&
       props.wishlist.findIndex((item) => item.slug === product.slug) > -1
+    );
+  }
+
+  function isInCart() {
+    return (
+      product && props.cart.findIndex((item) => item.slug === cart.slug) > -1
     );
   }
 
@@ -86,6 +92,27 @@ function ProductOne(props) {
               }}
             />
           </span>
+          {/* <LazyLoadImage
+            alt="product"
+            // src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[0].url}
+            src="images/iphone.svg"
+            threshold={500}
+            effect="black and white"
+            width="130px"
+            height="auto"
+            objectFit="contain"
+          /> */}
+          {/* {product.pictures.length >= 2 ? (
+            <LazyLoadImage
+              alt="product"
+              src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[1].url}
+              threshold={500}
+              effect="black and white"
+              wrapperClassName="product-image-hover"
+            />
+          ) : (
+            ""
+          )} */}
         </ALink>
 
         <div className="label-group">
@@ -132,15 +159,21 @@ function ProductOne(props) {
         >
           Quick View
         </a> */}
-
-        {/* {product.until && product.until !== null && <ProductCountdown />} */}
       </figure>
 
       <div
         className="product-details"
         style={{ alignItems: "left", justifyContent: "left" }}
       >
-        <div className="category-wrap">
+        <div
+          className="category-wrap"
+          style={{
+            display: "flex",
+            marginTop: "0",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <div className="category-list">
             {product.categories
               ? product.categories.map((item, index) => (
@@ -162,6 +195,31 @@ function ProductOne(props) {
                 ))
               : ""}
           </div>
+
+          {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
+
+          <a
+            href="#"
+            className={`btn ${(e) => (onAddCartClick(e) ? "" : "")}`}
+            onClick={(e) => onAddCartClick(e)}
+            title={`${(e) =>
+              isInCart(e) === true ? "Go cart" : "Add to Cart"}`}
+            style={{ width: "70px", height: "70px", marginLeft: "20px" }}
+          >
+            <i
+              class="icon-plus"
+              style={{
+                height: "40px",
+                width: "40px",
+                borderRadius: "200px",
+                display: "inline-block",
+                padding: "11px",
+                backgroundColor: isInWishlist() == true ? "#E30613" : "",
+                borderColor: "#DDDDDD",
+                border: isInWishlist() == true ? "" : "1px solid ",
+              }}
+            ></i>
+          </a>
         </div>
 
         <h3 className="product-title">
@@ -172,6 +230,18 @@ function ProductOne(props) {
             {product.name}
           </ALink>
         </h3>
+
+        {/* <div className="ratings-container">
+          <div className="product-ratings">
+            <span
+              className="ratings"
+              style={{ width: 20 * product.ratings + "%" }}
+            ></span>
+            <span className="tooltiptext tooltip-top">
+              {product.ratings.toFixed(2)}
+            </span>
+          </div>
+        </div> */}
 
         <div className="price-box">
           <span>OMR</span>

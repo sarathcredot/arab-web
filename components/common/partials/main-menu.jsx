@@ -10,7 +10,7 @@ import ALink from "../ALink";
 import ProductCountdown from "../../features/product-countdown";
 import OwlCarousel from "../../features/owl-carousel";
 import ProductThree from "../../features/products/product-three";
-
+import { AiOutlineArrowLeft } from "react-icons/ai";
 // Import Utils
 import { mainMenu } from "../../../utils/data/menu";
 
@@ -48,6 +48,18 @@ function MainMenu({ router }) {
     e.currentTarget.querySelector(".menu-depart").classList.toggle("opened");
   }
 
+  const movebackward = () => {
+    const array = Object.entries(parentcategory);
+    console.log(array);
+
+    let index = array.findIndex((item) => item[1] === "");
+    if (index === -1) {
+      index = array.length;
+    }
+    const element = array[index - 1][0];
+    console.log(element);
+    setParentcategory((e) => ({ ...e, [element]: "" }));
+  };
   const mainNav = [
     { key: "mobile", label: "Mobiles", icon: "images/mobile.svg" },
     { key: "tablets", label: "Tablets", icon: "images/mobile.svg" },
@@ -148,6 +160,7 @@ function MainMenu({ router }) {
             </li>
           ))}
         </ul>
+
         {/* mobile responsive menu */}
         <ul className="custom__mobilemenu w-100">
           {mainNav.map((item) => (
@@ -172,8 +185,17 @@ function MainMenu({ router }) {
             </li>
           ))}
         </ul>
+
+        {parentcategory?.cat2 ? (
+          <BackArrow movebackward={movebackward} />
+        ) : null}
+
         {parentcategory?.cat1 ? (
-          <ul className="custom__menufirstchild w-100">
+          <ul
+            className={`custom__menufirstchild w-100 ${
+              parentcategory.cat2 ? "active_container_hidden" : ""
+            }`}
+          >
             {child1.map((item) => (
               <li
                 key={item.key}
@@ -200,9 +222,18 @@ function MainMenu({ router }) {
         ) : null}
         {parentcategory?.cat2 ? (
           <>
-            <p className=" customheading">SELECT SUB CATEGORY</p>
-
-            <ul className="custom__menusecondchild w-100">
+            <p
+              className={`customheading ${
+                parentcategory.cat3 ? "active_container_hidden" : ""
+              }`}
+            >
+              SELECT SUB CATEGORY
+            </p>
+            <ul
+              className={`custom__menusecondchild w-100 ${
+                parentcategory.cat3 ? "active_container_hidden" : ""
+              }`}
+            >
               {child2.map((item) => (
                 <li
                   key={item.key}
@@ -229,8 +260,18 @@ function MainMenu({ router }) {
         ) : null}
         {parentcategory?.cat3 ? (
           <>
-            <p className="pb-4 customheading">SELECT VARIENT</p>
-            <ul className="custom__menusecondchild w-100">
+            <p
+              className={`pb-4 customheading ${
+                parentcategory.cat4 ? "active_container_hidden" : ""
+              }`}
+            >
+              SELECT VARIENT
+            </p>
+            <ul
+              className={`custom__menusecondchild w-100 ${
+                parentcategory.cat4 ? "active_container_hidden" : ""
+              }`}
+            >
               {varient.map((item) => (
                 <li
                   key={item.key}
@@ -283,6 +324,14 @@ function MainMenu({ router }) {
     </>
   );
 }
+
+const BackArrow = ({ movebackward }) => {
+  return (
+    <div className="mobile_backward" onClick={movebackward}>
+      <AiOutlineArrowLeft />
+    </div>
+  );
+};
 
 export default withApollo({ ssr: typeof window === "undefined" })(
   withRouter(MainMenu)

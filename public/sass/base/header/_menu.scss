@@ -596,6 +596,9 @@
 }
 
 // custom 
+.mobile_backward{
+	display: none;
+}
 .custom__mobilemenu{
 	display:none;
 	&__item{
@@ -767,6 +770,21 @@ background: #FFF;
   @media (max-width: 768px) {
 	.custom__menu {
 	  display: none; 
+	}
+
+	.active_container_hidden {
+		display: none !important;
+	}
+
+	.mobile_backward{
+		
+		width: 50px;
+		height: 50px;
+		border-radius: 50%;
+		background-color: #F5F5F5;
+		display: flex;
+		align-items: center;
+		justify-content: center;
 	}
 .custom__mobilemenu{
 display: flex;
