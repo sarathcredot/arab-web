@@ -37,11 +37,9 @@ function ProductOne(props) {
     );
   }
 
-
   function isInCart() {
     return (
-      product &&
-      props.cart.findIndex((item) => item.slug === cart.slug) > -1
+      product && props.cart.findIndex((item) => item.slug === cart.slug) > -1
     );
   }
 
@@ -167,44 +165,61 @@ function ProductOne(props) {
         className="product-details"
         style={{ alignItems: "left", justifyContent: "left" }}
       >
-        <div className="category-wrap" style={{display:"flex", marginTop:"30px", alignItems:"center",justifyContent:"center"}}>
-
+        <div
+          className="category-wrap"
+          style={{
+            display: "flex",
+            marginTop: "0",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <div className="category-list">
             {product.categories
               ? product.categories.map((item, index) => (
-                <React.Fragment key={item.slug + "-" + index}>
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: item.slug },
-                    }}
-                  >
-                    {item.name}
-                  </ALink>
-                  {index < product.categories.length - 1 ? ", " : ""}
-                </React.Fragment>
-              ))
+                  <React.Fragment key={item.slug + "-" + index}>
+                    <ALink
+                      href={{
+                        pathname: "/shop",
+                        query: { category: item.slug },
+                      }}
+                      style={{
+                        color: "rgba(227, 6, 19, 1)",
+                        fontWeight: "700",
+                      }}
+                    >
+                      {item.name}
+                    </ALink>
+                    {index < product.categories.length - 1 ? ", " : ""}
+                  </React.Fragment>
+                ))
               : ""}
           </div>
 
-         
+          {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
 
           <a
             href="#"
-            className={`btn ${(e)=>onAddCartClick(e) ? "" : ""
-              }`}
-            onClick={(e)=>onAddCartClick(e)}
-            title={`${ (e)=>isInCart(e) === true ? "Go cart" : "Add to Cart"
-
-
-              }`}
-            style={{ maxWidth: "70px", maxHeight: "70px", marginLeft: "20px"  ,borderRadius: "50%" ,marginTop:"10px" }}
+            className={`btn ${(e) => (onAddCartClick(e) ? "" : "")}`}
+            onClick={(e) => onAddCartClick(e)}
+            title={`${(e) =>
+              isInCart(e) === true ? "Go cart" : "Add to Cart"}`}
+            style={{ width: "70px", height: "70px", marginLeft: "20px" }}
           >
-            <i className="icon-plus" style={{ height:"40px",Width:"40px", borderRadius: "50%", display: "inline-block", padding: "11px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
+            <i
+              class="icon-plus"
+              style={{
+                height: "40px",
+                width: "40px",
+                borderRadius: "200px",
+                display: "inline-block",
+                padding: "11px",
+                backgroundColor: isInWishlist() == true ? "#E30613" : "",
+                borderColor: "#DDDDDD",
+                border: isInWishlist() == true ? "" : "1px solid ",
+              }}
+            ></i>
           </a>
-
-
-
         </div>
 
         <h3 className="product-title">

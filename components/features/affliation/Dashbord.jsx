@@ -4,7 +4,7 @@ import ALink from '../../common/ALink';
 function Dashbord() {
     return (
         <div className='container'>
-            <div className="db-container container">
+            <div className="db-container">
                 <div className="card gradient-1">
                     <div className="card-content" style={{ padding: "20px" }}>
                         <h4>Affiliate Earnings</h4>

@@ -185,7 +185,7 @@ function Account() {
                           className="feature-box text-center justify-content-center pb-4 content-box"
                           style={{ width: "321.46px", height: "276.71px" }}
                         >
-                          <ALink href="/pages/address">
+                          <ALink href="/pages/addresses">
                             <div
                                style={{
                                 width: "321.46px",

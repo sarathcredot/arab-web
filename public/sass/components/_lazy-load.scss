@@ -89,3 +89,12 @@
 		}
 	}
 }
+@media (max-width: 768px) {
+	.media-with-lazy{
+		figure {
+			&::before{
+				padding-top: 124%;
+			}
+		}
+	}	
+}

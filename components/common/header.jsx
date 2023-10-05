@@ -173,7 +173,7 @@ function Header({ adClass = "", wishlist }) {
                 </div>
               </div>
 
-              <ALink href="/pages/login" className="d-lg-block d-none">
+              <ALink href="/pages/account" className="d-lg-block d-none">
                 <div className="header-user">
                   <div className={styles.circle}>
                     <BiSolidUser style={{ fontSize: "20px" }} />

@@ -48,7 +48,7 @@ export default function SingleTabOne(props) {
                     <TabPanel className="tab-pane fade">
                     <div className="container" style={{ marginTop: "79px" }} >
                         <div
-
+                            
                         >
                             <img
                                 src="images\brands\deatail-banner-1.svg"
@@ -57,7 +57,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-
+                           
                         >
                             <img
                                 src="images\brands\product-detail-banner-2.svg"
@@ -66,7 +66,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-
+                            
                         >
                             <img
                                 src="images\brands\detail-3.svg"
@@ -75,7 +75,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-
+                           
                         >
                             <img
                                 src="images\brands\detail-4.svg"
@@ -84,7 +84,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-
+                           
                         >
                             <img
                                 src="images\brands\deatil-5.svg"
@@ -93,7 +93,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-
+                           
                         >
                             <img
                                 src="images\brands\detail-6.svg"
@@ -102,7 +102,7 @@ export default function SingleTabOne(props) {
                             />
                         </div>
                         <div
-
+                           
                         >
                             <img
                                 src="images\brands\detail-7.svg"
