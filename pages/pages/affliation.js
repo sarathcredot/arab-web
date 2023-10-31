@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import ALink from "../../components/common/ALink";
 import StartAffliation from "../../components/features/affliation/StartAffliation";
 import Loading from "../../components/features/affliation/Loading";
-import Form from "../../components/features/affliation/form";
-import Dashbord from "../../components/features/affliation/dashbord";
+import Form from "../../components/features/affliation/Form";
+import Dashbord from "../../components/features/affliation/Dashbord";
 
 function affliation() {
   const [showForm, setShowForm] = useState(false);
