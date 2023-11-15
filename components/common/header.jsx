@@ -166,7 +166,17 @@ function Header({ adClass = "", wishlist }) {
                     </li>
                     <li>
                       <ALink href="#">
-                      <img src="/images/uae.svg"></img>FRA
+                      <img src="/images/ind.svg" className={styles.flagimg}></img>IND
+                      </ALink>
+                    </li>
+                    <li>
+                      <ALink href="#">
+                      <img src="/images/omn.png"className={styles.flagimg} ></img>OMN
+                      </ALink>
+                    </li>
+                    <li>
+                      <ALink href="#">
+                      <img src="/images/sar.png"className={styles.flagimg} ></img>SAR
                       </ALink>
                     </li>
                   </ul>
