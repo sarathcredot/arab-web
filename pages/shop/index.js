@@ -172,7 +172,7 @@ function Shop() {
             ) : (
               <li className="breadcrumb-item active" aria-current="page">
                 <ALink className="activeitem" href="/pages/shope">
-                  Shope
+                  Shop
                 </ALink>
               </li>
             )}
@@ -199,10 +199,19 @@ function Shop() {
             12 Search Results Found
           </p>
         </div>
+<<<<<<< HEAD
 
         <div className="row" style={{ border: "1px solid #B9B9B9" }}>
           <div className="col-lg-9 main-content" style={{ padding: 0,  borderLeft: '1px solid #B9B9B9'}}>
             <nav className="toolbox sticky-header mobile-sticky" style={{margin: '0' }}>
+=======
+        <div
+          className="row"
+          
+        >
+          <div className="col-lg-9 main-content" style={{border:"1px solid " ,  }}>
+            <nav className="toolbox sticky-header mobile-sticky">
+>>>>>>> origin/main
               <div className="toolbox-left">
                 <a
                   href="#"
