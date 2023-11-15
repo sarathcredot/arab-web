@@ -41,7 +41,7 @@ function CategoryFilterSection() {
 
   return (
     <section
-      className={`category-filter-section bg-gray skeleton-body skel-shop-products ${
+      className={`category-filter-section skeleton-body skel-shop-products ${
         loading ? "" : "loaded"
       }`}
     >

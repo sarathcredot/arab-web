@@ -30,6 +30,33 @@
   }
 }
 
+
+
+@media (max-width: 768px) {
+  .input-container {
+    width: 90%;
+    max-width: none;
+    height: auto;
+    border-radius: 12px;
+    padding: 10px;
+
+    .icon {
+      width: 100px;
+      height: 100px;
+    }
+
+    .header-content {
+      font-size: 24px;
+      margin-top: 10px;
+    }
+
+    .content {
+      font-size: 12px;
+      margin-top: 10px;
+    }
+  }
+}
+
 .uploade {
   width: 475px;
   height: 106px;
@@ -46,13 +73,15 @@
 }
 
 .uplode-content {
-  width: 475px;
-  height: 69px;
+  width: 100%;
+  max-width: 475px;
+  height: 0;
   background-color: #f9f9f9;
   display: flex;
   align-items: center;
-  // padding: 10px;
   border-radius: 8px;
+  overflow: hidden; 
+  height: 69px;
 }
 
 .icon-container {
@@ -86,10 +115,28 @@
   padding-right: 20px;
 }
 
+@media (max-width: 768px) {
+  .input-container,
+  .uploade,
+  .form-container {
+    max-width: 100%;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
 .form-container {
   width: 639px;
   height: 727px;
-  position: absolute;
+  // position: absolute;
 
   border-radius: 18px;
   background-color: #f9f9f9;
@@ -120,35 +167,33 @@
   }
 }
 
-@media (max-width: 992px) {
-  .input-container {
-    width: 100%;
-    padding: 20px;
-    text-align: center;
-  }
-
-  .uploade,
-  .form-container {
-    width: 100%;
-    padding: 20px;
-  }
-}
 
 @media (max-width: 768px) {
-  .input-container {
-    padding: 10px;
-  }
-
-  .uploade,
   .form-container {
     padding: 10px;
+    margin-top: 20px;
+  }
+
+  .form-header {
+    font-size: 20px;
+    line-height: 1.2;
+  }
+
+  .form-group {
+    font-size: 16px;
+    line-height: 1.5;
+  }
+
+  .styled-button {
+    max-width: none;
   }
 }
+
+
 
 ///dashboard
 .db-container {
   display: flex;
-  justify-content: between;
   gap: 5rem;
   margin-bottom: 20px;
 
@@ -165,6 +210,7 @@
   }
   .card {
     width: 437px;
+    max-width: 100%;
     height: 234px;
     border: 1px solid;
     margin-top: 40px;

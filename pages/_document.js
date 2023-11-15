@@ -10,9 +10,9 @@ export default class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
-          <base href="/react/porto/demo36/" />
+          <base href="/" />
           {process.env.NODE_ENV === "production" ? (
-            <title>Porto - React eCommerce Template</title>
+            <title>Arab Deals</title>
           ) : (
             ""
           )}

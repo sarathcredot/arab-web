@@ -19,7 +19,7 @@
 			sidebar: (
 				space: false,
 				padding: 2rem,
-				border: 1px solid #e7e7e7,
+				border: 1px solid #B9B9B9,
 
 				title: (
 					color: #313131,
@@ -52,7 +52,7 @@
 
 	.widget {
 		@include css( padding, category, sidebar, padding );
-		@include css( border, category, sidebar, border );
+		// @include css( border, category, sidebar, border );
 		@include clearfix;
 
 		&:not(:last-child) {
@@ -1049,7 +1049,7 @@ span.toggle {
 		}
 
 		&:not(:last-child) {
-			border-bottom: 1px solid #e7e7e7;
+			border-bottom: 1px solid #B9B9B9;
 		}
 	}
 

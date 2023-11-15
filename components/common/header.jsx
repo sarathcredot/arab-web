@@ -155,25 +155,25 @@ function Header({ adClass = "", wishlist }) {
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
                 <ALink href="#">
-                  <i className="flag-us flag"></i>ENG
+                  <img src="/images/uae.svg"></img>ENG
                 </ALink>
                 <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#">
-                        <i className="flag-us flag mr-2"></i>ENG
+                      <img src="/images/uae.svg"></img>ENG
                       </ALink>
                     </li>
                     <li>
                       <ALink href="#">
-                        <i className="flag-fr flag mr-2"></i>FRA
+                      <img src="/images/uae.svg"></img>FRA
                       </ALink>
                     </li>
                   </ul>
                 </div>
               </div>
 
-              <ALink href="/pages/login" className="d-lg-block d-none">
+              <ALink href="/pages/account" className="d-lg-block d-none">
                 <div className="header-user">
                   <div className={styles.circle}>
                     <BiSolidUser style={{ fontSize: "20px" }} />

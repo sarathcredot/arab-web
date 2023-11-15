@@ -5,7 +5,7 @@ import ALink from "../../components/common/ALink";
 import Qty from '../../components/partials/product/qty';
 import { actions as CartAction } from "../../store/cart";
 import { getCartTotal } from '../../utils';
-
+import {AiOutlineClose} from 'react-icons/ai'
 function Cart ( props ) {
     const [ cartList, setCartList ] = useState( [] );
 
@@ -29,18 +29,44 @@ function Cart ( props ) {
 
     return (
         <main className="main">
-            <div className="container">
-                <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
-                    <li className="active">
-                        <ALink href="/pages/cart">Shopping Cart</ALink>
-                    </li>
-                    <li>
-                        <ALink href="/pages/checkout">Checkout</ALink>
-                    </li>
-                    <li className="disabled">
-                        <ALink href="#">Order Complete</ALink>
-                    </li>
-                </ul>
+
+
+<nav aria-label="breadcrumb" className="breadcrumb-nav">
+          <div className="container">
+            <ol className="breadcrumb">
+            <li className="breadcrumb-item" >
+              <ALink href="/">
+                <i className="icon-home"></i>
+              </ALink>
+            </li>
+             
+              <li className="breadcrumb-item active" aria-current="page">
+              <ALink className="activeitem" href="/pages/cartt">Shoping cart</ALink>
+              </li>
+            </ol>
+          </div>
+        </nav>
+        <div
+          className=" d-flex flex-column align-items-center"
+          style={{ backgroundColor: "#F9F9F9" }}
+        >
+          {/* <h1>orders</h1>*/}
+
+          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+           
+            <li className="active">
+              <ALink href="/pages/cart">Shoping cart</ALink>
+            </li>
+            <li className="">
+              <ALink href="/pages/checkout">checkout</ALink>
+            </li>
+            <li className="">
+              <ALink href="/pages/checkout">Order Complete</ALink>
+            </li>
+          </ul>
+        </div>
+            <div className="container" style={{marginTop:"70px"}}>
+               
 
                 {
                     cartList.length === 0 ?
@@ -77,8 +103,11 @@ function Cart ( props ) {
                                                                 <ALink href={ `/product/default/${item.slug}` } className="product-image">
                                                                     <img src={ process.env.NEXT_PUBLIC_ASSET_URI + item.small_pictures[ 0 ].url } alt="product" />
                                                                 </ALink>
+<div title="Remove Product" style={{width:"20px", height:"20px",position:"absolute",top:"-7px",display:"flex",justifyContent:"center",alignItems:"center",right:"-5px",borderRadius:"50%", background:"white",filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))"}} onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }>
+<AiOutlineClose style={{fontSize:"10px"}}/>
 
-                                                                <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }></a>
+</div>
+                                                                {/* <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }></a> */}
                                                             </figure>
                                                         </td>
                                                         <td className="product-col">
@@ -116,11 +145,11 @@ function Cart ( props ) {
                                                         </div>
                                                     </div>
 
-                                                    <div className="float-right">
+                                                    {/* <div className="float-right">
                                                         <button type="submit" className="btn btn-shop btn-update-cart" style={{border:"1px solid"}} onClick={ updateCart }>
                                                             Update Cart
                                                         </button>
-                                                    </div>
+                                                    </div> */}
                                                 </td>
                                             </tr>
                                         </tfoot>

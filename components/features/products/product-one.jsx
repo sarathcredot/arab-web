@@ -37,11 +37,9 @@ function ProductOne(props) {
     );
   }
 
-
   function isInCart() {
     return (
-      product &&
-      props.cart.findIndex((item) => item.slug === cart.slug) > -1
+      product && props.cart.findIndex((item) => item.slug === cart.slug) > -1
     );
   }
 
@@ -167,23 +165,34 @@ function ProductOne(props) {
         className="product-details"
         style={{ alignItems: "left", justifyContent: "left" }}
       >
-        <div className="category-wrap" style={{display:"flex", marginTop:"0", alignItems:"center",justifyContent:"center"}}>
-
+        <div
+          className="category-wrap"
+          style={{
+            display: "flex",
+            marginTop: "0",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
           <div className="category-list">
             {product.categories
               ? product.categories.map((item, index) => (
-                <React.Fragment key={item.slug + "-" + index}>
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: item.slug },
-                    }}
-                  >
-                    {item.name}
-                  </ALink>
-                  {index < product.categories.length - 1 ? ", " : ""}
-                </React.Fragment>
-              ))
+                  <React.Fragment key={item.slug + "-" + index}>
+                    <ALink
+                      href={{
+                        pathname: "/shop",
+                        query: { category: item.slug },
+                      }}
+                      style={{
+                        color: "rgba(227, 6, 19, 1)",
+                        fontWeight: "700",
+                      }}
+                    >
+                      {item.name}
+                    </ALink>
+                    {index < product.categories.length - 1 ? ", " : ""}
+                  </React.Fragment>
+                ))
               : ""}
           </div>
 
@@ -191,20 +200,26 @@ function ProductOne(props) {
 
           <a
             href="#"
-            className={`btn ${(e)=>onAddCartClick(e) ? "" : ""
-              }`}
-            onClick={(e)=>onAddCartClick(e)}
-            title={`${ (e)=>isInCart(e) === true ? "Go cart" : "Add to Cart"
-
-
-              }`}
+            className={`btn ${(e) => (onAddCartClick(e) ? "" : "")}`}
+            onClick={(e) => onAddCartClick(e)}
+            title={`${(e) =>
+              isInCart(e) === true ? "Go cart" : "Add to Cart"}`}
             style={{ width: "70px", height: "70px", marginLeft: "20px" }}
           >
-            <i class="icon-plus" style={{ height:"40px",width:"40px", borderRadius: "200px", display: "inline-block", padding: "11px", backgroundColor: isInWishlist() == true ? "#E30613" : "", borderColor: "#DDDDDD", border: isInWishlist() == true ? "" : "1px solid " }}></i>
+            <i
+              class="icon-plus"
+              style={{
+                height: "40px",
+                width: "40px",
+                borderRadius: "200px",
+                display: "inline-block",
+                padding: "11px",
+                backgroundColor: isInWishlist() == true ? "#E30613" : "",
+                borderColor: "#DDDDDD",
+                border: isInWishlist() == true ? "" : "1px solid ",
+              }}
+            ></i>
           </a>
-
-
-
         </div>
 
         <h3 className="product-title">
@@ -227,7 +242,7 @@ function ProductOne(props) {
 
         <div className="price-box">
           <span >OMR</span>
-          <span className="product-price" style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "800px", fontSize: "16px", lineHeight: "15px", marginLeft: "10px" }} >
+          <span className="product-price" style={{ fontFamily: "Poppins", fontWeight: "800px", fontSize: "16px", lineHeight: "15px", marginLeft: "10px" }} >
             {product.price[0].toFixed(2)}
           </span>
           <span className="old-price" style={{ marginLeft: "10px", color: "#777777" }}>

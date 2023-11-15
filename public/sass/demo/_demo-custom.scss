@@ -112,9 +112,11 @@ span.toggle {
     >.row {
         margin-right: -1px;
         
+        >div:not(:nth-last-child(-n + 4)) {
+            border-bottom: 1px solid #B9B9B9;
+        }
         >div {
             border-right: 1px solid #B9B9B9;
-            border-bottom: 1px solid #B9B9B9;
         }
     }
 }

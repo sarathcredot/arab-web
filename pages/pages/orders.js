@@ -32,7 +32,29 @@ function Wishlist(props) {
 
   return (
     <main className="main">
+      <div className="container">
+
+      <nav aria-label="breadcrumb" className="breadcrumb-nav">
+          <div className="container">
+            <ol className="breadcrumb">
+            <li className="breadcrumb-item" >
+              <ALink href="/">
+                <i className="icon-home" ></i>
+              </ALink>
+            </li>
+            <li className="breadcrumb-item active" aria-current="page">
+              <ALink href="/pages/account">My account</ALink>
+              </li>
+             
+              <li className="breadcrumb-item active" aria-current="page">
+              <ALink className="activeitem" href="/pages/orders">Orders</ALink>
+              </li>
+            </ol>
+          </div>
+        </nav>
+      </div>
       <div className="page-header">
+        
         <div className="container d-flex flex-column align-items-center">
           {/* <nav aria-label="breadcrumb" className="breadcrumb-nav">
                         <div className="container">
@@ -82,8 +104,8 @@ function Wishlist(props) {
           <div className="wishlist-table-container">
             <div className="table table-wishlist mb-0">
               <div className="wishlist-empty-page text-center">
-                <i className="far fa-heart"></i>
-                <p>No products added to the wishlist</p>
+              <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                <p>No products Ordered</p>
                 <ALink
                   href="/shop"
                   className="btn btn-dark btn-add-cart product-type-simple btn-shop font1 w-auto"

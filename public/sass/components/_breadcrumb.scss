@@ -11,10 +11,10 @@
 	(
 
 		breadcrumb: (
-			color: #8e8e8e,
+			color: rgba(0, 0, 0, 1),
 			letter-spacing: -.01em,
 			border-top: false,
-			border-bottom: 1px solid #dfdfdf,
+			// border-bottom: 1px solid #dfdfdf,
 			margin-bottom: false,
 			padding: 1rem,
 
@@ -39,7 +39,7 @@
 .breadcrumb-nav {
 	@include css( color, breadcrumb, color );
 	@include css( border-top, breadcrumb, border-top);
-	@include css( border-bottom, breadcrumb, border-bottom);
+	// @include css( border-bottom, breadcrumb, border-bottom);
 	@include css( margin-bottom, breadcrumb, margin-bottom);
 }
 
@@ -61,6 +61,7 @@
 	@include css( letter-spacing, breadcrumb, letter-spacing );
 	line-height: 24px;
 	text-transform: uppercase;
+	
 
 	& + & {
 		@include css( padding-left, breadcrumb, divider, space);
@@ -79,10 +80,28 @@
 
 	a:not(:first-child) {
 		margin-left: 5px;
+		
 	}
+
+	a{
+		border: 1px solid #ccc;
+		padding: 10px 14px;
+		border-radius: 50px;
+font-weight: 600;
+		
+		
+	}
+	.activeitem{
+		background-color: black;
+		color: white;
+		border: 1px solid black;
+	}
+	
 
 	a,
 	&.active {
 		color: inherit;
+		
 	}
+	
 }

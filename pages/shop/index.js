@@ -93,7 +93,7 @@ function Shop() {
       <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
         <div className="container">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item" >
+            <li className="breadcrumb-item">
               <ALink href="/">
                 <i className="icon-home"></i>
               </ALink>
@@ -171,7 +171,9 @@ function Shop() {
               </>
             ) : (
               <li className="breadcrumb-item active" aria-current="page">
-                Shop
+                <ALink className="activeitem" href="/pages/shope">
+                  Shope
+                </ALink>
               </li>
             )}
           </ol>
@@ -197,12 +199,10 @@ function Shop() {
             12 Search Results Found
           </p>
         </div>
-        <div
-          className="row"
-          
-        >
-          <div className="col-lg-9 main-content">
-            <nav className="toolbox sticky-header mobile-sticky">
+
+        <div className="row" style={{ border: "1px solid #B9B9B9" }}>
+          <div className="col-lg-9 main-content" style={{ padding: 0,  borderLeft: '1px solid #B9B9B9'}}>
+            <nav className="toolbox sticky-header mobile-sticky" style={{margin: '0' }}>
               <div className="toolbox-left">
                 <a
                   href="#"
@@ -270,72 +270,16 @@ function Shop() {
                   </svg>
                   <span>Filter</span>
                 </a>
-
-                {/* <div className="toolbox-item toolbox-sort">
-                  <label>Sort By:</label>
-
-                  <div className="select-custom">
-                    <select
-                      name="orderby"
-                      className="form-control"
-                      value={sortBy}
-                      onChange={(e) => onSortByChange(e)}
-                    >
-                      <option value="default">Default sorting</option>
-                      <option value="popularity">Sort by popularity</option>
-                      <option value="rating">Sort by average rating</option>
-                      <option value="date">Sort by newness</option>
-                      <option value="price">Sort by price: low to high</option>
-                      <option value="price-desc">
-                        Sort by price: high to low
-                      </option>
-                    </select>
-                  </div>
-                </div> */}
-              </div>
-
-              <div className="toolbox-right">
-                {/* <div className="toolbox-item toolbox-show">
-                  <label>Show:</label>
-
-                  <div className="select-custom">
-                    <select
-                      name="count"
-                      className="form-control"
-                      value={perPage}
-                      onChange={(e) => onPerPageChange(e)}
-                    >
-                      <option value="12">12</option>
-                      <option value="24">24</option>
-                      <option value="36">36</option>
-                    </select>
-                  </div>
-                </div> */}
-
-                {/* <div className="toolbox-item layout-modes">
-                  <ALink
-                    href={{ pathname: router.pathname, query: query }}
-                    className="layout-btn btn-grid active"
-                    title="Grid"
-                  >
-                    <i className="icon-mode-grid"></i>
-                  </ALink>
-                  <ALink
-                    href={{ pathname: "/shop/list", query: query }}
-                    className="layout-btn btn-list"
-                    title="List"
-                  >
-                    <i className="icon-mode-list"></i>
-                  </ALink>
-                </div> */}
               </div>
             </nav>
 
-            <ProductsGrid
-              products={products}
-              loading={loading}
-              perPage={perPage}
-            />
+            <div>
+              <ProductsGrid
+                products={products}
+                loading={loading}
+                perPage={perPage}
+              />
+            </div>
           </div>
 
           <ShopSidebarOne />
@@ -369,12 +313,9 @@ function Shop() {
       )}
 
       <div className=" container" style={{ paddingTop: "37px" }}>
-        <div
-          
-        >
+        <div>
           <img
-            src="images\brands\banner Image Lising.svg" 
-          
+            src="images\brands\banner Image Lising.svg"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </div>

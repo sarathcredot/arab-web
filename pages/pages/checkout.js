@@ -3,8 +3,10 @@ import { connect } from "react-redux";
 import SlideToggle from "react-slide-toggle";
 import ALink from "../../components/common/ALink";
 import { getCartTotal } from "../../utils";
-
+import { BiSolidUpArrow, BiSolidDownArrow } from "react-icons/bi";
+import { useState } from "react";
 function CheckOut({ cartList }) {
+  const [toggler,setToggler]=useState(false)
   return (
     <main className="main main-test">
       <div className="container checkout-container">
@@ -36,35 +38,76 @@ function CheckOut({ cartList }) {
         ) : (
           <>
             <div className="checkout-discount">
-              <SlideToggle duration={200} collapsed>
-                {({ onToggle, setCollapsibleElement }) => (
+              <SlideToggle
+                duration={200}
+                collapsed
+                onExpanded={() => {
+                setToggler(true);
+                }}
+                onCollapsed={() => {
+                  /* optional event hook */
+                setToggler(false);
+
+                }}
+              >
+                {({ onToggle, toggle, setCollapsibleElement }) => (
                   <div className="m-b-3 mb-4">
                     <div
                       className="feature-box feature-coupon mb-0"
                       style={{ overflow: "hidden" }}
                     >
                       <div className="feature-box-content mt-0">
-                        <h4
-                          className="mb-1"
+                        <div
                           style={{
-                            fontSize: "22px",
-                            fontWeight: "600",
-                            color: "black",
+                            display: "flex",
+                            justifyContent: "space-between",
                           }}
                         >
-                          Have a coupon?{" "}
-                          <button
-                            className="btn btn-link btn-toggle"
-                            onClick={onToggle}
+                          <div>
+                            <h4
+                              className="mb-1"
+                              style={{
+                                fontSize: "22px",
+                                fontWeight: "600",
+                                color: "black",
+                              }}
+                            >
+                              Have a coupon?{" "}
+                              <button
+                                className="btn btn-link btn-toggle"
+                                onClick={onToggle}
+                                style={{
+                                  fontSize: "22px",
+                                  fontWeight: "600",
+                                  color: "black",
+                                }}
+                              >
+                                Enter your code
+                              </button>
+                            </h4>
+                          </div>
+                          <div
                             style={{
-                              fontSize: "22px",
-                              fontWeight: "600",
-                              color: "black",
+                              width: "40px",
+                              height: "40px",
+                              borderRadius: "50%",
+                              background: "rgba(232,232,232,0.29)",
+                              display: "flex",
+                              justifyContent: "center",
+                              alignItems: "center",
+                            }}
+                            onClick={() => {
+                              onToggle();
+                              console.log(toggle);
                             }}
                           >
-                            Enter your code
-                          </button>
-                        </h4>
+                            {toggler ? (
+                              <BiSolidUpArrow style={{ color: "black" }} />
+                            ) : (
+                              <BiSolidDownArrow style={{ color: "black" }}/>
+                            )}
+                          </div>
+                        </div>
                         <p className="ls-0" style={{ color: "#737373" }}>
                           If you have a coupon code, please apply it below.
                         </p>
@@ -83,7 +126,10 @@ function CheckOut({ cartList }) {
                               </button>
                             </div>
                           </div>
-                          <div className="row pl-1">
+                          <div
+                            className="row pl-3"
+                            style={{ color: "#E30613", fontWeight: "500" }}
+                          >
                             <p> Get available coupon codes</p>
                           </div>
                         </form>

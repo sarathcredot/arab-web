@@ -5,7 +5,7 @@ import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 // Import Custom Component
 import ALink from "../../common/ALink";
 import ProductOne from "../../features/products/product-one";
-import OwlCarousel from "../../features/owl-carousel";
+import OwlCarousel from "react-owl-carousel2";
 
 // Import Settigns
 import { fadeIn } from "../../../utils/data/keyframes";
@@ -13,11 +13,13 @@ import { productSlider } from "../../../utils/data/slider";
 
 function TopBrand(props) {
   const options = {
-    items: 7, // Number of items to show
+    items: 8, // Number of items to show
     margin: 10, // Space between items
     loop: true, // Enable loop
-    autoplay: false, // Autoplay the slider
-    autoplayTimeout: 3000, // Autoplay interval (3 seconds in this example)
+    autoplay: true, // Autoplay the slider
+    autoplayTimeout: 3000,
+    // Autoplay interval (3 seconds in this example)
+    dots: false,
     responsive: {
       0: {
         items: 3, // Number of items to show on small screens
@@ -29,11 +31,7 @@ function TopBrand(props) {
         items: 7, // Number of items to show on large screens
       },
     },
-    nav: true,
-    navText: [
-      "<div >Next</div>", // You can use icons or text here
-      "<div style={{marginBottom:-38px}}>Prev</div>", // Customize as needed
-    ],
+    nav: false,
   };
 
   const brands = [
@@ -45,25 +43,31 @@ function TopBrand(props) {
     "images/samsung.svg",
     "images/lg.svg",
     "images/dell.svg",
+    "images/sony.svg",
   ];
 
   return (
     <>
-      <div>
-        <h4 className="mb-4">Top Brands</h4>
+      <div className="container">
+        <div>
+          <h4 className="mb-4">Top Brands</h4>
+        </div>
+        <div>
+          <OwlCarousel options={options} autoplay>
+            {brands.map((brand, index) => (
+              <div key={index} className=" item mb-4">
+                <img
+                  src={brand}
+                  alt={`Brand ${index + 1}`}
+                  style={{ width: "128px", height: "128px" }}
+                />
+              </div>
+            ))}
+          </OwlCarousel>
+        </div>
       </div>
       <div>
-        <OwlCarousel options={options} adClass="w-full ">
-          {brands.map((brand, index) => (
-            <div key={index} className="item mb-4">
-              <img
-                src={brand}
-                alt={`Brand ${index + 1}`}
-                style={{ width: "128px", height: "128px" }}
-              />
-            </div>
-          ))}
-        </OwlCarousel>
+        <img src="images/banners/bannermiddle.svg" />
       </div>
     </>
   );

@@ -2,6 +2,7 @@ import React from "react";
 
 import ALink from "./ALink";
 
+
 function Footer() {
   return (
     <footer className="footer font2">
@@ -481,7 +482,13 @@ function Footer() {
               </ul>
             </div>
 
-            <div className="col-md-12 offset-lg-1 col-lg-3">
+            <div className="col-md-12 offset-lg-1 col-lg-3 custom-helpline" >
+
+              <img src="images/helpline.svg"/>
+              <p style={{color:"rgba(27, 27, 27, 1)"}}>Helpline</p>
+              <h4>1800 45684788</h4>
+            </div>
+            {/* <div className="col-md-12 offset-lg-1 col-lg-3">
               <div className="widget widget-payment">
                 <h3 className="widget-title ls-0">PAYMENT METHODS</h3>
 
@@ -518,7 +525,7 @@ function Footer() {
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
 

@@ -936,6 +936,14 @@
     }
 }
 
+.deal-products-section{
+    .deal-section-head{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
 .live-search-list {
     left: 0;
     right: 0;
@@ -1070,7 +1078,7 @@
     display: inline-flex;
     align-items: center;
     font-weight: 600;
-    color: $primary-color;
+    color:  rgba(227, 6, 19, 1);
     font-size: 12px;
 
     i {
@@ -1078,7 +1086,9 @@
         margin-top: 2px;
     }
 }
-
+.custom-helpline{
+    margin-top: 160px;
+}
 // 3. Component
 // 3.1) Base
 body {
@@ -1291,9 +1301,7 @@ body {
 }
 
 @media (max-width: 1500px) {
-    .container{
-        max-width: 1348;
-    }
+   
     .main-nav>.menu:not(.menu-vertical) {
         .menu-item {
             margin-right: 1.2rem;
