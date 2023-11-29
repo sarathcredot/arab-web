@@ -1,11 +1,14 @@
 import ALink from "../components/common/ALink";
-
+import { IoMdHome } from "react-icons/io";
 export default function PageNotFound () {
     return (
         <div className="container">
             <nav aria-label="breadcrumb" className="breadcrumb-nav">
                 <ol className="breadcrumb">
-                    <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                    <li className="breadcrumb-item"><ALink href="/">
+                    <IoMdHome style={{fontSize:"16px"}}/>
+                        {/* <i className="icon-home"></i> */}
+                        </ALink></li>
                     <li className="breadcrumb-item active" aria-current="page">404</li>
                 </ol>
             </nav>

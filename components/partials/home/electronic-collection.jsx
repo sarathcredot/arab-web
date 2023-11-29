@@ -49,7 +49,7 @@ function ElectronicCollection({ products }) {
         </div>
 
         <div className="applesection-container mb-4">
-          <div className="container">
+          <div className="container" >
             <GardenCollection
               latest={latest}
               bestSelling={bestSelling}

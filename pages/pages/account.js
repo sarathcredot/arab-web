@@ -1,7 +1,7 @@
 import React from 'react';
 import ALink from '../../components/common/ALink';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
-
+import { IoMdHome } from "react-icons/io";
 function Account() {
   return (
     <div>
@@ -12,7 +12,8 @@ function Account() {
             <ol className="breadcrumb">
             <li className="breadcrumb-item" >
               <ALink href="/">
-                <i className="icon-home"></i>
+                <IoMdHome style={{fontSize:"16px"}}/>
+                {/* <i className="icon-home"></i> */}
               </ALink>
             </li>
              

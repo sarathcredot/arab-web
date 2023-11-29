@@ -128,7 +128,15 @@
 		}
 	}
 }
-
+.custom-addcart{
+	width: 43px;
+	height: 43px;
+	border-radius: 50%;
+                border: 1px solid #DDD;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+}
 .product-panel {
 	margin-bottom: 3.5rem;
 
@@ -214,7 +222,8 @@ line-height: 15px;
 // 1.3) Label
 	.label-group {
 		position: absolute;
-		top: .8rem;
+		// top: .8rem;
+		top: .9rem;
 		left: .8rem;
 	}
 
@@ -223,15 +232,15 @@ line-height: 15px;
 		text-align: center;
 		margin-bottom: 5px;
 		text-transform: uppercase;
-		padding: 5px 11px;
+		padding: 5px 13px;
 		color: #fff;
 		font-weight: 600;
 		font-size: 10px;
 		line-height: 1;
-		border-radius: 12px;
+		
 
 		&.label-hot {
-			background-color: #2ba968;
+			background-color: #44961D;
 		}
 
 		&.label-sale {
@@ -299,9 +308,10 @@ line-height: 15px;
 		font-family: $second-font-family;
 		line-height: 1.35;
 		letter-spacing: .005em;
-	    margin-bottom: .4rem;
+	    margin-bottom:1.7rem;
 		text-overflow: ellipsis;
 		overflow: hidden;
+		margin-top: 8px;
 	}
 
 	.title-wrap {
@@ -501,8 +511,10 @@ line-height: 15px;
 
 .price-box {
     margin-bottom: 1.4rem;
-	font-weight: 600;
-	font-family: $font-family;
+	font-weight: 700;
+	font-family: Plus Jakarta Sans ;
+    color: #606060;
+	// font-family: $font-family;
 	line-height: 1;
 }
 

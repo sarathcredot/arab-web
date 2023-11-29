@@ -13,7 +13,7 @@ import ProductDetailFive from '../../../components/partials/product/details/prod
 import ProductWidgetContainer from '../../../components/partials/product/widgets/product-widget-container';
 import RelatedProducts from '../../../components/partials/product/widgets/related-products';
 import SingleTabFour from '../../../components/partials/product/tabs/single-tab-four';
-
+import { IoMdHome } from "react-icons/io";
 function ProductCenter () {
     if ( !useRouter().query.slug ) return (
         <div className="loading-overlay">
@@ -39,7 +39,10 @@ function ProductCenter () {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-4">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            {/* <i className="icon-home"></i> */}
+                            </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
                         <li className="breadcrumb-item">
                             {

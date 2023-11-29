@@ -155,13 +155,13 @@ function Header({ adClass = "", wishlist }) {
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
                 <ALink href="#">
-                  <img src="/images/uae.svg"></img>ENG
+                  <img src="/images/uae.svg"></img>UAE
                 </ALink>
                 <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#">
-                      <img src="/images/uae.svg"></img>ENG
+                      <img src="/images/uae.svg"></img>UAE
                       </ALink>
                     </li>
                     <li>

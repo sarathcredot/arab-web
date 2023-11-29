@@ -176,7 +176,7 @@ function Footer() {
                   </ALink>{" "}
                   |{" "}
                   <ALink className="view-all" href={{ pathname: "/shop" }}>
-                    View All<i className="fas fa-long-arrow-alt-right ml-1"></i>
+                    View All
                   </ALink>
                 </li>
                 <li>
@@ -226,17 +226,9 @@ function Footer() {
                     Home Electronic
                   </ALink>{" "}
                   |{" "}
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: "bags-and-cases" },
-                    }}
-                  >
-                    Bags &amp; Cases
-                  </ALink>{" "}
-                  |{" "}
+                 
                   <ALink className="view-all" href={{ pathname: "/shop" }}>
-                    View All<i className="fas fa-long-arrow-alt-right ml-1"></i>
+                    View All
                   </ALink>
                 </li>
                 <li>
@@ -278,7 +270,7 @@ function Footer() {
                   </ALink>{" "}
                   |{" "}
                   <ALink className="view-all" href={{ pathname: "/shop" }}>
-                    View All<i className="fas fa-long-arrow-alt-right ml-1"></i>
+                    View All
                   </ALink>
                 </li>
                 <li>
@@ -328,17 +320,10 @@ function Footer() {
                     Dressing Tables
                   </ALink>{" "}
                   |{" "}
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: "chest-of-drawers" },
-                    }}
-                  >
-                    Chest of Drawers
-                  </ALink>{" "}
-                  |{" "}
+                  
+                  
                   <ALink className="view-all" href={{ pathname: "/shop" }}>
-                    View All<i className="fas fa-long-arrow-alt-right ml-1"></i>
+                    View All
                   </ALink>
                 </li>
                 <li>
@@ -394,17 +379,9 @@ function Footer() {
                     Studio Equipments
                   </ALink>{" "}
                   |{" "}
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: "piano-keyboards" },
-                    }}
-                  >
-                    Piano &amp; Keyboards
-                  </ALink>{" "}
-                  |{" "}
+                  
                   <ALink href="/shop" className="view-all">
-                    View All<i className="fas fa-long-arrow-alt-right ml-1"></i>
+                    View All
                   </ALink>
                 </li>
                 <li>
@@ -459,32 +436,21 @@ function Footer() {
                   >
                     Hunting &amp; Fishing
                   </ALink>{" "}
-                  |{" "}
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: "leisure-sports" },
-                    }}
-                  >
-                    Leisure Sports
-                  </ALink>{" "}
-                  |{" "}
-                  <ALink
-                    href={{ pathname: "/shop", query: { category: "running" } }}
-                  >
-                    Running{" "}
-                  </ALink>{" "}
+                 
+                 
+                 
+                 
                   |&nbsp;
                   <ALink className="view-all" href={{ pathname: "/shop" }}>
-                    View All<i className="fas fa-long-arrow-alt-right ml-1"></i>
+                    View All
                   </ALink>
                 </li>
               </ul>
             </div>
 
-            <div className="col-md-12 offset-lg-1 col-lg-3 custom-helpline" >
+            <div className="col-md-12 offset-lg-1 col-lg-3 custom-helpline"style={{display:"flex",alignSelf:"self-end",flexDirection:"column"}} >
 
-              <img src="images/helpline.svg"/>
+              <img src="images/helpline.svg" style={{width:"30px"}}/>
               <p style={{color:"rgba(27, 27, 27, 1)"}}>Helpline</p>
               <h4>1800 45684788</h4>
             </div>
@@ -529,9 +495,9 @@ function Footer() {
           </div>
         </div>
 
-        <div className="footer-bottom d-sm-flex align-items-center justify-content-center">
+        <div className="footer-bottom d-sm-flex align-items-center justify-content-left">
           <span className="footer-copyright">
-            Porto eCommerce. © 2021. All Rights Reserved
+          Arab Deals © 2023. All Rights Reserved
           </span>
         </div>
       </div>

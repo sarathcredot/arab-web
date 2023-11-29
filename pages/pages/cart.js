@@ -6,6 +6,7 @@ import Qty from '../../components/partials/product/qty';
 import { actions as CartAction } from "../../store/cart";
 import { getCartTotal } from '../../utils';
 import {AiOutlineClose} from 'react-icons/ai'
+import { IoMdHome } from "react-icons/io";
 function Cart ( props ) {
     const [ cartList, setCartList ] = useState( [] );
 
@@ -36,7 +37,9 @@ function Cart ( props ) {
             <ol className="breadcrumb">
             <li className="breadcrumb-item" >
               <ALink href="/">
-                <i className="icon-home"></i>
+                <IoMdHome style={{fontSize:"16px"}}/>
+                {/* <i className="icon-home"></i> */}
+
               </ALink>
             </li>
              

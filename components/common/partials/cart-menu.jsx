@@ -81,8 +81,20 @@ function CartMenu(props) {
         </a>
 
         <div className="dropdownmenu-wrapper">
+          <div style={{display:"flex"}}> 
           <div className="dropdown-cart-header">Shopping Cart</div>
-
+          <a
+          href="#"
+          title="Close (Esc)"
+          className="btn-close"
+          onClick={(e) => {
+            cartClose();
+            e.preventDefault();
+          }}
+        >
+          ×
+        </a>
+          </div>
           
           {cartItems.length > 0 ? (
             <>

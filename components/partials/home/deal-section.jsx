@@ -16,6 +16,7 @@ function DealSection({ products }) {
         Deals of the day
       </h2>
       <p style={{color:"rgba(0, 0, 0, 1)",fontWeight:"500"}}>View All Products</p>
+     
       </div>
       <Reveal
         keyframes={fadeInUpShorter}

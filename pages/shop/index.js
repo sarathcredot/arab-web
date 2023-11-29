@@ -7,7 +7,7 @@ import ShopBanner from "../../components/partials/shop/shop-banner";
 import ShopSidebarOne from "../../components/partials/shop/sidebar/shop-sidebar-one";
 import Pagination from "../../components/features/pagination";
 import ProductsGrid from "../../components/partials/products-collection/product-grid";
-
+import { IoMdHome } from "react-icons/io";
 import { GET_PRODUCTS } from "../../server/queries";
 import withApollo from "../../server/apollo";
 
@@ -95,7 +95,8 @@ function Shop() {
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
               <ALink href="/">
-                <i className="icon-home"></i>
+              <IoMdHome style={{fontSize:"16px"}}/>
+                {/* <i className="icon-home"></i> */}
               </ALink>
             </li>
             {query.category ? (
@@ -199,19 +200,10 @@ function Shop() {
             12 Search Results Found
           </p>
         </div>
-<<<<<<< HEAD
 
         <div className="row" style={{ border: "1px solid #B9B9B9" }}>
           <div className="col-lg-9 main-content" style={{ padding: 0,  borderLeft: '1px solid #B9B9B9'}}>
             <nav className="toolbox sticky-header mobile-sticky" style={{margin: '0' }}>
-=======
-        <div
-          className="row"
-          
-        >
-          <div className="col-lg-9 main-content" style={{border:"1px solid " ,  }}>
-            <nav className="toolbox sticky-header mobile-sticky">
->>>>>>> origin/main
               <div className="toolbox-left">
                 <a
                   href="#"

@@ -4,7 +4,7 @@ import StartAffliation from "../../components/features/affliation/StartAffliatio
 import Loading from "../../components/features/affliation/Loading";
 import Form from "../../components/features/affliation/Form";
 import Dashbord from "../../components/features/affliation/Dashbord";
-
+import { IoMdHome } from "react-icons/io";
 function affliation() {
   const [showForm, setShowForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -32,7 +32,8 @@ function affliation() {
             <ol className="breadcrumb">
             <li className="breadcrumb-item" >
               <ALink href="/">
-                <i className="icon-home"></i>
+                <IoMdHome style={{fontSize:"16px"}}/>
+                {/* <i className="icon-home"></i> */}
               </ALink>
             </li>
               <li className="breadcrumb-item">

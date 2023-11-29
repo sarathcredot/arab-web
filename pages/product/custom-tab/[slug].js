@@ -13,6 +13,7 @@ import ProductDetailOne from '../../../components/partials/product/details/produ
 import ProductWidgetContainer from '../../../components/partials/product/widgets/product-widget-container';
 import RelatedProducts from '../../../components/partials/product/widgets/related-products';
 import SingleTabFive from '../../../components/partials/product/tabs/single-tab-five';
+import { IoMdHome } from "react-icons/io";
 
 function ProductCustomTab () {
     if ( !useRouter().query.slug ) return (
@@ -39,7 +40,10 @@ function ProductCustomTab () {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            <IoMdHome style={{fontSize:'16px'}}/>
+                            {/* <i className="icon-home"></i> */}
+                            </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
                         <li className="breadcrumb-item">
                             {

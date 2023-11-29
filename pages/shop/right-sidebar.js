@@ -10,7 +10,7 @@ import ProductsGrid from '../../components/partials/products-collection/product-
 
 import withApollo from '../../server/apollo';
 import { GET_PRODUCTS } from '../../server/queries';
-
+import { IoMdHome } from "react-icons/io";
 function ShopRightSidebar () {
     const router = useRouter();
     const query = router.query;
@@ -89,7 +89,10 @@ function ShopRightSidebar () {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            {/* <i className="icon-home"></i> */}
+                            </ALink></li>
                         {
                             query.category ?
                                 <>
