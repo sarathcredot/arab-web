@@ -30,7 +30,7 @@ function Qty ( { max = Infinity, onChangeQty, value = 1 } ) {
                 <span className="input-group-btn input-group-prepend">
                     <button className="btn btn-outline btn-down-icon bootstrap-touchspin-down" onClick={ decrease } type="button"></button>
                 </span>
-                <input className="horizontal-quantity form-control" type="number" min="1" max={ max } value={ count } onChange={ changeCount } />
+                <input className="horizontal-quantity form-control" type="number" min="1" max={ max } value={ count } onChange={ changeCount } style={{fontFamily:"Jakarta sans-serif;"}}/>
                 <span className="input-group-btn input-group-append">
                     <button className="btn btn-outline btn-up-icon bootstrap-touchspin-up" onClick={ increase } type="button"></button>
                 </span>

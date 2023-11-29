@@ -13,7 +13,7 @@ import ProductDetailTwo from '../../../components/partials/product/details/produ
 import RelatedProducts from '../../../components/partials/product/widgets/related-products';
 import ProductWidgetContainer from '../../../components/partials/product/widgets/product-widget-container';
 import SingleTabOne from '../../../components/partials/product/tabs/single-tab-one';
-
+import { IoMdHome } from "react-icons/io";
 function ProductExtended () {
     if ( !useRouter().query.slug ) return (
         <div className="loading-overlay">
@@ -39,7 +39,10 @@ function ProductExtended () {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            {/* <i className="icon-home"></i> */}
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
                         <li className="breadcrumb-item">
                             {

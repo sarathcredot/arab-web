@@ -13,7 +13,7 @@ import OwlCarousel from "../../components/features/owl-carousel";
 import ProductsGrid from '../../components/partials/products-collection/product-grid';
 import ShopSidebarOne from '../../components/partials/shop/sidebar/shop-sidebar-one';
 import ShopBanner from '../../components/partials/shop/shop-banner';
-
+import { IoMdHome } from "react-icons/io";
 function ShopboxedSlider () {
     const router = useRouter();
     const query = router.query;
@@ -90,7 +90,10 @@ function ShopboxedSlider () {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            {/* <i className="icon-home"></i> */}
+                            </ALink></li>
                         {
                             query.category ?
                                 <>

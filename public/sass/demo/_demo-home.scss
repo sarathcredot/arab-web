@@ -28,8 +28,9 @@
 }
 
 .product-media,
-.product-image-container,
-.product-default figure {
+.product-image-container
+// .product-default figure
+ {
     border: 1px solid #f4f4f4;
 }
 
@@ -552,7 +553,11 @@ hr {
         margin: 2px 8px 0 3px;
     }
 }
-
+.apple-product-head{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
 .products-with-divide {
     margin-bottom: -1px;
 
@@ -579,8 +584,8 @@ hr {
 }
 
 .deal-products-section {
-    padding: 2.6rem 0 4.5rem;
-    padding-top: 5.5rem;
+    padding-bottom:  4.5rem;
+    padding-top: 10px;
 
     .product-countdown-container {
         bottom: auto;
@@ -718,7 +723,7 @@ hr {
         font-weight: 600;
         height: auto;
         border: none;
-        border-radius: 6px;
+        letter-spacing: 0.7px;
         color: #fff;
         background:rgba(227, 6, 19, 1);
 
@@ -754,7 +759,7 @@ hr {
     }
 
     .product-title {
-        margin-bottom: 5px;
+        margin-bottom: 16px;
     }
 
     .products-with-divide {
@@ -821,6 +826,7 @@ hr {
 
     .view-all {
         letter-spacing: -.02em;
+        // padding-top: 3rem;
     }
 }
 
@@ -1384,7 +1390,7 @@ hr {
 
 .product-slider-tab {
     .shop-list {
-        padding: 2.7rem 4rem 0;
+        padding: 2.7rem 0 0;
         margin-bottom: 1.1rem;
 
         li {
@@ -1482,7 +1488,7 @@ hr {
 
 // 2.15) Recent Products
 .recent-products-section {
-    padding-bottom: 5.9rem;
+    // padding-bottom: 5.9rem;
 
     .heading {
         padding-bottom: 1.1rem;
@@ -1574,7 +1580,7 @@ hr {
 @media(min-width: 1400px) {
     .category-filter-section {
         .nav {
-            margin-bottom: 7.8rem;
+            margin-bottom: 11rem;
             padding: 3.2rem;
         }
     }

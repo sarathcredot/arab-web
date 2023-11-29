@@ -2,7 +2,8 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-
+import { GoPlus } from "react-icons/go";
+import { AiOutlinePlus } from "react-icons/ai";
 // Import Actions
 import { actions as WishlistAction } from "../../../store/wishlist";
 import cart, { actions as CartAction } from "../../../store/cart";
@@ -20,14 +21,14 @@ function ProductOne(props) {
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +
-      (
-        (100 * (product.price[1] - product.price[0])) /
-        product.price[1]
-      ).toFixed(0) +
-      "%"
+          (
+            (100 * (product.price[1] - product.price[0])) /
+            product.price[1]
+          ).toFixed(0) +
+          "%"
       : product.variants.find((variant) => variant.sale_price)
-        ? "Sale"
-        : false;
+      ? "Sale"
+      : false;
   }
 
   function isInWishlist() {
@@ -170,11 +171,11 @@ function ProductOne(props) {
           style={{
             display: "flex",
             marginTop: "0",
-            alignItems: "center",
+            alignItems: "end",
             justifyContent: "center",
           }}
         >
-          <div className="category-list">
+          <div className="category-list" style={{ width: "50%" }}>
             {product.categories
               ? product.categories.map((item, index) => (
                   <React.Fragment key={item.slug + "-" + index}>
@@ -197,8 +198,18 @@ function ProductOne(props) {
           </div>
 
           {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
-
-          <a
+          <div style={{ width: "50%", display: "flex", justifyContent: "end" }}>
+            <div
+              className="custom-addcart"
+             
+            >
+              {/* <GoPlus style={{color:"#000000",fontSize:"20px",fontWeight:700}} /> */}
+              <AiOutlinePlus
+                style={{ color: "#000000", fontSize: "20px", fontWeight: 500 }}
+              />
+            </div>
+          </div>
+          {/* <a
             href="#"
             className={`btn ${(e) => (onAddCartClick(e) ? "" : "")}`}
             onClick={(e) => onAddCartClick(e)}
@@ -219,11 +230,14 @@ function ProductOne(props) {
                 border: isInWishlist() == true ? "" : "1px solid ",
               }}
             ></i>
-          </a>
+          </a> */}
         </div>
 
         <h3 className="product-title">
-          <ALink href={`/product/default/${product.slug}`} style={{ fontWight: "500px", fontSize: "14px", }}>
+          <ALink
+            href={`/product/default/${product.slug}`}
+            style={{ fontWight: "500px", fontSize: "14px" }}
+          >
             {product.name}
           </ALink>
         </h3>
@@ -241,14 +255,25 @@ function ProductOne(props) {
         </div> */}
 
         <div className="price-box">
-          <span >OMR</span>
-          <span className="product-price" style={{ fontFamily: "Poppins", fontWeight: "800px", fontSize: "16px", lineHeight: "15px", marginLeft: "10px" }} >
+          <span style={{fontFamily:"Plus Jakarta Sans"}}>OMR</span>
+          <span
+            className="product-price"
+            style={{
+              fontFamily: "Poppins",
+              fontWeight: "800px",
+              fontSize: "16px",
+              lineHeight: "15px",
+              marginLeft: "25px",
+            }}
+          >
             {product.price[0].toFixed(2)}
           </span>
-          <span className="old-price" style={{ marginLeft: "10px", color: "#777777" }}>
-            {+ product.price[1].toFixed(2)}
+          <span
+            className="old-price"
+            style={{ marginLeft: "25px", color: "#777777" }}
+          >
+            {+product.price[1].toFixed(2)}
           </span>
-
         </div>
 
         {/* <div className="price-box">

@@ -7,7 +7,7 @@ import { actions as CartAction } from "../../../store/cart";
 import styles from "../../common/header.module.css";
 // Import Custom Component
 import ALink from "../ALink";
-
+import {AiOutlineClose} from 'react-icons/ai'
 // Import Utils
 import { getCartTotal } from "../../../utils";
 
@@ -81,8 +81,20 @@ function CartMenu(props) {
         </a>
 
         <div className="dropdownmenu-wrapper">
+          <div style={{display:"flex"}}> 
           <div className="dropdown-cart-header">Shopping Cart</div>
-
+          <a
+          href="#"
+          title="Close (Esc)"
+          className="btn-close"
+          onClick={(e) => {
+            cartClose();
+            e.preventDefault();
+          }}
+        >
+          ×
+        </a>
+          </div>
           
           {cartItems.length > 0 ? (
             <>
@@ -140,14 +152,18 @@ function CartMenu(props) {
                           alt="product"
                         />
                       </ALink>
-                      <a
+                      <div title="Remove Product" style={{width:"20px", height:"20px",position:"absolute",top:"-7px",display:"flex",justifyContent:"center",alignItems:"center",right:"-5px",borderRadius:"50%", background:"white",filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))"}} onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }>
+<AiOutlineClose style={{fontSize:"10px"}}/>
+
+</div>
+                      {/* <a
                         href="#"
                         className="btn-remove icon-cancel"
                         title="Remove Product"
                         onClick={(e) => {
                           removeFromCart(e, cart);
                         }}
-                      ></a>
+                      ></a> */}
                     </figure>
                   </div>
                 ))}
@@ -164,7 +180,7 @@ function CartMenu(props) {
               <div className="dropdown-cart-action">
                 <ALink
                   href="/pages/cart"
-                  className="btn btn-gray btn-block view-cart"
+                  className="btn  btn-block view-cart"style={{border: "1px solid #000", background:"white"}}
                 >
                   View Cart
                 </ALink>

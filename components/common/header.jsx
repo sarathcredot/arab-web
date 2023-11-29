@@ -155,18 +155,28 @@ function Header({ adClass = "", wishlist }) {
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
                 <ALink href="#">
-                  <i className="flag-us flag"></i>ENG
+                  <img src="/images/uae.svg"></img>UAE
                 </ALink>
                 <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#">
-                        <i className="flag-us flag mr-2"></i>ENG
+                      <img src="/images/uae.svg"></img>UAE
                       </ALink>
                     </li>
                     <li>
                       <ALink href="#">
-                        <i className="flag-fr flag mr-2"></i>FRA
+                      <img src="/images/ind.svg" className={styles.flagimg}></img>IND
+                      </ALink>
+                    </li>
+                    <li>
+                      <ALink href="#">
+                      <img src="/images/omn.png"className={styles.flagimg} ></img>OMN
+                      </ALink>
+                    </li>
+                    <li>
+                      <ALink href="#">
+                      <img src="/images/sar.png"className={styles.flagimg} ></img>SAR
                       </ALink>
                     </li>
                   </ul>

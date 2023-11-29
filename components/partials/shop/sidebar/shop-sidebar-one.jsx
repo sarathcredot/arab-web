@@ -131,7 +131,7 @@ function ShopSidebarOne ( props ) {
             <div className="sidebar-overlay" onClick={ closeSidebar }></div>
             
             <aside className={ `sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${ !loading ? 'loaded' : '' } ${ props.display === 'none' ? 'd-lg-none' : '' } ${ props.right ? '' : 'order-lg-first' }` } style={{paddingLeft:"0", paddingRight:"0",}} >
-                <StickyBox className="sidebar-wrapper" offsetTop={ 70 } >
+                <StickyBox className="sidebar-wrapper" offsetTop={ 0 } >
                     <div className="widget" style={{padding:"0"}}>
                         {
                             loading ?

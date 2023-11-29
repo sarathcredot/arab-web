@@ -11,10 +11,13 @@ import { fadeInUpShorter } from "../../../utils/data/keyframes";
 function DealSection({ products }) {
   return (
     <section className="deal-products-section">
+      <div className="deal-section-head">
       <h2 className="section-title d-flex align-items-center text-transform-none">
         Deals of the day
       </h2>
-
+      <p style={{color:"rgba(0, 0, 0, 1)",fontWeight:"500"}}>View All Products</p>
+     
+      </div>
       <Reveal
         keyframes={fadeInUpShorter}
         delay={100}

@@ -143,7 +143,7 @@ function ProductDetailOne(props) {
                 product &&
 
                 <div className={`product-single-details ${adClass}`}>
-                    <p style={{ color: '#E30613', fontWeight: "500", fontSize: "12px", lineHeight: "26px", textTransform: 'uppercase' }}>smart Phone</p>
+                    <p style={{ color: '#E30613', fontWeight: "500", fontSize: "12px", lineHeight: "26px", textTransform: 'uppercase',marginBottom:"0px" }}>smart Phone</p>
                     <h1 className="product-title" style={{ fontWeight: "500", fontSize: "28px", lineHeight: "33.43px", }}>{product.name}</h1>
 
                     {
@@ -158,15 +158,16 @@ function ProductDetailOne(props) {
                             <span className="tooltiptext tooltip-top">{product.ratings.toFixed(2)}</span>
                         </div>
 
-                        <ALink href="#" className="rating-link">( {product.reviews > 0 ? `${product.reviews} Reviews` : 'There are no reviews yet.'} )</ALink>
+                        <ALink href="#" className="rating-link"style={{fontSize:"1.1rem"}}>( {product.reviews > 0 ? `${product.reviews} Reviews` : 'There are no reviews yet.'} )</ALink>
                     </div>
 
-                    <hr className="short-divider" />
+                    {/* <hr className="short-divider" /> */}
 
                     <div className="price-box">
                         {
                             product.price[0] == product.price[1] ?
-                                <><span style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "700px", fontSize: "12px", lineHeight: "15px", marginTop: "10px" }}>OMR</span>
+                                <>
+                                <span style={{ fontFamily: "Plus Jakarta Sans", fontWeight: "700px", fontSize: "12px", lineHeight: "15px", marginTop: "10px",marginRight:"8px" }}>OMR</span>
                                     <span className="product-price" style={{ fontWeight: "800px", fontSize: "18px", lineHeight: "15px", letterSpacing: "-0.1px" }}> {product.price[0].toFixed(2)}</span>
                                     <span className="old-price" style={{ fontWeight: "800px", fontSize: "18px", lineHeight: "15px", letterSpacing: "-0.1px", marginLeft: "10px", marginBottom: "3px" }}> {product.price[0].toFixed(2)}</span>
                                 </>
@@ -230,9 +231,9 @@ function ProductDetailOne(props) {
                     </ul> */}
 
 
-                    <div className='' style={{ width: "128px", height: "20px", display: "flex", borderBottom: "0" }}>
-                        <h3 style={{ fontFamily: "Poppins", fontWeight: "500px", fontSize: "14px", lineHeight: "22px" }}>color : </h3>
-                        <p style={{ color: "black", fontFamily: "Poppins" }}>silver</p>
+                    <div className='' style={{ width: "128px", height: "20px", display: "flex", borderBottom: "0", alignItems:"center"}}>
+                        <h3 style={{ fontFamily: "Poppins", fontWeight: "500px", fontSize: "14px", lineHeight: "22px",marginBottom:"0",marginRight:"8px" }}>color : </h3>
+                        <p style={{ color: "black", fontFamily: "Poppins",marginBottom:"0" }}>silver</p>
                     </div>
 
 
@@ -253,13 +254,13 @@ function ProductDetailOne(props) {
                     </div>
 
                     <div style={{ marginBottom: "20px" }}>
-                        <h1 style={{ fontWeight: "600px", fontSize: "14px", lineHeight: "22px", color: "black" }}>Internal Memory</h1>
+                        <span style={{ fontWeight: "600px", fontSize: "14px", lineHeight: "22px", color: "#000",fontFamily:"Plus Jakarta Sans" }}>Internal Memory</span>
                         <div style={{ display: "flex", width: "50%", height: "70px", gap: "10px" }}>
                             <div className='btn' style={{ width: "84px", height: "41px", border: "1px solid", borderColor: "#DCDCDC", marginTop: "10px", alignItems: "center", display: "flex", justifyContent: "center" }}>
-                                <p style={{ marginTop: "20px", fontWeight: "600", fontSize: "12px", lineHeight: "15px" }}>RAM</p>
+                                <p style={{ marginTop: "20px", fontWeight: "600", fontSize: "12px", lineHeight: "15px",color:"#292D32" }}>RAM</p>
                             </div>
                             <div className='btn' style={{ width: "84px", height: "41px", border: "1px solid", borderColor: "#DCDCDC", marginTop: "10px", alignItems: "center", display: "flex", justifyContent: "center" }}>
-                                <p style={{ marginTop: "20px", fontWeight: "600", fontSize: "12px", lineHeight: "15px" }}>RAM</p>
+                                <p style={{ marginTop: "20px", fontWeight: "600", fontSize: "12px", lineHeight: "15px",color:"#292D32" }}>RAM</p>
                             </div>
 
                         </div>

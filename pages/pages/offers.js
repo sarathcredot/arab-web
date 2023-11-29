@@ -33,7 +33,7 @@ function offers() {
 
   return (
     <>
-      <main className="home">
+      <main className="home" style={{marginTop:"-40px"}}>
         <div className="bg-gray">
           <HomeSection offer={true} className="pb-5" />
           {/* <div className="container pb-3">
@@ -44,7 +44,7 @@ function offers() {
         </div>
 
         <div
-          className={`container skeleton-body skel-shop-products pt-5 ${
+          className={`container skeleton-body skel-shop-products ${
             loading ? "" : "loaded"
           }`}
         >
@@ -69,7 +69,7 @@ function offers() {
               height: "auto",
               maxWidth:"100%",
               backgroundColor: "white",
-              marginTop: "40px",
+              marginTop: "67px",
             }}
           >
             <img

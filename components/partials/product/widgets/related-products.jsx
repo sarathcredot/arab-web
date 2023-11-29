@@ -7,7 +7,7 @@ import { productSlider } from '../../../../utils/data/slider';
 
 function RelatedProducts ( props ) {
     const { adClass = "", products = [], loading, isContainer = false } = props;
-    const sliderOption = { ...productSlider, margin: 20, dots: true, nav: false, responsive: { ...productSlider.responsive, 1200: { items: 5 } } };
+    const sliderOption = { ...productSlider,  dots: true, nav: false, responsive: { ...productSlider.responsive, 1200: { items: 5 } } };
 
     return (
         !loading && !products.length ?
@@ -29,11 +29,17 @@ function RelatedProducts ( props ) {
                                         )
                                         :
                                         products.map( ( item, index ) => (
+                                            <div
+                                            className={`border-1 custom-border-remove ${index === 0 ? 'first-item' : ''}`}
+                                            style={{borderColor: '#B9B9B9'}}
+                                            key={ "product-one" + index }
+                                            >
+
                                             <ProductOne
                                                 adClass="inner-quickview inner-icon"
                                                 product={ item }
-                                                key={ "product-one" + index }
-                                            />
+                                                />
+                                                </div>
                                         ) )
                                 }
                             </OwlCarousel>

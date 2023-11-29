@@ -35,7 +35,7 @@ function Login() {
         <div className="row">
           <div className="col-lg-12 mx-auto">
             {isOtp ? (
-              <div className="row" style={{ marginLeft: "40px" }}>
+              <div className="row" style={{ marginLeft: "115px" }}>
                 <div className="col-md-6">
                   <div className="heading mb-1" style={{ marginTop: "200px" }}>
                     <h2 className="title">Verify Phone Number</h2>
@@ -45,8 +45,8 @@ function Login() {
                         style={{
                           marginTop: "20px",
                           paddingBottom: "20px",
-                          fontSize: "10px",
-                          color: "#777777",
+                          fontSize: "12px",
+                          color: "#777777",fontWeight:"400"
                         }}
                       >
                         Lorem ipsum dolor sit amet consectetur. Sapien ut libero
@@ -89,7 +89,7 @@ function Login() {
                       <button
                         type="submit"
                         className="btn btn-dark btn-md "
-                        style={{ marginTop: "30px" }}
+                        style={{ marginTop: "48px",fontWeight:"600" }}
                         // onClick={handleVerifyOTP}
                       >
                         Verify OTP
@@ -101,14 +101,14 @@ function Login() {
                       >
                         <p
                           style={{
-                            fontWeight: "400px",
+                            fontWeight: "400",
                             fontSize: "12px",
                             color: "#000000",
                           }}
                         >
                           Don't have OTP ?
                           <span
-                            style={{ paddingLeft: "5px", color: "#399E0A" }}
+                            style={{ paddingLeft: "5px", color: "#399E0A" ,fontWeight:"500"}}
                             className="btn-text"
                           >
                             Resent
@@ -185,8 +185,8 @@ function Login() {
                 </div>
               </div>
             ) : (
-              <div className="row" style={{ marginLeft: "40px" }}>
-                <div className="col-md-6">
+              <div className="row" style={{ marginLeft: "115px" }}>
+                <div className="col-md-6 left-login-section">
                   <div className="heading mb-1">
                     <h2 className="title">Login/ Register to your account</h2>
                     <div className="">
@@ -195,8 +195,8 @@ function Login() {
                         style={{
                           marginTop: "20px",
                           paddingBottom: "20px",
-                          fontSize: "10px",
-                          color: "#777777",
+                          fontSize: "12px",
+                          color: "#777777",fontWeight:"400"
                         }}
                       >
                         Lorem ipsum dolor sit amet consectetur. Sapien ut libero
@@ -231,7 +231,7 @@ function Login() {
                     >
                       <div
                         style={{
-                          backgroundColor: "#D9D9D9 ",
+                          backgroundColor: "#F8F8F8",
                           borderRadius: "50%",
                           width: "46px",
                           height: "46px",
@@ -241,21 +241,22 @@ function Login() {
                           marginTop: "14px",
                         }}
                       >
-                        <div style={{ paddingTop: "10px", fontSize: "15px" }}>
-                          <p style={{ fontFamily: "Poppins" }}>OR</p>
+                        <div style={{  fontSize: "14px",fontWeight:"500" }}>
+                          <p style={{ fontFamily: "Poppins",marginBottom:"0" }}>OR</p>
                         </div>
                       </div>
                     </div>
 
                     <div className="mt-3">
                       <div
-                        class="google-btn  border "
+                        class="google-btn   "
                         style={{
                           display: "flex",
                           alignItems: "center",
                           justifyContent: "center",
                           height: "60px",
                           width: "538px",
+                          border:"1px solid #CDCDCD"
                         }}
                       >
                         <div class="google-icon-wrapper ">
@@ -268,13 +269,13 @@ function Login() {
                           class="btn-text mt-3 "
                           style={{ paddingLeft: "20px" }}
                         >
-                          <p style={{ fontSize: "12px", fontWeight: "bold" }}>
+                          <p style={{ fontSize: "12px", fontWeight: "600",color:"#000000" }}>
                             Login in with google
                           </p>
                         </p>
                       </div>
                       <div
-                        class="google-btn  border "
+                        class="google-btn   "
                         style={{
                           display: "flex",
                           alignItems: "center",
@@ -282,6 +283,7 @@ function Login() {
                           marginTop: "20px",
                           height: "60px",
                           width: "538px",
+                          border:"1px solid #CDCDCD"
                         }}
                       >
                         <div class="google-icon-wrapper">
@@ -294,7 +296,7 @@ function Login() {
                           class="btn-text mt-3"
                           style={{ paddingLeft: "20px" }}
                         >
-                          <p style={{ fontSize: "12px", fontWeight: "bold" }}>
+                          <p style={{ fontSize: "12px", fontWeight: "600",color:"#000000" }}>
                             Sign in wIth Apple
                           </p>
                         </p>
@@ -327,7 +329,7 @@ function Login() {
                     <button
                       type="submit"
                       className="btn btn-dark btn-md "
-                      style={{ marginTop: "20px" }}
+                      style={{ marginTop: "48px",fontWeight:"600" }}
                       onClick={handleOtpChange}
                     >
                       GET OTP

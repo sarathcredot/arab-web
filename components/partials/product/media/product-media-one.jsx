@@ -72,7 +72,7 @@ export default function ProductMediaOne ( props ) {
     }
 
     return (
-        <div className={ `product-single-gallery ${ adClass }` }>
+        <div className={ `product-single-gallery ${ adClass }` } style={{paddingRight:"35px"}}>
             <div className="skel-pro skel-magnifier"></div>
             {
                 product && <>

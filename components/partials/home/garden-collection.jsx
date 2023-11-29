@@ -68,8 +68,9 @@ function GardenCollection(props) {
                   <div className="tab-content">
                     <TabPanel className="tab-pane fade">
                       <OwlCarousel
-                        adClass="products-slider nav-circle nav-image-center pb-0"
+                        adClass="products-slider nav-circle nav-image-center pb-0 border-bottom-1 border-left-1 border-right-1 border-top-0 border-solid custom-border-color"
                         options={slideOption}
+                        
                       >
                         {bestSelling
                           ? bestSelling

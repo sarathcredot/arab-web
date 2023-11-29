@@ -1,7 +1,7 @@
 import GoogleMapReact from 'google-map-react';
 
 import ALink from "../../components/common/ALink";
-
+import { IoMdHome } from "react-icons/io";
 const AnyReactComponent = () => <div></div>;
 
 export default function ContactUs () {
@@ -11,7 +11,10 @@ export default function ContactUs () {
                 <div className="container">
                     <ol className="breadcrumb">
                         <li className="breadcrumb-item">
-                            <ALink href="/"><i className="icon-home"></i></ALink>
+                            <ALink href="/">
+                                <IoMdHome style={{fontSize:"16px"}}/>
+                                {/* <i className="icon-home"></i> */}
+                                </ALink>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
                             Contact Us

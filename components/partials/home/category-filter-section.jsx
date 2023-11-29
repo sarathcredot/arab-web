@@ -64,10 +64,10 @@ function CategoryFilterSection() {
                       color: "rgba(179, 179, 179, 1)",
                       fontWeight: "500",
                       fontSize: "23px",
-                      padding: "28px 28px 0px 28px",
+                      padding: "20px 3.2rem",display:"flex",alignItems:"center",borderBottom:" 1px solid #323232"
                     }}
                   >
-                    Sort
+                    Sort..
                   </h4>
 
                   <TabList className="nav nav-tabs flex-sm-column border-0">
@@ -250,7 +250,7 @@ function CategoryFilterSection() {
                       href="/shop"
                       style={{ color: "rgba(255, 255, 255, 1)" }}
                     >
-                      View All<i className="fas fa-long-arrow-alt-right"></i>
+                      View All
                     </ALink>
                   </div>
                 </div>
