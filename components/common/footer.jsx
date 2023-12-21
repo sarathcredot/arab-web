@@ -5,7 +5,8 @@ import ALink from "./ALink";
 
 function Footer() {
   return (
-    <footer className="footer font2">
+    <>
+    <footer className="footer font2"style={{marginTop:"30px"}}>
       <div className="container">
         {/* <div className="widget-newsletter d-flex align-items-center align-items-sm-start flex-column flex-lg-row  justify-content-lg-between">
                     <div className="widget-newsletter-info text-center text-sm-left d-flex flex-column flex-sm-row align-items-center mb-1 mb-xl-0">
@@ -132,7 +133,10 @@ function Footer() {
             </div>
           </div>
         </div>
-
+        </div>
+        </footer>
+        <footer className="footer font2" style={{background:"#F4F4F4"}}>
+        <div className="container">
         <div className="footer-middle">
           <div className="row">
             <div className="col-md-12 col-lg-8 mb-3 mb-lg-0">
@@ -454,54 +458,18 @@ function Footer() {
               <p style={{color:"rgba(27, 27, 27, 1)"}}>Helpline</p>
               <h4>1800 45684788</h4>
             </div>
-            {/* <div className="col-md-12 offset-lg-1 col-lg-3">
-              <div className="widget widget-payment">
-                <h3 className="widget-title ls-0">PAYMENT METHODS</h3>
-
-                <div className="widget-content">
-                  <div className="payment-icons mr-0">
-                    <span
-                      className="payment-icon visa"
-                      style={{
-                        backgroundImage:
-                          "url(images/payments/payment-visa.svg)",
-                      }}
-                    ></span>
-                    <span
-                      className="payment-icon paypal"
-                      style={{
-                        backgroundImage:
-                          "url(images/payments/payment-paypal.svg)",
-                      }}
-                    ></span>
-                    <span
-                      className="payment-icon stripe"
-                      style={{
-                        backgroundImage:
-                          "url(images/payments/payment-stripe.png)",
-                      }}
-                    ></span>
-                    <span
-                      className="payment-icon verisign"
-                      style={{
-                        backgroundImage:
-                          "url(images/payments/payment-verisign.svg)",
-                      }}
-                    ></span>
-                  </div>
-                </div>
-              </div>
-            </div> */}
+           
           </div>
         </div>
 
-        <div className="footer-bottom d-sm-flex align-items-center justify-content-left">
+        <div className="footer-bottom d-sm-flex align-items-center justify-content-left"style={{background:"#F4F4F4"}}>
           <span className="footer-copyright">
           Arab Deals © 2023. All Rights Reserved
           </span>
         </div>
       </div>
-    </footer>
+      </footer>
+   </>
   );
 }
 

@@ -81,7 +81,7 @@ footer {
 	@include css( background, footer, background );
 	@include css( line-height, footer, line-height );
 	@include css( letter-spacing, footer, letter-spacing );
-
+font-weight: 400;
 	.container {
 		position: relative;
 	}

@@ -40,7 +40,9 @@
 		}
 	}
 }
-
+.iconhover:hover{
+	fill:"red"
+}
 .widget-dashboard {
 	h2 {
 		margin-top: -1px;
@@ -119,14 +121,20 @@
 .content-box:hover{
 	border-color: #E30613;
 }
-
+.content-box:hover .iconhover{
+	fill:#E30613 ;
+}
 .hover-image:hover {
 	fill: #E30613 !important;	
   }
   
 
-  
-
+.iconwrapper-dash{
+	background-color: rgb(237, 237, 237,1);
+}  
+.content-box:hover .iconwrapper-dash{
+	background-color: rgb(250,250,250,1);
+}
 
 
 

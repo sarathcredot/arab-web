@@ -1,17 +1,17 @@
 // Checkout
 .checkout-progress-bar {
-	margin: 4.7rem 0 2.1rem;
+	padding: 4.7rem 0 4.7rem;
 	font-size: 0;
 	line-height: 1.4;
 
 	li {
 		display: inline-block;
 		position: relative;
-		margin-bottom: 3rem;
+		// margin-bottom: 3rem;
 		color: #999;
 		font-family: $second-font-family;
 		font-size: 2rem;
-		font-weight: 700;
+		font-weight: 600;
 		letter-spacing: -.03em;
 		text-align: center;
 		vertical-align: top;
@@ -52,11 +52,12 @@
 			&:before {
 				position: absolute;
 				left: -3.3rem;
-				top: -.8rem;
+				top: 0.2rem;
 				content: '\e81a';
 				color: black;
 				font-family: "porto";
-				font-size: 3rem;
+				font-size: 2.2rem;
+				font-weight: 400;
 			}
 		}
 
@@ -101,6 +102,10 @@
 	margin-bottom: 0;
 	color: #222529;
 	font-size: 2.2rem;
+	font-weight: 600;
+    padding-bottom: 12px;
+    padding-top: 25px;
+
 
 	.step-title-edit {
 		margin-top: .4rem;
@@ -149,12 +154,14 @@
 		text-align: center;
 	}
 }
-
+.order-box{
+	margin-left: 35px;
+}
 .order-summary {
 	margin-bottom: 3rem;
 	padding: 3rem;
-	border: 2px solid #e7e7e7;
-
+	// border: 2px solid #e7e7e7;
+	box-shadow: 1px 2px 18px rgb(0 0 0 / 18%);
 	.custom-radio .custom-control-input {
 		width: 102px;
 	}
@@ -343,7 +350,7 @@
 			// border-bottom: 1px solid #e7e7e7;
 			// border-left: 1px solid #ececec;
 			// border-right: 1px solid #ececec;
-			padding: 1rem 2rem;
+			padding: 3rem 2rem;
 		}
 	}
 
@@ -353,7 +360,7 @@
 	    padding-bottom: .7rem;
 
 		p {
-			margin-bottom: 1.6rem;
+			margin-bottom:0;
 			font-size: 1.4rem;
 		}
 
@@ -479,7 +486,7 @@
 	}
 	
 	label {
-		margin-bottom: .6rem;
+		margin-bottom: 1.5rem;
 		color: $body-text;
 		font-family: $font-family;
 		font-size: 1.4rem;
@@ -503,6 +510,8 @@
 
 	.step-title {
 		letter-spacing: -.01em;
+		font-weight: 600;
+		padding-bottom: 25px;
 	}
 
 	select.form-control:not([size]):not([multiple]),
@@ -681,7 +690,8 @@
 }
 
 .checkout-progress-bar {
-    margin-bottom: 2.4rem;
+    margin-bottom: 7.4rem;
+	background: #F9F9F9;
 }
 
 .checkout-discount h4 {

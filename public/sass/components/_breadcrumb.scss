@@ -41,6 +41,8 @@
 	@include css( border-top, breadcrumb, border-top);
 	// @include css( border-bottom, breadcrumb, border-bottom);
 	@include css( margin-bottom, breadcrumb, margin-bottom);
+	margin-top: -22px;
+	margin-bottom: 15px;
 }
 
 .breadcrumb {

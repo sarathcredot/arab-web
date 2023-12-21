@@ -9,7 +9,9 @@
 }
 
 .wishlist-table-container {
-    margin-bottom: 5.5rem;
+    // margin-bottom: 5.5rem;
+	margin-bottom: 12.5rem;
+    margin-top: 8rem;
 
     .table-title {
         padding-top: 1rem;
@@ -32,9 +34,10 @@
 	
 	.btn-quickview {
 		margin-right: 1rem;
-		background: #f4f4f4;
+		background:white;
 		color: #222529;
 		font-family: $font-family;
+		font-weight: 600;
 
 		&:hover {
 			background-color: $primary-color;
@@ -76,14 +79,15 @@
         }
         
         td {
-            padding: 20px 5px 23px 16px;
+            padding: 20px 5px 37px 16px;
         }
     }
     
     .product-price {
         color: inherit;
-        font-size: 1.4rem;
-        font-weight: 400;
+        font-size: 1.2rem;
+        font-weight: 600;
+		font-family: Poppins;
     }
 
     .price-box {

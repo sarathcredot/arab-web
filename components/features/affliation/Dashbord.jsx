@@ -3,7 +3,7 @@ import ALink from '../../common/ALink';
 import {AiOutlineClose} from 'react-icons/ai'
 function Dashbord() {
     return (
-        <div className='container'>
+        <div className='container' style={{padding:"0"}}>
             <div className="db-container">
                 <div className="card gradient-1">
                     <div className="card-content" style={{ padding: "20px" }}>
@@ -15,11 +15,11 @@ function Dashbord() {
                         </div>
 
                     </div>
-                    <button type="submit" className="btn " style={{ marginTop: "auto", backgroundColor: "#E30613", color: "white" }}>redeem points</button>
+                    <button type="submit" className="btn " style={{ marginTop: "auto", backgroundColor: "#E30613", color: "white",fontWeight:"600" }}>redeem points</button>
                 </div>
 
                 <div className="card gradient-2">
-                    <div className="card-content" style={{ padding: "20px" }}>
+                    <div className="card-content" style={{ padding: "20px 20px 0 20px" }}>
                         <h4>Link Clicks</h4>
                         <div className="content-with-image" >
                             <p className='' style={{ marginTop: "20px" }}><span className="number">84</span>Clicks</p>
@@ -28,11 +28,11 @@ function Dashbord() {
                         </div>
 
                     </div>
-                    <p style={{ padding: "10px", color: "black" }}>Share Product links for more Referals</p>
+                    <p style={{ padding: "20px 20px", color: "black" }}>Share Product links for more Referals</p>
                 </div>
 
                 <div className="card gradient-3">
-                    <div className="card-content" style={{ padding: "20px" }}>
+                    <div className="card-content" style={{ padding: "20px 20px 0 20px" }}>
                         <h4>Successful Purchase</h4>
                         <div className="content-with-image" >
                             <p className='' style={{ marginTop: "20px" }}><span className="number">27</span>Buys</p>
@@ -41,18 +41,18 @@ function Dashbord() {
                         </div>
 
                     </div>
-                    <p style={{ padding: "20px", color: "black" }}>Congrats keep going!</p>
+                    <p style={{ padding: "20px 20px", color: "black" }}>Congrats keep going!</p>
                 </div>
 
             </div>
-<h6>Purchase History</h6>
+<h6 style={{fontWeight:'500',fontSize:"2rem"}}>Purchase History</h6>
 
-            <div className="col-lg-12">
+            <div className="col-lg-12 p-0">
                 <div className="cart-table-container">
                     <table className="table table-cart">
                         <thead>
                             <tr>
-                                <th className="thumbnail-col">item</th>
+                                <th className="thumbnail-col p-0">item</th>
                                 <th className="product-col"></th>
                                 <th className="price-col">PURCHASE DATE</th>
                                 <th className="qty-col">USER PURCHASED</th>
@@ -64,7 +64,7 @@ function Dashbord() {
 
                             <tr key={"cart-item"} className="product-row" style={{ color: "black" }}>
                                 <td>
-                                    <figure className="product-image-container" style={{ width: "6rem" }}>
+                                    <figure className="product-image-container" style={{ width: "7rem", padding:"14px",background:"#F9F9F9",border:"none" }}>
                                         <ALink href="/home" className="product-image">
                                             <img
                                                 src="images\icon\product.svg"
@@ -72,15 +72,15 @@ function Dashbord() {
                                                 style={{ maxWidth: "100%", maxHeight: "100%", display: "block" }}
                                             />
                                         </ALink>
-                                        <div title="Remove Product" style={{width:"20px", height:"20px",position:"absolute",top:"-7px",display:"flex",justifyContent:"center",alignItems:"center",right:"-5px",borderRadius:"50%", background:"white",filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))"}} onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }>
+                                        {/* <div title="Remove Product" style={{width:"20px", height:"20px",position:"absolute",top:"-7px",display:"flex",justifyContent:"center",alignItems:"center",right:"-5px",borderRadius:"50%", background:"white",filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))"}} onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }>
 <AiOutlineClose style={{fontSize:"10px"}}/>
 
-</div>
+</div> */}
                                         {/* <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={(e) => { e.preventDefault(); removeFromCart(item, index); }}></a> */}
                                     </figure>
                                 </td>
                                 <td className="product-col">
-                                    <h5 className="product-title">
+                                    <h5 className="product-title" style={{fontWeight:"600",fontSize:"1.2rem"}}>
                                         <ALink href={`/product/default`}>iPhone 14 Pro max 256GB - Deep Purple..</ALink>
                                     </h5>
                                 </td>
@@ -117,7 +117,7 @@ function Dashbord() {
                                     </div>
 
                                     <div className="float-right">
-                                        <button type="submit" className="btn btn-shop btn-update-cart" style={{ border: "1px solid" }} >
+                                        <button type="submit" className="btn btn-shop btn-update-cart" style={{ border: "1px solid",background:"white" }} >
                                         Raise a dispute
                                         </button>
                                     </div>
