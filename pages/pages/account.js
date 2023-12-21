@@ -25,11 +25,11 @@ function Account() {
         </nav>
         <div
           className=" d-flex flex-column align-items-center"
-          style={{ backgroundColor: "#F9F9F9" }}
+          
         >
           {/* <h1>orders</h1>*/}
 
-          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap" style={{ backgroundColor: "#F9F9F9",width:"100%" }}>
             <li className="">
               <ALink href="/pages/account">My Account</ALink>
             </li>

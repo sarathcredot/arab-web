@@ -51,11 +51,11 @@ function Cart ( props ) {
         </nav>
         <div
           className=" d-flex flex-column align-items-center"
-          style={{ backgroundColor: "#F9F9F9" }}
+         
         >
           {/* <h1>orders</h1>*/}
 
-          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap"  style={{ backgroundColor: "#F9F9F9",width:"100%" }}>
            
             <li className="active">
               <ALink href="/pages/cart">Shoping cart</ALink>
@@ -90,8 +90,8 @@ function Cart ( props ) {
                                     <table className="table table-cart">
                                         <thead>
                                             <tr>
-                                                <th className="thumbnail-col"></th>
-                                                <th className="product-col">Product</th>
+                                                {/* <th className="thumbnail-col"></th> */}
+                                                <th className="product-col pl-0">Product</th>
                                                 <th className="price-col">Price</th>
                                                 <th className="qty-col">Quantity</th>
                                                 <th className="text-right">Subtotal</th>
@@ -101,7 +101,7 @@ function Cart ( props ) {
                                             {
                                                 cartList.map( ( item, index ) => (
                                                     <tr key={ "cart-item" + index } className="product-row" style={{color:"black"}}>
-                                                        <td>
+                                                        <td className='pl-0'>
                                                             <figure className="product-image-container">
                                                                 <ALink href={ `/product/default/${item.slug}` } className="product-image">
                                                                     <img src={ process.env.NEXT_PUBLIC_ASSET_URI + item.small_pictures[ 0 ].url } alt="product" />
@@ -133,7 +133,7 @@ function Cart ( props ) {
 
                                         <tfoot>
                                             <tr>
-                                                <td colSpan="5" className="clearfix">
+                                                <td colSpan="5" className="clearfix pl-0">
                                                     <div className="float-left">
                                                         <div className="cart-discount">
                                                             <form action="#">
@@ -162,7 +162,7 @@ function Cart ( props ) {
 
                             <div className="col-lg-4">
                                 <div className="cart-summary">
-                                    <h3>CART TOTALS</h3>
+                                    <h3>Cart Totals</h3>
 
                                     <table className="table table-totals">
                                         <tbody>
