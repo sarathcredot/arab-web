@@ -67,7 +67,7 @@ function CategoryFilterSection() {
                       padding: "20px 3.2rem",display:"flex",alignItems:"center",borderBottom:" 1px solid #323232"
                     }}
                   >
-                    Sort..
+                    Sort
                   </h4>
 
                   <TabList className="nav nav-tabs flex-sm-column border-0">

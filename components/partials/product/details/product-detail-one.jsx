@@ -187,7 +187,7 @@ function ProductDetailOne(props) {
                     }
 
                     <div className="product-desc" style={{ fontFamily: "Poppins", fontWeight: "400px", fontSize: "14px", lineHeight: "26px" }}>
-                        <p>{product.short_description}</p>
+                        <p style={{fontWeight:"400"}}>{product.short_description}</p>
                     </div>
                     {/* 
                     <ul className="single-info-list">
@@ -232,12 +232,12 @@ function ProductDetailOne(props) {
 
 
                     <div className='' style={{ width: "128px", height: "20px", display: "flex", borderBottom: "0", alignItems:"center"}}>
-                        <h3 style={{ fontFamily: "Poppins", fontWeight: "500px", fontSize: "14px", lineHeight: "22px",marginBottom:"0",marginRight:"8px" }}>color : </h3>
-                        <p style={{ color: "black", fontFamily: "Poppins",marginBottom:"0" }}>silver</p>
+                        <h3 style={{ fontFamily: "Poppins", fontWeight: "500px", fontSize: "14px", lineHeight: "22px",marginBottom:"0",marginRight:"8px" }}>Color : </h3>
+                        <p style={{ color: "black", fontFamily: "Poppins",marginBottom:"0" }}>Silver</p>
                     </div>
 
 
-                    <div style={{ display: "flex", width: "387px", height: "63px", marginTop: "22px", marginBottom: "35px", justifyContent: "space-around" }}>
+                    <div style={{ display: "flex", width: "300px", height: "63px", marginTop: "22px", marginBottom: "35px", justifyContent: "space-between" }}>
                         <ul style={{ display: "flex", alignItems: "center", justifyContent: "center", width: "63px", height: "63px", backgroundColor: "#F8F8F8", borderRadius: "50%" }}>
                             <li style={{ backgroundColor: "#DE4E47", width: "38px", height: "38px", borderRadius: "50%", padding: "10px" }}></li>
                         </ul>

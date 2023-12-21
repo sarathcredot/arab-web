@@ -86,7 +86,7 @@ function affliation() {
      
 
       
-<div classNam style={{ marginBottom:"50px"}}>
+<div classNam style={{ marginBottom:"120px"}}>
  
 {/* <Dashbord /> */}
 

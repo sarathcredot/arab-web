@@ -86,7 +86,7 @@ function Wishlist(props) {
               </thead>
               <tbody>
                 {wishlist.map((item, index) => (
-                  <tr key={"wishlist-item" + index} className="product-row">
+                  <tr key={"wishlist-item" + index} className="product-row"style={{borderBottom: "1px solid #e7e7e7"}}>
                     <td className="media-with-lazy">
                       <figure className="product-image-container">
                         <ALink
@@ -122,11 +122,11 @@ function Wishlist(props) {
                     <td style={{ color: "black" }}>
                       <div className="price-box">
                         {item.price[0] == item.price[1] ? (
-                          <span className="product-price">
+                          <span className="product-price" style={{color:"#000"}}>
                             {"OMR " + item.price[0].toFixed(2)}
                           </span>
                         ) : item.variants.length > 0 ? (
-                          <span className="product-price">
+                          <span className="product-price" style={{color:"#000"}}>
                             {"OMR " + item.price[0].toFixed(2)} &ndash;{" "}
                             {"$" + item.price[1].toFixed(2)}
                           </span>

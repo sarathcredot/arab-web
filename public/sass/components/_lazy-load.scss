@@ -30,6 +30,16 @@
     bottom: 0;
     // background: #f4f4f4;
 }
+.custom-figure .media-with-lazy{
+	&::before{
+		content: "";
+		display: block;
+		// padding-top: 88%; //product one component figure
+		padding-top: 100%;
+		width: 100%;
+		// background-color: #f4f4f4;
+	}
+}
 
 .media-with-lazy {
 	&.post figure::before {

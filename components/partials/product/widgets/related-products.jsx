@@ -16,7 +16,7 @@ function RelatedProducts ( props ) {
             <>
             <section className={ `products-section  pt-0 pb-2 ${adClass}` } style={{marginTop:"100px"}}>
                 <div className={ isContainer ? 'container' : '' }>
-                    <h2 className="section-title pb-3">Related Products</h2>
+                    <h2 className="section-title pb-4">Related Products</h2>
                     {
                         !loading && !products.length ?
                             <div className="info-box with-icon"><p>No products were found matching your selection.</p></div>

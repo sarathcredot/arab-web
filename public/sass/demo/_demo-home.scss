@@ -225,6 +225,41 @@ hr {
         left: 60px;
     }
 }
+// custom
+.owl-carousel.nav-blackcircle .owl-nav {
+    font-size: 1rem;
+
+    i:before {
+        font-weight: 800;
+    }
+
+    [class*='owl-']:not(.disabled):hover {
+        background: black;
+        color: white;
+    }
+
+    .owl-next,
+    .owl-prev {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        top: 49.3%;
+        width: 36px;
+        height: 36px;
+        border-radius: 50%;
+        background: black;
+        color: white;
+    }
+
+    .owl-next {
+        right: -20px;
+    }
+
+    .owl-prev {
+        left: -17px;
+    }
+}
+
 
 .carousel-with-bg {
     .owl-stage {
@@ -237,6 +272,7 @@ hr {
 
     .owl-item {
         background-color: #fff;
+        // width: 254.167px !important;
     }
 }
 
@@ -1496,6 +1532,9 @@ hr {
         .view-all {
             margin-right: 2px;
             top: 2.2rem;
+            height: 100%;
+            color: black;
+            font-weight: 500;
         }
     }
 }

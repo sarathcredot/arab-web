@@ -72,14 +72,15 @@ function ProductOne(props) {
   }
 
   return (
-    <div className={`product-default media-with-lazy ${adClass}`}>
-      <figure>
+    <div className={`product-default media-with-lazy ${adClass}`} >
+      <figure style={props.customStyle && { paddingTop: props.customStyle }}>
         <ALink href={`/product/${link}/${product.slug}`}>
           <div className="lazy-overlay"></div>
           <span
             style={{
               display: "flex",
               justifyContent: "center",
+             
               // width: "130px",
               // height: "180px",
             }}
