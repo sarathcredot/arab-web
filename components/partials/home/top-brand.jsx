@@ -66,7 +66,7 @@ function TopBrand(props) {
           </OwlCarousel>
         </div>
       </div>
-      <div>
+      <div className="custom-topbrand-img">
         <img src="images/banners/bannermiddle.svg" />
       </div>
     </>

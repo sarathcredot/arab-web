@@ -70,7 +70,7 @@ function GardenCollection(props) {
                       <OwlCarousel
                         adClass="products-slider nav-circle nav-image-center pb-0 border-bottom-1 border-left-1 border-right-1 border-top-0 border-solid custom-border-color"
                         options={slideOption}
-                        
+                       style={{border:" 1px solid #EEE"}} 
                       >
                         {bestSelling
                           ? bestSelling

@@ -21,7 +21,7 @@ import SelectedCollection from "../components/partials/home/selected-collection"
 import RecentCollection from "../components/partials/home/recent-collection";
 import TopBrand from "../components/partials/home/top-brand";
 import Footerbanner from "../components/partials/home/footerbanner";
-
+import AppleProducts from "../components/partials/home/apple-products"
 
 
 function Home() {
@@ -67,7 +67,7 @@ function Home() {
           {/* <RecentCollection bestSelling={bestSelling} /> */}
         </div>
         <CategoryFilterSection />
-  
+  <AppleProducts products={bestSelling}/>
         <Footerbanner />
       </main>
 

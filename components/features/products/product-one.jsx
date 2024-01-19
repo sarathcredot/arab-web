@@ -94,27 +94,7 @@ function ProductOne(props) {
               }}
             />
           </span>
-          {/* <LazyLoadImage
-            alt="product"
-            // src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[0].url}
-            src="images/iphone.svg"
-            threshold={500}
-            effect="black and white"
-            width="130px"
-            height="auto"
-            objectFit="contain"
-          /> */}
-          {/* {product.pictures.length >= 2 ? (
-            <LazyLoadImage
-              alt="product"
-              src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[1].url}
-              threshold={500}
-              effect="black and white"
-              wrapperClassName="product-image-hover"
-            />
-          ) : (
-            ""
-          )} */}
+
         </ALink>
 
         <div className="label-group">
@@ -131,41 +111,12 @@ function ProductOne(props) {
           )}
         </div>
 
-        {/* <div className="btn-icon-group">
-          {product.variants.length > 0 ? (
-            <ALink
-              href={`/product/default/${product.slug}`}
-              className="btn-icon btn-add-cart"
-            >
-              <i className="fa fa-arrow-right"></i>
-            </ALink>
-          ) : (
-            <a
-              href="#"
-              className="btn-icon btn-add-cart product-type-simple"
-              title="Add To Cart"
-              onClick={onAddCartClick}
-            >
-              <i className="icon-shopping-cart"></i>
-            </a>
-          )}
-        </div> */}
-
-        {/* {product.until && product.until !== null && <ProductCountdown />} */}
-
-        {/* <a
-          href="#"
-          className="btn-quickview"
-          title="Quick View"
-          onClick={onQuickViewClick}
-        >
-          Quick View
-        </a> */}
+       
       </figure>
 
       <div
         className="product-details"
-        style={{ alignItems: "left", justifyContent: "left" }}
+        style={{ alignItems: "left", justifyContent: "left" , ...(props.customdetailStyle && { marginTop: props.customdetailStyle })}}
       >
         <div
           className="category-wrap"
@@ -204,10 +155,11 @@ function ProductOne(props) {
               className="custom-addcart"
              
             >
-              {/* <GoPlus style={{color:"#000000",fontSize:"20px",fontWeight:700}} /> */}
-              <AiOutlinePlus
-                style={{ color: "#000000", fontSize: "20px", fontWeight: 500 }}
-              />
+             
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="black" stroke="black" className="plusbtn">
+<path d="M6.51025 12.0156H18.2022"  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.356 17.8421V6.19043"  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
             </div>
           </div>
           {/* <a
@@ -256,7 +208,7 @@ function ProductOne(props) {
         </div> */}
 
         <div className="price-box">
-          <span style={{fontFamily:"Plus Jakarta Sans"}}>OMR</span>
+          <span style={{fontFamily:'Plus Jakarta Sans'}}>OMR</span>
           <span
             className="product-price"
             style={{

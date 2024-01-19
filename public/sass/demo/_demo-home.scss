@@ -48,6 +48,8 @@
 
     ul {
         margin-bottom: 1px;
+        display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
 
         li {
             margin-right: 2.9rem;
@@ -158,7 +160,10 @@ hr {
     background-size: cover;
     height: "354px"!important;
 }
+// .custom-banner4img{
+//     background-image: url("images/home/banners/applebanner.svg");
 
+// }
 .text-animate {
     position: absolute;
     white-space: nowrap;
@@ -188,7 +193,7 @@ hr {
 }
 
 .btn {
-    border-radius: 3px;
+    border-radius: 1px;
 }
 
 // Plugin 
@@ -593,6 +598,10 @@ hr {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 86px;
+    border-bottom: 1px solid #EEE;
+    margin-bottom: 28px;
+    padding-top: 28px
 }
 .products-with-divide {
     margin-bottom: -1px;
@@ -749,7 +758,9 @@ hr {
         margin-bottom: 3.4rem;
         font-family: $second-font-family;
     }
-
+.btn-add-cart:hover{
+    background-color: black;
+}
     .btn-add-cart {
         display: flex;
         padding: .66em 3em .66em 2.85em;
@@ -1074,7 +1085,7 @@ hr {
 
     .product-default:hover {
         figure {
-            box-shadow: 0 15px 25px -5px rgba(0,0,0,0.1);
+            // box-shadow: 0 15px 25px -5px rgba(0,0,0,0.1);
         }
     }
 }
@@ -1431,6 +1442,7 @@ hr {
 
         li {
             margin-right: 2.2rem;
+            
         }
     }
 
@@ -1550,7 +1562,26 @@ hr {
         }
     }
 }
-
+.app-downloadbtn{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    background: black;
+   display:flex;
+    gap: 24px;
+    padding: 30px 57px 30px 30px;
+    height: 100%;
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center
+}
+.custom-responsive-banner2{
+    display: none;
+}
+.custom-responsive-banner3{
+display: none;
+}
 // 3. Responsive
 @media(min-width: 768px) {
     .deal-products-section {
@@ -1760,6 +1791,50 @@ hr {
     .categories-container{
         width: 100%;
     }
+
+    .category-filter-section{
+        display: none;
+    }
+// .custom-banner4img{
+//     background-image: url("images/home/banners/applebannermob.jpg");
+
+// }
+.product-slider-tab .shop-list li{
+    margin-right: -2rem;
+}
+    .custom-responsive-banner2{
+        display: block;
+    }
+    .custom-responsive-banner3{
+        display: block;
+    }
+    .custom-web-banner2{
+        display: none;
+    }
+    .custom-web-banner3{
+        display: none;
+    }
+    .app-downloadbtn
+    {
+        display: none;
+    }
+    .owl-carousel.nav-circle .owl-nav {
+        .owl-next {
+            right: 14px;
+        }
+    i{
+        font-size: 10px;
+    }
+        .owl-prev {
+            left: 14px;
+        }
+        .owl-next,
+    .owl-prev {
+        width: 30px;
+        height: 30px;
+    }
+
+    }
     // .bg-image{
     //     height: 0;
     // }
@@ -1773,7 +1848,9 @@ hr {
     .section-title{
     margin-bottom: 1.7rem;
     padding-top: 0 !important;
-    padding-bottom: 0;}
+    padding-bottom: 0;
+    // display: none;
+}
     .heading {        
         .section-title {
             width: calc( 100% - 65px );
@@ -1805,7 +1882,9 @@ hr {
         object-fit: contain;
         width: 100%;
         height: 100%;
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
+        margin-top: -33px;
+        margin-bottom: 66px;
     }
     .home_banner3{
         display: none;
@@ -1830,7 +1909,7 @@ hr {
         }
 
         img {
-            min-height: 400px;
+            min-height: 163px;
         }
     }
 
@@ -1918,11 +1997,14 @@ hr {
         padding: .4em 1em;
     }
 
-    .product-slider-tab .shop-list li,
-    .heading ul li {
-        margin-right: 1.9rem;
-    }
-
+    // .product-slider-tab .shop-list li
+    // .heading ul li
+    //  {
+    //     margin-right: 1.9rem;
+    // }
+    // .heading ul li{
+    //     // margin-right: -2rem-2.8rem;
+    // }
     .product-slider-tab .shop-list {
         padding: 4rem 1rem 0rem;
         margin-bottom: 1.1rem;

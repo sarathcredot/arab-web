@@ -627,7 +627,7 @@ background-color: rgba(245, 245, 245, 1);
 	display: flex;
 	justify-content: center;
 	// background-color:rgba(240, 240, 240, 1) ;
-
+	cursor: pointer;
 	&__item {
 		display: flex;
 		gap: 4px;
@@ -664,6 +664,7 @@ background-color: rgba(245, 245, 245, 1);
 	justify-content: center;
 	padding-bottom: 28px;
 	border-bottom: 1px solid rgba(240, 240, 240, 1);
+	cursor: pointer;
 background: #FFF;
 	&__item {
 		display: flex;
@@ -712,6 +713,7 @@ background: #FFF;
 	justify-content: left;
 	gap: 10px;
 	padding-bottom: 28px;
+	
 	border-bottom: 1px solid rgba(240, 240, 240, 1);;
 	&__item{
 		border: 1px solid rgba(240, 240, 240, 1);
@@ -723,6 +725,7 @@ background: #FFF;
 		box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.08);
 		min-width: 121px;
 		max-width: 121px;
+		cursor: pointer;
 		&-label{
 				font-size: 12px;
 				font-weight: 500;
@@ -739,9 +742,10 @@ background: #FFF;
 	border: 1px solid rgba(240, 240, 240, 1);
 		height: 51px;
 		display: flex;
-		justify-content: center;
+		justify-content: left;
 		place-items: center;
 		gap: 10;
+		cursor: pointer;
 		box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.08);
 		min-width: 121px;
     max-width: 121px;

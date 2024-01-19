@@ -6,6 +6,7 @@ function OwlCarousel(props) {
   const carouselRef = useRef(null);
   const defaultOptions = {
     loop: false,
+   rewind:true,
     margin: 0,
     nav: false,
     navText: ['<i class="icon-angle-left">', '<i class="icon-angle-right">'],

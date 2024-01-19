@@ -9,8 +9,10 @@ import ProductFour from "../../features/products/product-four";
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
 function DealSection({ products }) {
+  console.log(products);
   return (
     <section className="deal-products-section">
+     
       <div className="deal-section-head">
       <h2 className="section-title d-flex align-items-center text-transform-none">
         Deals of the day
@@ -18,6 +20,7 @@ function DealSection({ products }) {
       <p style={{color:"rgba(0, 0, 0, 1)",fontWeight:"500"}}>View All Products</p>
      
       </div>
+      <h4 className="recommendmob">Recommended for you</h4>
       <Reveal
         keyframes={fadeInUpShorter}
         delay={100}
@@ -53,7 +56,7 @@ function DealSection({ products }) {
                 {products
                   ? products
                       .filter((item) => item.until === null)
-                      .slice(0, 6)
+                      .slice(0, 9)
                       .map((item, index) => (
                         <div
                           className="col-xl-4 col-sm-4 col-6"
@@ -63,6 +66,8 @@ function DealSection({ products }) {
                           <ProductOne
                             // adClass="inner-quickview inner-icon"
                             product={item}
+                            // customStyle="60%"
+
                           />
                         </div>
                       ))
