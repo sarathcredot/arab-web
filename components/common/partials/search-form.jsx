@@ -180,7 +180,7 @@ function SearchForm(props) {
           <div className="live-search-list bg-white">
             {search.length > 2 &&
               data &&
-              data.products.data.map((product, index) => (
+              data?.products?.data.map((product, index) => (
                 <ALink
                   href={`/product/default/${product.slug}`}
                   className="autocomplete-suggestion"
@@ -202,22 +202,22 @@ function SearchForm(props) {
                     )}
                   ></div>
                   <span className="search-price">
-                    {product.price[0] == product.price[1] ? (
+                    {product?.price[0] == product?.price[1] ? (
                       <span className="product-price">
-                        {"$" + product.price[0].toFixed(2)}
+                        {"$" + product?.price[0].toFixed(2)}
                       </span>
                     ) : product.variants.length > 0 ? (
                       <span className="product-price">
-                        {"$" + product.price[0].toFixed(2)} &ndash;{" "}
-                        {"$" + product.price[1].toFixed(2)}
+                        {"$" + product?.price[0].toFixed(2)} &ndash;{" "}
+                        {"$" + product?.price[1].toFixed(2)}
                       </span>
                     ) : (
                       <>
                         <span className="old-price">
-                          {"$" + product.price[1].toFixed(2)}
+                          {"$" + product?.price[1].toFixed(2)}
                         </span>
                         <span className="product-price">
-                          {"$" + product.price[0].toFixed(2)}
+                          {"$" + product?.price[0].toFixed(2)}
                         </span>
                       </>
                     )}

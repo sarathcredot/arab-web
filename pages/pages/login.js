@@ -1,36 +1,68 @@
-
 import React, { useState } from "react";
 import ALink from "../../components/common/ALink";
 import OTPInput from "react-otp-input";
+// import { useQuery,gql,useMutation } from "@apollo/react-hooks";
+import { gql, useMutation, useLazyQuery } from "@apollo/client";
+import withApollo from "../../server/apollo"
+import { useRouter } from "next/router";
+// import { useForm, Controller } from "react-hook-form";
+export const LOGIN = gql`
+  mutation Mutation($input: userLoginOtpInput!) {
+    userLoginOtp(input: $input) {
+      message
+      mobileNumber
+    }
+  }
+`;
 
-function Login() {
+export const OTP_VERIFY=gql`mutation UserVerifyOtp($input: userVerifyOtpInput!) {
+  userVerifyOtp(input: $input) {
+    message
+    token
+  }
+}`
+function Login({mutate}) {
   const [isOtp, SetIsOtp] = useState(false);
+  const [mobileNumber, setMobileNumber] = useState("");
+  const [error, setError] = useState("");
   const [otp, setOtp] = useState("");
+const router=useRouter()
+  const  [userLoginOtp] =
+    useMutation(LOGIN);
+const [UserVerifyOtp]=useMutation(OTP_VERIFY)
 
-  const handleOtpChange = () => {
-    SetIsOtp(true);
+  const handleOtpChange =async (event) => {
+    event.preventDefault();
+    try {
+      if (!mobileNumber.trim()) {
+        setError("Mobile number is required");
+        return;
+      }
+
+    const response= await userLoginOtp({ variables: { input: { mobileNumber: mobileNumber } } });
+      console.log(response);
+      SetIsOtp(true);
+    } catch (error) {
+      console.log("error", error);
+    }
   };
 
+  const handleVerifyOTP=async(event)=>{
+    event.preventDefault()
+    try{
+      const response =await UserVerifyOtp({variables:{input:{code:otp}}})
+      console.log(response);
+      if(response){
+        localStorage.setItem("arabtoken",response?.data?.userVerifyOtp?.token)
+        router.push("/")
+      }
+    }
+    catch (error) {
+      console.log("error", error);
+    }
+  }
   return (
     <main className="main">
-      {/* <div className="page-header">
-                <div className="container d-flex flex-column align-items-center">
-                    <nav aria-label="breadcrumb" className="breadcrumb-nav">
-                        <div className="container">
-                            <ol className="breadcrumb">
-                                <li className="breadcrumb-item"><ALink href="/">Home</ALink></li>
-                                <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
-                                <li className="breadcrumb-item active" aria-current="page">
-                                    My Account
-                            </li>
-                            </ol>
-                        </div>
-                    </nav>
-
-                    <h1>My Account</h1>
-                </div>
-            </div> */}
-
       <div className=" login-container">
         <div className="row">
           <div className="col-lg-12 mx-auto">
@@ -46,7 +78,8 @@ function Login() {
                           marginTop: "20px",
                           paddingBottom: "20px",
                           fontSize: "12px",
-                          color: "#777777",fontWeight:"400"
+                          color: "#777777",
+                          fontWeight: "400",
                         }}
                       >
                         Lorem ipsum dolor sit amet consectetur. Sapien ut libero
@@ -60,7 +93,7 @@ function Login() {
                       <OTPInput
                         value={otp}
                         onChange={setOtp}
-                        numInputs={4}
+                        numInputs={6}
                         containerStyle={{
                           textAlign: "center",
                           width: "60px",
@@ -75,13 +108,13 @@ function Login() {
                               height: "60px",
                               textAlign: "center",
                               fontSize: "18px ",
-                            borderColor:"#ECECEC",
-                            // textDecoration:"none",
-                            outline:"none",
-                            border:"1px solid #ECECEC",
-                            // outlineColor:"#ECECEC"
-                        
-                            //   border:"1px"
+                              borderColor: "#ECECEC",
+                              // textDecoration:"none",
+                              outline: "none",
+                              border: "1px solid #ECECEC",
+                              // outlineColor:"#ECECEC"
+
+                              //   border:"1px"
                             }}
                           />
                         )}
@@ -89,8 +122,8 @@ function Login() {
                       <button
                         type="submit"
                         className="btn btn-dark btn-md "
-                        style={{ marginTop: "48px",fontWeight:"600" }}
-                        // onClick={handleVerifyOTP}
+                        style={{ marginTop: "48px", fontWeight: "600" }}
+                        onClick={handleVerifyOTP}
                       >
                         Verify OTP
                       </button>
@@ -108,7 +141,11 @@ function Login() {
                         >
                           Don't have OTP ?
                           <span
-                            style={{ paddingLeft: "5px", color: "#399E0A" ,fontWeight:"500"}}
+                            style={{
+                              paddingLeft: "5px",
+                              color: "#399E0A",
+                              fontWeight: "500",
+                            }}
                             className="btn-text"
                           >
                             Resent
@@ -196,7 +233,8 @@ function Login() {
                           marginTop: "20px",
                           paddingBottom: "20px",
                           fontSize: "12px",
-                          color: "#777777",fontWeight:"400"
+                          color: "#777777",
+                          fontWeight: "400",
                         }}
                       >
                         Lorem ipsum dolor sit amet consectetur. Sapien ut libero
@@ -207,18 +245,25 @@ function Login() {
 
                   <div></div>
 
-                  <form action="#" style={{ marginTop: "70px" }}>
-                    {/* <label htmlFor="login-email">
-                                        Enter Mobile number <span className="required">*</span>
-                                    </label> */}
+                  <form style={{ marginTop: "70px" }}>
                     <input
+                      type="text"
+                      placeholder="Enter Mobile Number"
+                      className="form-input form-wide"
+                      value={mobileNumber}
+                      onChange={(e) => setMobileNumber(e.target.value)}
+                    />
+                    {error && <div style={{ color: "red" }}>{error}</div>}
+
+                    {/* <input
                       type="number"
                       className="form-input form-wide"
                       id="login-email"
                       //   required
                       placeholder="Enter Mobile Number"
                       style={{ width: "538px", height: "60px" }}
-                    />
+                      onChange={handleMobileNumberChange}
+                    /> */}
 
                     <div
                       className=""
@@ -241,8 +286,12 @@ function Login() {
                           marginTop: "14px",
                         }}
                       >
-                        <div style={{  fontSize: "14px",fontWeight:"500" }}>
-                          <p style={{ fontFamily: "Poppins",marginBottom:"0" }}>OR</p>
+                        <div style={{ fontSize: "14px", fontWeight: "500" }}>
+                          <p
+                            style={{ fontFamily: "Poppins", marginBottom: "0" }}
+                          >
+                            OR
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -256,7 +305,7 @@ function Login() {
                           justifyContent: "center",
                           height: "60px",
                           width: "538px",
-                          border:"1px solid #CDCDCD"
+                          border: "1px solid #CDCDCD",
                         }}
                       >
                         <div class="google-icon-wrapper ">
@@ -269,7 +318,13 @@ function Login() {
                           class="btn-text mt-3 "
                           style={{ paddingLeft: "20px" }}
                         >
-                          <p style={{ fontSize: "12px", fontWeight: "600",color:"#000000" }}>
+                          <p
+                            style={{
+                              fontSize: "12px",
+                              fontWeight: "600",
+                              color: "#000000",
+                            }}
+                          >
                             Login in with google
                           </p>
                         </p>
@@ -283,7 +338,7 @@ function Login() {
                           marginTop: "20px",
                           height: "60px",
                           width: "538px",
-                          border:"1px solid #CDCDCD"
+                          border: "1px solid #CDCDCD",
                         }}
                       >
                         <div class="google-icon-wrapper">
@@ -296,40 +351,23 @@ function Login() {
                           class="btn-text mt-3"
                           style={{ paddingLeft: "20px" }}
                         >
-                          <p style={{ fontSize: "12px", fontWeight: "600",color:"#000000" }}>
+                          <p
+                            style={{
+                              fontSize: "12px",
+                              fontWeight: "600",
+                              color: "#000000",
+                            }}
+                          >
                             Sign in wIth Apple
                           </p>
                         </p>
                       </div>
                     </div>
 
-                    {/* <div className="form-footer">
-                    <div className="custom-control custom-checkbox mb-0">
-                      <input
-                        type="checkbox"
-                        className="custom-control-input"
-                        id="lost-password"
-                      />
-                      <label
-                        className="custom-control-label mb-0"
-                        htmlFor="lost-password"
-                      >
-                        Remember me
-                      </label>
-                    </div>
-
-                    <ALink
-                      href="/pages/forgot-password"
-                      className="forget-password text-dark form-footer-right"
-                    >
-                      Forgot Password?
-                    </ALink>
-                  </div> */}
-
                     <button
                       type="submit"
                       className="btn btn-dark btn-md "
-                      style={{ marginTop: "48px",fontWeight:"600" }}
+                      style={{ marginTop: "48px", fontWeight: "600" }}
                       onClick={handleOtpChange}
                     >
                       GET OTP
@@ -337,40 +375,6 @@ function Login() {
                   </form>
                 </div>
                 <div className="col-md-6">
-                  {/* <div className="heading mb-1">
-                  <h2 className="title">Register</h2>
-                </div> */}
-
-                  {/* <form action="#">
-                  <label htmlFor="register-email">
-                    Email address <span className="required">*</span>
-                  </label>
-                  <input
-                    type="email"
-                    className="form-input form-wide"
-                    id="register-email"
-                    required
-                  />
-
-                  <label htmlFor="register-password">
-                    Password <span className="required">*</span>
-                  </label>
-                  <input
-                    type="password"
-                    className="form-input form-wide"
-                    id="register-password"
-                    required
-                  />
-
-                  <div className="form-footer mb-2">
-                    <button
-                      type="submit"
-                      className="btn btn-dark btn-md w-100 mr-0"
-                    >
-                      Register
-                    </button>
-                  </div>
-                </form> */}
                   <div>
                     <img
                       class="google-icon"
@@ -386,5 +390,4 @@ function Login() {
     </main>
   );
 }
-
-export default React.memo(Login);
+export default withApollo( { ssr: typeof window === 'undefined' } )( Login );

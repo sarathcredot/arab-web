@@ -7,7 +7,7 @@ function BannerSection({ offer }) {
   return (
     // <Reveal keyframes={fadeInUpShorter} delay={200} duration={1000} triggerOnce>
     <div className="banner-section">
-      {offer ? (
+      {/* {offer ? (
         <>
           <div className="row pt-4">
             <div className="col-md-12 ">
@@ -19,7 +19,7 @@ function BannerSection({ offer }) {
             </div>
           </div>
         </>
-      ) : (
+      ) : ( */}
         <>
           <div className="row pb-4">
             <div className="col-md-8 custom-web-banner2">
@@ -337,7 +337,7 @@ function BannerSection({ offer }) {
             </div>
           </div>
         </>
-      )}
+      {/* )} */}
     </div>
     // </Reveal>
   );

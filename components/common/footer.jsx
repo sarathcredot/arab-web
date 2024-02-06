@@ -142,7 +142,7 @@ function Footer() {
 
 <img src="images/helpline.svg" style={{width:"30px"}}/>
 <p style={{color:"rgba(27, 27, 27, 1)"}}>Helpline</p>
-<h4>1800 45684788</h4>
+<h4>1800 456 84788</h4>
 </div>
 <div className="footer-flexcolumns">
   <div className="footer-sub">
@@ -542,7 +542,7 @@ function Footer() {
 
               <img src="images/helpline.svg" style={{width:"30px"}}/>
               <p style={{color:"rgba(27, 27, 27, 1)"}}>Helpline</p>
-              <h4>1800 45684788</h4>
+              <h4>1800 456 84788</h4>
             </div>
            
           </div>

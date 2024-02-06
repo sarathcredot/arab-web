@@ -84,9 +84,9 @@ function ProductDefault () {
 
     const [product,setProduct]=useState()
 
-    if ( productError ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( productError ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     const id = slug
    
