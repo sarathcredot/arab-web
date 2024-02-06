@@ -223,6 +223,15 @@ a:hover .custom-sharing{
 .overflow-hidden {
 	overflow: hidden !important;
 }
+.custom-categorylabels{
+	color: #000000;
+    font-weight: 400;
+    line-height: 26px;
+	&:focus{
+	color: #000000;
+	}
+}
+
 
 // 2.5) Width Helpers
 @include mq(lg) {

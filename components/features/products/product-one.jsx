@@ -18,6 +18,7 @@ function ProductOne(props) {
   const { adClass = "", link = "default", product } = props;
 
   function isSale() {
+    console.log(product);
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +
@@ -26,7 +27,7 @@ function ProductOne(props) {
             product.price[1]
           ).toFixed(0) +
           "%"
-      : product.variants.find((variant) => variant.sale_price)
+      : product?.variants?.find((variant) => variant?.sale_price)
       ? "Sale"
       : false;
   }
@@ -73,8 +74,8 @@ function ProductOne(props) {
 
   return (
     <div className={`product-default media-with-lazy ${adClass}`} >
-      <figure style={props.customStyle && { paddingTop: props.customStyle }}>
-        <ALink href={`/product/${link}/${product.slug}`}>
+      <figure style={props.customStyle && { paddingTop: props.customStyle }} >
+        <ALink href={`/product/${link}/${product._id}`}>
           <div className="lazy-overlay"></div>
           <span
             style={{
@@ -86,7 +87,8 @@ function ProductOne(props) {
             }}
           >
             <img
-              src="images/iphone.svg"
+              src={product?.images[0]?.fileURL}
+              // "images/iphone.svg"
               style={{
                 width: "130px",
                 objectFit: "contain",
@@ -127,26 +129,26 @@ function ProductOne(props) {
             justifyContent: "center",
           }}
         >
-          <div className="category-list" style={{ width: "50%" }}>
-            {product.categories
+          <div className="category-list" style={{ width: "50%",fontWeight:600 }}>
+            {/* {product?.categoryNamePath
               ? product.categories.map((item, index) => (
-                  <React.Fragment key={item.slug + "-" + index}>
-                    <ALink
-                      href={{
-                        pathname: "/shop",
-                        query: { category: item.slug },
-                      }}
+                  <React.Fragment key={item.slug + "-" + index}> */}
+                    <ALink href="#"
+                      // href={{
+                      //   pathname: "/shop",
+                      //   query: { category: item.slug },
+                      // }}
                       style={{
                         color: "rgba(227, 6, 19, 1)",
-                        fontWeight: "700",
+                        fontWeight: 600,
                       }}
                     >
-                      {item.name}
+                      {product?.categoryNamePath}
                     </ALink>
-                    {index < product.categories.length - 1 ? ", " : ""}
-                  </React.Fragment>
-                ))
-              : ""}
+                    {/* {index < product.categories.length - 1 ? ", " : ""} */}
+                  {/* </React.Fragment> */}
+                {/* ))
+              : ""} */}
           </div>
 
           {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
@@ -189,9 +191,9 @@ function ProductOne(props) {
         <h3 className="product-title">
           <ALink
             href={`/product/default/${product.slug}`}
-            style={{ fontWight: "500px", fontSize: "14px" }}
+            style={{ fontWeight: "500px", fontSize: "14px" }}
           >
-            {product.name}
+            {product.productName}
           </ALink>
         </h3>
 
@@ -219,13 +221,13 @@ function ProductOne(props) {
               marginLeft: "25px",
             }}
           >
-            {product.price[0].toFixed(2)}
+            {product?.price}
           </span>
           <span
             className="old-price"
             style={{ marginLeft: "25px", color: "#777777" }}
           >
-            {+product.price[1].toFixed(2)}
+            {+product?.mrp?.toFixed(2)}
           </span>
         </div>
 

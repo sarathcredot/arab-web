@@ -22,52 +22,57 @@ import RecentCollection from "../components/partials/home/recent-collection";
 import TopBrand from "../components/partials/home/top-brand";
 import Footerbanner from "../components/partials/home/footerbanner";
 import AppleProducts from "../components/partials/home/apple-products"
-
+import MainMenu from "../components/common/partials/main-menu"
 
 function Home() {
-  const { data, loading, error } = useQuery(GET_HOME_DATA, {
-    variables: { productsCount: 15 },
-  });
-  const bestSelling = data && data.specialProducts.bestSelling;
-  const electronic = data && data.electronic.data;
-  const giftAndGadgets = data && data.giftAndGadgets.data;
-  const latest = data && data.specialProducts.latest;
-  const topRated = data && data.specialProducts.topRated;
+  // const { data, loading, error } = useQuery(GET_HOME_DATA, {
+  //   variables: { productsCount: 15 },
+  // });
+  // const bestSelling = data && data?.specialProducts?.bestSelling;
+  // const electronic = data && data?.electronic?.data;
+  // const giftAndGadgets = data && data?.giftAndGadgets?.data;
+  // const latest = data && data?.specialProducts?.latest;
+  // const topRated = data && data?.specialProducts?.topRated;
 
-  if (error) {
-    return <div>{error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
   
 
   return (
     <>
       <main className="home">
+      <div className="header-bottom d-flex">
+          <div className="container">
+            <MainMenu />
+          </div>
+        </div>
         <div className="bg-gray">
           <HomeSection className="pb-5" />
         </div>
 
         <div
           className={`container skeleton-body skel-shop-products pt-5 ${
-            loading ? "" : "loaded"
+            false ? "" : "loaded"
           }`}
         >
           <BannerSection />
 
-          <DealSection products={bestSelling} />
+          {/* <DealSection products={bestSelling} /> */}
         </div>
         <TopBrand />
 
         <div
           className={`bg-gray skeleton-body skel-shop-products ${
-            loading ? "" : "loaded"
+            false ? "" : "loaded"
           }`}
         >
-          <ElectronicCollection products={electronic} />
+          {/* <ElectronicCollection products={electronic} /> */}
 
           {/* <RecentCollection bestSelling={bestSelling} /> */}
         </div>
         <CategoryFilterSection />
-  <AppleProducts products={bestSelling}/>
+  {/* <AppleProducts products={bestSelling}/> */}
         <Footerbanner />
       </main>
 

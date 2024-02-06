@@ -1283,7 +1283,7 @@ body {
 
         .header-search-wrapper {
             border: 2px solid #ECECEC;
-            border-radius: 4px;
+            border-radius: 0px;
         }
 
         .form-control,
@@ -1316,7 +1316,7 @@ body {
         }
 
         &.header-search .header-search-wrapper {
-            border-width: 2px;
+            border-width: 1px;
         }
     }
 }

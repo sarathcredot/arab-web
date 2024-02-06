@@ -13,14 +13,14 @@ import GardenCollection from "./garden-collection";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_HOME_DATA } from "../../../server/queries";
 function ElectronicCollection({ products }) {
-  const { data, loading, error } = useQuery(GET_HOME_DATA, {
-    variables: { productsCount: 15 },
-  });
-  const giftAndGadgets = data && data.giftAndGadgets.data;
-  const latest = data && data.specialProducts.latest;
-  const topRated = data && data.specialProducts.topRated;
-  const bestSelling = data && data.specialProducts.bestSelling;
-  const electronic = data && data.electronic.data;
+//   const { data, loading, error } = useQuery(GET_HOME_DATA, {
+//     variables: { productsCount: 15 },
+//   });
+  // const giftAndGadgets = data && data?.giftAndGadgets?.data;
+  // const latest = data && data?.specialProducts?.latest;
+  // const topRated = data && data?.specialProducts?.topRated;
+  // const bestSelling = data && data?.specialProducts?.bestSelling;
+  // const electronic = data && data?.electronic?.data;
   return (
     <Reveal keyframes={fadeIn} delay={100} duration={1000} triggerOnce>
       <section

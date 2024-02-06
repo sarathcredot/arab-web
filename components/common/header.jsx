@@ -109,7 +109,7 @@ function Header({ adClass = "", wishlist }) {
       <header
         className={`header ${adClass} sticky-header mobile-sticky desktop-sticky`}
       >
-        <div className="header-middle">
+        <div className="header-middle" style={{paddingTop:"3rem",paddingBottom:"3rem"}}>
           <div className="container innercontainer">
             {/* <div className={styles.innercontainer}> */}
             <div className="header-left col-lg-2 w-auto pl-0">
@@ -183,7 +183,7 @@ function Header({ adClass = "", wishlist }) {
                 </div>
               </div>
 
-              <ALink href="/pages/account" className="d-lg-block d-none">
+              <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}>
                 <div className="header-user">
                   <div className={styles.circle}>
                     <BiSolidUser style={{ fontSize: "20px" }} />
@@ -215,12 +215,13 @@ function Header({ adClass = "", wishlist }) {
           </div>
         </div>
 
-        <div className="header-bottom d-flex">
+       
+      </header>
+      {/* <div className="header-bottom d-flex">
           <div className="container">
             <MainMenu />
           </div>
-        </div>
-      </header>
+        </div> */}
     </>
   );
 }

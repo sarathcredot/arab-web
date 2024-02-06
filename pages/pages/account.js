@@ -1,8 +1,14 @@
 import React from 'react';
 import ALink from '../../components/common/ALink';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
+import { useRouter } from 'next/router';
 import { IoMdHome } from "react-icons/io";
 function Account() {
+  const router=useRouter()
+  const handleLogout=()=>{
+    localStorage.clear();
+  router.push('/')
+  }
   return (
     <div>
       <main className="main main-test">
@@ -313,7 +319,7 @@ function Account() {
                               </div>
                             </div>
 
-                            <div className="feature-box-content" style={{ marginTop: '20px' }}>
+                            <div className="feature-box-content" style={{ marginTop: '20px' }} onClick={handleLogout}>
                               <h3>Logout</h3>
                             </div>
                           </ALink>

@@ -27,12 +27,12 @@ function ProductTransparent () {
 
     const slug = useRouter().query.slug;
     const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
-    const product = data && data.product.data;
-    const related = data && data.product.related;
+    const product = data && data?.product?.data;
+    const related = data && data.product?.related;
 
-    if ( error ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( error ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     return (
         <main className="main">

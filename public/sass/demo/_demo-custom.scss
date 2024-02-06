@@ -120,7 +120,17 @@ span.toggle {
         }
     }
 }
+.custom-shopproduct {
+   &:last-child{
 
+       border-right: 1px solid #B9B9B9 !important;
+      
+   }
+   &:nth-child(n+5){
+    border-bottom: transparent !important;
+   }
+}
+// .custom-shopproduct 
 .products-section {
     h2 {
         margin-bottom: 5.4rem;

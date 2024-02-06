@@ -20,10 +20,10 @@ function ShopGrid() {
   const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   const [perPage, setPerPage] = useState(12);
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
-  const products = data && data.products.data;
+  const products = data && data?.products?.data;
   const totalPage = data
-    ? parseInt(data.products.total / perPage) +
-      (data.products.total % perPage ? 1 : 0)
+    ? parseInt(data?.products?.total / perPage) +
+      (data?.products?.total % perPage ? 1 : 0)
     : 1;
   const gridClass = {
     "3cols": "col-6 col-sm-4",
@@ -47,13 +47,13 @@ function ShopGrid() {
 
     getProducts({
       variables: {
-        search: query.search,
-        colors: query.colors ? query.colors.split(",") : [],
-        sizes: query.sizes ? query.sizes.split(",") : [],
+        search: query?.search,
+        colors: query?.colors ? query?.colors.split(",") : [],
+        sizes: query?.sizes ? query?.sizes.split(",") : [],
         min_price: parseInt(query.min_price),
         max_price: parseInt(query.max_price),
-        category: query.category,
-        tag: query.tag,
+        category: query?.category,
+        tag: query?.tag,
         sortBy: sortBy,
         from: perPage * (page - 1),
         to: perPage * page,
@@ -119,7 +119,7 @@ function ShopGrid() {
                   </ALink>
                 </li>
                 {data &&
-                  data.products.categoryFamily.map((item, index) => (
+                  data?.products?.categoryFamily.map((item, index) => (
                     <li
                       className="breadcrumb-item"
                       key={`category-family-${index}`}
@@ -137,15 +137,15 @@ function ShopGrid() {
                     <>
                       Search -{" "}
                       <ALink
-                        href={`/shop/${grid}?category=${query.category}`}
+                        href={`/shop/${grid}?category=${query?.category}`}
                         scroll={false}
                       >
-                        {query.category}
+                        {query?.category}
                       </ALink>{" "}
-                      / {query.search}
+                      / {query?.search}
                     </>
                   ) : (
-                    query.category
+                    query?.category
                   )}
                 </li>
               </>
