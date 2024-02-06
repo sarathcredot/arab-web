@@ -13,14 +13,14 @@ import GardenCollection from "./garden-collection";
 import { useQuery } from "@apollo/react-hooks";
 import { GET_HOME_DATA } from "../../../server/queries";
 function ElectronicCollection({ products }) {
-  const { data, loading, error } = useQuery(GET_HOME_DATA, {
-    variables: { productsCount: 15 },
-  });
-  const giftAndGadgets = data && data.giftAndGadgets.data;
-  const latest = data && data.specialProducts.latest;
-  const topRated = data && data.specialProducts.topRated;
-  const bestSelling = data && data.specialProducts.bestSelling;
-  const electronic = data && data.electronic.data;
+//   const { data, loading, error } = useQuery(GET_HOME_DATA, {
+//     variables: { productsCount: 15 },
+//   });
+  // const giftAndGadgets = data && data?.giftAndGadgets?.data;
+  // const latest = data && data?.specialProducts?.latest;
+  // const topRated = data && data?.specialProducts?.topRated;
+  // const bestSelling = data && data?.specialProducts?.bestSelling;
+  // const electronic = data && data?.electronic?.data;
   return (
     <Reveal keyframes={fadeIn} delay={100} duration={1000} triggerOnce>
       <section
@@ -30,19 +30,21 @@ function ElectronicCollection({ products }) {
         <div className="categories-container bg-white">
           <div className="container">
             <div className="apple-product-head">
-            <h4 className="section-title text-transform-none">
+            <h4 className="section-title text-transform-none" >
               Apple Products
             </h4>
-            <p style={{color:"rgba(0, 0, 0, 1)",fontWeight:"500"}}>View All Products</p>
+            <p style={{color:"rgba(0, 0, 0, 1)",fontWeight:"500",marginBottom:7}}>View All Products</p>
             </div>
             <div className="row">
               <div className="col-md-12 col-sm-12 mb-2 mb-md-0">
                 <div
-                  className="banner banner4 bg-image"
-                  style={{
-                    backgroundImage: "url(images/home/banners/applebanner.svg)",
-                  }}
-                ></div>
+                  className="banner banner4 bg-image pt-0"
+                  // style={{
+                  //   backgroundImage: "url(images/home/banners/applebanner.svg)",
+                  // }}
+                >
+                  <img src="images/home/banners/applebanner.svg"/>
+                </div>
               </div>
             </div>
           </div>

@@ -16,7 +16,7 @@ function RecentCollection(props) {
 
   return (
     <>
-      <section className="recent-products-section" style={{ marginTop: "10p" }}>
+      <section className="recent-products-section" style={{ marginTop: "10px" }}>
         <Reveal
           keyframes={fadeIn}
           delay={100}
@@ -91,7 +91,17 @@ function RecentCollection(props) {
 
           <OwlCarousel
             adClass="products-slider carousel-with-bg nav-blackcircle pb-0"
-            options={productSlider}
+            // options={productSlider}
+            options={{
+              ...productSlider,
+              responsive: {
+                ...productSlider.responsive,
+                1200: {
+                  items: 5,
+                  nav: true,
+                },
+              },
+            }}
           >
             {bestSelling
               ? bestSelling
@@ -135,7 +145,17 @@ function RecentCollection(props) {
 
           <OwlCarousel
             adClass="products-slider carousel-with-bg nav-blackcircle pb-0"
-            options={productSlider}
+            // options={productSlider}
+             options={{
+              ...productSlider,
+              responsive: {
+                ...productSlider.responsive,
+                1200: {
+                  items: 5,
+                  nav: true,
+                },
+              },
+            }}
           >
             {bestSelling
               ? bestSelling

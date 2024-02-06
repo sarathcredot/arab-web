@@ -66,7 +66,7 @@ function ProductFour(props) {
 
   return (
     <div
-      className={`product-default media-with-lazy ${adClass}`}
+      className={`product-default custom-product-resp media-with-lazy ${adClass}`}
       style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
     >
       {/* <figure> */}
@@ -203,7 +203,7 @@ function ProductFour(props) {
           ) : (
             <a
               href="#"
-              className="btn-icon btn-dark btn-add-cart product-type-simple"
+              className="btn-icon  btn-add-cart product-type-simple "
               title="Add To Cart"
               onClick={onAddCartClick}
             >

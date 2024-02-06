@@ -68,11 +68,31 @@
 				space: false,
 				border: false
 			),
+			
 
 		)
 	)
 );
-
+.twitter-cus-icon{
+	
+	border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 1px solid #e7e7e7;
+    color: #222529;
+    font-size: 1.4rem;
+    line-height: 40px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+			
+}
+.twitter-cus-icon:hover{
+	background-color: #e30613;
+}
+.twitter-cus-icon:hover .twitter-color{
+	color: white;
+}
 // 1. Footer Base
 footer {
 	// Footer's color, font-size
@@ -107,6 +127,10 @@ footer {
 	a:focus {
 		@include css( color, footer, link-active-color);
 	}
+}
+// responsiive footer
+.responsive-footer{
+	display: none
 }
 
 .footer {
@@ -349,10 +373,66 @@ footer {
 
 @include mq(sm, max) {
 	footer {
-		margin-bottom: 68px;
+		// margin-bottom: 68px;
 	}
 	
 	#scroll-top {
 		display: none;
 	}
+}
+
+@media (max-width: 768px) {
+	.responsive-footer{
+		display: block
+	}
+	
+	.footer-sub{
+		display: flex;
+		flex-direction: column;
+		width: 50%;
+	}
+	.footer-flexcolumns{
+		display: flex;
+		padding-bottom: 50px;
+	}
+	.custom-paymentdiv{
+		padding-top: 45px;	
+	}
+	.footer-socialdiv{
+		// padding-top: 55px;
+    // border-top: 1px solid #F4F4F4;
+	// padding-top: 55px;
+    // border-top: 1px solid #ece8e8;
+    // padding-bottom: 55px;
+    // border-bottom: 1px solid #ece8e8;
+	padding: 52px 0;
+    border-bottom: 1px solid #f1f1f1;
+    border-top: 1px solid #f1f1f1;
+
+	}
+	.footer {
+		.container{
+			background-color: white;
+		}
+		&-top {
+			display: none;
+		}}
+		.footer-socialmedia{
+			display: flex;
+			gap: 20px;
+		}
+		.social-circle{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			width: 40px;
+			height: 40px;
+			border-radius: 50%;
+			background-color: rgba(233,233,233,1);
+		}
+		.custom-pay{
+			border: 1px solid;
+    padding: 0 10px;
+    border-radius: 10px;
+		}
 }

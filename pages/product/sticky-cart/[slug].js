@@ -30,9 +30,9 @@ function ProductStickyCart () {
     const product = data && data.product.data;
     const related = data && data.product.related;
 
-    if ( error ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( error ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     return (
         <main className="main">

@@ -32,17 +32,19 @@ export default function ProductMediaOne ( props ) {
             setPhotoIndex( 0 );
             setRedraw( true );
             mediaRef && mediaRef.current && mediaRef.current.goTo( 0 );
-            document.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ) && document.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ) && document.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ).classList.remove( 'active' );
-            document.querySelector( `${ parent } .prod-thumbnail .owl-dot` ).classList.add( 'active' );
+            document?.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ) && document?.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ) && document?.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` )?.classList?.remove( 'active' );
+            document?.querySelector( `${ parent } .prod-thumbnail .owl-dot` )?.classList?.add( 'active' );
         }
     }, [ product ] )
 
-    function isSale () {
-        return product.price[ 0 ] !== product.price[ 1 ] && product.variants.length === 0 ?
-            '-' + ( 100 * ( product.price[ 1 ] - product.price[ 0 ] ) / product.price[ 1 ] ).toFixed( 0 ) + '%'
-            :
-            product.variants.find( variant => variant.sale_price ) ? "Sale" : false;
-    }
+    /// TODO: Remove this when we add sale or offer
+
+    // function isSale () {
+    //     return product.price[ 0 ] !== product.price[ 1 ] && product.variants.length === 0 ?
+    //         '-' + ( 100 * ( product.price[ 1 ] - product.price[ 0 ] ) / product.price[ 1 ] ).toFixed( 0 ) + '%'
+    //         :
+    //         product.variants.find( variant => variant.sale_price ) ? "Sale" : false;
+    // }
 
     function openLightBox () {
         setOpenLB( true );
@@ -77,19 +79,19 @@ export default function ProductMediaOne ( props ) {
             {
                 product && <>
                     <div className="product-slider-container">
-                        <div className="label-group">
+                        {/* <div className="label-group">
                             { product.is_hot ? <div className="product-label label-hot">HOT</div> : '' }
 
                             { isSale() ? <div className="product-label label-sale">{ isSale() }</div> : '' }
-                        </div>
+                        </div> */}
 
                         <OwlCarousel adClass="product-single-carousel owl-carousel owl-theme show-nav-hover" options={ productSingleSlider } events={ events } onChangeRef={ setMediaRef } redraw={ redraw }>
                             {
-                                product.large_pictures.map( ( item, index ) => (
+                                product?.images?.map( ( item, index ) => (
                                     <div className="product-item" key={ `product-item-${ index }` }>
                                         <Magnifier
                                             style={ { paddingTop: "100%", position: "relative" } }
-                                            imageSrc={ process.env.NEXT_PUBLIC_ASSET_URI + item.url }
+                                            imageSrc={ item.fileURL }
                                             imageAlt="product"
                                             mouseActivation="hover"
                                             cursorStyleActive="crosshair"
@@ -108,10 +110,10 @@ export default function ProductMediaOne ( props ) {
 
                     <OwlCarousel adClass="prod-thumbnail owl-theme owl-dots" options={ prodThumbSlider }>
                         {
-                            product.pictures.map( ( item, index ) => (
+                            product?.images?.map( ( item, index ) => (
                                 <div className="owl-dot media-with-lazy" key={ `owl-dot-${ index }` } onClick={ ( e ) => changeMediaIndex( index, e ) }>
                                     <figure className="mb-0">
-                                        <LazyLoadImage src={ process.env.NEXT_PUBLIC_ASSET_URI + item.url }
+                                        <LazyLoadImage src={ item.fileURL }
                                             alt="Thumbnail"
                                             width="100%"
                                             height="auto"

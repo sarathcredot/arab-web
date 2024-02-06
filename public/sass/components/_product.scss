@@ -137,6 +137,13 @@
                 align-items: center;
                 justify-content: center;
 }
+.custom-addcart:hover{
+	background-color: #E30613;
+}
+.custom-addcart:hover .plusbtn{
+fill: white;
+stroke: white;
+}
 .product-panel {
 	margin-bottom: 3.5rem;
 
@@ -510,9 +517,9 @@ line-height: 15px;
 }
 
 .price-box {
-    margin-bottom: 1.4rem;
+    margin-bottom: 1.9rem;
 	font-weight: 700;
-	font-family: Plus Jakarta Sans ;
+	// font-family: Plus Jakarta Sans !important ;
     color: #606060;
 	// font-family: $font-family;
 	line-height: 1;

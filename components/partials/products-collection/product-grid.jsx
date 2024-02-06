@@ -2,8 +2,8 @@
 import ProductOne from '../../features/products/product-one';
 
 export default function ProductsGrid ( props ) {
-    const { products = [], gridClass = "col-6 col-sm-4 col-lg-3", loading, perPage, addClass = '' } = props;
-
+    const { products = [], gridClass = "col-6 col-sm-4 col-lg-3 custom-shopproduct", loading, perPage, addClass = '' } = props;
+console.log(products);
     return (
         <>
             <div className="custom-divide-line">
@@ -15,7 +15,7 @@ export default function ProductsGrid ( props ) {
                             )
                             :
                             products.map( ( item, index ) => (
-                                <div className={ gridClass } key={ `product-${index}` }>
+                                <div className={ gridClass } key={ `product-${index}` } style={{border: "1px solid #B9B9B9",borderTop:"transparent",borderRight:"transparent"}}>
                                     <ProductOne adClass="inner-quickview inner-icon" product={ item } />
                                 </div>
                             ) )

@@ -186,6 +186,10 @@ $product-single-thumbnail-gutter: 3px !default;
 	} 
 }
 
+.custom-detail-cart:hover{
+background-color: #e02b27;
+border-color: #e02b27;
+}
 .product-single-details {
 	margin-bottom: 1.1rem;
 
@@ -195,7 +199,7 @@ $product-single-thumbnail-gutter: 3px !default;
 			align-items: center;
 	
 			&:before {
-				content: "\e8ba";
+				// content: "\e8ba";
 				margin-top: -2px;
 				font-family: "Porto";
 				font-weight: 600;
@@ -495,7 +499,7 @@ gap: 10px;
 	}
 
 	.product-single-qty{
-		margin: .5rem .9rem .5rem 1px;
+		margin: .5rem 2.9rem .5rem 1px;
 
 		.form-control {
 			height: 48px;
@@ -689,7 +693,7 @@ main .sticky-header {
 // 2.4) Filter
 .product-single-filter {
 	display: -ms-flexbox;
-	display: flex;
+	// display: flex;
 	-ms-flex-align: center;
 	align-items: center;
 	margin-bottom: 1rem;
@@ -732,9 +736,9 @@ main .sticky-header {
 		}
 
 		a {
-			margin: 3px 6px 3px 0;
-			min-width: 3.2rem;
-			height: 2.6rem;
+			// margin: 3px 6px 3px 0;
+			min-width: 8.2rem;
+			height: 3.6rem;
 			border: 1px solid #eee;
 			color: inherit;
 			font-size: 1.1rem;
@@ -1104,6 +1108,7 @@ main .sticky-header {
 		.nav-item.active {
 			.nav-link {
 				color: $primary-color-dark;
+				font-weight: 600;
 			}
 		}
 	}
@@ -1181,7 +1186,7 @@ main .sticky-header {
 	ul,
 	ol {
 		margin-bottom: 2.4rem;
-		padding-left: 7.4rem;
+		padding-left: 1.4rem;
 		letter-spacing: .005em;
 		position: relative;
 		padding-top: 2px;
@@ -1193,7 +1198,7 @@ main .sticky-header {
 		list-style-type: disc;
 		color: #000;
 font-family: Poppins;
-font-size: 1rem;
+font-size: 1.4rem;
 font-style: normal;
 font-weight: 400;
 line-height: 2.375rem; 

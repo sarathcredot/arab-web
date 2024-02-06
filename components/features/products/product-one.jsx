@@ -18,6 +18,7 @@ function ProductOne(props) {
   const { adClass = "", link = "default", product } = props;
 
   function isSale() {
+    console.log(product);
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +
@@ -26,7 +27,7 @@ function ProductOne(props) {
             product.price[1]
           ).toFixed(0) +
           "%"
-      : product.variants.find((variant) => variant.sale_price)
+      : product?.variants?.find((variant) => variant?.sale_price)
       ? "Sale"
       : false;
   }
@@ -73,8 +74,8 @@ function ProductOne(props) {
 
   return (
     <div className={`product-default media-with-lazy ${adClass}`} >
-      <figure style={props.customStyle && { paddingTop: props.customStyle }}>
-        <ALink href={`/product/${link}/${product.slug}`}>
+      <figure style={props.customStyle && { paddingTop: props.customStyle }} >
+        <ALink href={`/product/${link}/${product._id}`}>
           <div className="lazy-overlay"></div>
           <span
             style={{
@@ -86,7 +87,8 @@ function ProductOne(props) {
             }}
           >
             <img
-              src="images/iphone.svg"
+              src={product?.images[0]?.fileURL}
+              // "images/iphone.svg"
               style={{
                 width: "130px",
                 objectFit: "contain",
@@ -94,27 +96,7 @@ function ProductOne(props) {
               }}
             />
           </span>
-          {/* <LazyLoadImage
-            alt="product"
-            // src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[0].url}
-            src="images/iphone.svg"
-            threshold={500}
-            effect="black and white"
-            width="130px"
-            height="auto"
-            objectFit="contain"
-          /> */}
-          {/* {product.pictures.length >= 2 ? (
-            <LazyLoadImage
-              alt="product"
-              src={process.env.NEXT_PUBLIC_ASSET_URI + product.pictures[1].url}
-              threshold={500}
-              effect="black and white"
-              wrapperClassName="product-image-hover"
-            />
-          ) : (
-            ""
-          )} */}
+
         </ALink>
 
         <div className="label-group">
@@ -131,41 +113,12 @@ function ProductOne(props) {
           )}
         </div>
 
-        {/* <div className="btn-icon-group">
-          {product.variants.length > 0 ? (
-            <ALink
-              href={`/product/default/${product.slug}`}
-              className="btn-icon btn-add-cart"
-            >
-              <i className="fa fa-arrow-right"></i>
-            </ALink>
-          ) : (
-            <a
-              href="#"
-              className="btn-icon btn-add-cart product-type-simple"
-              title="Add To Cart"
-              onClick={onAddCartClick}
-            >
-              <i className="icon-shopping-cart"></i>
-            </a>
-          )}
-        </div> */}
-
-        {/* {product.until && product.until !== null && <ProductCountdown />} */}
-
-        {/* <a
-          href="#"
-          className="btn-quickview"
-          title="Quick View"
-          onClick={onQuickViewClick}
-        >
-          Quick View
-        </a> */}
+       
       </figure>
 
       <div
         className="product-details"
-        style={{ alignItems: "left", justifyContent: "left" }}
+        style={{ alignItems: "left", justifyContent: "left" , ...(props.customdetailStyle && { marginTop: props.customdetailStyle })}}
       >
         <div
           className="category-wrap"
@@ -176,26 +129,26 @@ function ProductOne(props) {
             justifyContent: "center",
           }}
         >
-          <div className="category-list" style={{ width: "50%" }}>
-            {product.categories
+          <div className="category-list" style={{ width: "50%",fontWeight:600 }}>
+            {/* {product?.categoryNamePath
               ? product.categories.map((item, index) => (
-                  <React.Fragment key={item.slug + "-" + index}>
-                    <ALink
-                      href={{
-                        pathname: "/shop",
-                        query: { category: item.slug },
-                      }}
+                  <React.Fragment key={item.slug + "-" + index}> */}
+                    <ALink href="#"
+                      // href={{
+                      //   pathname: "/shop",
+                      //   query: { category: item.slug },
+                      // }}
                       style={{
                         color: "rgba(227, 6, 19, 1)",
-                        fontWeight: "700",
+                        fontWeight: 600,
                       }}
                     >
-                      {item.name}
+                      {product?.categoryNamePath}
                     </ALink>
-                    {index < product.categories.length - 1 ? ", " : ""}
-                  </React.Fragment>
-                ))
-              : ""}
+                    {/* {index < product.categories.length - 1 ? ", " : ""} */}
+                  {/* </React.Fragment> */}
+                {/* ))
+              : ""} */}
           </div>
 
           {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
@@ -204,10 +157,11 @@ function ProductOne(props) {
               className="custom-addcart"
              
             >
-              {/* <GoPlus style={{color:"#000000",fontSize:"20px",fontWeight:700}} /> */}
-              <AiOutlinePlus
-                style={{ color: "#000000", fontSize: "20px", fontWeight: 500 }}
-              />
+             
+              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="black" stroke="black" className="plusbtn">
+<path d="M6.51025 12.0156H18.2022"  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.356 17.8421V6.19043"  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
             </div>
           </div>
           {/* <a
@@ -237,9 +191,9 @@ function ProductOne(props) {
         <h3 className="product-title">
           <ALink
             href={`/product/default/${product.slug}`}
-            style={{ fontWight: "500px", fontSize: "14px" }}
+            style={{ fontWeight: "500px", fontSize: "14px" }}
           >
-            {product.name}
+            {product.productName}
           </ALink>
         </h3>
 
@@ -250,13 +204,13 @@ function ProductOne(props) {
               style={{ width: 20 * product.ratings + "%" }}
             ></span>
             <span className="tooltiptext tooltip-top">
-              {product.ratings.toFixed(2)}
+              {product?.ratings?.toFixed(2)}
             </span>
           </div>
         </div> */}
 
         <div className="price-box">
-          <span style={{fontFamily:"Plus Jakarta Sans"}}>OMR</span>
+          <span style={{fontFamily:'Plus Jakarta Sans'}}>OMR</span>
           <span
             className="product-price"
             style={{
@@ -267,13 +221,13 @@ function ProductOne(props) {
               marginLeft: "25px",
             }}
           >
-            {product.price[0].toFixed(2)}
+            {product?.price}
           </span>
           <span
             className="old-price"
             style={{ marginLeft: "25px", color: "#777777" }}
           >
-            {+product.price[1].toFixed(2)}
+            {+product?.mrp?.toFixed(2)}
           </span>
         </div>
 

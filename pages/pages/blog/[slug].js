@@ -31,9 +31,9 @@ function Single () {
     const blog = data && data.post.data;
     const related = data && data.post.related;
 
-    if ( error ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( error ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     return (
         <main className="main">
