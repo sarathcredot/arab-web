@@ -5,7 +5,7 @@ import { useQuery } from '@apollo/react-hooks';
 // Import Apollo Server and Query
 import withApollo from '../../../server/apollo';
 import { GET_PRODUCT } from '../../../server/queries';
-
+import { IoMdHome } from "react-icons/io";
 // Import Custom Component
 import ALink from '../../../components/common/ALink';
 import ProductMediaOne from '../../../components/partials/product/media/product-media-one';
@@ -30,16 +30,19 @@ function ProductStickyCart () {
     const product = data && data.product.data;
     const related = data && data.product.related;
 
-    if ( error ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( error ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     return (
         <main className="main">
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            {/* <i className="icon-home"></i> */}
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
                         <li className="breadcrumb-item">
                             {

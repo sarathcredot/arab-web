@@ -1,6 +1,61 @@
 import React from 'react'
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import withApollo from "../../../server/apollo"
+import { gql, useMutation, useLazyQuery } from "@apollo/client";
+export const ACCOUNT_DETAIL=gql`mutation UpdateUserProfile($input: updateUserProfileInput!) {
+    updateUserProfile(input: $input) {
 
+      message
+    }
+  }`
 function Addresses() {
+    const {
+        register,
+        handleSubmit,
+        watch,
+        setValue,
+        reset,
+        formState: { errors },
+        control,
+      } = useForm({
+        defaultValues: {
+          firstName: "",
+          lastName: "",
+         
+          email:"",
+          mobileNumber:"",
+          pincode:"",
+          city:"",
+          streetName:"",
+          houseNumber:"",
+          country:""
+          
+        },
+      });
+      const  [updateUserProfile] =
+      useMutation(ACCOUNT_DETAIL);
+
+      const onSubmit = async (values) => {
+        console.log(values);
+        event.preventDefault();
+        try {
+          // if (!mobileNumber.trim()) {
+          //   setError("Mobile number is required");
+          //   return;
+          // }
+    const Id="65bb85834825212140ac3aed"
+        const response= await updateUserProfile({ variables: { input: {_id:Id.toString(),...values } } });
+          console.log(response);
+          if(response){
+            window.alert(response?.data?.updateUserProfile?.message)
+            reset()
+          }
+          SetIsOtp(true);
+        } catch (error) {
+          console.log("error", error);
+        }
+    
+      }
     return (
         <div>
             <div className="container checkout-container">
@@ -24,7 +79,7 @@ function Addresses() {
                                 </div>
 
 
-                                <form action="#" id="checkout-form" style={{ marginTop: "40px" }}>
+                                <form onSubmit={handleSubmit(onSubmit)} id="checkout-form" style={{ marginTop: "40px" }}>
                                     <div className="row">
                                         <div className="col-md-6">
                                             <div className="form-group">
@@ -40,11 +95,17 @@ function Addresses() {
                                                         *
                                                     </ab>
                                                 </label>
+                                                <Controller
+                          control={control}
+                          name="firstName"
+                          render={({ field: { onChange, value } }) => (
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    required
+                                                    value={value}
+                                                    onChange={onChange}
                                                     style={{ marginTop: "10px" }}
+                                                />)}
                                                 />
                                             </div>
                                         </div>
@@ -63,11 +124,18 @@ function Addresses() {
                                                         *
                                                     </ab>
                                                 </label>
+                                                <Controller
+                          control={control}
+                          name="lastName"
+                          render={({ field: { onChange, value } }) => (
                                                 <input
                                                     type="text"
                                                     className="form-control"
-                                                    required
+                                                  
                                                     style={{ marginTop: "10px" }}
+                                                    value={value}
+                                                    onChange={onChange}
+                                                />)}
                                                 />
                                             </div>
                                         </div>
@@ -90,12 +158,18 @@ function Addresses() {
                                                 *
                                             </ab>
                                         </label>
+                                        <Controller
+                          control={control}
+                          name="country"
+                          render={({ field: { onChange, value } }) => (
                                         <input
-                                            type="email"
+                                            type="text"
                                             className="form-control"
-                                            required
+                                            value={value}
+                                            onChange={onChange}
                                             style={{ marginTop: "10px" }}
 
+                                        />)}
                                         />
                                     </div>
 
@@ -104,18 +178,30 @@ function Addresses() {
                                         <label>
                                             Street address <span className="required">*</span>
                                         </label>
+                                        <Controller
+                          control={control}
+                          name="houseNumber"
+                          render={({ field: { onChange, value } }) => (
                                         <input
                                             type="text"
                                             className="form-control"
                                             placeholder="House number and street name"
-                                            required
+                                            value={value}
+                                            onChange={onChange}
                                             style={{ marginTop: "10px" }}
+                                        />)}
                                         />
+                                         <Controller
+                          control={control}
+                          name="streetName"
+                          render={({ field: { onChange, value } }) => (
                                         <input
                                             type="text"
                                             className="form-control"
                                             placeholder="Apartment, suite, unit, etc. (optional)"
-                                            required
+                                            value={value}
+                                            onChange={onChange}
+                                        />)}
                                         />
                                     </div>
 
@@ -123,12 +209,18 @@ function Addresses() {
                                         <label>
                                             Twon/City <span className="required">*</span>
                                         </label>
+                                        <Controller
+                          control={control}
+                          name="city"
+                          render={({ field: { onChange, value } }) => (
                                         <input
                                             type="text"
                                             className="form-control"
                                             placeholder="Abu Dhabi"
-                                            required
+                                            value={value}
+                                            onChange={onChange}
                                             style={{ marginTop: "10px" }}
+                                        />)}
                                         />
 
                                     </div>
@@ -137,12 +229,18 @@ function Addresses() {
                                         <label>
                                             Pincode/Zip <span className="required">*</span>
                                         </label>
+                                        <Controller
+                          control={control}
+                          name="pincode"
+                          render={({ field: { onChange, value } }) => (
                                         <input
                                             type="number"
                                             className="form-control"
                                             placeholder="6730016"
-                                            required
+                                            value={value}
+                                            onChange={onChange}
                                             style={{ marginTop: "10px" }}
+                                        />)}
                                         />
 
                                     </div>
@@ -158,11 +256,17 @@ function Addresses() {
                                                     +971
                                                 </span>
                                             </div>
+                                            <Controller
+                          control={control}
+                          name="mobileNumber"
+                          render={({ field: { onChange, value } }) => (
                                             <input
                                                 type="tel"
                                                 className="form-control"
                                                 placeholder="Enter your phone number"
-                                                required
+                                                value={value}
+                                                onChange={onChange}
+                                            />)}
                                             />
                                         </div>
                                     </div>
@@ -173,13 +277,18 @@ function Addresses() {
                                         <label>
                                             Email<span className="required">*</span>
                                         </label>
+                                        <Controller
+                          control={control}
+                          name="email"
+                          render={({ field: { onChange, value } }) => (
                                         <input
                                             type="text"
                                             className="form-control"
-                                            // placeholder="United Arab Emirates"
-                                            value="credot@gmail.com"
-                                            required
+                                            value={value}
+                                            onChange={onChange}
+                                            
                                             style={{ marginTop: "10px" }}
+                                        />)}
                                         />
 
                                     </div>
@@ -190,7 +299,8 @@ function Addresses() {
                                         className="container"
                                         style={{ display: "flex", justifyContent: "flex-end" }}
                                     >
-                                        <div className="mt-3">  <button type="submit" className="btn btn-dark mr-0">
+                                        <div className="mt-3"> 
+                                         <button type="submit" className="btn btn-dark mr-0">
                                             Save changes
                                         </button></div>
                                     </div>
@@ -205,4 +315,4 @@ function Addresses() {
     )
 }
 
-export default Addresses
+export default withApollo( { ssr: typeof window === 'undefined' } )( Addresses )

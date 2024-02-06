@@ -11,33 +11,36 @@ import withApollo from "../../../server/apollo";
 // Import Custom Component
 import ALink from "../../common/ALink";
 import ProductOne from "../../features/products/product-one";
-
+import { gql, useQuery } from "@apollo/client";
 // Import Settings
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
 function CategoryFilterSection() {
   const [category, setCategory] = useState("");
-  const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
-  const products = data && data.products.data;
-
-  useEffect(() => {
-    getProducts({
-      variables: {
-        category: category,
-        from: 0,
-        to: 6,
-      },
-    });
-  }, [category]);
+  const {data,loading,error}=useQuery(GET_PRODUCTS, {variables:{input:{size:10,page:0}}})
+  // const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
+  const products = data && data?.getProducts?.records;
+console.log(data);
+console.log(error)
+  // useEffect(() => {
+    
+    // getProducts({
+    //   variables: {
+    //     category: category,
+    //     from: 0,
+    //     to: 6,
+    //   },
+    // });
+  // }, [category]);
 
   function getProduct(e, item) {
     e.preventDefault();
     setCategory(item);
   }
 
-  if (error) {
-    return useRouter().push("/pages/404");
-  }
+  // if (error) {
+  //   return useRouter().push("/pages/404");
+  // }
 
   return (
     <section
@@ -64,7 +67,7 @@ function CategoryFilterSection() {
                       color: "rgba(179, 179, 179, 1)",
                       fontWeight: "500",
                       fontSize: "23px",
-                      padding: "28px 28px 0px 28px",
+                      padding: "20px 3.2rem",display:"flex",alignItems:"center",borderBottom:" 1px solid #323232"
                     }}
                   >
                     Sort
@@ -250,7 +253,7 @@ function CategoryFilterSection() {
                       href="/shop"
                       style={{ color: "rgba(255, 255, 255, 1)" }}
                     >
-                      View All<i className="fas fa-long-arrow-alt-right"></i>
+                      View All
                     </ALink>
                   </div>
                 </div>
@@ -290,7 +293,7 @@ function CategoryFilterSection() {
                 {new Array(14).fill(1).map((item, index) => (
                   <TabPanel
                     className={`tab-pane fade ${
-                      products && products.length > 3 ? "" : "h-half"
+                      products && products?.length > 3 ? "" : "h-half"
                     }`}
                     key={"TabPanel: " + index}
                   >

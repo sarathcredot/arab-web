@@ -5,7 +5,8 @@ import ALink from "../../components/common/ALink";
 import Qty from '../../components/partials/product/qty';
 import { actions as CartAction } from "../../store/cart";
 import { getCartTotal } from '../../utils';
-
+import {AiOutlineClose} from 'react-icons/ai'
+import { IoMdHome } from "react-icons/io";
 function Cart ( props ) {
     const [ cartList, setCartList ] = useState( [] );
 
@@ -36,7 +37,9 @@ function Cart ( props ) {
             <ol className="breadcrumb">
             <li className="breadcrumb-item" >
               <ALink href="/">
-                <i className="icon-home"></i>
+                <IoMdHome style={{fontSize:"16px"}}/>
+                {/* <i className="icon-home"></i> */}
+
               </ALink>
             </li>
              
@@ -48,11 +51,11 @@ function Cart ( props ) {
         </nav>
         <div
           className=" d-flex flex-column align-items-center"
-          style={{ backgroundColor: "#F9F9F9" }}
+         
         >
           {/* <h1>orders</h1>*/}
 
-          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap"  style={{ backgroundColor: "#F9F9F9",width:"100%" }}>
            
             <li className="active">
               <ALink href="/pages/cart">Shoping cart</ALink>
@@ -87,8 +90,8 @@ function Cart ( props ) {
                                     <table className="table table-cart">
                                         <thead>
                                             <tr>
-                                                <th className="thumbnail-col"></th>
-                                                <th className="product-col">Product</th>
+                                                {/* <th className="thumbnail-col"></th> */}
+                                                <th className="product-col pl-0">Product</th>
                                                 <th className="price-col">Price</th>
                                                 <th className="qty-col">Quantity</th>
                                                 <th className="text-right">Subtotal</th>
@@ -98,13 +101,16 @@ function Cart ( props ) {
                                             {
                                                 cartList.map( ( item, index ) => (
                                                     <tr key={ "cart-item" + index } className="product-row" style={{color:"black"}}>
-                                                        <td>
+                                                        <td className='pl-0'>
                                                             <figure className="product-image-container">
                                                                 <ALink href={ `/product/default/${item.slug}` } className="product-image">
                                                                     <img src={ process.env.NEXT_PUBLIC_ASSET_URI + item.small_pictures[ 0 ].url } alt="product" />
                                                                 </ALink>
+<div title="Remove Product" style={{width:"20px", height:"20px",position:"absolute",top:"-7px",display:"flex",justifyContent:"center",alignItems:"center",right:"-5px",borderRadius:"50%", background:"white",filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))"}} onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }>
+<AiOutlineClose style={{fontSize:"10px"}}/>
 
-                                                                <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }></a>
+</div>
+                                                                {/* <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }></a> */}
                                                             </figure>
                                                         </td>
                                                         <td className="product-col">
@@ -127,7 +133,7 @@ function Cart ( props ) {
 
                                         <tfoot>
                                             <tr>
-                                                <td colSpan="5" className="clearfix">
+                                                <td colSpan="5" className="clearfix pl-0">
                                                     <div className="float-left">
                                                         <div className="cart-discount">
                                                             <form action="#">
@@ -142,11 +148,11 @@ function Cart ( props ) {
                                                         </div>
                                                     </div>
 
-                                                    <div className="float-right">
+                                                    {/* <div className="float-right">
                                                         <button type="submit" className="btn btn-shop btn-update-cart" style={{border:"1px solid"}} onClick={ updateCart }>
                                                             Update Cart
                                                         </button>
-                                                    </div>
+                                                    </div> */}
                                                 </td>
                                             </tr>
                                         </tfoot>
@@ -156,7 +162,7 @@ function Cart ( props ) {
 
                             <div className="col-lg-4">
                                 <div className="cart-summary">
-                                    <h3>CART TOTALS</h3>
+                                    <h3>Cart Totals</h3>
 
                                     <table className="table table-totals">
                                         <tbody>

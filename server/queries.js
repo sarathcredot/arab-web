@@ -188,32 +188,43 @@ export const GET_PRODUCT = gql`
     ${PRODUCT_SIMPLE}
 `;
 
-export const GET_SHOP_SIDEBAR_DATA = gql`
-    query shopSidebarData($featured: Boolean = false) {
-        shopSidebarData(demo: ${DEMO}, featured: $featured) {
-            categories {
-                name
-                slug
-                parent
-                count
-            }
-            featured @include(if: $featured) {
-                slug
-                name
-                price
-                ratings
-                small_pictures {
-                    url
-                    width
-                    height
-                }
-                variants {
-                    price
-                }
-            }
-        }
+export const GET_SHOP_SIDEBAR_DATA= gql`
+query GetActiveChildCategories($input: GetActiveChildCategoriesInput!) {
+  getActiveChildCategories(input: $input) {
+    records {
+      _id
+      categoryName
     }
-`;
+  }
+}
+`
+
+// export const GET_SHOP_SIDEBAR_DATA = gql`
+//     query shopSidebarData($featured: Boolean = false) {
+//         shopSidebarData(demo: ${DEMO}, featured: $featured) {
+//             categories {
+//                 name
+//                 slug
+//                 parent
+//                 count
+//             }
+//             featured @include(if: $featured) {
+//                 slug
+//                 name
+//                 price
+//                 ratings
+//                 small_pictures {
+//                     url
+//                     width
+//                     height
+//                 }
+//                 variants {
+//                     price
+//                 }
+//             }
+//         }
+//     }
+// `;
 
 export const GET_POSTS = gql`
     query posts($category: String, $from: Int, $to: Int) {

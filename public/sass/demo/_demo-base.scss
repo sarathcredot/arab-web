@@ -936,6 +936,18 @@
     }
 }
 
+.deal-products-section{
+    .deal-section-head{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 86px;
+    border-bottom: 1px solid #EEE;
+    margin-bottom: 28px;
+    padding-top: 28px
+    }
+}
+
 .live-search-list {
     left: 0;
     right: 0;
@@ -1070,7 +1082,7 @@
     display: inline-flex;
     align-items: center;
     font-weight: 600;
-    color: $primary-color;
+    color:  rgba(227, 6, 19, 1);
     font-size: 12px;
 
     i {
@@ -1078,7 +1090,11 @@
         margin-top: 2px;
     }
 }
-
+.custom-helpline{
+  display: flex;
+  align-self: self-end;
+  flex-direction: column;
+}
 // 3. Component
 // 3.1) Base
 body {
@@ -1113,7 +1129,7 @@ body {
 }
 
 .product-price {
-    color: #444;
+    color: #000;
 }
 
 .widget-featured-products,
@@ -1141,7 +1157,28 @@ body {
 .menu > li > ul:before {
     left: 26%;
 }
+.recommendmob{
+    display: none
+}
 
+// apple products
+.custom-apple-title{
+    color: white ;
+    background-color: black;
+    margin-bottom: 20px;
+    padding: 20px;
+    font-size: 16px;
+    font-weight: 600;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.apple-cointainer{
+   margin: 10px; 
+}
+.custom-mobOnlyapple{
+    display: none;
+}
 // Responsive
 @media (min-width: 992px) {
 	.sidebar-home {
@@ -1246,7 +1283,7 @@ body {
 
         .header-search-wrapper {
             border: 2px solid #ECECEC;
-            border-radius: 4px;
+            border-radius: 0px;
         }
 
         .form-control,
@@ -1279,7 +1316,7 @@ body {
         }
 
         &.header-search .header-search-wrapper {
-            border-width: 2px;
+            border-width: 1px;
         }
     }
 }
@@ -1381,10 +1418,31 @@ body {
 }
 
 @media (max-width: 768px) {
+    .recommendmob{
+        display: flex;
+        font-weight: 600;
+    }
+    .custom-helpline{
+		display: none;
+	}
+    .custom-mobOnlyapple{
+        display: block;
+    }
+    .custom-topbrand-img{
+        padding-bottom: 65px;
+    }
     .sticky-header .cart-dropdown {
         margin-bottom: 4px;
     }
+.custom-product-resp{
+    display: none !important
 
+}
+    .deal-products-section{
+        .deal-section-head{
+            display: none;
+        }
+    }
     .widget-newsletter-info {
         margin-right: 0;
     }

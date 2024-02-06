@@ -1,55 +1,150 @@
 import { useState, useEffect } from "react";
-import { useRouter } from "next/router";
+import { useRouter,useParams } from "next/router";
 import { useLazyQuery } from "@apollo/react-hooks";
-
+import { gql, useQuery } from "@apollo/client";
 import ALink from "../../components/common/ALink";
 import ShopBanner from "../../components/partials/shop/shop-banner";
 import ShopSidebarOne from "../../components/partials/shop/sidebar/shop-sidebar-one";
 import Pagination from "../../components/features/pagination";
 import ProductsGrid from "../../components/partials/products-collection/product-grid";
-
-import { GET_PRODUCTS } from "../../server/queries";
+import { IoMdHome } from "react-icons/io";
+// import { GET_PRODUCTS } from "../../server/queries";
 import withApollo from "../../server/apollo";
+// import { useSearchParams } from 'next/navigation'
+
+const GET_PRODUCTS=gql `query GetProducts($input: ProductFilters) {
+  getProducts(input: $input) {
+    maxRecords
+    records {
+      _id
+      attributes {
+        attributeValue
+        attributeName
+      }
+      brandId
+      brandName
+      categoryId
+      categoryIdPath
+      categoryNamePath
+      description
+      images {
+        fileURL
+        originalName
+        fileType
+      }
+      material
+      mrp
+      offerPrice
+      price
+      productCode
+      productInfo
+      productName
+      productShortInfo
+      rating
+      sellingPrice
+      shortDescription
+      skuId
+      status
+      stock
+      tags
+      vendorId
+      isBlocked
+    }
+  }
+}`
 
 function Shop() {
   const router = useRouter();
+  // const searchParams = useSearchParams()
+  // const params= searchParams.get('brands')
+  // console.log(params);
+ 
+ 
   const query = router.query;
-  const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
-  const [perPage, setPerPage] = useState(12);
-  const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
-  const products = data && data.products.data;
-  const totalPage = data
-    ? parseInt(data.products.total / perPage) +
-      (data.products.total % perPage ? 1 : 0)
-    : 1;
+  console.log(query);
+
+  const { cat_id, page, ...rest } = query;
+  const { category, brands, ...filteredAttributes } = rest;
+  const categoryValues = category ? category.split(',').map(id => id.trim())  : [];
+  const brandValues = brands ? brands.split(',') : [];
+  // brands ? [brands] : [];
+  const attributes = Object.entries(filteredAttributes).map(([id, values]) => ({
+    id,
+    values: values.split(','),
+  }));
+  console.log(category);
+  console.log(categoryValues);
+  console.log(brandValues);
+  console.log(attributes);
+  // const catId = (router.query.cat_id).split('?brand=')
+  // const brand = query.brand;
+//   const [catId, brand] = query?.cat_id?.split('?brand=');
+// console.log(catId);
+ console.log(brands);
+  
+  // const {data,loading,error}=useQuery(GET_PRODUCTS, 
+    // {variables:{input:{size:10,page:0}}})
+    console.log(parseFloat(query.max_price));
+   const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
-  useEffect(() => {
-    let offset =
-      document.querySelector(".main-content").getBoundingClientRect().top +
-      window.pageYOffset -
-      58;
-    setTimeout(() => {
-      window.scrollTo({ top: offset, behavior: "smooth" });
-    }, 200);
+  const [perPage, setPerPage] = useState(2);
+  const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
+  const products = data && data?.getProducts?.records;
+  const totalPage = data
+    ? parseInt(data?.getProducts?.maxRecords / perPage) +
+      (data?.getProducts?.maxRecords % perPage ? 1 : 0)
+    : 1;
 
-    let page = query.page ? query.page : 1;
 
-    getProducts({
-      variables: {
-        search: query.search,
-        colors: query.colors ? query.colors.split(",") : [],
-        sizes: query.sizes ? query.sizes.split(",") : [],
-        brands: query.brands ? query.brands.split(",") : [],
-        min_price: parseInt(query.min_price),
-        max_price: parseInt(query.max_price),
-        category: query.category,
-        tag: query.tag,
-        sortBy: sortBy,
-        from: perPage * (page - 1),
-        to: perPage * page,
-      },
-    });
-  }, [query, perPage, sortBy]);
+    useEffect(()=>{
+      getProducts({
+        variables:{
+          input:{
+            size:10,
+            page:0,
+            categories:categoryValues?categoryValues:[], 
+            // category ? category.split(',').map(id => id.trim())  : [],
+            brands:brandValues,
+            // brandValues ? brandValues?.split(',').map(id => id.trim()) : [],
+            // maxPrice:10000,
+            // minPrice:0,
+            maxPrice:parseFloat(query.max_price),
+            minPrice:parseFloat(query.min_price),
+            attributes:attributes,
+            // parentCategory:query?.cat_id
+          }
+        }
+      })
+
+    },[query,perPage])
+  // useEffect(() => {
+  //   let offset =
+  //     document.querySelector(".main-content").getBoundingClientRect().top +
+  //     window.pageYOffset -
+  //     58;
+  //   setTimeout(() => {
+  //     window.scrollTo({ top: offset, behavior: "smooth" });
+  //   }, 200);
+
+  //   let page = query.page ? query.page : 1;
+
+    // getProducts({
+     
+      // variables: {
+      //   search: query.search,
+      //   colors: query.colors ? query.colors.split(",") : [],
+      //   sizes: query.sizes ? query.sizes.split(",") : [],
+      //   brands: query.brands ? query.brands.split(",") : [],
+      //   min_price: parseInt(query.min_price),
+      //   max_price: parseInt(query.max_price),
+      //   category: query.category,
+      //   tag: query.tag,
+      //   sortBy: sortBy,
+      //   from: perPage * (page - 1),
+      //   to: perPage * page,
+      // },
+    // });
+  // }, [query, perPage, sortBy]);
 
   function onPerPageChange(e) {
     setPerPage(e.target.value);
@@ -93,9 +188,10 @@ function Shop() {
       <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
         <div className="container">
           <ol className="breadcrumb">
-            <li className="breadcrumb-item" >
+            <li className="breadcrumb-item">
               <ALink href="/">
-                <i className="icon-home"></i>
+              <IoMdHome style={{fontSize:"16px"}}/>
+                {/* <i className="icon-home"></i> */}
               </ALink>
             </li>
             {query.category ? (
@@ -109,7 +205,7 @@ function Shop() {
                   </ALink>
                 </li>
                 {data &&
-                  data.products.categoryFamily.map((item, index) => (
+                  data?.products?.categoryFamily.map((item, index) => (
                     <li
                       className="breadcrumb-item"
                       key={`category-family-${index}`}
@@ -171,7 +267,9 @@ function Shop() {
               </>
             ) : (
               <li className="breadcrumb-item active" aria-current="page">
-                 <ALink className="activeitem" href="/pages/shope">Shope</ALink>
+                <ALink className="activeitem" href="/pages/shope">
+                  Shop
+                </ALink>
               </li>
             )}
           </ol>
@@ -194,15 +292,13 @@ function Shop() {
               lineHeight: "26px",
             }}
           >
-            12 Search Results Found
+           {data?.getProducts?.maxRecords} Search Results Found
           </p>
         </div>
-        <div
-          className="row"
-          
-        >
-          <div className="col-lg-9 main-content" style={{border:"1px solid " ,  }}>
-            <nav className="toolbox sticky-header mobile-sticky">
+
+        <div className="row" style={{ border: "1px solid #B9B9B9" }}>
+          <div className="col-lg-9 main-content" style={{ padding: 0,  borderLeft: '1px solid #B9B9B9'}}>
+            <nav className="toolbox sticky-header mobile-sticky" style={{margin: '0' }}>
               <div className="toolbox-left">
                 <a
                   href="#"
@@ -270,75 +366,21 @@ function Shop() {
                   </svg>
                   <span>Filter</span>
                 </a>
-
-                {/* <div className="toolbox-item toolbox-sort">
-                  <label>Sort By:</label>
-
-                  <div className="select-custom">
-                    <select
-                      name="orderby"
-                      className="form-control"
-                      value={sortBy}
-                      onChange={(e) => onSortByChange(e)}
-                    >
-                      <option value="default">Default sorting</option>
-                      <option value="popularity">Sort by popularity</option>
-                      <option value="rating">Sort by average rating</option>
-                      <option value="date">Sort by newness</option>
-                      <option value="price">Sort by price: low to high</option>
-                      <option value="price-desc">
-                        Sort by price: high to low
-                      </option>
-                    </select>
-                  </div>
-                </div> */}
-              </div>
-
-              <div className="toolbox-right">
-                {/* <div className="toolbox-item toolbox-show">
-                  <label>Show:</label>
-
-                  <div className="select-custom">
-                    <select
-                      name="count"
-                      className="form-control"
-                      value={perPage}
-                      onChange={(e) => onPerPageChange(e)}
-                    >
-                      <option value="12">12</option>
-                      <option value="24">24</option>
-                      <option value="36">36</option>
-                    </select>
-                  </div>
-                </div> */}
-
-                {/* <div className="toolbox-item layout-modes">
-                  <ALink
-                    href={{ pathname: router.pathname, query: query }}
-                    className="layout-btn btn-grid active"
-                    title="Grid"
-                  >
-                    <i className="icon-mode-grid"></i>
-                  </ALink>
-                  <ALink
-                    href={{ pathname: "/shop/list", query: query }}
-                    className="layout-btn btn-list"
-                    title="List"
-                  >
-                    <i className="icon-mode-list"></i>
-                  </ALink>
-                </div> */}
               </div>
             </nav>
 
-            <ProductsGrid
-              products={products}
-              loading={loading}
-              perPage={perPage}
-            />
+            <div>
+              <ProductsGrid
+                products={products}
+                loading={loading}
+                perPage={perPage}
+              />
+            </div>
           </div>
 
-          <ShopSidebarOne />
+          <ShopSidebarOne 
+          // catId={catId} brand={brand} 
+          />
         </div>
       </div>
 
@@ -361,7 +403,7 @@ function Shop() {
                 </select>
               </div>
             </div>
-            {/* <Pagination totalPage={totalPage} /> */}
+            <Pagination totalPage={totalPage} />
           </nav>
         </div>
       ) : (
@@ -369,12 +411,9 @@ function Shop() {
       )}
 
       <div className=" container" style={{ paddingTop: "37px" }}>
-        <div
-          
-        >
+        <div>
           <img
-            src="images\brands\banner Image Lising.svg" 
-          
+            src="images\brands\banner Image Lising.svg"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </div>

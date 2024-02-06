@@ -196,6 +196,8 @@
   display: flex;
   gap: 5rem;
   margin-bottom: 20px;
+  padding-bottom: 34px;
+    border-bottom: 1px solid #E2E2E2;
 
   .card-content {
     font-family: "Poppins", sans-serif;
@@ -206,6 +208,7 @@
     .content-with-image {
       display: flex;
       justify-content: space-between;
+      align-items: flex-end;
     }
   }
   .card {
@@ -236,14 +239,14 @@
 
       h4 {
         font-family: "Poppins", sans-serif;
-        font-weight: 600;
-        font-size: 24px;
+        font-weight: 500;
+        font-size: 20px;
         line-height: 20px;
       }
 
       p {
         font-family: "Poppins", sans-serif;
-        font-weight: 400;
+        font-weight: 500;
         font-size: 14px;
         line-height: 20px;
       }
@@ -273,6 +276,7 @@
   font-size: 60px;
   line-height: 20px;
   color: black;
+  padding-right: 10px;
 }
 
 @media (max-width: 768px) {

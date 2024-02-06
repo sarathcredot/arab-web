@@ -41,6 +41,8 @@
 	@include css( border-top, breadcrumb, border-top);
 	// @include css( border-bottom, breadcrumb, border-bottom);
 	@include css( margin-bottom, breadcrumb, margin-bottom);
+	margin-top: -22px;
+	margin-bottom: 15px;
 }
 
 .breadcrumb {
@@ -85,10 +87,10 @@
 
 	a{
 		border: 1px solid #ccc;
-		padding: 5px;
-		border-radius: 7px;
-
-		
+		padding: 10px 14px;
+		border-radius: 50px;
+font-weight: 600;
+	background-color: #F8F8F8;	
 		
 	}
 	.activeitem{

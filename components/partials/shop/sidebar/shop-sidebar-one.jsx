@@ -1,300 +1,813 @@
-import SlideToggle from 'react-slide-toggle';
-import InputRange from 'react-input-range';
-import StickyBox from 'react-sticky-box';
-import Tree from 'rc-tree';
-import { useRouter } from 'next/router';
-import { useState, useEffect, useMemo } from 'react';
-import { useQuery } from '@apollo/react-hooks';
+import SlideToggle from "react-slide-toggle";
+import InputRange from "react-input-range";
+import StickyBox from "react-sticky-box";
+import Tree from "rc-tree";
+import { useRouter } from "next/router";
+import { useState, useEffect, useMemo } from "react";
+import { useQuery, gql } from "@apollo/react-hooks";
 // Import Apollo Server and Query
-import withApollo from '../../../../server/apollo';
-import { GET_SHOP_SIDEBAR_DATA } from '../../../../server/queries';
+import withApollo from "../../../../server/apollo";
+import { GET_SHOP_SIDEBAR_DATA } from "../../../../server/queries";
 
 // Import Custom Component
-import ALink from '../../../common/ALink';
+import ALink from "../../../common/ALink";
 
 // Import Utils
-import { shopColors, shopBrands } from '../../../../utils/data/shop';
+import { shopColors, shopBrands } from "../../../../utils/data/shop";
 
-const TreeNode = ( props ) => {
-    return (
-        <>
-            { props.name }
-            <span className="products-count">({ props.count })</span>
-        </>
-    )
-}
-
-function ShopSidebarOne ( props ) {
-    const router = useRouter();
-    const query = router.query;
-    const { data, loading, error } = useQuery( GET_SHOP_SIDEBAR_DATA, { variables: { featured: true } } );
-    const [ priceRange, setRange ] = useState( { min: 0, max: 1000 } );
-    const categories = useMemo( () => {
-        let cats = data ? data.shopSidebarData.categories : [];
-        let stack = [],
-            result = [];
-        result = cats.reduce( ( acc, cur ) => {
-            if ( !cur.parent ) {
-                let newNode = {
-                    key: cur.slug,
-                    title: <TreeNode name={ cur.name } count={ cur.count } />,
-                    children: []
-                };
-                acc.push( newNode );
-                stack.push( {
-                    name: cur.name,
-                    children: newNode.children
-                } );
-            }
-            return acc;
-        }, [] );
-
-        let temp, children, childNode;
-
-        while ( stack.length ) {
-            temp = stack[ stack.length - 1 ];
-            stack.pop();
-            children = cats.filter( item => item.parent === temp.name );
-            children.forEach( child => {
-                childNode = {
-                    key: child.slug,
-                    title: <TreeNode name={ child.name } count={ child.count } />,
-                    children: []
-                };
-                temp.children.push( childNode );
-                stack.push( {
-                    name: child.name,
-                    children: childNode.children
-                } );
-            } );
+const GET_ATTRIBUTE = gql`
+  query Query($input: AttributesDetailsWithCategoryIdInput!) {
+    getAttributesDetailsByCategory(input: $input) {
+      message
+      record {
+        _id
+        categoryName
+        attributes {
+          _id
+          attributeType
+          attributeValues {
+            value
+            _id
+          }
+          name
+          description
         }
+      }
+    }
+  }
+`;
 
-        return result;
-    }, [ data ] );
-
-    useEffect( () => {
-        return () => {
-            closeSidebar();
+export const BRAND_LISTING = gql`
+  query GetBrandDetailsWithCategory($input: BrandsDetailsWithCategoryIdInput!) {
+    getBrandDetailsWithCategory(input: $input) {
+      message
+      records {
+        _id
+        brandName
+        logo {
+          fileType
+          originalName
+          fileURL
         }
-    }, [] )
-
-    useEffect( () => {
-        if ( query.min_price && query.max_price ) {
-            setRange( { min: parseInt( query.min_price ), max: parseInt( query.max_price ) } );
-        } else {
-            setRange( { min: 0, max: 1000 } );
-        }
-    }, [ query ] )
-
-    function filterByCategory ( selected ) {
-        router.push( router.pathname.replace( '[grid]', query.grid ) + '?category=' + ( selected.length ? selected[ 0 ] : '' ) );
+        isPopular
+        priority
+      }
     }
+  }
+`;
+export const MAX_PRICE=gql`query GetProductsMaxPrice($input: categoriesInput!) {
+  getProductsMaxPrice(input: $input) {
+    maxPrice
+    message
+  }
+}`
+const TreeNode = (props) => {
+  return (
+    <>
+      {props.name}
+      <span className="products-count">({props.count})</span>
+    </>
+  );
+};
 
-    function onChangePriceRange ( value ) {
-        setRange( value );
+function ShopSidebarOne(props) {
+  const router = useRouter();
+  const query = router.query;
+  // const queryString = query?.cat_id;
+  // const parts = queryString ? queryString.split("?") : [];
+  const catId = query?.cat_id;
+  const brand =query?.brand
+  const [selectedBrands, setSelectedBrands] = useState([]);
+  const [selectedAttributeValues, setSelectedAttributeValues] = useState([]);
+console.log(query);
+  const { data, loading, error } = useQuery(GET_SHOP_SIDEBAR_DATA, {
+    variables: { input: { parent: catId } },
+  });
+
+
+  //maxprice value getting
+   const {data:maxPriceData,loading:priceLoading,priceError}=useQuery(MAX_PRICE,{variables:{input:{categories:[catId]}}})
+   console.log(maxPriceData);
+   const maxpricevalue=maxPriceData?.getProductsMaxPrice?.maxPrice ? maxPriceData?.getProductsMaxPrice?.maxPrice:1000
+  console.log(data);
+  const {
+    data: attributeData,
+    loading: attributeLoading,
+    error: attributeError,
+  } = useQuery(GET_ATTRIBUTE, {
+    variables: { input: { categoryId: catId } },
+  });
+  const {
+    data: brandData,
+    loading: brandloading,
+    error: branderror,
+  } = useQuery(BRAND_LISTING, {
+    variables: { input: { categoryId: catId } },
+  });
+
+  const [priceRange, setRange] = useState({ min: 0, max: 1000 });
+  // const categories = useMemo(() => {
+  //   let cats = data?.getActiveChildCategories?.records || [];
+
+  //   let stack = [],
+  //     result = [];
+  //   result = cats.reduce((acc, cur) => {
+  //     console.log(acc);
+  //     if (!cur.parent) {
+  //       let newNode = {
+  //         key: cur._id,
+  //         title: <TreeNode name={cur.categoryName} count={cur.count} />,
+  //         children: [],
+  //       };
+  //       acc.push(newNode);
+  //       stack.push({
+  //         name: cur.categoryName,
+  //         children: newNode.children,
+  //       });
+  //     }
+  //     return acc;
+  //    },
+  //   []);
+
+  //   let temp, children, childNode;
+
+  //   while (stack.length) {
+  //     temp = stack[stack.length - 1];
+  //     stack.pop();
+  //     children = cats.filter((item) => item.parent === temp.name);
+  //     children.forEach((child) => {
+  //       childNode = {
+  //         key: child.slug,
+  //         title: <TreeNode name={child.name} count={child.count} />,
+  //         children: [],
+  //       };
+  //       temp.children.push(childNode);
+  //       stack.push({
+  //         name: child.name,
+  //         children: childNode.children,
+  //       });
+  //     });
+  //   }
+
+  //   return result;
+  // }, [data]);
+
+  useEffect(() => {
+    return () => {
+      closeSidebar();
+    };
+  }, []);
+
+  useEffect(() => {
+    if (query.min_price && query.max_price) {
+      setRange({
+        min: parseInt(query.min_price),
+        max: parseInt(query.max_price),
+      });
+    } else {
+      setRange({ min: 0, max: maxpricevalue});
     }
+  }, [query,maxpricevalue]);
 
-    function containsAttrInUrl ( type, value ) {
-        const currentQueries = query[ type ] ? query[ type ].split( ',' ) : [];
-        return currentQueries && currentQueries.includes( value );
+  useEffect(() => {
+    // Extract brand ID from the URL
+    console.log("click");
+    const brandId = props.brand;
+    console.log(brandId);
+    console.log(brandData);
+    // Check the brand corresponding to the brand ID in the URL
+    if (brandId && brandData?.getBrandDetailsWithCategory?.records) {
+      const brandName = brandData.getBrandDetailsWithCategory.records.find(
+        (item) => item._id === brandId
+      )?.brandName;
+
+      if (brandName) {
+        console.log("click");
+        setSelectedBrands([brandName]);
+      }
     }
+  }, [brandData]);
 
-    function getUrlForAttrs ( type, value ) {
-        let currentQueries = query[ type ] ? query[ type ].split( ',' ) : [];
-        currentQueries = containsAttrInUrl( type, value ) ? currentQueries.filter( item => item !== value ) : [ ...currentQueries, value ];
-        return currentQueries.join( ',' );
+  const handleBrandCheckboxChange = (brandName) => {
+    console.log(selectedBrands);
+    // Toggle the selected state of the brand
+    if (selectedBrands.includes(brandName)) {
+      setSelectedBrands(selectedBrands.filter((brand) => brand !== brandName));
+    } else {
+      setSelectedBrands([...selectedBrands, brandName]);
     }
-
-    function filterByPrice ( e ) {
-        e.preventDefault();
-        let url = router.pathname.replace( '[grid]', query.grid );
-        let arr = [ `min_price=${ priceRange.min }`, `max_price=${ priceRange.max }`, 'page=1' ];
-        for ( let key in query ) {
-            if ( key !== 'min_price' && key !== 'max_price' && key !== 'page' && key !== 'grid' ) arr.push( key + '=' + query[ key ] );
-        }
-        url = url + '?' + arr.join( '&' );
-        router.push( url );
-    }
-
-    function closeSidebar () {
-        document.querySelector( 'body' ).classList.contains( 'sidebar-opened' ) && document.querySelector( 'body' ).classList.remove( 'sidebar-opened' );
-    }
-
-    if ( error ) {
-        return <div>{ error.message }</div>
-    }
-
-    return (
-        <>
+  };
 
 
-            <div className="sidebar-overlay" onClick={ closeSidebar }></div>
-            
-            <aside className={ `sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${ !loading ? 'loaded' : '' } ${ props.display === 'none' ? 'd-lg-none' : '' } ${ props.right ? '' : 'order-lg-first' }` } style={{paddingLeft:"0", paddingRight:"0",}} >
-                <StickyBox className="sidebar-wrapper" offsetTop={ 70 } >
-                    <div className="widget" style={{padding:"0"}}>
-                        {
-                            loading ?
-                                <div className="skel-widget"></div>
-                                :
-                                <SlideToggle>
-                                    { ( { onToggle, setCollapsibleElement, toggleState } ) => (
-                                        <>
-                                        
-                                            <h3 className="widget-title"  style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"298px", marginLeft:"0px", paddingBottom:"20px"}}>
-                                                <a href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } } className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } style={{marginLeft:"20px", marginTop:"20px"}}>Categories</a>
-                                            </h3>
-                                            <div className="overflow-hidden" ref={ setCollapsibleElement }>
-                                                <div className="widget-body" style={{marginLeft:"20px"}}>
-                                                    <Tree
-                                                        className="no-icon cat-list border-0"
-                                                        selectable={ true }
-                                                        showIcon={ false }
-                                                        defaultExpandedKeys={ query.category ? [ query.category ] : [] }
-                                                        // switcherIcon={ ( props ) => {
-                                                        //     return ( !props.isLeaf ?
-                                                        //         <span className="toggle"></span>
-                                                        //         : ''
-                                                        //     )
-                                                        // } }
-                                                        selectedKeys={ query.category ? [ query.category ] : [] }
-                                                        treeData={ categories }
-                                                        onSelect={ filterByCategory }
-                                                    />
-                                                </div>
-                                            </div>
-                                        </>
-                                    ) }
-                                </SlideToggle>
+  
+
+
+  function filterByCategory(selected) {
+    console.log(selected);
+    router.push(
+      router.pathname.replace("[grid]", query.grid) +
+        "?category=" +
+        (selected.length ? selected[0] : "")
+    );
+  }
+
+  function onChangePriceRange(value) {
+    setRange(value);
+  }
+
+  function containsAttrInUrl(type, value) {
+    const currentQueries = query[type] ? query[type].split(",") : [];
+    return currentQueries && currentQueries.includes(value);
+  }
+
+  function getUrlForAttrs(type, value) {
+    let currentQueries = query[type] ? query[type].split(",") : [];
+    currentQueries = containsAttrInUrl(type, value)
+      ? currentQueries.filter((item) => item !== value)
+      : [...currentQueries, value];
+    return currentQueries.join(",");
+  }
+
+  function filterByPrice(e) {
+    e.preventDefault();
+    const searchParams=router.query
+    const newSearchparams={...searchParams,max_price:priceRange.max,min_price:priceRange.min}
+    router.replace({pathname:router.pathname,query:newSearchparams})
+    // let url = router.pathname.replace("[grid]", query.grid);
+    // let arr = [
+    //   `min_price=${priceRange.min}`,
+    //   `max_price=${priceRange.max}`,
+    //   "page=1",
+    // ];
+    // for (let key in query) {
+    //   if (
+    //     key !== "min_price" &&
+    //     key !== "max_price" &&
+    //     key !== "page" &&
+    //     key !== "grid"
+    //   )
+    //     arr.push(key + "=" + query[key]);
+    // }
+    // url = url + "?" + arr.join("&");
+    // router.push(url);
+  }
+
+  function closeSidebar() {
+    document.querySelector("body").classList.contains("sidebar-opened") &&
+      document.querySelector("body").classList.remove("sidebar-opened");
+  }
+
+  if (error) {
+    return <div>{error.message}</div>;
+  }
+
+
+ 
+  return (
+    <>
+      <div className="sidebar-overlay" onClick={closeSidebar}></div>
+
+      <aside
+        className={`sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${
+          !loading ? "loaded" : ""
+        } ${props.display === "none" ? "d-lg-none" : ""} ${
+          props.right ? "" : "order-lg-first"
+        }`}
+        style={{
+          paddingLeft: "0",
+          paddingRight: "0",
+          maxHeight: "650px",
+          overflow: "scroll",
+        }}
+      >
+        <StickyBox className="sidebar-wrapper" offsetTop={0}>
+          <div className="widget" style={{ padding: "0" }}>
+            {loading ? (
+              <div className="skel-widget"></div>
+            ) : (
+              <SlideToggle>
+                {({ onToggle, setCollapsibleElement, toggleState }) => (
+                  <>
+                    <h3
+                      className="widget-title"
+                      style={{
+                        borderBottom: "1px solid",
+                        borderColor: "#DDDDDD",
+                        width: "298px",
+                        marginLeft: "0px",
+                        paddingBottom: "20px",
+                      }}
+                    >
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault(), onToggle();
+                        }}
+                        className={
+                          toggleState === "COLLAPSED" ? "collapsed" : ""
                         }
+                        style={{ marginLeft: "20px", marginTop: "20px" }}
+                      >
+                        Categories
+                      </a>
+                    </h3>
+                    <div
+                      className="overflow-hidden"
+                      ref={setCollapsibleElement}
+                    >
+                      <div className="widget-body pb-4 m-4">
+                        <ul>
+                        {data &&
+                          data?.getActiveChildCategories?.records.length > 0 &&
+                          data?.getActiveChildCategories?.records?.map((category,index)=>(
+                            <li
+                            //  className={
+                            //   containsAttrInUrl("category", category?.categoryName)
+                            //     ? "active"
+                            //     : ""
+                            // }
+                            key={`category-${index}`}>
+                              <ALink
+className="custom-categorylabels"
+                                    href={{
+                                      query: {
+                                        ...query,
+                                        page: 1,
+                                        category: getUrlForAttrs(
+                                          "category",
+                                          category._id
+                                        ),
+                                      },
+                                    }}
+                                    scroll={false}
+                                     style={containsAttrInUrl("category", category?._id)
+                                                ? {color:"red"}
+                                                : {}}
+                                  >
+                                    {category?.categoryName}
+                                  </ALink>
+
+                            </li>
+                          )
+
+                          )}
+                          </ul>
+                      </div>
+                      {/* <div
+                        className="widget-body"
+                        style={{ marginLeft: "20px" }}
+                      >
+                        <Tree
+                          className="no-icon cat-list border-0"
+                          selectable={true}
+                          showIcon={false}
+                          defaultExpandedKeys={
+                            query.category ? [query.category] : []
+                          }
+                          // switcherIcon={ ( props ) => {
+                          //     return ( !props.isLeaf ?
+                          //         <span className="toggle"></span>
+                          //         : ''
+                          //     )
+                          // } }
+                          selectedKeys={query.category ? [query.category] : []}
+                          treeData={categories}
+                          onSelect={filterByCategory}
+                        />
+                      </div> */}
                     </div>
+                  </>
+                )}
+              </SlideToggle>
+            )}
+          </div>
 
-                    {
-                        ( query.category || query.sizes || query.colors || query.brands || query.min_price || query.max_price ) && <div className="widget">
-                            <ALink href={ { query: { grid: query.grid } } } scroll={ false } className="btn btn-primary reset-filter">Reset All Filters</ALink>
-                        </div>
-                    }
+          {/* {(query.category ||
+            query.sizes ||
+            query.colors ||
+            query.brands ||
+            query.min_price ||
+            query.max_price) && ( */}
+            <div className="widget">
+              <ALink
+              href={{ query: { cat_id: query.cat_id } }}
+                //  href={{ query: { grid: query.grid } }}
+                scroll={false}
+                className="btn btn-primary reset-filter"
+              >
+                Reset All Filters
+              </ALink>
+            </div>
+          {/* )} */}
 
-                    <div className="widget widget-price overflow-hidden" style={{padding:"0"}}>
-                        {
-                            loading ?
-                                <div className="skel-widget"></div>
-                                :
-
-                                <SlideToggle>
-                                    { ( { onToggle, setCollapsibleElement, toggleState } ) =>
-                                        (
-                                            <>
-                                                <h3 className="widget-title" style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"298px", marginLeft:"0px", paddingBottom:"20px"}}>
-                                                    <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" role="button" onClick={ ( e ) => { e.preventDefault(), onToggle() } }  style={{marginLeft:"20px", marginTop:"20px"}}>Price</a>
-                                                </h3>
-
-                                                <div ref={ setCollapsibleElement }>
-                                                    <div className="widget-body pb-2" style={{padding:"20px"}}>
-                                                        <form action="#">
-                                                            <div className="price-slider-wrapper">
-                                                                <InputRange
-                                                                    maxValue={ 1000 }
-                                                                    minValue={ 0 }
-                                                                    step={ 50 }
-                                                                    value={ priceRange }
-                                                                    onChange={ onChangePriceRange } />
-                                                            </div>
-
-                                                            <div
-                                                                className="filter-price-action d-flex align-items-center justify-content-between flex-wrap">
-                                                                <div className="filter-price-text" style={{fontFamily:"Poppins",fontWeight:"500px", fontSize:"12px"}}>
-                                                                    Price: <span id="filter-price-range">OMR { priceRange.min } &mdash; { priceRange.max }</span>
-                                                                </div>
-
-                                                                <button type="submit" className="btn " style={{backgroundColor:"black",color:"white"}}  onClick={ ( e ) => filterByPrice( e ) }>Filter</button>
-                                                            </div>
-                                                        </form>
-                                                    </div>
-                                                </div>
-                                            </>
-                                        ) }
-                                </SlideToggle>
+          <div
+            className="widget widget-price overflow-hidden"
+            style={{ padding: "0" }}
+          >
+            {loading ? (
+              <div className="skel-widget"></div>
+            ) : (
+              <SlideToggle>
+                {({ onToggle, setCollapsibleElement, toggleState }) => (
+                  <>
+                    <h3
+                      className="widget-title"
+                      style={{
+                        borderBottom: "1px solid",
+                        borderColor: "#DDDDDD",
+                        width: "298px",
+                        marginLeft: "0px",
+                        paddingBottom: "20px",
+                      }}
+                    >
+                      <a
+                        className={
+                          toggleState === "COLLAPSED" ? "collapsed" : ""
                         }
+                        href="#"
+                        role="button"
+                        onClick={(e) => {
+                          e.preventDefault(), onToggle();
+                        }}
+                        style={{ marginLeft: "20px", marginTop: "20px" }}
+                      >
+                        Price
+                      </a>
+                    </h3>
+
+                    <div ref={setCollapsibleElement}>
+                      <div
+                        className="widget-body pb-2"
+                        style={{ padding: "20px" }}
+                      >
+                        <form action="#">
+                          <div className="price-slider-wrapper">
+                            <InputRange
+                              maxValue={maxpricevalue}
+                              minValue={0}
+                              step={50}
+                              value={priceRange}
+                              onChange={onChangePriceRange}
+                            />
+                          </div>
+
+                          <div className="filter-price-action d-flex align-items-center justify-content-between flex-wrap">
+                            <div
+                              className="filter-price-text"
+                              style={{
+                                fontFamily: "Poppins",
+                                fontWeight: "500px",
+                                fontSize: "12px",
+                              }}
+                            >
+                              Price:{" "}
+                              <span id="filter-price-range">
+                                OMR {priceRange.min} &mdash; {priceRange.max}
+                              </span>
+                            </div>
+
+                            <button
+                              type="button"
+                              className="btn "
+                              style={{
+                                backgroundColor: "black",
+                                color: "white",
+                              }}
+                              onClick={(e) => filterByPrice(e)}
+                            >
+                              Filter
+                            </button>
+                          </div>
+                        </form>
+                      </div>
                     </div>
+                  </>
+                )}
+              </SlideToggle>
+            )}
+          </div>
 
-                    <div className="widget widget-color" style={{padding:"0"}}>
-                        {
-                            loading ?
-                                <div className="skel-widget"></div>
-                                :
-                                <SlideToggle>
-                                    { ( { onToggle, setCollapsibleElement, toggleState } ) => (
-                                        <>
+          {/* conditional */}
+          {attributeData?.getAttributesDetailsByCategory?.record.attributes
+            .length > 0 &&
+            attributeData?.getAttributesDetailsByCategory?.record?.attributes?.map(
+              (attri, index) => {
+                console.log(attri);
 
-                                            <div >
-                                            <h3 className="widget-title"  style={{borderBottom:"1px solid", borderColor:"#DDDDDD", width:"298px", marginLeft:"0px", paddingBottom:"20px"}}>
-                                                <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } } style={{marginLeft:"20px", marginTop:"20px"}}>Color</a>
-                                               
-                                            </h3>
+                let attributeComponent;
 
-                                            </div>
+                // Check attribute type and render the appropriate component
+                if (attri.attributeType === "COLOR") {
+                  attributeComponent = (
+                    <div
+                      className="widget widget-color"
+                      style={{ padding: "0" }}
+                    >
+                      {loading ? (
+                        <div className="skel-widget"></div>
+                      ) : (
+                        <SlideToggle>
+                          {({
+                            onToggle,
+                            setCollapsibleElement,
+                            toggleState,
+                          }) => (
+                            <>
+                              <div>
+                                <h3
+                                  className="widget-title"
+                                  style={{
+                                    borderBottom: "1px solid",
+                                    borderColor: "#DDDDDD",
+                                    width: "298px",
+                                    marginLeft: "0px",
+                                    paddingBottom: "20px",
+                                  }}
+                                >
+                                  <a
+                                    className={
+                                      toggleState === "COLLAPSED"
+                                        ? "collapsed"
+                                        : ""
+                                    }
+                                    href="#"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      onToggle();
+                                    }}
+                                    style={{
+                                      marginLeft: "20px",
+                                      marginTop: "20px",
+                                    }}
+                                  >
+                                    {attri?.description}
+                                  </a>
+                                </h3>
+                              </div>
+                              <div
+                                className="overflow-hidden"
+                                ref={setCollapsibleElement}
+                              >
+                                <div className="widget-body pb-4">
+                                  <ul
+                                    className="config-swatch-list"
+                                    style={{
+                                      width: "359px",
+                                      height: "48px",
+                                      gap: "2px",
+                                      padding: "20px",
+                                    }}
+                                  >
+                                    {attri?.attributeValues.map(
+                                      (item, index) => (
+                                        <li
+                                          className={
+                                            containsAttrInUrl(
+                                              [attri?._id],
+                                              item?._id
+                                            )
+                                              ? "active"
+                                              : ""
+                                          }
+                                          key={`${attri?._id}-${index}`}
+                                          style={{
+                                            width: "38px",
+                                            height: "38px",
+                                          }}
+                                        >
+                                          <ALink
+                                            href={{
+                                              query: {
+                                                ...query,
+                                                page: 1,
+                                                [attri?._id]: getUrlForAttrs(
+                                                  attri?._id,
+                                                  item._id
+                                                ),
+                                              },
+                                            }}
+                                            style={{
+                                              backgroundColor: item?.value,
+                                              borderRadius: "50%",
+                                            }}
+                                            scroll={false}
+                                          ></ALink>
+                                        </li>
+                                      )
+                                    )}
+                                  </ul>
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </SlideToggle>
+                      )}
+                    </div>
+                  );
+                } else {
+                  attributeComponent = (
+                    <div
+                      className="widget widget-normal"
+                      style={{ padding: "0" }}
+                    >
+                      {loading ? (
+                        <div className="skel-widget"></div>
+                      ) : (
+                        <SlideToggle>
+                          {({
+                            onToggle,
+                            setCollapsibleElement,
+                            toggleState,
+                          }) => (
+                            <>
+                              <div>
+                                <h3
+                                  className="widget-title"
+                                  style={{
+                                    borderBottom: "1px solid",
+                                    borderColor: "#DDDDDD",
+                                    width: "298px",
+                                    marginLeft: "0px",
+                                    paddingBottom: "20px",
+                                  }}
+                                >
+                                  <a
+                                    className={
+                                      toggleState === "COLLAPSED"
+                                        ? "collapsed"
+                                        : ""
+                                    }
+                                    href="#"
+                                    onClick={(e) => {
+                                      e.preventDefault();
+                                      onToggle();
+                                    }}
+                                    style={{
+                                      marginLeft: "20px",
+                                      marginTop: "20px",
+                                    }}
+                                  >
+                                    {attri?.description}
+                                  </a>
+                                </h3>
+                              </div>
+                              <div
+                                className="overflow-hidden"
+                                ref={setCollapsibleElement}
+                              >
+                                <div className="widget-body pb-4 m-4">
+                                  {attri?.attributeValues.length > 0 &&
+                                    attri?.attributeValues?.map(
+                                      (attriValues, index) => {
+                                        const attriId = attri?._id;
+                                        const selectedIds = query[attriId]?.split(',') || [];
+                                        const isActive = selectedIds.includes(attriValues._id);
+                                  
+                                        return (
+                                          <>
+                                            <ALink
                                             
-                                            <div className="overflow-hidden" ref={ setCollapsibleElement }>
-                                                <div className="widget-body pb-4" >
-                                                    <ul className="config-swatch-list" style={{width:"359px",height:"48px" , gap:"2px",padding:"20px"}}>
-                                                        {
-                                                            shopColors.map( ( item, index ) => (
-                                                                <li className={ containsAttrInUrl( 'colors', item.name ) ? 'active' : '' } key={ `color-${ index }` } style={{width:"38px",height:"38px", }} >
-                                                                    <ALink
-                                                                        href={ { query: { ...query, page: 1, colors: getUrlForAttrs( 'colors', item.name ) } } }
-                                                                        style={ { backgroundColor: item.color,borderRadius: '50%', } }
-                                                                        scroll={ false }
-                                                                      
-                                                                    ></ALink>
-                                                                </li>
-                                                            ) )
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </>
-                                    ) }
-                                </SlideToggle>
-                        }
+                                           className="custom-categorylabels"
+                                              href={{
+                                                query: {
+                                                  ...query,
+                                                  page: 1,
+                                                  [attri?._id]: getUrlForAttrs(
+                                                    attri?._id,
+                                                    attriValues._id
+                                                  ),
+                                                },
+                                              }}
+                                              key={`${attri?._id}-${index}`}
+                                              scroll={false}
+                                              style={containsAttrInUrl(
+                                                attri?._id,
+                                                attriValues._id
+                                              )
+                                                ? {color:"red"}
+                                                : {}}
+                                            >
+                                              <span
+                                              
+                                                // className={
+                                                //   containsAttrInUrl(
+                                                //     attri?._id,
+                                                //     attriValues._id
+                                                //   )
+                                                //     ? "active"
+                                                //     : ""
+                                                // }
+                                               
+                                               
+                                                style={{
+                                                  border:
+                                                    "1px solid rgb(220, 220, 220)",
+                                                  padding: "20px",
+                                                }}
+                                                
+                                              >
+                                                {attriValues.value}
+                                              </span>
+                                            </ALink>
+                                          </>
+                                        );
+                                      }
+                                    )}
+                                </div>
+                              </div>
+                            </>
+                          )}
+                        </SlideToggle>
+                      )}
                     </div>
+                  );
+                }
 
-                    {/* <div className="widget widget-brand">
-                        {
-                            loading ?
-                                <div className="skel-widget"></div>
-                                :
-                                <SlideToggle>
-                                    { ( { onToggle, setCollapsibleElement, toggleState } ) => (
-                                        <>
-                                            <h3 className="widget-title">
-                                                <a className={ toggleState === 'COLLAPSED' ? 'collapsed' : '' } href="#" onClick={ ( e ) => { e.preventDefault(), onToggle() } }>Brand</a>
-                                            </h3>
-                                            <div className="overflow-hidden" ref={ setCollapsibleElement }>
-                                                <div className="widget-body pb-0">
-                                                    <ul className="cat-list">
-                                                        {
-                                                            shopBrands.map( ( item, index ) => (
-                                                                <li className={ containsAttrInUrl( 'brands', item.category ) ? 'active' : '' } key={ `brand-${ index }` }>
-                                                                    <ALink
-                                                                        href={ { query: { ...query, page: 1, brands: getUrlForAttrs( 'brands', item.category ) } } }
-                                                                        scroll={ false }
-                                                                    >{ item.name }</ALink>
-                                                                </li>
-                                                            ) )
-                                                        }
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </>
-                                    ) }
-                                </SlideToggle>
+                return <div key={index}>{attributeComponent}</div>;
+              }
+            )}
+
+          <div className="widget widget-brand">
+            {loading ? (
+              <div className="skel-widget"></div>
+            ) : (
+              <SlideToggle>
+                {({ onToggle, setCollapsibleElement, toggleState }) => (
+                  <>
+                    <h3 className="widget-title">
+                      <a
+                        className={
+                          toggleState === "COLLAPSED" ? "collapsed" : ""
                         }
-                    </div> */}
-                </StickyBox>
-            </aside>
-        </>
-    )
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault(), onToggle();
+                        }}
+                      >
+                        Brand
+                      </a>
+                    </h3>
+                    <div
+                      className="overflow-hidden"
+                      ref={setCollapsibleElement}
+                    >
+                      <div className="widget-body pb-0">
+                        <ul className="cat-list">
+                          {brandData?.getBrandDetailsWithCategory?.records?.map(
+                            (item, index) => (
+                              <li
+                                // className={
+                                //   containsAttrInUrl("brands", item.category)
+                                //     ? "active"
+                                //     : ""
+                                // }
+                                key={`brands-${index}`}
+                              >
+                                <label htmlFor={item.brandName}>
+                                  <input
+                                    id={item.brandName}
+                                    type="checkbox"
+                                    checked={query?.brands?.includes(
+                                      item._id
+                                    )}
+                                    onChange={() =>
+                                      handleBrandCheckboxChange(item.brandName)
+                                    }
+                                    style={{ marginRight: "5px" }}
+                                  />
+                                  <ALink
+                                    href={{
+                                      query: {
+                                        ...query,
+                                        page: 1,
+                                        brands: getUrlForAttrs(
+                                          "brands",
+                                          item._id
+                                        ),
+                                      },
+                                    }}
+                                    scroll={false}
+                                  >
+                                    {item.brandName}
+                                  </ALink>
+                                </label>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </SlideToggle>
+            )}
+          </div>
+        </StickyBox>
+      </aside>
+    </>
+  );
 }
 
-export default withApollo( { ssr: typeof window === 'undefined' } )( ShopSidebarOne );
+export default withApollo({ ssr: typeof window === "undefined" })(
+  ShopSidebarOne
+);

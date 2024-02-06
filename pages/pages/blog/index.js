@@ -12,6 +12,7 @@ import BlogTypeOne from '../../../components/features/blogs/blog-type-one';
 import BlogSidebar from '../../../components/partials/blog/blog-sidebar';
 import Pagination from '../../../components/features/pagination';
 import ALink from '../../../components/common/ALink';
+import { IoMdHome } from "react-icons/io"; 
 
 function Blog () {
     const router = useRouter();
@@ -51,7 +52,10 @@ function Blog () {
                 <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                     <div className="container">
                         <ol className="breadcrumb">
-                            <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                            <li className="breadcrumb-item"><ALink href="/">
+                                {/* <i className="icon-home"></i> */}
+                                <IoMdHome style={{fontSize:"16px"}}/>
+                                </ALink></li>
                             <li className="breadcrumb-item active" aria-current="page">Blog</li>
                         </ol>
                     </div>

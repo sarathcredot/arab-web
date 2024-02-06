@@ -2,6 +2,7 @@ import { connect } from "react-redux";
 
 // Import Custom Component
 import ALink from "../ALink";
+import { IoIosAdd } from "react-icons/io";
 
 function StickyNavbar ( { cartItems } ) {
     function getQtyTotal ( items ) {
@@ -17,7 +18,10 @@ function StickyNavbar ( { cartItems } ) {
     return (
         <div className="sticky-navbar">
             <div className="sticky-info">
-                <ALink href="/"><i className="icon-home"></i>Home</ALink>
+                <ALink href="/">
+                    <IoIosAdd style={{fontSize:"16px"}}/>
+                    {/* <i className="icon-home"></i> */}
+                    Home</ALink>
             </div>
             <div className="sticky-info">
                 <ALink href="/shop" className=""><i className="icon-bars"></i>Categories</ALink>

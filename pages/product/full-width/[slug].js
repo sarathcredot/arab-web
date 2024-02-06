@@ -13,6 +13,7 @@ import ProductDetailFour from '../../../components/partials/product/details/prod
 import SingleTabTwo from '../../../components/partials/product/tabs/single-tab-two';
 import RelatedProducts from '../../../components/partials/product/widgets/related-products';
 import ProductWidgetContainer from '../../../components/partials/product/widgets/product-widget-container';
+import { IoMdHome } from "react-icons/io"; 
 
 function ProductFullWidth () {
     if ( !useRouter().query.slug ) return (
@@ -30,16 +31,19 @@ function ProductFullWidth () {
     const product = data && data.product.data;
     const related = data && data.product.related;
 
-    if ( error ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( error ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     return (
         <main className="main">
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            {/* <i className="icon-home"></i> */}
+                            </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
                         <li className="breadcrumb-item">
                             {

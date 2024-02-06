@@ -109,7 +109,7 @@ function Header({ adClass = "", wishlist }) {
       <header
         className={`header ${adClass} sticky-header mobile-sticky desktop-sticky`}
       >
-        <div className="header-middle">
+        <div className="header-middle" style={{paddingTop:"3rem",paddingBottom:"3rem"}}>
           <div className="container innercontainer">
             {/* <div className={styles.innercontainer}> */}
             <div className="header-left col-lg-2 w-auto pl-0">
@@ -155,25 +155,35 @@ function Header({ adClass = "", wishlist }) {
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
                 <ALink href="#">
-                  <i className="flag-us flag"></i>ENG
+                  <img src="/images/uae.svg"></img>UAE
                 </ALink>
                 <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#">
-                        <i className="flag-us flag mr-2"></i>ENG
+                      <img src="/images/uae.svg"></img>UAE
                       </ALink>
                     </li>
                     <li>
                       <ALink href="#">
-                        <i className="flag-fr flag mr-2"></i>FRA
+                      <img src="/images/ind.svg" className={styles.flagimg}></img>IND
+                      </ALink>
+                    </li>
+                    <li>
+                      <ALink href="#">
+                      <img src="/images/omn.png"className={styles.flagimg} ></img>OMN
+                      </ALink>
+                    </li>
+                    <li>
+                      <ALink href="#">
+                      <img src="/images/sar.png"className={styles.flagimg} ></img>SAR
                       </ALink>
                     </li>
                   </ul>
                 </div>
               </div>
 
-              <ALink href="/pages/account" className="d-lg-block d-none">
+              <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}>
                 <div className="header-user">
                   <div className={styles.circle}>
                     <BiSolidUser style={{ fontSize: "20px" }} />
@@ -205,12 +215,13 @@ function Header({ adClass = "", wishlist }) {
           </div>
         </div>
 
-        <div className="header-bottom d-flex">
+       
+      </header>
+      {/* <div className="header-bottom d-flex">
           <div className="container">
             <MainMenu />
           </div>
-        </div>
-      </header>
+        </div> */}
     </>
   );
 }

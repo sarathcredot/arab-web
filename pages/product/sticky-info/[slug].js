@@ -2,7 +2,7 @@ import React from 'react';
 import StickyBox from 'react-sticky-box';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
-
+import { IoMdHome } from "react-icons/io";
 // import Custom Component
 import ALink from '../../../components/common/ALink';
 import ProductMediaFive from '../../../components/partials/product/media/product-media-five';
@@ -31,16 +31,19 @@ function ProductStickyInfo () {
     const product = data && data.product.data;
     const related = data && data.product.related;
 
-    if ( error ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( error ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     return (
         <main className="main">
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            {/* <i className="icon-home"></i> */}
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
                         <li className="breadcrumb-item">
                             {

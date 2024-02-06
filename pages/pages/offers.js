@@ -13,27 +13,27 @@ import { useQuery } from "@apollo/react-hooks";
 // Import Apollo Server and Query
 
 import withApollo from "../../server/apollo";
-import { GET_HOME_DATA } from "../../server/queries";
+// import { GET_HOME_DATA } from "../../server/queries";
 import HomeSection from "../../components/partials/home/home-section";
 import BrandSection from "../../components/partials/home/brand-section";
 
 function offers() {
-  const { data, loading, error } = useQuery(GET_HOME_DATA, {
-    variables: { productsCount: 15 },
-  });
-  const bestSelling = data && data.specialProducts.bestSelling;
-  const electronic = data && data.electronic.data;
-  const giftAndGadgets = data && data.giftAndGadgets.data;
-  const latest = data && data.specialProducts.latest;
-  const topRated = data && data.specialProducts.topRated;
+  // const { data, loading, error } = useQuery(GET_HOME_DATA, {
+  //   variables: { productsCount: 15 },
+  // });
+  // const bestSelling = data && data?.specialProducts?.bestSelling;
+  // const electronic = data && data?.electronic?.data;
+  // const giftAndGadgets = data && data?.giftAndGadgets?.data;
+  // const latest = data && data?.specialProducts?.latest;
+  // const topRated = data && data?.specialProducts?.topRated;
 
-  if (error) {
-    return <div>{error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
 
   return (
     <>
-      <main className="home">
+      <main className="home" style={{marginTop:"-40px"}}>
         <div className="bg-gray">
           <HomeSection offer={true} className="pb-5" />
           {/* <div className="container pb-3">
@@ -44,7 +44,7 @@ function offers() {
         </div>
 
         <div
-          className={`container skeleton-body skel-shop-products pt-5 ${
+          className={`container skeleton-body skel-shop-products ${
             loading ? "" : "loaded"
           }`}
         >
@@ -69,7 +69,7 @@ function offers() {
               height: "auto",
               maxWidth:"100%",
               backgroundColor: "white",
-              marginTop: "40px",
+              marginTop: "67px",
             }}
           >
             <img

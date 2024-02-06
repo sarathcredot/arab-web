@@ -13,14 +13,15 @@ import { HomeSlider } from "../../../utils/data/slider";
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
 function HomeSection({ offer }) {
+  console.log(offer);
   return (
 
 
 
     <OwlCarousel adClass="home-slider nav-circle mb-2" options={HomeSlider}>
       <div className="home-slide home-slide1 banner">
-        {offer ?
-          <>
+        {/* {offer ? */}
+          {/* <>
             <figure className="mb-0">
               <LazyLoadImage
                 alt="Home Slide"
@@ -34,7 +35,7 @@ function HomeSection({ offer }) {
 
 
 
-          </> :
+          </> : */}
           <>
             <figure className="mb-0">
               <LazyLoadImage
@@ -53,7 +54,7 @@ function HomeSection({ offer }) {
 
 
 
-        }
+         {/* } */}
 
 
         <div className="container d-flex align-items-sm-center justify-content-sm-between justify-content-center flex-column flex-sm-row">
@@ -64,7 +65,7 @@ function HomeSection({ offer }) {
       </div>
 
       <div className="home-slide home-slide2 banner banner-md-vw">
-        {offer ? <>
+        {/* {offer ? <>
           <figure className="mb-0">
             <LazyLoadImage
               alt="Home Slide"
@@ -77,7 +78,7 @@ function HomeSection({ offer }) {
           </figure>
 
 
-        </> :
+        </> : */}
           <>
             <figure className="mb-0">
               <LazyLoadImage
@@ -94,7 +95,7 @@ function HomeSection({ offer }) {
           </>
 
 
-        }
+        {/* } */}
 
 
         <div className="container d-flex align-items-sm-center justify-content-center justify-content-sm-between flex-column-reverse flex-sm-row">

@@ -14,7 +14,7 @@
     background-color: black!important;
 }
 .offerdiv{
-    margin:0 20px
+    margin:0 20px 0 65px
 }
 .navcontainer{
     border: 1px solid rgba(240, 240, 240, 1);
@@ -25,7 +25,9 @@
     border-top: 1px solid rgba(240, 240, 240, 1);
     border-bottom: 1px solid rgba(240, 240, 240, 1);
 }
-
+.flagimg{
+    width: 26px;
+}
 @media only screen and (max-width: 600px){
     .offerdiv{
         display: none!important;

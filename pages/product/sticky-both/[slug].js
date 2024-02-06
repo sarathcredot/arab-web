@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useQuery } from '@apollo/react-hooks';
-
+import { IoMdHome } from "react-icons/io";
 // Import Apollo Server and Query
 import withApollo from '../../../server/apollo';
 import { GET_PRODUCT } from '../../../server/queries';
@@ -30,16 +30,19 @@ function ProductStickyBoth () {
     const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
     const product = data && data.product.data;
     const related = data && data.product.related;
-    if ( error ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( error ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     return (
         <main className="main">
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            {/* <i className="icon-home"></i> */}
+                            </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
                         <li className="breadcrumb-item">
                             {

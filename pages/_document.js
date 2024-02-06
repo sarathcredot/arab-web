@@ -16,7 +16,7 @@ export default class MyDocument extends Document {
           ) : (
             ""
           )}
-          <link rel="icon" href="favicon.png" />
+          <link rel="icon" href="bannerlogo.svg" />
           <link
             rel="stylesheet"
             href="https://fonts.googleapis.com/css?family=Open+Sans:200,300,400,500,600,700,800,400italic,800italic%7CPoppins:200,300,400,500,600,700,800%7COswald:300,400,600,700,800%7CNanum+Brush+Script:400,700,800"
@@ -37,6 +37,9 @@ export default class MyDocument extends Document {
             type="text/css"
             href="vendor/simple-line-icons/css/simple-line-icons.min.css"
           />
+          <link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet"/>
         </Head>
         <body>
           <Main />

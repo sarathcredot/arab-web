@@ -12,15 +12,15 @@ import Pagination from '../../components/features/pagination';
 import ProductsGrid from '../../components/partials/products-collection/product-grid';
 import ShopBanner from '../../components/partials/shop/shop-banner';
 import ShopSidebarOne from '../../components/partials/shop/sidebar/shop-sidebar-one';
-
+import { IoMdHome } from "react-icons/io";
 function ShopImage () {
     const router = useRouter();
     const query = router.query;
     const [ getProducts, { data, loading, error } ] = useLazyQuery( GET_PRODUCTS );
     const [ perPage, setPerPage ] = useState( 12 );
     const [ sortBy, setSortBy ] = useState( query.sortBy ? query.sortBy : 'default' );
-    const products = data && data.products.data;
-    const totalPage = data ? parseInt( data.products.total / perPage ) + ( data.products.total % perPage ? 1 : 0 ) : 1;
+    const products = data && data?.products?.data;
+    const totalPage = data ? parseInt( data?.products.total / perPage ) + ( data?.products.total % perPage ? 1 : 0 ) : 1;
 
     useEffect( () => {
         let offset = document.querySelector( '.main-content' ).getBoundingClientRect().top + window.pageYOffset - 58;
@@ -90,23 +90,26 @@ function ShopImage () {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            {/* <i className="icon-home"></i> */}
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            </ALink></li>
                         {
                             query.category ?
                                 <>
                                     <li className="breadcrumb-item"><ALink href={ { pathname: router.pathname, query: {} } } scroll={ false }>shop</ALink></li>
                                     {
-                                        data && data.products.categoryFamily.map( ( item, index ) => (
-                                            <li className="breadcrumb-item" key={ `category-family-${index}` }><ALink href={ { query: { category: item.slug } } } scroll={ false }>{ item.name }</ALink></li>
+                                        data && data?.products?.categoryFamily.map( ( item, index ) => (
+                                            <li className="breadcrumb-item" key={ `category-family-${index}` }><ALink href={ { query: { category: item?.slug } } } scroll={ false }>{ item?.name }</ALink></li>
                                         ) )
                                     }
                                     <li className="breadcrumb-item active">
                                         {
                                             query.search ?
                                                 <>
-                                                    Search - <ALink href={ { query: { category: query.category } } } scroll={ false }>{ query.category }</ALink> / { query.search }
+                                                    Search - <ALink href={ { query: { category: query?.category } } } scroll={ false }>{ query?.category }</ALink> / { query?.search }
                                                 </>
-                                                : query.category
+                                                : query?.category
                                         }
                                     </li>
                                 </>

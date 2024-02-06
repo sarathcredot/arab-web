@@ -152,8 +152,8 @@ header {
 	}
 
 	&-middle {
-		@include css(padding-top, header, middle, padding-top);
-		@include css(padding-bottom, header, middle, padding-bottom);
+		@include css(padding-top, header, middle, 1.9rem);
+		@include css(padding-bottom, header, middle, 1.9rem);
 		@include css(border-bottom, header, middle, border-bottom);
 		@include css(color, header, middle, color);
 		@include css(background, header, middle, background);
@@ -189,6 +189,7 @@ header {
 }
 
 .header-bottom {
+	padding-bottom: 0;
 	.header-center {
 		width: 100%;
 	}

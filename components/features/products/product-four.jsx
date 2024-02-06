@@ -66,7 +66,7 @@ function ProductFour(props) {
 
   return (
     <div
-      className={`product-default media-with-lazy ${adClass}`}
+      className={`product-default custom-product-resp media-with-lazy ${adClass}`}
       style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
     >
       {/* <figure> */}
@@ -148,7 +148,28 @@ function ProductFour(props) {
           </div>
         </div> */}
 
-        <div className="price-box">
+<div className="price-box">
+          <span style={{fontFamily:"Plus Jakarta Sans"}}>OMR</span>
+          <span
+            className="product-price"
+            style={{
+              
+              fontWeight: "800px",
+              fontSize: "16px",
+              lineHeight: "15px",
+              marginLeft: "25px",
+            }}
+          >
+            {product.price[0].toFixed(2)}
+          </span>
+          <span
+            className="old-price"
+            style={{ marginLeft: "25px", color: "#777777",fontWeight:"600" }}
+          >
+            {+product.price[1].toFixed(2)}
+          </span>
+        </div>
+        {/* <div className="price-box">
           {product.price[0] == product.price[1] ? (
             <span className="product-price">
               {"$" + product.price[0].toFixed(2)}
@@ -168,7 +189,7 @@ function ProductFour(props) {
               </span>
             </>
           )}
-        </div>
+        </div> */}
 
         <div className="product-action">
           {product.variants.length > 0 ? (
@@ -182,7 +203,7 @@ function ProductFour(props) {
           ) : (
             <a
               href="#"
-              className="btn-icon btn-dark btn-add-cart product-type-simple"
+              className="btn-icon  btn-add-cart product-type-simple "
               title="Add To Cart"
               onClick={onAddCartClick}
             >

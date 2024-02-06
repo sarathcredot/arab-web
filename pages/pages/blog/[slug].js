@@ -11,7 +11,7 @@ import OwlCarousel from '../../../components/features/owl-carousel';
 import BlogSidebar from '../../../components/partials/blog/blog-sidebar';
 import BlogTypeThree from '../../../components/features/blogs/blog-type-three';
 import BlogSingle from '../../../components/features/blogs/blog-single';
-
+import { IoMdHome } from "react-icons/io";
 //Import Settings
 import { blogSlider } from '../../../utils/data/slider';
 
@@ -31,16 +31,19 @@ function Single () {
     const blog = data && data.post.data;
     const related = data && data.post.related;
 
-    if ( error ) {
-        return useRouter().push( '/pages/404' );
-    }
+    // if ( error ) {
+    //     return useRouter().push( '/pages/404' );
+    // }
 
     return (
         <main className="main">
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            {/* <i className="icon-home"></i> */}
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/pages/blog">Blog</ALink></li>
                         <li className="breadcrumb-item active" aria-current="page">{ blog && blog.title }</li>
                     </ol>

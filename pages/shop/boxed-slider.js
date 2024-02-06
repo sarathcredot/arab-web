@@ -13,15 +13,15 @@ import OwlCarousel from "../../components/features/owl-carousel";
 import ProductsGrid from '../../components/partials/products-collection/product-grid';
 import ShopSidebarOne from '../../components/partials/shop/sidebar/shop-sidebar-one';
 import ShopBanner from '../../components/partials/shop/shop-banner';
-
+import { IoMdHome } from "react-icons/io";
 function ShopboxedSlider () {
     const router = useRouter();
     const query = router.query;
     const [ getProducts, { data, loading, error } ] = useLazyQuery( GET_PRODUCTS );
     const [ perPage, setPerPage ] = useState( 12 );
     const [ sortBy, setSortBy ] = useState( query.sortBy ? query.sortBy : 'default' );
-    const products = data && data.products.data;
-    const totalPage = data ? parseInt( data.products.total / perPage ) + ( data.products.total % perPage ? 1 : 0 ) : 1;
+    const products = data && data?.products?.data;
+    const totalPage = data ? parseInt( data?.products?.total / perPage ) + ( data?.products?.total % perPage ? 1 : 0 ) : 1;
 
     useEffect( () => {
         let offset = document.querySelector( '.main-content' ).getBoundingClientRect().top + window.pageYOffset - 58;
@@ -33,14 +33,14 @@ function ShopboxedSlider () {
 
         getProducts( {
             variables: {
-                search: query.search,
-                colors: query.colors ? query.colors.split( ',' ) : [],
-                sizes: query.sizes ? query.sizes.split( ',' ) : [],
-                brands: query.brands ? query.brands.split( ',' ) : [],
-                min_price: parseInt( query.min_price ),
-                max_price: parseInt( query.max_price ),
-                category: query.category,
-                tag: query.tag,
+                search: query?.search,
+                colors: query?.colors ? query.colors.split( ',' ) : [],
+                sizes: query?.sizes ? query?.sizes.split( ',' ) : [],
+                brands: query?.brands ? query?.brands.split( ',' ) : [],
+                min_price: parseInt( query?.min_price ),
+                max_price: parseInt( query?.max_price ),
+                category: query?.category,
+                tag: query?.tag,
                 sortBy: sortBy,
                 from: perPage * ( page - 1 ),
                 to: perPage * page
@@ -90,7 +90,10 @@ function ShopboxedSlider () {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            {/* <i className="icon-home"></i> */}
+                            </ALink></li>
                         {
                             query.category ?
                                 <>

@@ -7,7 +7,7 @@ import ShopBanner from '../../components/partials/shop/shop-banner';
 import ShopSidebarOne from '../../components/partials/shop/sidebar/shop-sidebar-one';
 import Pagination from '../../components/features/pagination';
 import ProductsGrid from '../../components/partials/products-collection/product-grid';
-
+import { IoMdHome } from "react-icons/io";
 import withApollo from '../../server/apollo';
 import { GET_PRODUCTS } from '../../server/queries';
 
@@ -100,7 +100,10 @@ function ShopHorizontalOne () {
             <nav aria-label="breadcrumb" className="breadcrumb-nav mb-1">
                 <div className="container">
                     <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/"><i className="icon-home"></i></ALink></li>
+                        <li className="breadcrumb-item"><ALink href="/">
+                            <IoMdHome style={{fontSize:"16px"}}/>
+                            {/* <i className="icon-home"></i> */}
+                            </ALink></li>
                         {
                             query.category ?
                                 <>

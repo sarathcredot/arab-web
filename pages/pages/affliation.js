@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import ALink from "../../components/common/ALink";
 import StartAffliation from "../../components/features/affliation/StartAffliation";
 import Loading from "../../components/features/affliation/Loading";
-import Form from "../../components/features/affliation/form";
-import Dashbord from "../../components/features/affliation/dashbord";
-
+import Form from "../../components/features/affliation/Form";
+import Dashbord from "../../components/features/affliation/Dashbord";
+import { IoMdHome } from "react-icons/io";
 function affliation() {
   const [showForm, setShowForm] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -15,6 +15,7 @@ function affliation() {
   }
 
 
+  
   const handleSaveBankDetails = () => {
     
     setIsLoading(true);
@@ -31,7 +32,8 @@ function affliation() {
             <ol className="breadcrumb">
             <li className="breadcrumb-item" >
               <ALink href="/">
-                <i className="icon-home"></i>
+                <IoMdHome style={{fontSize:"16px"}}/>
+                {/* <i className="icon-home"></i> */}
               </ALink>
             </li>
               <li className="breadcrumb-item">
@@ -73,7 +75,7 @@ function affliation() {
         
         </div>
         
-        <div className="container" style={{paddingBottom:"90px",marginTop:"50px"}} >
+        <div className="container" style={{marginTop:"20px"}} >
         
 
         </div>
@@ -84,7 +86,7 @@ function affliation() {
      
 
       
-<div classNam style={{ marginBottom:"50px"}}>
+<div classNam style={{ marginBottom:"120px"}}>
  
 {/* <Dashbord /> */}
 

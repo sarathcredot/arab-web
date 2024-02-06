@@ -167,15 +167,20 @@ function SearchForm(props) {
           </div> */}
 
           <button
-            className="btn icon-magnifier p-0"
+            className="btn"
             title="search"
             type="submit"
-          ></button>
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
+<path d="M8.18551 14C11.5138 14 14.2118 11.1645 14.2118 7.66668C14.2118 4.16887 11.5138 1.33334 8.18551 1.33334C4.85726 1.33334 2.15918 4.16887 2.15918 7.66668C2.15918 11.1645 4.85726 14 8.18551 14Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M14.8463 14.6667L13.5776 13.3333" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
+          </button>
 
           <div className="live-search-list bg-white">
             {search.length > 2 &&
               data &&
-              data.products.data.map((product, index) => (
+              data?.products?.data.map((product, index) => (
                 <ALink
                   href={`/product/default/${product.slug}`}
                   className="autocomplete-suggestion"
@@ -197,22 +202,22 @@ function SearchForm(props) {
                     )}
                   ></div>
                   <span className="search-price">
-                    {product.price[0] == product.price[1] ? (
+                    {product?.price[0] == product?.price[1] ? (
                       <span className="product-price">
-                        {"$" + product.price[0].toFixed(2)}
+                        {"$" + product?.price[0].toFixed(2)}
                       </span>
                     ) : product.variants.length > 0 ? (
                       <span className="product-price">
-                        {"$" + product.price[0].toFixed(2)} &ndash;{" "}
-                        {"$" + product.price[1].toFixed(2)}
+                        {"$" + product?.price[0].toFixed(2)} &ndash;{" "}
+                        {"$" + product?.price[1].toFixed(2)}
                       </span>
                     ) : (
                       <>
                         <span className="old-price">
-                          {"$" + product.price[1].toFixed(2)}
+                          {"$" + product?.price[1].toFixed(2)}
                         </span>
                         <span className="product-price">
-                          {"$" + product.price[0].toFixed(2)}
+                          {"$" + product?.price[0].toFixed(2)}
                         </span>
                       </>
                     )}
