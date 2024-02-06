@@ -202,7 +202,7 @@ function ProductOne(props) {
               style={{ width: 20 * product.ratings + "%" }}
             ></span>
             <span className="tooltiptext tooltip-top">
-              {product.ratings.toFixed(2)}
+              {product?.ratings?.toFixed(2)}
             </span>
           </div>
         </div> */}
@@ -219,13 +219,13 @@ function ProductOne(props) {
               marginLeft: "25px",
             }}
           >
-            {product.price[0].toFixed(2)}
+            {product.price.toFixed(2)}
           </span>
           <span
             className="old-price"
             style={{ marginLeft: "25px", color: "#777777" }}
           >
-            {+product.price[1].toFixed(2)}
+            {+product.price.toFixed(2)}
           </span>
         </div>
 

@@ -27,9 +27,9 @@ function offers() {
   const latest = data && data.specialProducts.latest;
   const topRated = data && data.specialProducts.topRated;
 
-  if (error) {
-    return <div>{error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>{error.message}</div>;
+  // }
 
   return (
     <>

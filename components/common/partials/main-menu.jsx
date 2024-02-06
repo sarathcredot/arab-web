@@ -32,11 +32,11 @@ function MainMenu({ router }) {
     variables: { productsCount: 10, postsCount: 6 },
   });
 
-  const featured = data && data.specialProducts.featured;
+  const featured = data && data?.specialProducts?.featured;
 
-  if (error) {
-    return <div>{error.message}</div>;
-  }
+  // if (error) {
+  //   return <div>{error?.message}</div>;
+  // }
 
   function isOtherPage() {
     return mainMenu.other.find((variation) => variation.url === pathname);
@@ -52,7 +52,7 @@ function MainMenu({ router }) {
     const array = Object.entries(parentcategory);
     console.log(array);
 
-    let index = array.findIndex((item) => item[1] === "");
+    let index = array?.findIndex((item) => item[1] === "");
     if (index === -1) {
       index = array.length;
     }
@@ -196,7 +196,7 @@ function MainMenu({ router }) {
               parentcategory.cat2 ? "active_container_hidden" : ""
             }`}
           >
-            {child1.map((item) => (
+            {child1?.map((item) => (
               <li
                 key={item.key}
                 className={`custom__menufirstchild__item px-2 ${
@@ -214,7 +214,7 @@ function MainMenu({ router }) {
                 }}
               >
                 <p className="custom__menufirstchild__item-label">
-                  {item.label}
+                  {item?.label}
                 </p>
               </li>
             ))}
@@ -231,7 +231,7 @@ function MainMenu({ router }) {
             </p>
             <ul
               className={`custom__menusecondchild w-100 ${
-                parentcategory.cat3 ? "active_container_hidden" : ""
+                parentcategory?.cat3 ? "active_container_hidden" : ""
               }`}
             >
               {child2.map((item) => (
