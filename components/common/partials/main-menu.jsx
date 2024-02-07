@@ -116,7 +116,7 @@ function MainMenu({ router }) {
     const array = Object.entries(parentcategory);
     console.log(array);
 
-    let index = array.findIndex((item) => item[1] === "");
+    let index = array?.findIndex((item) => item[1] === "");
     if (index === -1) {
       index = array.length;
     }
@@ -347,7 +347,7 @@ catch(error)
             </p>
             <ul
               className={`custom__menusecondchild w-100 ${
-                parentcategory.cat3 ? "active_container_hidden" : ""
+                parentcategory?.cat3 ? "active_container_hidden" : ""
               }`}
             >
               {child2?.map((item) => (

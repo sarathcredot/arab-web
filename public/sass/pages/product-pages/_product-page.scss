@@ -693,7 +693,7 @@ main .sticky-header {
 // 2.4) Filter
 .product-single-filter {
 	display: -ms-flexbox;
-	display: flex;
+	// display: flex;
 	-ms-flex-align: center;
 	align-items: center;
 	margin-bottom: 1rem;
@@ -737,8 +737,8 @@ main .sticky-header {
 
 		a {
 			// margin: 3px 6px 3px 0;
-			min-width: 3.2rem;
-			height: 2.6rem;
+			min-width: 8.2rem;
+			height: 3.6rem;
 			border: 1px solid #eee;
 			color: inherit;
 			font-size: 1.1rem;

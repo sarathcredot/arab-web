@@ -204,7 +204,7 @@ function ProductOne(props) {
               style={{ width: 20 * product.ratings + "%" }}
             ></span>
             <span className="tooltiptext tooltip-top">
-              {product.ratings.toFixed(2)}
+              {product?.ratings?.toFixed(2)}
             </span>
           </div>
         </div> */}

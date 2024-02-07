@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useQuery } from '@apollo/react-hooks';
+// import { useQuery } from '@apollo/react-hooks';
 
 // Import Apollo Server and Query
 import withApollo from '../../../server/apollo';
-import { GET_PRODUCT } from '../../../server/queries';
+// import { GET_PRODUCT } from '../../../server/queries';
 
 // Import Custom Component
 import ALink from '../../../components/common/ALink';
@@ -14,8 +14,57 @@ import ProductWidgetContainer from '../../../components/partials/product/widgets
 import RelatedProducts from '../../../components/partials/product/widgets/related-products';
 import SingleTabOne from '../../../components/partials/product/tabs/single-tab-one';
 import { IoMdHome } from "react-icons/io";
+import{gql,useQuery}from"@apollo/client"
+
+
+const GET_PRODUCT = gql `query GetProduct($input: ProductId!) {
+    getProduct(input: $input) {
+      message
+      product {
+        _id
+        vendorId
+        brandId
+        brandName
+        productName
+        shortDescription
+        skuId
+        description
+        productInfo
+        productShortInfo
+        material
+        images {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
+        rating
+        sellingPrice
+        price
+        mrp
+        tags
+        productCode
+        categoryId
+        categoryNamePath
+        categoryIdPath
+        isBlocked
+        stock
+        status
+        offerPrice
+        attributes {
+          attributeId
+          attributeName
+          attributeValueId
+          attributeValue
+          attributeDescription
+        }
+      }
+    }
+  }`;
 
 function ProductDefault () {
+
+
     if ( !useRouter().query.slug ) return (
         <div className="loading-overlay">
             <div className="bounce-loader">
@@ -27,13 +76,32 @@ function ProductDefault () {
     );
 
     const slug = useRouter().query.slug;
-    const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
-    const product = data && data.product.data;
-    const related = data && data.product.related;
+    console.log(slug,"productddddddddddddddddddddddddddddddddddddddddd")
+    // const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
+    // const product = data && data.product.data;
+    // const related = data && data.product.related;
 
-    // if ( error ) {
+
+    const [product,setProduct]=useState()
+
+    // if ( productError ) {
     //     return useRouter().push( '/pages/404' );
     // }
+
+    const id = slug
+   
+
+    const {data:productData, loading:productLoading, error:productError} = useQuery( GET_PRODUCT,{variables: { input:{_id:id.toString() }} })
+    useEffect(() => {
+        if (productData && productData.getProduct) {
+          setProduct(productData.getProduct.product);
+        }
+      }, [productData]);
+
+    console.log(product,"productdfghjklvbnm," )
+
+
+
 
     return (
         <main className="main">
@@ -45,7 +113,8 @@ function ProductDefault () {
                             {/* <i className="icon-home"></i> */}
                             </ALink></li>
                         <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
-                        <li className="breadcrumb-item">
+                    {/*TODO: when add the category is to the api uncomment and 
+                        {/* <li className="breadcrumb-item">
                             {
                                 product && product.categories.map( ( item, index ) => (
                                     <React.Fragment key={ `category-${index}` }>
@@ -54,30 +123,30 @@ function ProductDefault () {
                                     </React.Fragment>
                                 ) )
                             }
-                        </li>
+                        </li> */}
                         <li className="breadcrumb-item active" aria-current="page">
-                        <ALink className="activeitem" href="">{ product && product.name }</ALink>
+                        <ALink className="activeitem" href="">{ product && product.productName }</ALink>
                         </li>
                     </ol>
                 </div>
             </nav>
 
-            <div className={ `container pt-2 skeleton-body skel-shop-products ${loading ? '' : 'loaded'}` }>
+            <div className={ `container pt-2 skeleton-body skel-shop-products ${productLoading ? '' : 'loaded'}` }>
                 <div className="product-single-container product-single-default">
                     <div className="row">
                         <ProductMediaOne product={ product } />
 
                         <ProductDetailOne
                             product={ product }
-                            prev={ product && data.product.prev }
-                            next={ product && data.product.next }
+                            prev={ product && product }
+                            next={ product && product }
                         />
                     </div>
                 </div>
 
                 <SingleTabOne product={ product } />
 
-                <RelatedProducts products={ related } loading={ loading } />
+                <RelatedProducts products={ product } loading={ productLoading } />
             </div>
         </main >
     )
