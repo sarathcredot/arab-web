@@ -10,8 +10,29 @@ import OwlCarousel from "react-owl-carousel2";
 // Import Settigns
 import { fadeIn } from "../../../utils/data/keyframes";
 import { productSlider } from "../../../utils/data/slider";
+import { useQuery } from "@apollo/react-hooks";
+import { gql, useMutation,useLazyQuery } from "@apollo/client";
+
+
+export const TOP_BRANDS=gql`query GetAllTopBrandRecords($input: BrandRecordsFilter) {
+  getAllTopBrandRecords(input: $input) {
+    maxRecords
+    message
+    records {
+      _id
+      brandName
+      logo {
+        fileType
+        originalName
+        fileURL
+      }
+    }
+  }
+}`
 
 function TopBrand(props) {
+  const { data, loading, error } = useQuery(TOP_BRANDS)
+  console.log(data);
   const options = {
     items: 8, // Number of items to show
     margin: 60, // Space between items
@@ -54,13 +75,13 @@ function TopBrand(props) {
         </div>
         <div>
           <OwlCarousel options={options} autoplay>
-            {brands.map((brand, index) => (
+            {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
               <div key={index} className=" item mb-4" >
-                <img
-                  src={brand}
+                {brand.logo && (<img
+                  src={brand.logo.fileURL}
                   alt={`Brand ${index + 1}`}
                   style={{ width: "128px", height: "128px"}}
-                />
+                />)}
               </div>
             ))}
           </OwlCarousel>

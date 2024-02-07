@@ -19,6 +19,7 @@ export const OTP_VERIFY=gql`mutation UserVerifyOtp($input: userVerifyOtpInput!) 
   userVerifyOtp(input: $input) {
     message
     token
+    userId
   }
 }`
 function Login({mutate}) {
@@ -54,6 +55,7 @@ const [UserVerifyOtp]=useMutation(OTP_VERIFY)
       console.log(response);
       if(response){
         localStorage.setItem("arabtoken",response?.data?.userVerifyOtp?.token)
+        localStorage.setItem("userId",response?.data?.userVerifyOtp?.userId)
         router.push("/")
       }
     }

@@ -112,6 +112,8 @@ $p-pagination-font-weight: 700 !default;
 	border-top: 1px solid #efefef;
     padding-top: 2.5rem;
 	margin-bottom: 3.5rem;
+	display: flex;
+	justify-content: flex-end;
 }
 
 .pagination {

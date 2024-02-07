@@ -2,33 +2,12 @@ import React from 'react'
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import withApollo from "../../../server/apollo"
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
-export const ACCOUNT_DETAIL=gql`mutation UpdateUserProfile($input: updateUserProfileInput!) {
-    updateUserProfile(input: $input) {
-
-      message
+export const SHIPPING_ADDRESS=gql`mutation CreateUserShippingAddress($input: UserCreateShippingAddressInput!) {
+    createUserShippingAddress(input: $input) {
+      _id
     }
   }`
-  export const USER_DETAIL=gql`query Query($input: userInput!) {
-    getUserRecord(input: $input) {
-      message
-      record {
-        displayName
-        lastName
-        _id
-        address
-        city
-        country
-        countryCode
-        email
-        firstName
-        houseNumber
-        mobileNumber
-        pincode
-        streetName
-        token
-      }
-    }
-  }`
+ 
 function Addresses() {
     const {
         register,
@@ -40,35 +19,33 @@ function Addresses() {
         control,
       } = useForm({
         defaultValues: {
-          firstName: "",
-          lastName: "",
-         
+            firstname: "",
+            country: "",
+            streetName:"",
+            houseNumber:"",
+            city:"",
+            postCode:"",
+            apartment:"",
           email:"",
-          mobileNumber:"",
-          pincode:"",
-          city:"",
-          streetName:"",
-          houseNumber:"",
-          country:""
+          mobile:"",
+          
           
         },
       });
-      const  [updateUserProfile] =
-      useMutation(ACCOUNT_DETAIL);
+      const  [CreateUserShippingAddress] =
+      useMutation(SHIPPING_ADDRESS);
 
       const onSubmit = async (values) => {
         console.log(values);
         event.preventDefault();
         try {
-          // if (!mobileNumber.trim()) {
-          //   setError("Mobile number is required");
-          //   return;
-          // }
-    const Id="65bb85834825212140ac3aed"
-        const response= await updateUserProfile({ variables: { input: {_id:Id.toString(),...values } } });
+        
+    
+        const response= await CreateUserShippingAddress({ variables: { input: {...values } } });
           console.log(response);
           if(response){
-            window.alert(response?.data?.updateUserProfile?.message)
+            localStorage?.setItem("shippingId",response?.data?.createUserShippingAddress?._id)
+            window.alert("shipping address added")
             reset()
           }
           SetIsOtp(true);
@@ -96,13 +73,13 @@ function Addresses() {
                                         padding: "2px"
                                     }}
                                 >
-                                    <h4 className="step-title" >Billing address</h4>
+                                    <h4 className="step-title" >Shipping address</h4>
                                 </div>
 
 
                                 <form onSubmit={handleSubmit(onSubmit)} id="checkout-form" style={{ marginTop: "40px" }}>
-                                    <div className="row">
-                                        <div className="col-md-6">
+                                    {/* <div className="row"> */}
+                                        {/* <div className="col-md-6"> */}
                                             <div className="form-group">
                                                 <label
                                                     style={{
@@ -118,7 +95,7 @@ function Addresses() {
                                                 </label>
                                                 <Controller
                           control={control}
-                          name="firstName"
+                          name="firstname"
                           render={({ field: { onChange, value } }) => (
                                                 <input
                                                     type="text"
@@ -128,11 +105,11 @@ function Addresses() {
                                                     style={{ marginTop: "10px" }}
                                                 />)}
                                                 />
-                                            </div>
+                                            {/* </div> */}
                                         </div>
 
-                                        <div className="col-md-6">
-                                            <div className="form-group">
+                                        {/* <div className="col-md-6"> */}
+                                            {/* <div className="form-group">
                                                 <label
                                                     style={{
                                                         fontFamily: "Poppins",
@@ -158,11 +135,11 @@ function Addresses() {
                                                     onChange={onChange}
                                                 />)}
                                                 />
-                                            </div>
-                                        </div>
+                                            </div> */}
+                                        {/* </div> */}
 
 
-                                    </div>
+                                    {/* </div> */}
 
 
 
@@ -175,9 +152,9 @@ function Addresses() {
                                             }}
                                         >
                                             Country / Region {" "}
-                                            <ab className="required" title="required">
+                                            {/* <ab className="required" title="required">
                                                 *
-                                            </ab>
+                                            </ab> */}
                                         </label>
                                         <Controller
                           control={control}
@@ -252,7 +229,7 @@ function Addresses() {
                                         </label>
                                         <Controller
                           control={control}
-                          name="pincode"
+                          name="postCode"
                           render={({ field: { onChange, value } }) => (
                                         <input
                                             type="number"
@@ -279,7 +256,7 @@ function Addresses() {
                                             </div>
                                             <Controller
                           control={control}
-                          name="mobileNumber"
+                          name="mobile"
                           render={({ field: { onChange, value } }) => (
                                             <input
                                                 type="tel"
@@ -296,7 +273,8 @@ function Addresses() {
 
                                     <div className="form-group">
                                         <label>
-                                            Email<span className="required">*</span>
+                                            Email
+                                            {/* <span className="required">*</span> */}
                                         </label>
                                         <Controller
                           control={control}

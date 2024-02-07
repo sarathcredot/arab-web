@@ -4,6 +4,7 @@ import React from 'react';
 import ALink from '../common/ALink';
 
 function Pagination ( { totalPage } ) {
+    console.log(totalPage);
     const query = useRouter().query;
     const page = query.page ? parseInt( query.page ) : 1;
     let indexsToShow = [];

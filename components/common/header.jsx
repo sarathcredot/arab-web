@@ -11,12 +11,22 @@ import SearchForm from "./partials/search-form";
 import { BiSolidUser } from "react-icons/bi";
 import { AiFillHeart } from "react-icons/ai";
 import styles from "./header.module.css";
+import { useRouter } from "next/router";
 // import offer from "../../public/images/ticket-discount.svg";
 function Header({ adClass = "", wishlist }) {
   function openMobileMenu(e) {
     e.preventDefault();
     document.querySelector("body").classList.toggle("mmenu-active");
     e.currentTarget.classList.toggle("active");
+  }
+  const router=useRouter()
+  const handleLog=()=>{
+    if(localStorage.getItem("arabtoken")){
+      router.push("/pages/account")
+    }
+    else{
+      router.push("/pages/login")
+    }
   }
   // <div className="header-top">
   //   {/* <div className="container">
@@ -183,9 +193,9 @@ function Header({ adClass = "", wishlist }) {
                 </div>
               </div>
 
-              <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}>
+              {/* <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}> */}
                 <div className="header-user">
-                  <div className={styles.circle}>
+                  <div className={styles.circle} onClick={handleLog}>
                     <BiSolidUser style={{ fontSize: "20px" }} />
                   </div>
 
@@ -194,7 +204,7 @@ function Header({ adClass = "", wishlist }) {
                   <h4 className="mb-0">My Account</h4>
                 </div> */}
                 </div>
-              </ALink>
+              {/* </ALink> */}
 
               <ALink
                 href="/pages/wishlist"
