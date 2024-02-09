@@ -54,7 +54,13 @@ const [UserVerifyOtp]=useMutation(OTP_VERIFY)
       console.log(response);
       if(response){
         localStorage.setItem("arabtoken",response?.data?.userVerifyOtp?.token)
-        router.push("/")
+        const historyUrl= localStorage.getItem("historyUrl")
+        if(historyUrl){
+          return router.push(historyUrl)
+        }else{
+          return router.push("/")
+        }
+      
       }
     }
     catch (error) {

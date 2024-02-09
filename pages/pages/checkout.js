@@ -4,16 +4,53 @@ import SlideToggle from "react-slide-toggle";
 import ALink from "../../components/common/ALink";
 import { getCartTotal } from "../../utils";
 import { BiSolidUpArrow, BiSolidDownArrow, BiBorderRight } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import withApollo from "../../server/apollo";
 const countryOptions = [
   { value: "uae", label: "+971", flag: "/images/uae.svg" },
   { value: "india", label: "+91", flag: "/images/ind.svg" },
   { value: "oman", label: "+98", flag: "/images/omn.png" },
   { value: "saudi", label: "+966", flag: "/images/sar.png" },
 ];
-function CheckOut({ cartList }) {
+
+
+const GET_CART = gql`
+  query GetCart {
+    getCart {
+      products {
+        _id
+        productId
+        quantity
+        name
+        stock
+        attributes {
+          attributeId
+          attributeName
+          attributeValueId
+          attributeValue
+          attributeDescription
+        }
+        price
+        image {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
+      }
+      grandTotal
+      subTotal
+      deliveryCharge
+    }
+  }
+`;
+
+
+function CheckOut() {
   const defaultOption = countryOptions[0]; 
+  const [cartList, setCartList] = useState();
   const customStyles = {
     control: (provided,state) => ({
       ...provided,
@@ -60,6 +97,25 @@ function CheckOut({ cartList }) {
   }
 `;
   const [toggler, setToggler] = useState(false);
+
+  console.log(cartList,"qcartaaaaaaaaaaaa")
+
+  const {
+    data: cartData,
+    loading: cartLoading,
+    error: cartError,
+    refetch: cartRefetch
+  } = useQuery(GET_CART);
+
+  useEffect(() => {
+    if (cartError) {
+      console.error("Error fetching cart data:", cartError);
+    } else if (cartData) {
+      setCartList(cartData.getCart.products || []);
+    }
+    cartRefetch()
+  }, [cartData]);
+
   return (
     <>
       <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
@@ -75,7 +131,7 @@ function CheckOut({ cartList }) {
       </ul>
       <main className="main main-test">
         <div className="container checkout-container">
-          {cartList.length === 0 ? (
+          {cartList?.length === 0 ? (
             <div className="cart-empty-page text-center">
               <p className="noproduct-msg mb-2">
                 Checkout is not available while your cart is empty.
@@ -626,16 +682,16 @@ function CheckOut({ cartList }) {
                           </tr>
                         </thead>
                         <tbody>
-                          {cartList.map((item, index) => (
+                          {cartList?.map((item, index) => (
                             <tr key={"checks" + index}>
                               <td className="product-col">
                                 <h2 className="product-title">
-                                  {item.name + "×" + item.qty}
+                                  {item?.productName + " × " + item?.quantity}
                                 </h2>
                               </td>
 
                               <td className="price-col">
-                                <span>${item.price.toFixed(2) * item.qty}</span>
+                                <span>OMR {item?.price * item?.quantity}</span>
                               </td>
                             </tr>
                           ))}
@@ -647,7 +703,7 @@ function CheckOut({ cartList }) {
                             </td>
 
                             <td className="price-col">
-                              <span>${getCartTotal(cartList).toFixed(2)}</span>
+                              <span>OMR {getCartTotal(cartList)}</span>
                             </td>
                           </tr>
                           <tr className="order-shipping">
@@ -689,7 +745,7 @@ function CheckOut({ cartList }) {
                             <td>
                               <b className="total-price">
                                 <span>
-                                  ${getCartTotal(cartList).toFixed(2)}
+                                OMR {getCartTotal(cartList).toFixed(2)}
                                 </span>
                               </b>
                             </td>
@@ -735,4 +791,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CheckOut);
+
+export default withApollo({ ssr: typeof window === "undefined" })( connect(mapStateToProps)(CheckOut));
