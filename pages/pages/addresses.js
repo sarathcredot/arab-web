@@ -3,26 +3,36 @@ import { connect } from "react-redux";
 import ALink from "../../components/common/ALink";
 import Addresses from "../../components/features/adresses/Addresses";
 import Shipping from "../../components/features/adresses/Shippingaddress"
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import withApollo from "../../server/apollo"
- import { useQuery, gql } from "@apollo/react-hooks";
+ import { useQuery, gql, useMutation } from "@apollo/react-hooks";
+ import { CgEditBlackPoint } from "react-icons/cg";
 // import { gql, useMutation,useLazyQuery } from "@apollo/client";
-export const GET_SHIPPING_ADDRESS= gql`query GetUserShippingAddress($input: GetUserShippingAddressInput!) {
-  getUserShippingAddress(input: $input) {
+export const GET_ADDRESSES=gql`query GetUserShippingAddresses {
+  getUserShippingAddresses {
+    address {
+      _id
+      apartment
+      city
+      companyName
+      country
+      email
+      firstname
+      houseNumber
+      mobile
+      postCode
+      streetName
+      suite
+      unit
+      vatNumber
+    }
+  }
+}`
+
+export const REMOVE_ADDRESS=gql`mutation RemoveUserShippingAddress($input: UserRemoveShippingAddressInput!) {
+  removeUserShippingAddress(input: $input) {
     _id
-    apartment
-    city
-    companyName
-    country
-    email
-    firstname
-    houseNumber
-    mobile
-    postCode
-    streetName
-    suite
-    unit
-    vatNumber
+    message
   }
 }`
 function addresses() {
@@ -31,10 +41,31 @@ function addresses() {
   // const [catLevel2, { loading:level2loading, error:level2error, data:level2Data }] = useLazyQuery(GET_SHIPPING_ADDRESS);
   const [isAddress, setIsAddress] = useState(false);
   const [isShipping,setIsshipping]=useState(false)
-  const { data, loading, error } = useQuery(GET_SHIPPING_ADDRESS, {
-    variables: { input:{_id:"65c2776ea63407e0c16e4bd5"}},
-  });
+  const { data, loading, error,refetch } = useQuery(GET_ADDRESSES);
+  const [isEdit,setIsedit]=useState(false)
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
+  const [isShippingOpen, setIsShippingOpen] = useState(false);
+  const [RemoveUserShippingAddress]=useMutation(REMOVE_ADDRESS)
   console.log(data);
+useEffect(()=>{
+  refetch();
+},[])
+const handleOpenShipping = () => {
+  setIsShippingOpen(true);
+};
+
+const handleCloseShipping = () => {
+console.log("click");
+  setIsshipping(false);
+};
+   const handleRemove=async(id)=>{
+     console.log(id);
+    const response=await RemoveUserShippingAddress({variables:{input:{
+      _id:id
+    }}})
+    console.log(response);
+    refetch();
+   }
   return (
     <main className="main main-test">
       <nav aria-label="breadcrumb" className="breadcrumb-nav">
@@ -82,7 +113,7 @@ function addresses() {
           <Addresses />
         </>
 
-      ) :isShipping ? (<><Shipping/></>): (
+      ) :isShipping ? (<><Shipping isEdit={isEdit} addressId={selectedAddressId} onClose={handleCloseShipping}/></>): (
         <>
           <div
             className="container d-flex justify-content-between"
@@ -143,7 +174,7 @@ function addresses() {
               className=""
               style={{
                 width: "653.45px",
-                height: "234px",
+                minHeight: "234px",
                 border: "1px solid ",
                 marginTop: "40px",
                 borderColor: "#CDCDCD",
@@ -160,7 +191,28 @@ function addresses() {
                 >
                   Shipping Addresses
                 </h4>
-                <p
+                {data && data?.getUserShippingAddresses?.address.length>0 ? data?.getUserShippingAddresses?.address.map((address,index)=>{
+                  return(
+                    <>
+                  <div key={index} style={{padding:"20px 0",display:"flex",lineHeight:"19px"}}>
+                    <CgEditBlackPoint style={{fontSize:"40px",color:"#E30613",paddingRight:"20px"}}/>
+                    <div>
+                    <span>
+                      {address?.firstname}
+                    </span><br/>
+                    <span>{address?.houseNumber}, {address?.streetName}</span><br/>
+                    <span>PostCode:&nbsp;{address?.postCode}</span><br/>
+                    <span>{address?.city}, {address?.country}</span>
+                    <div style={{display:"flex",gap:"35px",color:"black",marginTop:"10px"}}>
+                      <button style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600"}} onClick={()=>{setIsshipping(true);setIsedit(true);setSelectedAddressId(address?._id)}}>Edit</button>
+                      <button style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600"}} onClick={()=>handleRemove(address?._id)}>Remove</button>
+                    </div></div>
+                    </div>
+                  
+                    </>)
+
+                }) :
+                (<p
                   style={{
                     fontFamily: "Poppins",
                     fontWeight: "400px",
@@ -169,7 +221,7 @@ function addresses() {
                   }}
                 >
                   You have not set up this type of address yet.
-                </p>
+                </p>)}
 
                 <button
                   type="submit"

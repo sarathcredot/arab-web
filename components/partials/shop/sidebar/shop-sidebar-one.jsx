@@ -332,7 +332,7 @@ className="custom-categorylabels"
                                     href={{
                                       query: {
                                         ...query,
-                                        page: 1,
+                                        page: 0,
                                         category: getUrlForAttrs(
                                           "category",
                                           category._id
@@ -579,7 +579,7 @@ className="custom-categorylabels"
                                             href={{
                                               query: {
                                                 ...query,
-                                                page: 1,
+                                                page: 0,
                                                 [attri?._id]: getUrlForAttrs(
                                                   attri?._id,
                                                   item._id
@@ -671,7 +671,7 @@ className="custom-categorylabels"
                                               href={{
                                                 query: {
                                                   ...query,
-                                                  page: 1,
+                                                  page: 0,
                                                   [attri?._id]: getUrlForAttrs(
                                                     attri?._id,
                                                     attriValues._id
@@ -779,7 +779,7 @@ className="custom-categorylabels"
                                     href={{
                                       query: {
                                         ...query,
-                                        page: 1,
+                                        page: 0,
                                         brands: getUrlForAttrs(
                                           "brands",
                                           item._id

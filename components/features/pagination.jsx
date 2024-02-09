@@ -6,9 +6,9 @@ import ALink from '../common/ALink';
 function Pagination ( { totalPage } ) {
     console.log(totalPage);
     const query = useRouter().query;
-    const page = query.page ? parseInt( query.page ) : 1;
+    const page = query.page ? parseInt( query.page ) : 0;
     let indexsToShow = [];
-
+console.log(page);
     for ( let i = 0; i < Math.min( totalPage, 3 ); i++ ) {
         if ( page < 4 || page > totalPage - 3 ) {
             if ( page < 4 ) {
@@ -28,7 +28,7 @@ function Pagination ( { totalPage } ) {
             { totalPage > 1 &&
                 <ul className="pagination toolbox-item">
                     {
-                        page > 1 &&
+                        page > 0 &&
                         <li className="page-item">
                             <ALink className="page-link page-link-btn" href={ { query: { ...query, page: page - 1 } } } scroll={ false }><i className="icon-angle-left"></i></ALink>
                         </li>
@@ -36,9 +36,9 @@ function Pagination ( { totalPage } ) {
 
                     {
                         indexsToShow.map( item => (
-                            <li className={ `page-item ${ page === item ? 'active' : '' }` } key={ `page-${ item }` }>
-                                <ALink className="page-link" href={ { query: { ...query, page: item } } } scroll={ false }>
-                                    { item }{ page === item && <span className="sr-only">(current)</span> }
+                            <li className={ `page-item ${ page === item-1 ? 'active' : '' }` } key={ `page-${ item }` }>
+                                <ALink className="page-link" href={ { query: { ...query, page: item-1 } } } scroll={ false }>
+                                    { item }{ page === item-1 && <span className="sr-only">(current)</span> }
                                 </ALink>
                             </li>
 
@@ -46,7 +46,7 @@ function Pagination ( { totalPage } ) {
                     }
 
                     {
-                        page < totalPage &&
+                        page < totalPage-1 &&
                         <li className="page-item">
                             <ALink className="page-link page-link-btn" href={ { query: { ...query, page: page + 1 } } } scroll={ false }><i className="icon-angle-right"></i></ALink>
                         </li>

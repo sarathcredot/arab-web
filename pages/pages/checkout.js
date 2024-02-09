@@ -75,8 +75,8 @@ function CheckOut({ cartList }) {
       </ul>
       <main className="main main-test">
         <div className="container checkout-container">
-          {cartList.length === 0 ? (
-            <div className="cart-empty-page text-center">
+          {/* {cartList.length === 0 ? ( */}
+            {/* <div className="cart-empty-page text-center">
               <p className="noproduct-msg mb-2">
                 Checkout is not available while your cart is empty.
               </p>
@@ -88,8 +88,8 @@ function CheckOut({ cartList }) {
               >
                 return to shop
               </ALink>
-            </div>
-          ) : (
+            </div> */}
+          {/* ) : ( */}
             <>
               <div className="checkout-discount">
                 <SlideToggle
@@ -722,7 +722,7 @@ function CheckOut({ cartList }) {
                 </div>
               </div>
             </>
-          )}
+          {/* )} */}
         </div>
       </main>
     </>

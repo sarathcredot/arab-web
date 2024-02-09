@@ -69,10 +69,11 @@ function Shop() {
     id,
     values: values.split(','),
   }));
-  
+  console.log(attributes);
  const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
-  const [perPage, setPerPage] = useState(10);
+  const [perPage, setPerPage] = useState(2);
+  // const [pagenumber,setPagenumber]=useState(page ?? 0)
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
   const products = data && data?.getProducts?.records;
   const totalPage = data
@@ -80,18 +81,20 @@ function Shop() {
       (data?.getProducts?.maxRecords % perPage ? 1 : 0)
     : 0;
 
+    const attributesWithNonEmptyValues = attributes.filter(attribute => attribute.values.some(value => value !== ''));
 
+console.log(attributesWithNonEmptyValues);
     useEffect(()=>{
       getProducts({
         variables:{
           input:{
             size:perPage,
-            page:0,
+            page:parseInt(page??0),
             categories:categoryValues?categoryValues:[],           
             brands:brandValues,           
             maxPrice:parseInt(query.max_price),
             minPrice:parseInt(query.min_price),
-            attributes:attributes,
+            attributes: attributesWithNonEmptyValues,
             parentCategory:query?.cat_id
           }
         }
@@ -136,8 +139,8 @@ function Shop() {
                     shop
                   </ALink>
                 </li>
-                {data &&
-                  data?.products?.categoryFamily.map((item, index) => (
+                {/* {data &&
+                  data?.getProducts?.records.map((item, index) => (
                     <li
                       className="breadcrumb-item"
                       key={`category-family-${index}`}
@@ -146,11 +149,11 @@ function Shop() {
                         href={{ query: { category: item.slug } }}
                         scroll={false}
                       >
-                        {item.name}
+                      {item?.categoryNamePath}  
                       </ALink>
                     </li>
-                  ))}
-                <li className="breadcrumb-item active">
+                  ))} */}
+                {/* <li className="breadcrumb-item active">
                   {query.search ? (
                     <>
                       Search -{" "}
@@ -162,10 +165,35 @@ function Shop() {
                       </ALink>{" "}
                       / {query.search}
                     </>
-                  ) : (
+                  ) : 
+                 
                     query.category
-                  )}
-                </li>
+                  
+                  }
+                </li> */}
+                <li className="breadcrumb-item ">
+  {query.search ? (
+    <>
+      Search -{" "}
+      <ALink
+        href={{ query: { category: query.category } }}
+        scroll={false}
+      >
+        {query.category}
+      </ALink>{" "}
+      / {query.search}
+    </>
+  ) : (
+    <span>
+      {data &&
+        data?.getProducts?.records.map((item, index) => (
+          <React.Fragment key={index}>
+            {item?.categoryNamePath}
+          </React.Fragment>
+        ))}
+    </span>
+  )}
+</li>
               </>
             ) : query.search ? (
               <>

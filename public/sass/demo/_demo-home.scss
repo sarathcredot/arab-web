@@ -398,7 +398,12 @@ hr {
         right: 10%;
     }
 }
-
+.custom-brand{
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+    overflow: hidden;
+}
 // 2.2) Category Section
 .product-category {
     figure {
