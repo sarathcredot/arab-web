@@ -21,6 +21,11 @@ export const LEVEL_CATEGORY = gql`
       records {
         _id
         categoryName
+        categoryImage {
+          fileType
+          fileURL
+          originalName
+        }
       }
     }
   }
@@ -68,9 +73,7 @@ export const VARIENT=gql`query GetVariants($input: VariantsInput!) {
 }`
 
 function MainMenu({ router }) {
-  const { data, loading, error } = useQuery(LEVEL_CATEGORY, {
-    variables: { level: 0, limit: 10 },
-  });
+  const { data, loading, error } = useQuery(LEVEL_CATEGORY);
   console.log(data);
   const { data:varientData } = useQuery(VARIENT, {
     variables: { input:{_id:"65b76b1448ffd4fbf7782e19"} },
@@ -165,39 +168,13 @@ catch(error)
   console.error(error);
 }  }
   console.log(catlevel2);
-  const mainNav = data?.getActiveCategoryTree?.records;
-  // const mainNav = [
-  //   { key: "mobile", label: "Mobiles", icon: "images/mobile.svg" },
-  //   { key: "tablets", label: "Tablets", icon: "images/mobile.svg" },
-  //   { key: "smartwatches", label: "Smart Watches", icon: "images/mobile.svg" },
-  //   { key: "monitor", label: "Monitor", icon: "images/mobile.svg" },
-  //   { key: "audio", label: "Audio", icon: "images/mobile.svg" },
-  //   { key: "gaming", label: "Gaming", icon: "images/mobile.svg" },
-  //   { key: "accessories", label: "Accessories", icon: "images/mobile.svg" },
-  //   { key: "powerbank", label: "Power bank", icon: "images/mobile.svg" },
-  //   { key: "peripheerals", label: "It Peripherals", icon: "images/mobile.svg" },
-  //   { key: "scanner", label: "Scanner", icon: "images/mobile.svg" },
-  //   { key: "laptop", label: "Laptop", icon: "images/mobile.svg" },
-  // ];
+  // const mainNav = data?.getActiveCategoryTree?.records;
+  const mainNav = (data?.getActiveCategoryTree?.records || []).slice(0, 10);
 
   const child1 = level2Data?.getActiveChildCategories?.records
-  // [
-  //   { key: "printers", label: "Printers" },
-  //   { key: "laptop", label: "Laptop Battery" },
-  //   { key: "cpu", label: "CPU Cabinet" },
-  //   { key: "ram", label: "RAM" },
-  //   { key: "monitor", label: "Monitor" },
-  //   { key: "smps", label: "SMPS" },
-  //   { key: "cartridge", label: "Cartridge" },
-  //   { key: "keyboard", label: "Keyboard" },
-  //   { key: "mouse", label: "Mouse" },
-  //   { key: "scanner", label: "Scanner" },
-  // ];
+  
   const child2 =level3Data?.getActiveChildCategories?.records
-  // [
-  //   { key: "laptop", label: "Laptop" },
-  //   { key: "desktop", label: "Desktop" },
-  // ];
+  
   const varient = [
     { key: "ddr1", label: "DDR 1" },
     { key: "ddr2", label: "DDR 2" },
@@ -206,39 +183,7 @@ catch(error)
   ];
   const brand = brandData?.getBrandDetailsWithCategory?.records
 
-  // [
-  //   {
-  //     key: "seagate",
-  //     label: "Seagate",
-  //     icon: "images/seagate.svg",
-  //   },
-  //   {
-  //     key: "sandisk",
-  //     label: "Sandisk",
-  //     icon: "images/seagate.svg",
-  //   },
-  //   {
-  //     key: "samsung",
-  //     label: "Sumsung",
-  //     icon: "images/seagate.svg",
-  //   },
-  //   { key: "thoshiba", label: "Toshiba", icon: "images/seagate.svg" },
-  //   {
-  //     key: "wd",
-  //     label: "WD",
-  //     icon: "images/seagate.svg",
-  //   },
-  //   {
-  //     key: "crucial",
-  //     label: "Crucial",
-  //     icon: "images/seagate.svg",
-  //   },
-  //   {
-  //     key: "others",
-  //     label: "Others",
-  //     icon: "images/seagate.svg",
-  //   },
-  // ];
+  
   console.log(child2);
   return (
     <>
@@ -268,7 +213,7 @@ catch(error)
               }}
             >
               <span className="custom__menu__item-image">
-                <img src={item.icon} alt={item.label} />
+                <img src={item.categoryImage?.fileURL} alt={item.label} />
               </span>
               <p className="custom__menu__item-label">{item.categoryName}</p>
             </li>
