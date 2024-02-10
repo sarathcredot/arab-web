@@ -102,7 +102,7 @@ if(isEdit){
           console.log(response);
           if(response){
             localStorage?.setItem("shippingId",response?.data?.createUserShippingAddress?._id)
-            toast("Shipping address added")
+            toast(<div style={{padding:"10px"}}>Shipping address added</div>)
             onClose();
             reset()
           }

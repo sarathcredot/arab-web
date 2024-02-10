@@ -9,6 +9,9 @@ import Select from "react-select";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import withApollo from "../../server/apollo";
 import Shipping from "../../components/features/adresses/Shippingaddress"
+import { IoAddCircleOutline } from "react-icons/io5";
+import { toast } from 'react-toastify';
+import { useRouter } from "next/router";
 const countryOptions = [
   { value: "uae", label: "+971", flag: "/images/uae.svg" },
   { value: "india", label: "+91", flag: "/images/ind.svg" },
@@ -26,20 +29,9 @@ const GET_CART = gql`
         quantity
         name
         stock
-        attributes {
-          attributeId
-          attributeName
-          attributeValueId
-          attributeValue
-          attributeDescription
-        }
+      
         price
-        image {
-          fileType
-          fileURL
-          mimeType
-          originalName
-        }
+        image
       }
       grandTotal
       subTotal
@@ -75,6 +67,12 @@ export const REMOVE_ADDRESS=gql`mutation RemoveUserShippingAddress($input: UserR
   }
 }`
 
+export const PLACE_ORDER=gql`mutation CreateUserOrder($input: CreateUserOrderInput!) {
+  createUserOrder(input: $input) {
+    orderId
+  }
+}`
+
 function CheckOut() {
   const defaultOption = countryOptions[0]; 
   const [cartList, setCartList] = useState();
@@ -83,7 +81,9 @@ function CheckOut() {
   const [defaultAddressId, setDefaultAddressId] = useState('');
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const { data, loading, error,refetch } = useQuery(GET_ADDRESSES);
-  const [RemoveUserShippingAddress]=useMutation(REMOVE_ADDRESS)
+  const [RemoveUserShippingAddress]=useMutation(REMOVE_ADDRESS);
+  const [CreateUserOrder]=useMutation(PLACE_ORDER)
+  const router=useRouter()
   console.log(data);
   const customStyles = {
     control: (provided,state) => ({
@@ -133,7 +133,7 @@ function CheckOut() {
   const [toggler, setToggler] = useState(false);
 
   console.log(cartList,"qcartaaaaaaaaaaaa")
-
+console.log(defaultAddressId);
   const {
     data: cartData,
     loading: cartLoading,
@@ -143,14 +143,16 @@ function CheckOut() {
 
   useEffect(() => {
     if (data && data.getUserShippingAddresses && data.getUserShippingAddresses.address.length > 0) {
+      console.log("vbn");
       const defaultAddress = data.getUserShippingAddresses.address.find(address => address.isDefault);
+      console.log(defaultAddress);
       if (defaultAddress) {
         setDefaultAddressId(defaultAddress._id);
       }
     }
   }, [data]);
 
-
+console.log(cartData);
   useEffect(() => {
     if (cartError) {
       console.error("Error fetching cart data:", cartError);
@@ -175,8 +177,23 @@ function CheckOut() {
 
     const handleAddressSelection = (addressId) => {
       setDefaultAddressId(addressId);
-      // Here you can perform any additional actions, like updating the default address in the backend.
+      
     };
+
+    const handlePlaceOrder=async()=>{
+      console.log("click");
+      try{
+
+        const response=await CreateUserOrder({variables:{input:{grandTotal:cartData?.getCart?.grandTotal,paymentMode:"COD",shippingAddressId:defaultAddressId}}})
+        console.log(response);
+        toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
+        router.push("/pages/orders")
+        
+      }catch(error){
+        toast.error(<div style={{padding:"10px"}}>{error.message}</div>)
+      }
+
+    }
   return (
     <>
       <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
@@ -320,7 +337,7 @@ function CheckOut() {
                 <div className="col-lg-7">
                 <div >
                   <h2 className="step-title">Select a shipping address</h2>
-                  <div style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"0 10px"}}>
+                  <div style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}>
                   {data && data?.getUserShippingAddresses?.address.length>0 ? data?.getUserShippingAddresses?.address.map((address,index)=>{
                   return(
                     <>
@@ -342,9 +359,9 @@ function CheckOut() {
                     </>
                     )
 
-                }):<>Add Address</>}
+                }):<>Add shipping address</>}
 
-                <div>Add Address</div>
+                <div style={{display:"flex",gap:"20px",alignItems:"center"}} ><IoAddCircleOutline style={{fontSize:"20px"}} onClick={()=>{setIsshipping(true)}}/><p style={{margin:0}}> Add Address </p></div>
                 </div>
                 </div>
 
@@ -783,7 +800,7 @@ function CheckOut() {
                               <span>OMR {getCartTotal(cartList)}</span>
                             </td>
                           </tr>
-                          <tr className="order-shipping">
+                          {/* <tr className="order-shipping">
                             <td className="text-left" colSpan="2">
                               <h4 className="m-b-sm">Shipping</h4>
                               <div className="form-group form-group-custom-control">
@@ -813,7 +830,7 @@ function CheckOut() {
                                 </div>
                               </div>
                             </td>
-                          </tr>
+                          </tr> */}
 
                           <tr className="order-total">
                             <td>
@@ -833,12 +850,17 @@ function CheckOut() {
                       <div className="payment-methods">
                         <h4 className="">Payment methods</h4>
                         <div className="info-box with-icon p-0">
-                          <p>
-                            Sorry, it seems that there are no available payment
-                            methods for your state. Please contact us if you
-                            require assistance or wish to make alternate
-                            arrangements.
-                          </p>
+                        <div className="custom-control custom-radio d-flex">
+                                  <input
+                                    type="radio"
+                                    className="custom-control-input"
+                                    name="radio"
+                                    defaultChecked
+                                  />
+                                  <label className="custom-control-label">
+                                    Cash on Delivery
+                                  </label>
+                                </div>
                         </div>
                       </div>
 
@@ -846,7 +868,7 @@ function CheckOut() {
                         type="submit"
                         value="Place Order"
                         name="form-control"
-                        className="btn btn-dark btn-place-order"
+                        className="btn btn-dark btn-place-order" onClick={handlePlaceOrder}
                       >
                         Place order
                       </button>

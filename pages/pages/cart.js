@@ -14,34 +14,27 @@ import withApollo from "../../server/apollo";
 import { toast } from 'react-toastify';
 
 const GET_CART = gql`
-  query GetCart {
-    getCart {
-      products {
-        _id
-        productId
-        quantity
-        name
-        stock
-        attributes {
-          attributeId
-          attributeName
-          attributeValueId
-          attributeValue
-          attributeDescription
-        }
-        price
-        image {
-          fileType
-          fileURL
-          mimeType
-          originalName
-        }
-      }
-      grandTotal
-      subTotal
-      deliveryCharge
+ query GetCart {
+  getCart {
+    products {
+      _id
+      productId
+      quantity
+      name
+      shortDescription
+      stock
+      color
+      size
+      price
+      image
+      sellingPrice
+      mrp
     }
+    grandTotal
+    subTotal
+    deliveryCharge
   }
+}
 `;
 
 
@@ -208,7 +201,7 @@ try {
                               className="product-image"
                             >
                               <img
-                                src={item?.image[0]?.fileURL}
+                                src={item?.image}
                                 alt="product"
                               />
                             </ALink>
