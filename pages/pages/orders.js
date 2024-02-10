@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ALink from "../../components/common/ALink";
@@ -10,6 +10,7 @@ import { actions as ModalAction } from "../../store/modal";
 import { IoMdHome } from "react-icons/io";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import withApollo from "../../server/apollo";
+import dayjs from 'dayjs';
 
 const GET_ORDERS= gql `query GetUserOrderProducts($input: GetUserOrderProductsInput!) {
   getUserOrderProducts(input: $input) {
@@ -62,9 +63,16 @@ const GET_ORDERS= gql `query GetUserOrderProducts($input: GetUserOrderProductsIn
 }`;
 
 
+const CANCEL_ORDER=gql`mutation CancelUserOrderProduct($input: CancelUserOrderProductInput!) {
+  cancelUserOrderProduct(input: $input) {
+    _id
+  }
+}`;
+
 function Orders(props) {
   const { wishlist, addToCart, removeFromWishlist, showQuickView } = props;
   const [flag, setFlag] = useState(0);
+  const [orders,setOrders]=useState([])
 
   const onMoveFromToWishlit = (e, item) => {
     setFlag(2);
@@ -85,16 +93,66 @@ function Orders(props) {
   };
 
 
-
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "PENDING":
+        return "#FFA500"; 
+      case "IN_PROGRESS":
+        return "#FFA500";
+      case "COMPLETED":
+        return "#44961D";; 
+      default:
+        return "#000000"; 
+    }
+  };
+  
   const {
     data: orderData,
     loading: orderLoading,
     error: orderError,
     refetch: orderRefetch
-  } = useQuery(GET_ORDERS);
+  } = useQuery(GET_ORDERS, {
+    variables: { input:{
+      page: null,
+    size: null
+    }}
+  });;
 
+
+  const [cancelUserOrderProduct]=useMutation(CANCEL_ORDER)
+
+  const { data, loading, error, refetch } = useQuery(GET_ORDERS, {
+    variables: { input: { page: null,
+    size: null } },
+  });
+
+  useEffect(() => {
+    if (error) {
+      console.error("Error fetching orders:", error);
+    } else if (data) {
+      setOrders(data.getUserOrderProducts.records || []);
+    }
+  }, [data, error]);
+
+  console.log(orders,"gggggggggggggggggggggggg")
 
   
+  const orderCancel=async(id) => {
+    try {
+
+      const response = await cancelUserOrderProduct({
+        variables: { input: {
+          _id:id
+        }}
+      });
+      console.log(response.message)
+      refetch()
+      
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
 
   return (
     <main className="main">
@@ -120,9 +178,9 @@ function Orders(props) {
           </div>
         </nav>
       </div>
-      <div className="page-header">
+      {/* <div className="page-header"> */}
         
-        <div className="container d-flex flex-column align-items-center">
+        {/* <div className="container d-flex flex-column align-items-center"> */}
           {/* <nav aria-label="breadcrumb" className="breadcrumb-nav">
                         <div className="container">
                             <ol className="breadcrumb">
@@ -137,7 +195,7 @@ function Orders(props) {
           {/* <h1>orders</h1>
            */}
 
-          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+          {/* <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
           <li className="">
               <ALink href="/pages/account">My Account</ALink>
             </li>
@@ -147,19 +205,37 @@ function Orders(props) {
            
           </ul>
         </div>
+      </div> */}
+
+
+<div className=" d-flex flex-column align-items-center">
+       
+
+        <ul
+          className="checkout-progress-bar d-flex justify-content-center flex-wrap"
+          style={{ backgroundColor: "#F9F9F9", width: "100%" }}
+        >
+          <li className="">
+          <ALink href="/pages/account">My Account</ALink>
+          </li>
+          <li className="active">
+          <ALink href="/pages/orders">Orders</ALink>
+          </li>
+         
+        </ul>
       </div>
 
       <div
         className="container"
         style={{
-          marginTop: "3rem",
+          marginTop: "2rem",
           borderBottom: "1px solid",
           borderColor: "#E2E2E2",
         }}
       >
         <h4>Orders</h4>
       </div>
-      <div className="container" style={{ marginTop: "20px" }}>
+      <div className="container" style={{}}>
         <div className="success-alert">
           {flag === 1 ? <p>Product successfully removed.</p> : ""}
           {flag === 2 ? <p>Product added to cart successfully.</p> : ""}
@@ -167,7 +243,7 @@ function Orders(props) {
         {/* <div className="wishlist-title">
                     <h2>My wishlist on Porto Shop 36</h2>
                 </div> */}
-        {wishlist.length === 0 ? (
+        {orders.length === 0 ? (
           <div className="wishlist-table-container">
             <div className="table table-wishlist mb-0">
               <div className="wishlist-empty-page text-center">
@@ -188,7 +264,8 @@ function Orders(props) {
               <thead>
                 <tr>
                   <th className="thumbnail-col"></th>
-                  <th className="product-col">Product</th>
+                  <th className="status-col">Product</th>
+                  <th className="status-col">Order Id</th>
                   <th className="status-col">Date</th>
                   <th className="status-col">Status</th>
                   <th className="price-col">Total Price</th>
@@ -196,93 +273,92 @@ function Orders(props) {
                 </tr>
               </thead>
               <tbody>
-                {wishlist.map((item, index) => (
+                {orders.map((item, index) => (
                   <tr key={"wishlist-item" + index} className="product-row">
                     <td className="media-with-lazy">
                       <figure className="product-image-container">
                         <ALink
-                          href={`/product/default/${item.slug}`}
+                          href={`/product/default/${item.productId}`}
                           className="product-image"
                         >
                           <LazyLoadImage
                             alt="product"
                             src={
-                              process.env.NEXT_PUBLIC_ASSET_URI +
-                              item.pictures[0].url
+                             
+                              item.image.fileURL
                             }
                             threshold={500}
                             width="80"
                             height="80"
                           />
                         </ALink>
-                        <a
+                        {/* <a
                           href="#"
                           className="btn-remove icon-cancel"
                           title="Remove Product"
-                          onClick={(e) => removeProduct(e, item)}
-                        ></a>
+                          // onClick={(e) => removeProduct(e, item)}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            orderCancel(item._id)
+                          }}
+                        ></a> */}
                       </figure>
                     </td>
                     <td>
                       <h5 className="product-title">
-                        <ALink href={`/product/default/${item.slug}`}>
-                          {item.name}
+                        <ALink href={`/product/default/${item.productId}`}>
+                          {item.productName}
                         </ALink>
                       </h5>
                     </td>
+                    <td style={{ color: "black" }}>{item.orderId}</td>
+                    <td style={{ color: "black" }}>{dayjs(item.orderDate).format('YYYY/MM/DD')}</td>
+                    <td style={{ color: getStatusColor(item?.shippingStatus) }}>{item?.shippingStatus}</td>
 
-                    <td style={{ color: "black" }}>12/9/2023</td>
-                    <td style={{ color: "#44961D" }}>Shiped </td>
                     <td style={{ color: "black" }}>
                       <div className="price-box">
-                        {item.price[0] == item.price[1] ? (
-                          <span className="product-price">
-                            {"OMR " + item.price[0].toFixed(2)}
-                          </span>
-                        ) : item.variants.length > 0 ? (
-                          <span className="product-price">
-                            {"OMR " + item.price[0].toFixed(2)} &ndash;{" "}
-                            {"$" + item.price[1].toFixed(2)}
-                          </span>
-                        ) : (
+                    
                           <>
                             {/* <span className="old-price">{'OMR ' + item.price[ 1 ].toFixed( 2 ) }</span> */}
                             <span className="product-price">
-                              {"OMR " + item.price[0].toFixed(2)}
+                              {"OMR " + item.sellingPrice}
                             </span>
                           </>
-                        )}
+                        
                       </div>
                     </td>
 
-                    <td className="action">
-                      <a
-                        href="#"
+                    {item?.shippingStatus !== "COMPLETED"&& item?.shippingStatus !== "CANCELED" ? (
+  <td className="action">
+    <button
+      className="btn btn-quickview mt-1 mt-md-0"
+      title="Quick View"
+      style={{ border: "1px solid" }}
+      onClick={(e) => {
+        e.preventDefault();
+        orderCancel(item._id)
+      }}
+    >
+      Cancel
+    </button>
+  </td>
+):<>
+
+<td>
+<a
+                        href={`/product/default/${item.productId}`}
                         className="btn btn-quickview mt-1 mt-md-0"
                         title="Quick View"
                         
                         style={{ border: "1px solid" }}
                       >
-                        Cancel
+                        view
                       </a>
-                      {/* {item.variants.length > 0 ? (
-                        <ALink
-                          className="btn btn-dark btn-add-cart product-type-simple btn-shop"
-                          href={`/product/default/${item.slug}`}
-                        >
-                          select options
-                        </ALink>
-                      ) : (
-                        <button
-                          className="btn btn-dark btn-add-cart product-type-simple btn-shop"
-                          onClick={(e) => {
-                            onMoveFromToWishlit(e, item);
-                          }}
-                        >
-                          ADD TO CART
-                        </button>
-                      )} */}
-                    </td>
+</td>
+
+</>}
+
+                    
                   </tr>
                 ))}
               </tbody>
