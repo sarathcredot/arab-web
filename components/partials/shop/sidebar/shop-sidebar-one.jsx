@@ -55,12 +55,14 @@ export const BRAND_LISTING = gql`
     }
   }
 `;
-export const MAX_PRICE=gql`query GetProductsMaxPrice($input: categoriesInput!) {
-  getProductsMaxPrice(input: $input) {
-    maxPrice
-    message
+export const MAX_PRICE = gql`
+  query GetProductsMaxPrice($input: categoriesInput!) {
+    getProductsMaxPrice(input: $input) {
+      maxPrice
+      message
+    }
   }
-}`
+`;
 const TreeNode = (props) => {
   return (
     <>
@@ -76,19 +78,25 @@ function ShopSidebarOne(props) {
   // const queryString = query?.cat_id;
   // const parts = queryString ? queryString.split("?") : [];
   const catId = query?.cat_id;
-  const brand =query?.brand
+  const brand = query?.brand;
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [selectedAttributeValues, setSelectedAttributeValues] = useState([]);
-console.log(query);
+  console.log(query);
   const { data, loading, error } = useQuery(GET_SHOP_SIDEBAR_DATA, {
     variables: { input: { parent: catId } },
   });
 
-console.log(data);
+  console.log(data);
   //maxprice value getting
-   const {data:maxPriceData,loading:priceLoading,priceError}=useQuery(MAX_PRICE,{variables:{input:{categories:[catId]}}})
-   console.log(maxPriceData);
-   const maxpricevalue=maxPriceData?.getProductsMaxPrice?.maxPrice ? maxPriceData?.getProductsMaxPrice?.maxPrice:1000
+  const {
+    data: maxPriceData,
+    loading: priceLoading,
+    priceError,
+  } = useQuery(MAX_PRICE, { variables: { input: { categories: [catId] } } });
+  console.log(maxPriceData);
+  const maxpricevalue = maxPriceData?.getProductsMaxPrice?.maxPrice
+    ? maxPriceData?.getProductsMaxPrice?.maxPrice
+    : 1000;
   console.log(data);
   const {
     data: attributeData,
@@ -165,9 +173,9 @@ console.log(data);
         max: parseInt(query.max_price),
       });
     } else {
-      setRange({ min: 0, max: maxpricevalue});
+      setRange({ min: 0, max: maxpricevalue });
     }
-  }, [query,maxpricevalue]);
+  }, [query, maxpricevalue]);
 
   useEffect(() => {
     // Extract brand ID from the URL
@@ -198,10 +206,6 @@ console.log(data);
     }
   };
 
-
-  
-
-
   function filterByCategory(selected) {
     console.log(selected);
     router.push(
@@ -230,10 +234,13 @@ console.log(data);
 
   function filterByPrice(e) {
     e.preventDefault();
-    const searchParams=router.query
-    const newSearchparams={...searchParams,max_price:priceRange.max,min_price:priceRange.min}
-    router.replace({pathname:router.pathname,query:newSearchparams})
-   
+    const searchParams = router.query;
+    const newSearchparams = {
+      ...searchParams,
+      max_price: priceRange.max,
+      min_price: priceRange.min,
+    };
+    router.replace({ pathname: router.pathname, query: newSearchparams });
   }
 
   function closeSidebar() {
@@ -245,8 +252,6 @@ console.log(data);
     return <div>{error.message}</div>;
   }
 
-
- 
   return (
     <>
       <div className="sidebar-overlay" onClick={closeSidebar}></div>
@@ -301,14 +306,13 @@ console.log(data);
                     >
                       <div className="widget-body pb-4 m-4">
                         <ul>
-                        {data &&
-                          data?.getActiveChildCategories?.records.length > 0 ?
-                          data?.getActiveChildCategories?.records?.map((category,index)=>(
-                            <li
-                           
-                            key={`category-${index}`}>
-                              <ALink
-className="custom-categorylabels"
+                          {data &&
+                          data?.getActiveChildCategories?.records.length > 0 ? (
+                            data?.getActiveChildCategories?.records?.map(
+                              (category, index) => (
+                                <li key={`category-${index}`}>
+                                  <ALink
+                                    className="custom-categorylabels"
                                     href={{
                                       query: {
                                         ...query,
@@ -320,20 +324,25 @@ className="custom-categorylabels"
                                       },
                                     }}
                                     scroll={false}
-                                     style={containsAttrInUrl("category", category?._id)
-                                                ? {color:"red"}
-                                                : {}}
+                                    style={
+                                      containsAttrInUrl(
+                                        "category",
+                                        category?._id
+                                      )
+                                        ? { color: "red" }
+                                        : {}
+                                    }
                                   >
                                     {category?.categoryName}
                                   </ALink>
-
-                            </li>
-                          )
-
-                          ):<li>No categories</li>}
-                          </ul>
+                                </li>
+                              )
+                            )
+                          ) : (
+                            <li>No categories</li>
+                          )}
+                        </ul>
                       </div>
-                     
                     </div>
                   </>
                 )}
@@ -341,22 +350,22 @@ className="custom-categorylabels"
             )}
           </div>
 
-         
-           { (query.category ||
+          {(query.category || query.page||
             query.sizes ||
             query.colors ||
-            
             query.min_price ||
-            query.max_price) && <div className="widget">
+            query.max_price) && (
+            <div className="widget">
               <ALink
-              href={{ query: { cat_id: query.cat_id } }}
+                href={{ query: { cat_id: query.cat_id } }}
                 //  href={{ query: { grid: query.grid } }}
                 scroll={false}
                 className="btn btn-primary reset-filter"
               >
                 Reset All Filters
               </ALink>
-            </div>}
+            </div>
+          )}
           {/* )} */}
           <div className="widget widget-brand">
             {loading ? (
@@ -365,19 +374,25 @@ className="custom-categorylabels"
               <SlideToggle>
                 {({ onToggle, setCollapsibleElement, toggleState }) => (
                   <>
-                    {brandData && brandData?.getBrandDetailsWithCategory?.records.length>0?<h3 className="widget-title">
-                      <a
-                        className={
-                          toggleState === "COLLAPSED" ? "collapsed" : ""
-                        }
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault(), onToggle();
-                        }}
-                      >
-                        Brand
-                      </a>
-                    </h3>:""}
+                    {brandData &&
+                    brandData?.getBrandDetailsWithCategory?.records.length >
+                      0 ? (
+                      <h3 className="widget-title">
+                        <a
+                          className={
+                            toggleState === "COLLAPSED" ? "collapsed" : ""
+                          }
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault(), onToggle();
+                          }}
+                        >
+                          Brand
+                        </a>
+                      </h3>
+                    ) : (
+                      ""
+                    )}
                     <div
                       className="overflow-hidden"
                       ref={setCollapsibleElement}
@@ -398,9 +413,7 @@ className="custom-categorylabels"
                                   <input
                                     id={item.brandName}
                                     type="checkbox"
-                                    checked={query?.brands?.includes(
-                                      item._id
-                                    )}
+                                    checked={query?.brands?.includes(item._id)}
                                     onChange={() =>
                                       handleBrandCheckboxChange(item.brandName)
                                     }
@@ -688,19 +701,25 @@ className="custom-categorylabels"
                                 className="overflow-hidden"
                                 ref={setCollapsibleElement}
                               >
-                                <div className="widget-body pb-4 m-4">
-                                  {attri?.attributeValues.length > 0 &&
-                                    attri?.attributeValues?.map(
-                                      (attriValues, index) => {
-                                        const attriId = attri?._id;
-                                        const selectedIds = query[attriId]?.split(',') || [];
-                                        const isActive = selectedIds.includes(attriValues._id);
-                                  
-                                        return (
-                                          <>
-                                            <ALink
-                                            
-                                           className="custom-categorylabels"
+                                {/* design */}
+                                <div style={{ padding: "10px" }}>
+                                 <div
+                                    style={{
+                                      display: "flex",
+                                      flexWrap: "wrap",
+                                      maxWidth: "286px",
+                                    }}
+                                  >
+                                    {attri?.attributeValues.length>0 && attri?.attributeValues?.map((attriValues, index)=>{
+const attriId = attri?._id;
+const selectedIds =
+  query[attriId]?.split(",") || [];
+const isActive = selectedIds.includes(
+  attriValues._id
+);
+return(
+  <ALink
+                                              className="custom-categorylabels"
                                               href={{
                                                 query: {
                                                   ...query,
@@ -713,15 +732,69 @@ className="custom-categorylabels"
                                               }}
                                               key={`${attri?._id}-${index}`}
                                               scroll={false}
-                                              style={containsAttrInUrl(
-                                                attri?._id,
-                                                attriValues._id
-                                              )
-                                                ? {color:"red"}
-                                                : {}}
+                                              style={
+                                                containsAttrInUrl(
+                                                  attri?._id,
+                                                  attriValues._id
+                                                )
+                                                  ? { color: "red" }
+                                                  : {}
+                                              }
+                                            >
+<div
+                                      style={{
+                                        border: "1px solid rgb(220, 220, 220)",
+                                        padding: "10px",
+                                      }}
+                                    >
+                                      {attriValues.value}
+                                    </div>
+                                    </ALink>
+
+)
+                                    
+                                    })}
+                                    
+                                  </div>
+                                </div>
+                                {/* ........... */}
+                                {/* <div className="widget-body pb-4 m-4">
+                                  {attri?.attributeValues.length > 0 &&
+                                    attri?.attributeValues?.map(
+                                      (attriValues, index) => {
+                                        const attriId = attri?._id;
+                                        const selectedIds =
+                                          query[attriId]?.split(",") || [];
+                                        const isActive = selectedIds.includes(
+                                          attriValues._id
+                                        );
+
+                                        return (
+                                          <>
+                                            <ALink
+                                              className="custom-categorylabels"
+                                              href={{
+                                                query: {
+                                                  ...query,
+                                                  page: 0,
+                                                  [attri?._id]: getUrlForAttrs(
+                                                    attri?._id,
+                                                    attriValues._id
+                                                  ),
+                                                },
+                                              }}
+                                              key={`${attri?._id}-${index}`}
+                                              scroll={false}
+                                              style={
+                                                containsAttrInUrl(
+                                                  attri?._id,
+                                                  attriValues._id
+                                                )
+                                                  ? { color: "red" }
+                                                  : {}
+                                              }
                                             >
                                               <span
-                                              
                                                 // className={
                                                 //   containsAttrInUrl(
                                                 //     attri?._id,
@@ -730,14 +803,12 @@ className="custom-categorylabels"
                                                 //     ? "active"
                                                 //     : ""
                                                 // }
-                                               
-                                               
+
                                                 style={{
                                                   border:
                                                     "1px solid rgb(220, 220, 220)",
                                                   padding: "20px",
                                                 }}
-                                                
                                               >
                                                 {attriValues.value}
                                               </span>
@@ -746,7 +817,7 @@ className="custom-categorylabels"
                                         );
                                       }
                                     )}
-                                </div>
+                                </div> */}
                               </div>
                             </>
                           )}
@@ -759,8 +830,6 @@ className="custom-categorylabels"
                 return <div key={index}>{attributeComponent}</div>;
               }
             )}
-
-         
         </StickyBox>
       </aside>
     </>
