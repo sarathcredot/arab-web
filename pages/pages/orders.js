@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ALink from "../../components/common/ALink";
-
+import { toast } from 'react-toastify';
 import { actions as WishlistAction } from "../../store/wishlist";
 import { actions as CartAction } from "../../store/cart";
 import { actions as ModalAction } from "../../store/modal";
@@ -147,6 +147,7 @@ function Orders(props) {
       });
       console.log(response.message)
       refetch()
+      toast.success(<div style={{padding:"10px"}}>Your order has been canceled.</div>)
       
     } catch (error) {
       console.log(error)
