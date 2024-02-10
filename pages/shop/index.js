@@ -55,119 +55,54 @@ const GET_PRODUCTS=gql `query GetProducts($input: ProductFilters) {
 
 function Shop() {
   const router = useRouter();
-  // const searchParams = useSearchParams()
-  // const params= searchParams.get('brands')
-  // console.log(params);
- 
+  
  
   const query = router.query;
-  console.log(query);
+  
 
   const { cat_id, page, ...rest } = query;
-  const { category, brands, ...filteredAttributes } = rest;
+  const { category, brands, max_price,min_price,...filteredAttributes } = rest;
   const categoryValues = category ? category.split(',').map(id => id.trim())  : [];
   const brandValues = brands ? brands.split(',') : [];
-  // brands ? [brands] : [];
+  
   const attributes = Object.entries(filteredAttributes).map(([id, values]) => ({
     id,
     values: values.split(','),
   }));
-  console.log(category);
-  console.log(categoryValues);
-  console.log(brandValues);
   console.log(attributes);
-  // const catId = (router.query.cat_id).split('?brand=')
-  // const brand = query.brand;
-//   const [catId, brand] = query?.cat_id?.split('?brand=');
-// console.log(catId);
- console.log(brands);
-  
-  // const {data,loading,error}=useQuery(GET_PRODUCTS, 
-    // {variables:{input:{size:10,page:0}}})
-    console.log(parseFloat(query.max_price));
-   const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
+ const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
   const [perPage, setPerPage] = useState(2);
+  // const [pagenumber,setPagenumber]=useState(page ?? 0)
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
   const products = data && data?.getProducts?.records;
   const totalPage = data
     ? parseInt(data?.getProducts?.maxRecords / perPage) +
       (data?.getProducts?.maxRecords % perPage ? 1 : 0)
-    : 1;
+    : 0;
 
+    const attributesWithNonEmptyValues = attributes.filter(attribute => attribute.values.some(value => value !== ''));
 
+console.log(attributesWithNonEmptyValues);
     useEffect(()=>{
       getProducts({
         variables:{
           input:{
-            size:10,
-            page:0,
-            categories:categoryValues?categoryValues:[], 
-            // category ? category.split(',').map(id => id.trim())  : [],
-            brands:brandValues,
-            // brandValues ? brandValues?.split(',').map(id => id.trim()) : [],
-            // maxPrice:10000,
-            // minPrice:0,
-            maxPrice:parseFloat(query.max_price),
-            minPrice:parseFloat(query.min_price),
-            attributes:attributes,
-            // parentCategory:query?.cat_id
+            size:perPage,
+            page:parseInt(page??0),
+            categories:categoryValues?categoryValues:[],           
+            brands:brandValues,           
+            maxPrice:parseInt(query.max_price),
+            minPrice:parseInt(query.min_price),
+            attributes: attributesWithNonEmptyValues,
+            parentCategory:query?.cat_id
           }
         }
       })
 
     },[query,perPage])
-  // useEffect(() => {
-  //   let offset =
-  //     document.querySelector(".main-content").getBoundingClientRect().top +
-  //     window.pageYOffset -
-  //     58;
-  //   setTimeout(() => {
-  //     window.scrollTo({ top: offset, behavior: "smooth" });
-  //   }, 200);
+ 
 
-  //   let page = query.page ? query.page : 1;
-
-    // getProducts({
-     
-      // variables: {
-      //   search: query.search,
-      //   colors: query.colors ? query.colors.split(",") : [],
-      //   sizes: query.sizes ? query.sizes.split(",") : [],
-      //   brands: query.brands ? query.brands.split(",") : [],
-      //   min_price: parseInt(query.min_price),
-      //   max_price: parseInt(query.max_price),
-      //   category: query.category,
-      //   tag: query.tag,
-      //   sortBy: sortBy,
-      //   from: perPage * (page - 1),
-      //   to: perPage * page,
-      // },
-    // });
-  // }, [query, perPage, sortBy]);
-
-  function onPerPageChange(e) {
-    setPerPage(e.target.value);
-    router.push({
-      pathname: router.pathname,
-      query: {
-        ...query,
-        page: 1,
-      },
-    });
-  }
-
-  function onSortByChange(e) {
-    router.push({
-      pathname: router.pathname,
-      query: {
-        ...query,
-        sortBy: e.target.value,
-        page: 1,
-      },
-    });
-    setSortBy(e.target.value);
-  }
 
   function sidebarToggle(e) {
     let body = document.querySelector("body");
@@ -204,8 +139,8 @@ function Shop() {
                     shop
                   </ALink>
                 </li>
-                {data &&
-                  data?.products?.categoryFamily.map((item, index) => (
+                {/* {data &&
+                  data?.getProducts?.records.map((item, index) => (
                     <li
                       className="breadcrumb-item"
                       key={`category-family-${index}`}
@@ -214,11 +149,11 @@ function Shop() {
                         href={{ query: { category: item.slug } }}
                         scroll={false}
                       >
-                        {item.name}
+                      {item?.categoryNamePath}  
                       </ALink>
                     </li>
-                  ))}
-                <li className="breadcrumb-item active">
+                  ))} */}
+                {/* <li className="breadcrumb-item active">
                   {query.search ? (
                     <>
                       Search -{" "}
@@ -230,10 +165,35 @@ function Shop() {
                       </ALink>{" "}
                       / {query.search}
                     </>
-                  ) : (
+                  ) : 
+                 
                     query.category
-                  )}
-                </li>
+                  
+                  }
+                </li> */}
+                <li className="breadcrumb-item ">
+  {query.search ? (
+    <>
+      Search -{" "}
+      <ALink
+        href={{ query: { category: query.category } }}
+        scroll={false}
+      >
+        {query.category}
+      </ALink>{" "}
+      / {query.search}
+    </>
+  ) : (
+    <span>
+      {data &&
+        data?.getProducts?.records.map((item, index) => (
+          <React.Fragment key={index}>
+            {item?.categoryNamePath}
+          </React.Fragment>
+        ))}
+    </span>
+  )}
+</li>
               </>
             ) : query.search ? (
               <>
@@ -379,7 +339,7 @@ function Shop() {
           </div>
 
           <ShopSidebarOne 
-          // catId={catId} brand={brand} 
+          
           />
         </div>
       </div>
@@ -387,22 +347,7 @@ function Shop() {
       {loading || (products && products.length) ? (
         <div className="container">
           <nav className="toolbox toolbox-pagination border-0">
-            <div className="toolbox-item toolbox-show">
-              <label>Show:</label>
-
-              <div className="select-custom">
-                <select
-                  name="count"
-                  className="form-control"
-                  value={perPage}
-                  onChange={(e) => onPerPageChange(e)}
-                >
-                  <option value="12">12</option>
-                  <option value="24">24</option>
-                  <option value="36">36</option>
-                </select>
-              </div>
-            </div>
+           
             <Pagination totalPage={totalPage} />
           </nav>
         </div>

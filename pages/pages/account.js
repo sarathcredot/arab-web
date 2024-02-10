@@ -1,14 +1,38 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import ALink from '../../components/common/ALink';
 import { Tabs, Tab, TabList, TabPanel } from 'react-tabs';
 import { useRouter } from 'next/router';
 import { IoMdHome } from "react-icons/io";
+import { gql, useMutation, useLazyQuery } from "@apollo/client";
+import withApollo from "../../server/apollo"
+export const USER_DETAIL=gql`query GetUserRecord($input: userInput!) {
+  getUserRecord(input: $input) {
+    message
+    record {
+      _id
+      firstName
+      displayName
+      email
+      lastName
+    }
+  }
+}`
 function Account() {
+  const id=localStorage?.getItem("userId")
+  const [userdetail, { loading:userloading, error:usererror, data:userData,refetch }] = useLazyQuery(USER_DETAIL);
+  console.log(userData);
   const router=useRouter()
   const handleLogout=()=>{
+    console.log("click");
     localStorage.clear();
   router.push('/')
   }
+  useEffect(()=>{
+    console.log("click");
+    userdetail({ variables: { input:{_id: id} } })
+    // setValue("firstName",userData?.getUserRecord?.record?.firstName)
+    console.log(userData);
+  },[id])
   return (
     <div>
       <main className="main main-test">
@@ -63,9 +87,9 @@ function Account() {
                   {/* Dashboard content */}
                   <p style={{ fontWeight: '400', fontSize: '20px', lineHeight: '20px', fontFamily: 'Poppins' }}>
                     Hello
-                    <strong className="text-dark" style={{ fontSize: '26px', lineHeight: '20px', fontFamily: 'Poppins',paddingLeft: "10px" }}>
-                      UserName
-                    </strong>
+                   {userData?.getUserRecord?.record?.displayName ? <strong className="text-dark" style={{ fontSize: '26px', lineHeight: '20px', fontFamily: 'Poppins',paddingLeft: "10px" }}>
+                      {userData?.getUserRecord?.record?.displayName}
+                    </strong>:""}
                   </p>
                   <p style={{ fontWeight: '400', fontSize: '14px', lineHeight: '26px', fontFamily: 'Poppins' }}>
                     From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and
@@ -289,9 +313,9 @@ function Account() {
                       <div className="col-12 col-md-4 mb-4">
                         <div
                           className="feature-box text-center justify-content-center pb-4 content-box"
-                          style={{ width: "321.46px", height: "276.71px" }}
+                          style={{ width: "321.46px", height: "276.71px" }} onClick={handleLogout}
                         >
-                          <ALink href="/pages">
+                          {/* <ALink href="/pages"> */}
                             <div
                                style={{
                                 width: "321.46px",
@@ -319,10 +343,10 @@ function Account() {
                               </div>
                             </div>
 
-                            <div className="feature-box-content" style={{ marginTop: '20px' }} onClick={handleLogout}>
+                            <div className="feature-box-content" style={{ marginTop: '20px' }} >
                               <h3>Logout</h3>
                             </div>
-                          </ALink>
+                          {/* </ALink> */}
                         </div>
                       </div>
 
@@ -340,6 +364,6 @@ function Account() {
   );
 }
 
-export default Account;
+export default withApollo( { ssr: typeof window === 'undefined' } ) (Account);
 
 

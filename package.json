@@ -5,7 +5,9 @@
   "scripts": {
     "dev": "export NODE_OPTIONS=--openssl-legacy-provider && next",
     "build": "export NODE_OPTIONS=--openssl-legacy-provider && next build & next export",
-    "start": "next start"
+    "start": "next start",
+    "prod-build": "export NODE_OPTIONS=--openssl-legacy-provider && next build",
+    "prod-start": "next start --port 3003"
   },
   "dependencies": {
     "@apollo/client": "~3.9.2",

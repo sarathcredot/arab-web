@@ -10,14 +10,38 @@ import OwlCarousel from "react-owl-carousel2";
 // Import Settigns
 import { fadeIn } from "../../../utils/data/keyframes";
 import { productSlider } from "../../../utils/data/slider";
+import { useQuery } from "@apollo/react-hooks";
+import { gql, useMutation,useLazyQuery } from "@apollo/client";
+
+
+export const TOP_BRANDS=gql`query GetAllTopBrandRecords($input: BrandRecordsFilter) {
+  getAllTopBrandRecords(input: $input) {
+    maxRecords
+    message
+    records {
+      _id
+      brandName
+      logo {
+        fileType
+        originalName
+        fileURL
+      }
+    }
+  }
+}`
 
 function TopBrand(props) {
+  console.log(props);
+  const section4Data = props?.data?.getAllCmsRecords?.records.find(record => record.sectionName === 'SECTION-4');
+  console.log(section4Data);
+  const { data, loading, error } = useQuery(TOP_BRANDS)
+  console.log(data);
   const options = {
     items: 8, // Number of items to show
     margin: 60, // Space between items
     loop: true, // Enable loop
     autoplay: true, // Autoplay the slider
-    autoplayTimeout: 3000,
+    autoplayTimeout: 5000,
     // Autoplay interval (3 seconds in this example)
     dots: false,
     responsive: {
@@ -50,24 +74,24 @@ function TopBrand(props) {
     <>
       <div className="container">
         <div>
-          <h4 className="mb-4"style={{borderBottom:"1px solid #EEE",paddingBottom:"20px"}}>Top Brands</h4>
+          <h4 className="mb-4 mt-4"style={{borderBottom:"1px solid #EEE",paddingBottom:"20px"}}>Top Brands</h4>
         </div>
         <div>
           <OwlCarousel options={options} autoplay>
-            {brands.map((brand, index) => (
-              <div key={index} className=" item mb-4" >
-                <img
-                  src={brand}
+            {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
+              <div key={index} className=" item mb-4 custom-brand" >
+                {brand.logo && (<img
+                  src={brand.logo.fileURL}
                   alt={`Brand ${index + 1}`}
                   style={{ width: "128px", height: "128px"}}
-                />
+                />)}
               </div>
             ))}
           </OwlCarousel>
         </div>
       </div>
       <div className="custom-topbrand-img">
-        <img src="images/banners/bannermiddle.svg" />
+        <img src={section4Data?.images[0]?.fileURL} />
       </div>
     </>
   );

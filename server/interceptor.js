@@ -1,6 +1,6 @@
 // Interceptors.ts
 import { ApolloLink, Observable, Operation, NextLink } from '@apollo/client';
-
+import { useRouter } from 'next/router';
 // Request Interceptor
 export const requestInterceptor = new ApolloLink(
   (operation, forward) => {
@@ -21,11 +21,12 @@ export const responseInterceptor = new ApolloLink(
     (operation, forward) => {
       return new Observable((observer) => {
         const handleNext = (result) => {
+         
           console.log('GraphQL Result:', result?.errors);
           if (result.errors && result.errors.some((error) => error.extensions?.code === "UNAUTHORIZED")) {
             console.log("Redirecting to login page");
             localStorage.removeItem("admin_token");
-            window.location.href="/login";
+            window.location.href="/pages/login";
           } else {
             observer.next(result);
           }
@@ -91,6 +92,8 @@ export const responseInterceptor = new ApolloLink(
 // );
 
 const getAuthToken = () => {
+  const historyUrl=window.location.href
+  // localStorage.setItem("historyUrl",historyUrl );
   return localStorage.getItem("arabtoken") || null;
 };
 

@@ -1,35 +1,43 @@
-import React from 'react'
+import React,{useEffect} from 'react'
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import withApollo from "../../../server/apollo"
-import { gql, useMutation, useLazyQuery } from "@apollo/client";
-export const ACCOUNT_DETAIL=gql`mutation UpdateUserProfile($input: updateUserProfileInput!) {
-    updateUserProfile(input: $input) {
+import { gql, useMutation, useLazyQuery, useQuery } from "@apollo/client";
+import { toast } from 'react-toastify';
+import { useRouter } from 'next/router';
+export const SHIPPING_ADDRESS=gql`mutation CreateUserShippingAddress($input: UserCreateShippingAddressInput!) {
+    createUserShippingAddress(input: $input) {
+      _id
+    }
+  }`
+ export const GET_ADDRESSES=gql`query GetUserShippingAddress($input: GetUserShippingAddressInput!) {
+    getUserShippingAddress(input: $input) {
+      _id
+      apartment
+      city
+      
+      country
+      email
+      firstname
+      houseNumber
+      mobile
+      postCode
+      streetName
+      suite
+      unit
+     
+    }
+  }`
+export const UPDATE_SHIPPING=gql`mutation EditUserShippingAddress($input: UserEditShippingAddressInput!) {
+    editUserShippingAddress(input: $input) {
+      _id
+    }
+  }`
+function Addresses({isEdit,addressId,onClose }) {
+    const router=useRouter()
+    console.log(isEdit,addressId);
 
-      message
-    }
-  }`
-  export const USER_DETAIL=gql`query Query($input: userInput!) {
-    getUserRecord(input: $input) {
-      message
-      record {
-        displayName
-        lastName
-        _id
-        address
-        city
-        country
-        countryCode
-        email
-        firstName
-        houseNumber
-        mobileNumber
-        pincode
-        streetName
-        token
-      }
-    }
-  }`
-function Addresses() {
+    const {data:getAddress,loading:getAddressLoading,error:getAddressError}=useQuery(GET_ADDRESSES,{variables:{input:{_id:addressId}}})
+    console.log(getAddress);
     const {
         register,
         handleSubmit,
@@ -40,43 +48,99 @@ function Addresses() {
         control,
       } = useForm({
         defaultValues: {
-          firstName: "",
-          lastName: "",
-         
+            firstname: "",
+            country: "",
+            streetName:"",
+            houseNumber:"",
+            city:"",
+            postCode:"",
+            apartment:"",
           email:"",
-          mobileNumber:"",
-          pincode:"",
-          city:"",
-          streetName:"",
-          houseNumber:"",
-          country:""
+          mobile:"",
+          
           
         },
       });
-      const  [updateUserProfile] =
-      useMutation(ACCOUNT_DETAIL);
+
+useEffect(()=>{
+if(isEdit){
+   
+    setValue("firstname",getAddress?.getUserShippingAddress?.firstname)
+    setValue("country",getAddress?.getUserShippingAddress?.country)
+    setValue("houseNumber",getAddress?.getUserShippingAddress?.houseNumber)
+    setValue("streetName",getAddress?.getUserShippingAddress?.streetName)
+    setValue("city",getAddress?.getUserShippingAddress?.city)
+    setValue("postCode",getAddress?.getUserShippingAddress?.postCode)
+    setValue("mobile",getAddress?.getUserShippingAddress?.mobile)
+    setValue("email",getAddress?.getUserShippingAddress?.email)
+    setValue("apartment",getAddress?.getUserShippingAddress?.apartment)
+
+}
+},[isEdit,getAddress])
+
+      const  [CreateUserShippingAddress] =
+      useMutation(SHIPPING_ADDRESS);
+      const [EditUserShippingAddress]=useMutation(UPDATE_SHIPPING);
 
       const onSubmit = async (values) => {
         console.log(values);
         event.preventDefault();
         try {
-          // if (!mobileNumber.trim()) {
-          //   setError("Mobile number is required");
-          //   return;
-          // }
-    const Id="65bb85834825212140ac3aed"
-        const response= await updateUserProfile({ variables: { input: {_id:Id.toString(),...values } } });
+        
+    if(isEdit)
+    {
+        const response= await EditUserShippingAddress({ variables: { input: {_id:getAddress?.getUserShippingAddress?._id ,...values} } });
+        console.log(response);
+        if(response){
+            toast.success(<div style={{padding:"10px"}}>Shipping address updated</div>)
+           onClose();
+        }
+    }
+    else{
+
+        const response= await CreateUserShippingAddress({ variables: { input: {...values } } });
           console.log(response);
           if(response){
-            window.alert(response?.data?.updateUserProfile?.message)
+            localStorage?.setItem("shippingId",response?.data?.createUserShippingAddress?._id)
+            toast(<div style={{padding:"10px"}}>Shipping address added</div>)
+            onClose();
             reset()
           }
-          SetIsOtp(true);
+    }
+        //   SetIsOtp(true);
         } catch (error) {
           console.log("error", error);
         }
     
       }
+
+
+      const fieldRules = {
+        city: {
+          required: "City is required",
+        },
+        firstname:{
+            required: "First Name is required", 
+        },
+        houseNumber:{
+            required:"HouseNumber is required",
+        },
+        mobile:{
+            required:"Mobile is required",
+        },
+        postCode:{
+            required:"postCode is required",
+        },
+        streetName:{
+            required:"Street Name is required",
+        },
+        email:{
+            pattern: {
+                value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                message: "Invalid email address"
+            }
+        }
+    }
     return (
         <div>
             <div className="container checkout-container">
@@ -96,13 +160,13 @@ function Addresses() {
                                         padding: "2px"
                                     }}
                                 >
-                                    <h4 className="step-title" >Billing address</h4>
+                                    <h4 className="step-title" >Shipping address</h4>
                                 </div>
 
 
                                 <form onSubmit={handleSubmit(onSubmit)} id="checkout-form" style={{ marginTop: "40px" }}>
-                                    <div className="row">
-                                        <div className="col-md-6">
+                                    {/* <div className="row"> */}
+                                        {/* <div className="col-md-6"> */}
                                             <div className="form-group">
                                                 <label
                                                     style={{
@@ -118,7 +182,7 @@ function Addresses() {
                                                 </label>
                                                 <Controller
                           control={control}
-                          name="firstName"
+                          name="firstname"
                           render={({ field: { onChange, value } }) => (
                                                 <input
                                                     type="text"
@@ -127,42 +191,17 @@ function Addresses() {
                                                     onChange={onChange}
                                                     style={{ marginTop: "10px" }}
                                                 />)}
+                                                rules={fieldRules.firstname}
                                                 />
-                                            </div>
+                                           {errors?.firstname ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.firstname?.message}
+                    </div>
+                  ) : null}
                                         </div>
+                                        
 
-                                        <div className="col-md-6">
-                                            <div className="form-group">
-                                                <label
-                                                    style={{
-                                                        fontFamily: "Poppins",
-                                                        fontWeight: "400px",
-                                                        lineHeight: "20px",
-                                                    }}
-                                                >
-                                                    Last name{" "}
-                                                    <ab className="required" title="required">
-                                                        *
-                                                    </ab>
-                                                </label>
-                                                <Controller
-                          control={control}
-                          name="lastName"
-                          render={({ field: { onChange, value } }) => (
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                  
-                                                    style={{ marginTop: "10px" }}
-                                                    value={value}
-                                                    onChange={onChange}
-                                                />)}
-                                                />
-                                            </div>
-                                        </div>
-
-
-                                    </div>
+                                        
 
 
 
@@ -175,9 +214,7 @@ function Addresses() {
                                             }}
                                         >
                                             Country / Region {" "}
-                                            <ab className="required" title="required">
-                                                *
-                                            </ab>
+                                           
                                         </label>
                                         <Controller
                           control={control}
@@ -211,7 +248,13 @@ function Addresses() {
                                             onChange={onChange}
                                             style={{ marginTop: "10px" }}
                                         />)}
+                                        rules={fieldRules.houseNumber}
                                         />
+                                        {errors?.houseNumber ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.houseNumber?.message}
+                    </div>
+                  ) : null}
                                          <Controller
                           control={control}
                           name="streetName"
@@ -223,7 +266,13 @@ function Addresses() {
                                             value={value}
                                             onChange={onChange}
                                         />)}
+                                        rules={fieldRules.streetName}
                                         />
+                                         {errors?.streetName ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.streetName?.message}
+                    </div>
+                  ) : null}
                                     </div>
 
                                     <div className="form-group">
@@ -242,8 +291,13 @@ function Addresses() {
                                             onChange={onChange}
                                             style={{ marginTop: "10px" }}
                                         />)}
+                                        rules={fieldRules.city}
                                         />
-
+ {errors?.city ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.city?.message}
+                    </div>
+                  ) : null}
                                     </div>
 
                                     <div className="form-group">
@@ -252,7 +306,7 @@ function Addresses() {
                                         </label>
                                         <Controller
                           control={control}
-                          name="pincode"
+                          name="postCode"
                           render={({ field: { onChange, value } }) => (
                                         <input
                                             type="number"
@@ -262,8 +316,13 @@ function Addresses() {
                                             onChange={onChange}
                                             style={{ marginTop: "10px" }}
                                         />)}
+                                        rules={fieldRules.postCode}
                                         />
-
+{errors?.postCode ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.postCode?.message}
+                    </div>
+                  ) : null}
                                     </div>
 
                                     <div className="form-group">
@@ -279,7 +338,7 @@ function Addresses() {
                                             </div>
                                             <Controller
                           control={control}
-                          name="mobileNumber"
+                          name="mobile"
                           render={({ field: { onChange, value } }) => (
                                             <input
                                                 type="tel"
@@ -288,15 +347,23 @@ function Addresses() {
                                                 value={value}
                                                 onChange={onChange}
                                             />)}
+                                            rules={fieldRules.mobile}
                                             />
+                                             
                                         </div>
+                                        {errors?.mobile ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.city?.mobile}
+                    </div>
+                  ) : null}
                                     </div>
 
 
 
                                     <div className="form-group">
                                         <label>
-                                            Email<span className="required">*</span>
+                                            Email
+                                            {/* <span className="required">*</span> */}
                                         </label>
                                         <Controller
                           control={control}

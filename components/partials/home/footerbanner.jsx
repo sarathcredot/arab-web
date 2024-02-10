@@ -12,11 +12,30 @@ import { HomeSlider } from "../../../utils/data/slider";
 // Import Keyframes
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
-function FooterBannerSection() {
+function FooterBannerSection({data}) {
+  console.log(data);
   return (
-    <div style={{ maxHeight: "466px" }}>
+    <div style={{ maxHeight: "466px" }}className="mt-4">
       <OwlCarousel adClass="home-slider nav-circle mb-2" options={HomeSlider}>
-        <div className="home-slide home-slide1 banner">
+      {data &&
+  data?.getAllCmsRecords?.records
+    .filter(record => record.sectionName === 'SECTION-5')
+    .map((record, index) => {
+      console.log(record);
+      return (
+        record.images.map((item, imgIndex) => {
+          console.log(item);
+          return (
+            <div key={imgIndex} >
+              <img src={item.fileURL} alt="Image" style={{height:"350"}}/>
+             
+            </div>
+          );
+        })
+      );
+    })
+}
+        {/* <div className="home-slide home-slide1 banner">
           <figure className="mb-0">
             <LazyLoadImage
               alt="Home Slide"
@@ -26,6 +45,18 @@ function FooterBannerSection() {
               width="100%"
               height={350}
             />
+           
+          </figure>
+          <figure className="mb-0">
+            <LazyLoadImage
+              alt="Home Slide"
+              src="images/home/slider/footer1.svg"
+              threshold={500}
+              effect="black and white"
+              width="100%"
+              height={350}
+            />
+           
           </figure>
 
           <div className="container d-flex align-items-sm-center justify-content-sm-between justify-content-center flex-column flex-sm-row">
@@ -52,7 +83,7 @@ function FooterBannerSection() {
 
             <div className="banner-content content-right text-sm-right"></div>
           </div>
-        </div>
+        </div> */}
       </OwlCarousel>
     </div>
   );

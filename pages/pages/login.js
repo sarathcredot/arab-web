@@ -5,6 +5,7 @@ import OTPInput from "react-otp-input";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import withApollo from "../../server/apollo"
 import { useRouter } from "next/router";
+import { toast } from 'react-toastify';
 // import { useForm, Controller } from "react-hook-form";
 export const LOGIN = gql`
   mutation Mutation($input: userLoginOtpInput!) {
@@ -19,18 +20,26 @@ export const OTP_VERIFY=gql`mutation UserVerifyOtp($input: userVerifyOtpInput!) 
   userVerifyOtp(input: $input) {
     message
     token
+    userId
+  }
+}`
+
+export const RESENT_OTP=gql`mutation UserResendLoginOtp($input: userResendLoginOtpInput!) {
+  userResendLoginOtp(input: $input) {
+    message
   }
 }`
 function Login({mutate}) {
   const [isOtp, SetIsOtp] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
   const [error, setError] = useState("");
+  const [otperror,setOtperror]=useState("")
   const [otp, setOtp] = useState("");
 const router=useRouter()
   const  [userLoginOtp] =
     useMutation(LOGIN);
 const [UserVerifyOtp]=useMutation(OTP_VERIFY)
-
+const [UserResendLoginOtp]=useMutation(RESENT_OTP)
   const handleOtpChange =async (event) => {
     event.preventDefault();
     try {
@@ -41,20 +50,54 @@ const [UserVerifyOtp]=useMutation(OTP_VERIFY)
 
     const response= await userLoginOtp({ variables: { input: { mobileNumber: mobileNumber } } });
       console.log(response);
+      toast.success(<div style={{padding:"10px"}}>otp sent successfully</div>)
       SetIsOtp(true);
     } catch (error) {
       console.log("error", error);
     }
   };
+ const handleResentotp=async()=>{
+  console.log("click");
+  try{
 
+    const response=await UserResendLoginOtp({variables:{input:{mobileNumber:mobileNumber}}});
+    console.log(response);
+    if(response){
+    
+      toast.success(<div style={{padding:"10px"}}>otp sent successfully</div>)
+    }
+  }
+  catch(error){
+    toast.error(<div style={{padding:"10px"}}>{error?.message}</div>)
+    console.log("error", error);
+  }
+
+ }
   const handleVerifyOTP=async(event)=>{
     event.preventDefault()
     try{
+      if (!otp) {
+      setOtperror("Otp is required")
+      return;
+    }
       const response =await UserVerifyOtp({variables:{input:{code:otp}}})
       console.log(response);
+
       if(response){
+       
         localStorage.setItem("arabtoken",response?.data?.userVerifyOtp?.token)
+
+        localStorage.setItem("userId",response?.data?.userVerifyOtp?.userId)
         router.push("/")
+
+        const historyUrl= localStorage.getItem("historyUrl")
+        if(historyUrl){
+          return router.push(historyUrl)
+        }else{
+          return router.push("/")
+        }
+      
+
       }
     }
     catch (error) {
@@ -88,7 +131,7 @@ const [UserVerifyOtp]=useMutation(OTP_VERIFY)
                     </div>
                   </div>
 
-                  <form action="#" style={{ marginTop: "70px" }}>
+                  <form  style={{ marginTop: "70px" }}>
                     <div className="mt-3">
                       <OTPInput
                         value={otp}
@@ -127,7 +170,7 @@ const [UserVerifyOtp]=useMutation(OTP_VERIFY)
                       >
                         Verify OTP
                       </button>
-
+                      {otperror && <div style={{ color: "red" }}>{otperror}</div>}
                       <div
                         className="resend-action"
                         style={{ marginTop: "33px" }}
@@ -144,9 +187,10 @@ const [UserVerifyOtp]=useMutation(OTP_VERIFY)
                             style={{
                               paddingLeft: "5px",
                               color: "#399E0A",
-                              fontWeight: "500",
+                              fontWeight: "500",cursor:"pointer"
                             }}
                             className="btn-text"
+                            onClick={handleResentotp}
                           >
                             Resent
                           </span>
@@ -154,65 +198,11 @@ const [UserVerifyOtp]=useMutation(OTP_VERIFY)
                       </div>
                     </div>
 
-                    {/* <div className="form-footer">
-                  <div className="custom-control custom-checkbox mb-0">
-                    <input
-                      type="checkbox"
-                      className="custom-control-input"
-                      id="lost-password"
-                    />
-                    <label
-                      className="custom-control-label mb-0"
-                      htmlFor="lost-password"
-                    >
-                      Remember me
-                    </label>
-                  </div>
-
-                  <ALink
-                    href="/pages/forgot-password"
-                    className="forget-password text-dark form-footer-right"
-                  >
-                    Forgot Password?
-                  </ALink>
-                </div> */}
+                  
                   </form>
                 </div>
                 <div className="col-md-6">
-                  {/* <div className="heading mb-1">
-                <h2 className="title">Register</h2>
-              </div> */}
-
-                  {/* <form action="#">
-                <label htmlFor="register-email">
-                  Email address <span className="required">*</span>
-                </label>
-                <input
-                  type="email"
-                  className="form-input form-wide"
-                  id="register-email"
-                  required
-                />
-
-                <label htmlFor="register-password">
-                  Password <span className="required">*</span>
-                </label>
-                <input
-                  type="password"
-                  className="form-input form-wide"
-                  id="register-password"
-                  required
-                />
-
-                <div className="form-footer mb-2">
-                  <button
-                    type="submit"
-                    className="btn btn-dark btn-md w-100 mr-0"
-                  >
-                    Register
-                  </button>
-                </div>
-              </form> */}
+                  
                   <div>
                     <img
                       class="google-icon"

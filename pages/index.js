@@ -1,4 +1,4 @@
-import { useQuery } from "@apollo/react-hooks";
+// import { useQuery } from "@apollo/react-hooks";
 
 // Import Apollo Server and Query
 import withApollo from "../server/apollo";
@@ -23,9 +23,26 @@ import TopBrand from "../components/partials/home/top-brand";
 import Footerbanner from "../components/partials/home/footerbanner";
 import AppleProducts from "../components/partials/home/apple-products"
 import MainMenu from "../components/common/partials/main-menu"
+import { useQuery, gql, useMutation } from "@apollo/react-hooks";
+
+export const CMS=gql`query GetAllCmsRecords($input: CmsRecordsFilter) {
+  getAllCmsRecords(input: $input) {
+    records {
+      _id
+      images {
+        fileType
+        fileURL
+        originalName
+      }
+      sectionName
+      pageName
+    }
+  }
+}`
 
 function Home() {
-  // const { data, loading, error } = useQuery(GET_HOME_DATA, {
+  const { data, loading, error } = useQuery(CMS)
+  console.log(data);
   //   variables: { productsCount: 15 },
   // });
   // const bestSelling = data && data?.specialProducts?.bestSelling;
@@ -47,8 +64,10 @@ function Home() {
             <MainMenu />
           </div>
         </div>
-        <div className="bg-gray">
-          <HomeSection className="pb-5" />
+        <div 
+        // className="bg-gray"
+        >
+          <HomeSection className="pb-5" data={data}/>
         </div>
 
         <div
@@ -56,11 +75,11 @@ function Home() {
             false ? "" : "loaded"
           }`}
         >
-          <BannerSection />
+          <BannerSection  data={data}/>
 
           {/* <DealSection products={bestSelling} /> */}
         </div>
-        <TopBrand />
+        <TopBrand data={data}/>
 
         <div
           className={`bg-gray skeleton-body skel-shop-products ${
@@ -71,9 +90,9 @@ function Home() {
 
           {/* <RecentCollection bestSelling={bestSelling} /> */}
         </div>
-        <CategoryFilterSection />
+        {/* <CategoryFilterSection /> */}
   {/* <AppleProducts products={bestSelling}/> */}
-        <Footerbanner />
+        <Footerbanner data={data}/>
       </main>
 
       {/* <NewsletterModal /> */}

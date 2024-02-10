@@ -12,49 +12,81 @@ import { HomeSlider } from "../../../utils/data/slider";
 // Import Keyframes
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
-function HomeSection({ offer }) {
-  console.log(offer);
+function HomeSection({ offer,data }) {
+  console.log(data);
   return (
 
 
 
     <OwlCarousel adClass="home-slider nav-circle mb-2" options={HomeSlider}>
-      <div className="home-slide home-slide1 banner">
-        {/* {offer ? */}
-          {/* <>
-            <figure className="mb-0">
-              <LazyLoadImage
-                alt="Home Slide"
-                src="images\banners\offers.svg"
-                threshold={500}
-                effect="black and white"
-                width="100%"
-                height={350}
-              />
-            </figure>
+     {data &&
+  data?.getAllCmsRecords?.records
+    .filter(record => record.sectionName === 'SECTION-1')
+    .map((record, index) => {
+      console.log(record);
+      return (
+        record.images.map((item, imgIndex) => {
+          console.log(item);
+          return (
+            <div key={imgIndex} >
+              <img src={item.fileURL} alt="Image" style={{height:"350"}}/>
+             
+            </div>
+          );
+        })
+      );
+    })
+}
 
 
 
-          </> : */}
-          <>
-            <figure className="mb-0">
-              <LazyLoadImage
-                alt="Home Slide"
-                src="images/home/slider/home1.svg"
-                threshold={500}
-                effect="black and white"
-                width="100%"
-                height={350}
-              />
-            </figure>
+       {/* {data &&
+        data?.getAllCmsRecords?.records
+          .filter(record => record.sectionName === 'SECTION-1')
+          .map((record, index) => (
+            <div className="home-slide home-slide1 banner" key={index}>
+              {record.images.map((item, imgIndex) => (
+                <figure className="mb-0" key={imgIndex}>
+                  <LazyLoadImage
+                    alt="Home Slide"
+                    src={item.fileURL}
+                    threshold={500}
+                    effect="black and white"
+                    width="100%"
+                    height={350}
+                  />
+                </figure>
+              ))}
+              <div className="container d-flex align-items-sm-center justify-content-sm-between justify-content-center flex-column flex-sm-row">
+                <div className="banner-content content-left text-sm-right mb-sm-0 mb-2"></div>
+                <div className="banner-content content-right"></div>
+              </div>
+            </div>
+          ))} */}
+      {/* <div className="home-slide home-slide1 banner">
+       
 
-          
+{data &&
+        data?.getAllCmsRecords?.records
+          .filter(record => record.sectionName === 'SECTION-1')
+          .map((record, index) =>
+            record.images.map((item, imgIndex) => (
+              <figure className="mb-0" key={imgIndex}>
+                <LazyLoadImage
+                  alt="Home Slide"
+                  src={item.fileURL}
+                  threshold={500}
+                  effect="black and white"
+                  width="100%"
+                  height={350}
+                />
+              </figure>
+            ))
+          )}
+        
 
-          </>
 
-
-
-         {/* } */}
+         
 
 
         <div className="container d-flex align-items-sm-center justify-content-sm-between justify-content-center flex-column flex-sm-row">
@@ -62,23 +94,10 @@ function HomeSection({ offer }) {
 
           <div className="banner-content content-right"></div>
         </div>
-      </div>
+      </div> */}
 
-      <div className="home-slide home-slide2 banner banner-md-vw">
-        {/* {offer ? <>
-          <figure className="mb-0">
-            <LazyLoadImage
-              alt="Home Slide"
-              src="images\banners\offers.svg"
-              threshold={500}
-              effect="black and white"
-              width="100%"
-              height={350}
-            />
-          </figure>
-
-
-        </> : */}
+      {/* <div className="home-slide home-slide2 banner banner-md-vw">
+       
           <>
             <figure className="mb-0">
               <LazyLoadImage
@@ -95,7 +114,7 @@ function HomeSection({ offer }) {
           </>
 
 
-        {/* } */}
+       
 
 
         <div className="container d-flex align-items-sm-center justify-content-center justify-content-sm-between flex-column-reverse flex-sm-row">
@@ -103,7 +122,7 @@ function HomeSection({ offer }) {
 
           <div className="banner-content content-right text-sm-right"></div>
         </div>
-      </div>
+      </div> */}
     </OwlCarousel>
   );
 }

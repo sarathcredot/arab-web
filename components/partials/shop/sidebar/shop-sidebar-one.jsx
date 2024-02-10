@@ -332,7 +332,7 @@ className="custom-categorylabels"
                                     href={{
                                       query: {
                                         ...query,
-                                        page: 1,
+                                        page: 0,
                                         category: getUrlForAttrs(
                                           "category",
                                           category._id
@@ -579,7 +579,7 @@ className="custom-categorylabels"
                                             href={{
                                               query: {
                                                 ...query,
-                                                page: 1,
+                                                page: 0,
                                                 [attri?._id]: getUrlForAttrs(
                                                   attri?._id,
                                                   item._id
@@ -671,7 +671,7 @@ className="custom-categorylabels"
                                               href={{
                                                 query: {
                                                   ...query,
-                                                  page: 1,
+                                                  page: 0,
                                                   [attri?._id]: getUrlForAttrs(
                                                     attri?._id,
                                                     attriValues._id
@@ -734,7 +734,7 @@ className="custom-categorylabels"
               <SlideToggle>
                 {({ onToggle, setCollapsibleElement, toggleState }) => (
                   <>
-                    <h3 className="widget-title">
+                    {brandData && brandData?.getBrandDetailsWithCategory?.records.length>0?<h3 className="widget-title">
                       <a
                         className={
                           toggleState === "COLLAPSED" ? "collapsed" : ""
@@ -746,7 +746,7 @@ className="custom-categorylabels"
                       >
                         Brand
                       </a>
-                    </h3>
+                    </h3>:""}
                     <div
                       className="overflow-hidden"
                       ref={setCollapsibleElement}
@@ -779,7 +779,7 @@ className="custom-categorylabels"
                                     href={{
                                       query: {
                                         ...query,
-                                        page: 1,
+                                        page: 0,
                                         brands: getUrlForAttrs(
                                           "brands",
                                           item._id
