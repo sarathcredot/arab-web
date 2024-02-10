@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 import withApollo from "../../server/apollo"
  import { useQuery, gql, useMutation } from "@apollo/react-hooks";
  import { CgEditBlackPoint } from "react-icons/cg";
+ import { toast } from 'react-toastify';
 // import { gql, useMutation,useLazyQuery } from "@apollo/client";
 export const GET_ADDRESSES=gql`query GetUserShippingAddresses {
   getUserShippingAddresses {
@@ -14,7 +15,7 @@ export const GET_ADDRESSES=gql`query GetUserShippingAddresses {
       _id
       apartment
       city
-      companyName
+     
       country
       email
       firstname
@@ -24,13 +25,20 @@ export const GET_ADDRESSES=gql`query GetUserShippingAddresses {
       streetName
       suite
       unit
-      vatNumber
+      isDefault
+     
     }
   }
 }`
 
 export const REMOVE_ADDRESS=gql`mutation RemoveUserShippingAddress($input: UserRemoveShippingAddressInput!) {
   removeUserShippingAddress(input: $input) {
+    _id
+    message
+  }
+}`
+export const DEFAULT_ADDRESS=gql`mutation UpdateUserShippingAddressAsDefault($input: updateUserShippingAddressAsDefaultInput!) {
+  updateUserShippingAddressAsDefault(input: $input) {
     _id
     message
   }
@@ -46,7 +54,9 @@ function addresses() {
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const [isShippingOpen, setIsShippingOpen] = useState(false);
   const [RemoveUserShippingAddress]=useMutation(REMOVE_ADDRESS)
+  const [UpdateUserShippingAddressAsDefault]=useMutation(DEFAULT_ADDRESS)
   console.log(data);
+  console.log(data?.getUserShippingAddresses?.address?.isDefault);
 useEffect(()=>{
   refetch();
 },[])
@@ -57,6 +67,7 @@ const handleOpenShipping = () => {
 const handleCloseShipping = () => {
 console.log("click");
   setIsshipping(false);
+  refetch();
 };
    const handleRemove=async(id)=>{
      console.log(id);
@@ -65,6 +76,12 @@ console.log("click");
     }}})
     console.log(response);
     refetch();
+   }
+   const handleDefault=async(id)=>{
+    const response=await UpdateUserShippingAddressAsDefault({variables:{input:{addressId:id}}})
+    console.log(response);
+    refetch();
+    toast.success(response?.data?.updateUserShippingAddressAsDefault?.message)
    }
   return (
     <main className="main main-test">
@@ -206,6 +223,8 @@ console.log("click");
                     <div style={{display:"flex",gap:"35px",color:"black",marginTop:"10px"}}>
                       <button style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600"}} onClick={()=>{setIsshipping(true);setIsedit(true);setSelectedAddressId(address?._id)}}>Edit</button>
                       <button style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600"}} onClick={()=>handleRemove(address?._id)}>Remove</button>
+                     { !address.isDefault && <button style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600"}} onClick={()=>handleDefault(address?._id)}>Set as default</button>}
+                    
                     </div></div>
                     </div>
                   

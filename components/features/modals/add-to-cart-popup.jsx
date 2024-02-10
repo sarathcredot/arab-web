@@ -7,19 +7,20 @@ import ALink from "../../common/ALink";
 function CartPopup(props) {
   const { product } = props;
 
+  console.log(product)
+
   return (
     <div className="minipopup-area">
       <div className="minipopup-box" style={{ top: "0" }}>
         <div className="product media-with-lazy">
           <figure className="product-media w-100">
-            <ALink href={`/product/default/${product.slug}`}>
+            <ALink href={`/product/default/${product._id}`}>
               <LazyLoadImage
                 alt="product"
                 src={
-                  product.small_pictures
+                  product?.product?.images
                     ? `${
-                        process.env.NEXT_PUBLIC_ASSET_URI +
-                        product.small_pictures[0].url
+                        product?.product?.images[0]?.fileURL
                       }`
                     : ""
                 }
@@ -35,7 +36,7 @@ function CartPopup(props) {
               !product.variants[product.index].color ? (
                 <ALink
                   className="product-name"
-                  href={`/product/default/${product.slug}`}
+                  href={`/product/default/${product?.product?._id}`}
                 >
                   {product.name +
                     " - " +
@@ -65,9 +66,9 @@ function CartPopup(props) {
             ) : (
               <ALink
                 className="product-name"
-                href={`/product/default/${product.slug}`}
+                href={`/product/default/${product?.product?._id}`}
               >
-                {product.name}
+                {product?.product?.productName}
               </ALink>
             )}
 

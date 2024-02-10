@@ -12,10 +12,21 @@ import { actions as ModalAction } from "../../../store/modal";
 // Import Custom Component
 import ALink from "../../common/ALink";
 import ProductCountdown from "../product-countdown";
+import { gql, useMutation } from "@apollo/client";
+
+const POST_CART = gql`
+  mutation AddToCart($input: addToCartInput!) {
+    addToCart(input: $input) {
+      message
+    }
+  }
+`;
 
 function ProductOne(props) {
   const router = useRouter();
   const { adClass = "", link = "default", product } = props;
+
+  const [addToCart] = useMutation(POST_CART);
 
   function isSale() {
     console.log(product);
@@ -62,10 +73,33 @@ function ProductOne(props) {
     }
   }
 
-  function onAddCartClick(e) {
+  // function onAddCartClick(e) {
+  //   e.preventDefault();
+  //   props.addToCart(product);
+  // }
+
+  const onAddCartClick = async (e, value) => {
     e.preventDefault();
-    props.addToCart(product);
-  }
+
+    const token = localStorage.getItem("token");
+
+    try {
+      const response = await addToCart({
+        variables: {
+          input: {
+            productId: value._id,
+            quantity: 1,
+          },
+        },
+      });
+
+      if (response) {
+        router.push("/pages/cart");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   function onQuickViewClick(e) {
     e.preventDefault();
@@ -73,15 +107,15 @@ function ProductOne(props) {
   }
 
   return (
-    <div className={`product-default media-with-lazy ${adClass}`} >
-      <figure style={props.customStyle && { paddingTop: props.customStyle }} >
+    <div className={`product-default media-with-lazy ${adClass}`}>
+      <figure style={props.customStyle && { paddingTop: props.customStyle }}>
         <ALink href={`/product/${link}/${product._id}`}>
           <div className="lazy-overlay"></div>
           <span
             style={{
               display: "flex",
               justifyContent: "center",
-             
+
               // width: "130px",
               // height: "180px",
             }}
@@ -96,7 +130,6 @@ function ProductOne(props) {
               }}
             />
           </span>
-
         </ALink>
 
         <div className="label-group">
@@ -112,13 +145,17 @@ function ProductOne(props) {
             ""
           )}
         </div>
-
-       
       </figure>
 
       <div
         className="product-details"
-        style={{ alignItems: "left", justifyContent: "left" , ...(props.customdetailStyle && { marginTop: props.customdetailStyle })}}
+        style={{
+          alignItems: "left",
+          justifyContent: "left",
+          ...(props.customdetailStyle && {
+            marginTop: props.customdetailStyle,
+          }),
+        }}
       >
         <div
           className="category-wrap"
@@ -129,25 +166,29 @@ function ProductOne(props) {
             justifyContent: "center",
           }}
         >
-          <div className="category-list" style={{ width: "50%",fontWeight:600 }}>
+          <div
+            className="category-list"
+            style={{ width: "50%", fontWeight: 600 }}
+          >
             {/* {product?.categoryNamePath
               ? product.categories.map((item, index) => (
                   <React.Fragment key={item.slug + "-" + index}> */}
-                    <ALink href="#"
-                      // href={{
-                      //   pathname: "/shop",
-                      //   query: { category: item.slug },
-                      // }}
-                      style={{
-                        color: "rgba(227, 6, 19, 1)",
-                        fontWeight: 600,
-                      }}
-                    >
-                      {product?.categoryNamePath}
-                    </ALink>
-                    {/* {index < product.categories.length - 1 ? ", " : ""} */}
-                  {/* </React.Fragment> */}
-                {/* ))
+            <ALink
+              href="#"
+              // href={{
+              //   pathname: "/shop",
+              //   query: { category: item.slug },
+              // }}
+              style={{
+                color: "rgba(227, 6, 19, 1)",
+                fontWeight: 600,
+              }}
+            >
+              {product?.categoryNamePath}
+            </ALink>
+            {/* {index < product.categories.length - 1 ? ", " : ""} */}
+            {/* </React.Fragment> */}
+            {/* ))
               : ""} */}
           </div>
 
@@ -155,13 +196,30 @@ function ProductOne(props) {
           <div style={{ width: "50%", display: "flex", justifyContent: "end" }}>
             <div
               className="custom-addcart"
-             
+              onClick={(e) => onAddCartClick(e, product)}
             >
-             
-              <svg xmlns="http://www.w3.org/2000/svg" width="25" height="24" viewBox="0 0 25 24" fill="black" stroke="black" className="plusbtn">
-<path d="M6.51025 12.0156H18.2022"  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M12.356 17.8421V6.19043"  stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="25"
+                height="24"
+                viewBox="0 0 25 24"
+                fill="black"
+                stroke="black"
+                className="plusbtn"
+              >
+                <path
+                  d="M6.51025 12.0156H18.2022"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+                <path
+                  d="M12.356 17.8421V6.19043"
+                  stroke-width="1.8"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
             </div>
           </div>
           {/* <a
@@ -190,7 +248,7 @@ function ProductOne(props) {
 
         <h3 className="product-title">
           <ALink
-            href={`/product/default/${product.slug}`}
+            href={`/product/default/${product._id}`}
             style={{ fontWeight: "500px", fontSize: "14px" }}
           >
             {product.productName}
@@ -210,7 +268,7 @@ function ProductOne(props) {
         </div> */}
 
         <div className="price-box">
-          <span style={{fontFamily:'Plus Jakarta Sans'}}>OMR</span>
+          <span style={{ fontFamily: "Plus Jakarta Sans" }}>OMR</span>
           <span
             className="product-price"
             style={{

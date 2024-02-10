@@ -14,7 +14,7 @@ export const SHIPPING_ADDRESS=gql`mutation CreateUserShippingAddress($input: Use
       _id
       apartment
       city
-      companyName
+      
       country
       email
       firstname
@@ -24,7 +24,7 @@ export const SHIPPING_ADDRESS=gql`mutation CreateUserShippingAddress($input: Use
       streetName
       suite
       unit
-      vatNumber
+     
     }
   }`
 export const UPDATE_SHIPPING=gql`mutation EditUserShippingAddress($input: UserEditShippingAddressInput!) {
@@ -103,6 +103,7 @@ if(isEdit){
           if(response){
             localStorage?.setItem("shippingId",response?.data?.createUserShippingAddress?._id)
             toast("Shipping address added")
+            onClose();
             reset()
           }
     }
@@ -112,6 +113,34 @@ if(isEdit){
         }
     
       }
+
+
+      const fieldRules = {
+        city: {
+          required: "City is required",
+        },
+        firstname:{
+            required: "First Name is required", 
+        },
+        houseNumber:{
+            required:"HouseNumber is required",
+        },
+        mobile:{
+            required:"Mobile is required",
+        },
+        postCode:{
+            required:"postCode is required",
+        },
+        streetName:{
+            required:"Street Name is required",
+        },
+        email:{
+            pattern: {
+                value: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
+                message: "Invalid email address"
+            }
+        }
+    }
     return (
         <div>
             <div className="container checkout-container">
@@ -162,42 +191,17 @@ if(isEdit){
                                                     onChange={onChange}
                                                     style={{ marginTop: "10px" }}
                                                 />)}
+                                                rules={fieldRules.firstname}
                                                 />
-                                            {/* </div> */}
+                                           {errors?.firstname ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.firstname?.message}
+                    </div>
+                  ) : null}
                                         </div>
+                                        
 
-                                        {/* <div className="col-md-6"> */}
-                                            {/* <div className="form-group">
-                                                <label
-                                                    style={{
-                                                        fontFamily: "Poppins",
-                                                        fontWeight: "400px",
-                                                        lineHeight: "20px",
-                                                    }}
-                                                >
-                                                    Last name{" "}
-                                                    <ab className="required" title="required">
-                                                        *
-                                                    </ab>
-                                                </label>
-                                                <Controller
-                          control={control}
-                          name="lastName"
-                          render={({ field: { onChange, value } }) => (
-                                                <input
-                                                    type="text"
-                                                    className="form-control"
-                                                  
-                                                    style={{ marginTop: "10px" }}
-                                                    value={value}
-                                                    onChange={onChange}
-                                                />)}
-                                                />
-                                            </div> */}
-                                        {/* </div> */}
-
-
-                                    {/* </div> */}
+                                        
 
 
 
@@ -210,9 +214,7 @@ if(isEdit){
                                             }}
                                         >
                                             Country / Region {" "}
-                                            {/* <ab className="required" title="required">
-                                                *
-                                            </ab> */}
+                                           
                                         </label>
                                         <Controller
                           control={control}
@@ -246,7 +248,13 @@ if(isEdit){
                                             onChange={onChange}
                                             style={{ marginTop: "10px" }}
                                         />)}
+                                        rules={fieldRules.houseNumber}
                                         />
+                                        {errors?.houseNumber ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.houseNumber?.message}
+                    </div>
+                  ) : null}
                                          <Controller
                           control={control}
                           name="streetName"
@@ -258,7 +266,13 @@ if(isEdit){
                                             value={value}
                                             onChange={onChange}
                                         />)}
+                                        rules={fieldRules.streetName}
                                         />
+                                         {errors?.streetName ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.streetName?.message}
+                    </div>
+                  ) : null}
                                     </div>
 
                                     <div className="form-group">
@@ -277,8 +291,13 @@ if(isEdit){
                                             onChange={onChange}
                                             style={{ marginTop: "10px" }}
                                         />)}
+                                        rules={fieldRules.city}
                                         />
-
+ {errors?.city ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.city?.message}
+                    </div>
+                  ) : null}
                                     </div>
 
                                     <div className="form-group">
@@ -297,8 +316,13 @@ if(isEdit){
                                             onChange={onChange}
                                             style={{ marginTop: "10px" }}
                                         />)}
+                                        rules={fieldRules.postCode}
                                         />
-
+{errors?.postCode ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.postCode?.message}
+                    </div>
+                  ) : null}
                                     </div>
 
                                     <div className="form-group">
@@ -323,8 +347,15 @@ if(isEdit){
                                                 value={value}
                                                 onChange={onChange}
                                             />)}
+                                            rules={fieldRules.mobile}
                                             />
+                                             
                                         </div>
+                                        {errors?.mobile ? (
+                    <div style={{color:"red",fontWeight:"300"}}>
+                      {errors?.city?.mobile}
+                    </div>
+                  ) : null}
                                     </div>
 
 

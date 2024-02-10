@@ -64,7 +64,9 @@ function Home() {
             <MainMenu />
           </div>
         </div>
-        <div className="bg-gray">
+        <div 
+        // className="bg-gray"
+        >
           <HomeSection className="pb-5" data={data}/>
         </div>
 

@@ -5,6 +5,7 @@ import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import withApollo from "../../server/apollo"
 import { useEffect } from "react";
+import { toast } from 'react-toastify';
 export const ACCOUNT_DETAIL=gql`mutation UpdateUserProfile($input: updateUserProfileInput!) {
   updateUserProfile(input: $input) {
     
@@ -68,7 +69,7 @@ useEffect(() => {
   
 values._id=id
     console.log(values);
-    event.preventDefault();
+    // e.preventDefault();
     try {
       // if (!mobileNumber.trim()) {
       //   setError("Mobile number is required");
@@ -79,7 +80,7 @@ console.log(id);
     const response= await UpdateUserProfile({ variables: { input: {_id:id,firstName:values.firstName,email:values?.email,lastName:values?.lastName,displayName:values?.displayName} } });
       console.log(response);
       if(response){
-        window.alert(response?.data?.updateUserProfile?.message)
+        toast.success(response?.data?.updateUserProfile?.message)
         reset()
         refetch();
       }

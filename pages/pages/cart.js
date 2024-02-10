@@ -1,176 +1,325 @@
-import { useState, useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useState, useEffect } from "react";
+import { connect } from "react-redux";
 
 import ALink from "../../components/common/ALink";
-import Qty from '../../components/partials/product/qty';
+import Qty from "../../components/partials/product/qty";
 import { actions as CartAction } from "../../store/cart";
-import { getCartTotal } from '../../utils';
-import {AiOutlineClose} from 'react-icons/ai'
+import { getCartTotal } from "../../utils";
+import { AiOutlineClose } from "react-icons/ai";
 import { IoMdHome } from "react-icons/io";
-function Cart ( props ) {
-    const [ cartList, setCartList ] = useState( [] );
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+// import {useQuery} from "@apollo/react-hooks"
 
-    useEffect( () => {
-        setCartList( [ ...props.cart ] );
-    }, [ props.cart ] )
+import withApollo from "../../server/apollo";
+import { toast } from 'react-toastify';
 
-    function removeFromCart ( item, id ) {
-        props.removeFromCart( item );
+const GET_CART = gql`
+  query GetCart {
+    getCart {
+      products {
+        _id
+        productId
+        quantity
+        name
+        stock
+        attributes {
+          attributeId
+          attributeName
+          attributeValueId
+          attributeValue
+          attributeDescription
+        }
+        price
+        image {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
+      }
+      grandTotal
+      subTotal
+      deliveryCharge
     }
+  }
+`;
 
-    function onChangeQty ( id, qty ) {
-        setCartList( cartList.map( ( item, index ) => {
-            return index === id ? { ...item, qty: qty } : item
-        } ) );
+
+
+const PUT_CART=gql `mutation UpdateCartQuantity($input: updateCartQuantityInput!) {
+    updateCartQuantity(input: $input) {
+      message
     }
+  }`;
 
-    function updateCart () {
-        props.updateCart( cartList );
+const REMOVE_CART=gql `mutation RemoveFromCart($input: removeFromCartInput!) {
+    removeFromCart(input: $input) {
+      message
     }
+  }`;
 
-    return (
-        <main className="main">
+function Cart(props) {
+  const [cartList, setCartList] = useState();
+    const [updateCartQuantity]=useMutation(PUT_CART);
+    const [removeFromCart]=useMutation(REMOVE_CART);
+    const token =localStorage.getItem("arabtoken")
+  const {
+    data: cartData,
+    loading: cartLoading,
+    error: cartError,
+    refetch: cartRefetch
+  } = useQuery(GET_CART);
+
+  useEffect(() => {
+    if (cartError) {
+      console.error("Error fetching cart data:", cartError);
+    } else if (cartData) {
+      setCartList(cartData.getCart.products || []);
+    }
+    cartRefetch()
+  }, [cartData]);
+  
+  const removeCart= async(id) => {
+    try {
+         // props.removeFromCart(item);
+    const response= await removeFromCart({variables:{input:{
+        productId: id,
+        
+    }}})
+
+ cartRefetch()
+ 
+ toast.success("successfully removed product")
+ 
+    console.log(response)
+    } catch (error) {
+        console.log(error)
+    }
+  }
+
+  const  onChangeQty= async (id, qty)=> {
+    // qty.preventDefault();
+try {
+    
+    console.log(id,qty);
+    const response= await updateCartQuantity({variables:{input:{
+        productId: id,
+        quantity: qty
+    }}})
+    console.log(response)
+ if (response){
+    return cartRefetch()
+ }
+    console.log(response)
+} catch (error) {
+    console.log(error)
+}
+    // setCartList( cartList.map( ( item, index ) => {
+    //     return index === id ? { ...item, qty: qty } : item
+    // } ) );
 
 
-<nav aria-label="breadcrumb" className="breadcrumb-nav">
-          <div className="container">
-            <ol className="breadcrumb">
-            <li className="breadcrumb-item" >
+  }
+
+  function updateCart() {
+    props.updateCart(cartList);
+  }
+
+  return (
+    <main className="main">
+      <nav aria-label="breadcrumb" className="breadcrumb-nav">
+        <div className="container">
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item">
               <ALink href="/">
-                <IoMdHome style={{fontSize:"16px"}}/>
+                <IoMdHome style={{ fontSize: "16px" }} />
                 {/* <i className="icon-home"></i> */}
-
               </ALink>
             </li>
-             
-              <li className="breadcrumb-item active" aria-current="page">
-              <ALink className="activeitem" href="/pages/cartt">Shoping cart</ALink>
-              </li>
-            </ol>
-          </div>
-        </nav>
-        <div
-          className=" d-flex flex-column align-items-center"
-         
-        >
-          {/* <h1>orders</h1>*/}
 
-          <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap"  style={{ backgroundColor: "#F9F9F9",width:"100%" }}>
-           
-            <li className="active">
-              <ALink href="/pages/cart">Shoping cart</ALink>
+            <li className="breadcrumb-item active" aria-current="page">
+              <ALink className="activeitem" href="/pages/cartt">
+                Shoping cart
+              </ALink>
             </li>
-            <li className="">
-              <ALink href="/pages/checkout">checkout</ALink>
-            </li>
-            <li className="">
-              <ALink href="/pages/checkout">Order Complete</ALink>
-            </li>
-          </ul>
+          </ol>
         </div>
-            <div className="container" style={{marginTop:"70px"}}>
-               
+      </nav>
+      <div className=" d-flex flex-column align-items-center">
+        {/* <h1>orders</h1>*/}
 
-                {
-                    cartList.length === 0 ?
-                        <div className="cart-table-container">
-                            <div className="table table-cart">
-                                <div className="cart-empty-page text-center">
-                                    <i className="icon-bag-2"></i>
-                                    <p>No products added to the cart</p>
-                                    <ALink href="/shop" className="btn btn-dark btn-add-cart product-type-simple btn-shop font1">
-                                        return to shop</ALink>
-                                </div>
+        <ul
+          className="checkout-progress-bar d-flex justify-content-center flex-wrap"
+          style={{ backgroundColor: "#F9F9F9", width: "100%" }}
+        >
+          <li className="active">
+            <ALink href="/pages/cart">Shoping cart</ALink>
+          </li>
+          <li className="">
+            <ALink href="/pages/checkout">checkout</ALink>
+          </li>
+          <li className="">
+            <ALink href="/pages/checkout">Order Complete</ALink>
+          </li>
+        </ul>
+      </div>
+      <div className="container" style={{ marginTop: "70px" }}>
+        {cartList?.length === 0 ? (
+          <div className="cart-table-container">
+            <div className="table table-cart">
+              <div className="cart-empty-page text-center">
+                <i className="icon-bag-2"></i>
+                <p>No products added to the cart</p>
+                <ALink
+                  href="/shop"
+                  className="btn btn-dark btn-add-cart product-type-simple btn-shop font1"
+                >
+                  return to shop
+                </ALink>
+              </div>
+            </div>
+          </div>
+        ) : (
+          <div className="row">
+            <div className="col-lg-8">
+              <div className="cart-table-container">
+                <table className="table table-cart">
+                  <thead>
+                    <tr>
+                      {/* <th className="thumbnail-col"></th> */}
+                      <th className="product-col pl-0">Product</th>
+                      <th className="price-col">Name</th>
+                      <th className="price-col">Price</th>
+                      <th className="qty-col">Quantity</th>
+                      <th className="text-right">Subtotal</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {cartList?.map((item, index) => (
+                      <tr
+                        key={"cart-item" + index}
+                        className="product-row"
+                        style={{ color: "black" }}
+                      >
+                        <td className="pl-0">
+                          <figure className="product-image-container">
+                            <ALink
+                              href={`/product/default/${item.productId}`}
+                              className="product-image"
+                            >
+                              <img
+                                src={item?.image[0]?.fileURL}
+                                alt="product"
+                              />
+                            </ALink>
+                            <div
+                              title="Remove Product"
+                              style={{
+                                width: "20px",
+                                height: "20px",
+                                position: "absolute",
+                                top: "-7px",
+                                display: "flex",
+                                justifyContent: "center",
+                                alignItems: "center",
+                                right: "-5px",
+                                borderRadius: "50%",
+                                background: "white",
+                                filter:
+                                  "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))",
+                              }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                removeCart(item.productId, index);
+                              }}
+                            >
+                              <AiOutlineClose style={{ fontSize: "10px" }} />
                             </div>
+                            {/* <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }></a> */}
+                          </figure>
+                        </td>
+                        <td className="product-col">
+                          <h5 className="product-title">
+                            <ALink href={`/product/default/${item?.productId}`}>
+                              {item.name}
+                            </ALink>
+                          </h5>
+                        </td>
+                        <td>OMR {item.price.toFixed(2)}</td>
+                        <td>
+                          <Qty
+                            value={item?.quantity}
+                            max={item?.stock}
+                            onChangeQty={(qty) => onChangeQty(item?.productId, qty)}
+                          />
+                        </td>
+                        <td className="text-right">
+                          <span className="subtotal-price">
+                            OMR{" "}
+                            {(
+                              parseInt(item.price) * parseInt(item.quantity)
+                            ).toFixed(2)}
+                          </span>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+
+                  <tfoot>
+                    <tr>
+                      <td colSpan="5" className="clearfix pl-0">
+                        <div className="float-left">
+                          <div className="cart-discount">
+                            <form action="#">
+                              <div className="input-group">
+                                <input
+                                  type="text"
+                                  className="form-control form-control-sm"
+                                  placeholder="Coupon Code"
+                                  required
+                                />
+                                <div className="input-group-append">
+                                  <button
+                                    className="btn btn-sm"
+                                    type="submit"
+                                    style={{
+                                      backgroundColor: "black",
+                                      color: "white",
+                                    }}
+                                  >
+                                    Apply Coupon
+                                  </button>
+                                </div>
+                              </div>
+                            </form>
+                          </div>
                         </div>
-                        :
-                        <div className="row">
-                            <div className="col-lg-8">
-                                <div className="cart-table-container">
-                                    <table className="table table-cart">
-                                        <thead>
-                                            <tr>
-                                                {/* <th className="thumbnail-col"></th> */}
-                                                <th className="product-col pl-0">Product</th>
-                                                <th className="price-col">Price</th>
-                                                <th className="qty-col">Quantity</th>
-                                                <th className="text-right">Subtotal</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {
-                                                cartList.map( ( item, index ) => (
-                                                    <tr key={ "cart-item" + index } className="product-row" style={{color:"black"}}>
-                                                        <td className='pl-0'>
-                                                            <figure className="product-image-container">
-                                                                <ALink href={ `/product/default/${item.slug}` } className="product-image">
-                                                                    <img src={ process.env.NEXT_PUBLIC_ASSET_URI + item.small_pictures[ 0 ].url } alt="product" />
-                                                                </ALink>
-<div title="Remove Product" style={{width:"20px", height:"20px",position:"absolute",top:"-7px",display:"flex",justifyContent:"center",alignItems:"center",right:"-5px",borderRadius:"50%", background:"white",filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))"}} onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }>
-<AiOutlineClose style={{fontSize:"10px"}}/>
 
-</div>
-                                                                {/* <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }></a> */}
-                                                            </figure>
-                                                        </td>
-                                                        <td className="product-col">
-                                                            <h5 className="product-title">
-                                                                <ALink href={ `/product/default/${item.slug}` }>{ item.name }</ALink>
-                                                            </h5>
-                                                        </td>
-                                                        <td>
-                                                            OMR { item.price.toFixed( 2 ) }
-                                                        </td>
-                                                        <td>
-                                                            <Qty value={ item.qty } max={ item.stock } onChangeQty={ qty => onChangeQty( index, qty ) } />
-                                                        </td>
-                                                        <td className="text-right"><span className="subtotal-price">OMR { ( item.price * item.qty ).toFixed( 2 ) }</span></td>
-                                                    </tr>
-                                                ) )
-                                            }
-                                        </tbody>
-
-
-                                        <tfoot>
-                                            <tr>
-                                                <td colSpan="5" className="clearfix pl-0">
-                                                    <div className="float-left">
-                                                        <div className="cart-discount">
-                                                            <form action="#">
-                                                                <div className="input-group">
-                                                                    <input type="text" className="form-control form-control-sm"
-                                                                        placeholder="Coupon Code" required />
-                                                                    <div className="input-group-append" >
-                                                                        <button className="btn btn-sm" type="submit" style={{backgroundColor:"black" ,color:"white"}}>Apply Coupon</button>
-                                                                    </div>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div>
-
-                                                    {/* <div className="float-right">
+                        {/* <div className="float-right">
                                                         <button type="submit" className="btn btn-shop btn-update-cart" style={{border:"1px solid"}} onClick={ updateCart }>
                                                             Update Cart
                                                         </button>
                                                     </div> */}
-                                                </td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
+                      </td>
+                    </tr>
+                  </tfoot>
+                </table>
+              </div>
+            </div>
 
-                            <div className="col-lg-4">
-                                <div className="cart-summary">
-                                    <h3>Cart Totals</h3>
+            <div className="col-lg-4">
+              <div className="cart-summary">
+                <h3>Cart Totals</h3>
 
-                                    <table className="table table-totals">
-                                        <tbody>
-                                            <tr>
-                                                <td>Subtotal</td>
-                                                  <td style={{color:"black"}}>OMR { getCartTotal( cartList ).toFixed( 2 ) }</td>
-                                            </tr>
-{/* 
+                <table className="table table-totals">
+                  <tbody>
+                    <tr>
+                      <td>Subtotal</td>
+                      <td style={{ color: "black" }}>
+                        OMR {getCartTotal(cartList).toFixed(2)}
+                      </td>
+                    </tr>
+                    {/* 
                                             <tr>
                                                 <td colSpan="2" className="text-left">
                                                     <h4>Shipping</h4>
@@ -229,35 +378,39 @@ function Cart ( props ) {
                                                     </form>
                                                 </td>
                                             </tr> */}
-                                        </tbody>
+                  </tbody>
 
-                                        <tfoot>
-                                            <tr>
-                                                <td>Total</td>
-                                                <td>OMR { getCartTotal( cartList ).toFixed( 2 ) }</td>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
+                  <tfoot>
+                    <tr>
+                      <td>Total</td>
+                      <td>OMR {getCartTotal(cartList).toFixed(2)}</td>
+                    </tr>
+                  </tfoot>
+                </table>
 
-                                    <div className="checkout-methods">
-                                        <ALink href="checkout" className="btn btn-block btn-dark">Proceed to Checkout
-                                        <i className="fa fa-arrow-right"></i></ALink>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                }
+                <div className="checkout-methods">
+                  <ALink href="checkout" className="btn btn-block btn-dark">
+                    Proceed to Checkout
+                    <i className="fa fa-arrow-right"></i>
+                  </ALink>
+                </div>
+              </div>
             </div>
+          </div>
+        )}
+      </div>
 
-            <div className="mb-6"></div>
-        </main>
-    )
+      <div className="mb-6"></div>
+    </main>
+  );
 }
 
-const mapStateToProps = ( state ) => {
-    return {
-        cart: state.cartlist.cart ? state.cartlist.cart : []
-    }
-}
+const mapStateToProps = (state) => {
+  return {
+    cart: state.cartlist.cart ? state.cartlist.cart : [],
+  };
+};
 
-export default connect( mapStateToProps, { ...CartAction } )( Cart );
+export default withApollo({ ssr: typeof window === "undefined" })(
+  connect(mapStateToProps, { ...CartAction })(Cart)
+);

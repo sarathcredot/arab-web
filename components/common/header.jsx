@@ -19,15 +19,23 @@ function Header({ adClass = "", wishlist }) {
     document.querySelector("body").classList.toggle("mmenu-active");
     e.currentTarget.classList.toggle("active");
   }
+
   const router=useRouter()
   const handleLog=()=>{
+    console.log("click");
     if(localStorage.getItem("arabtoken")){
+      console.log("ccc");
       router.push("/pages/account")
     }
     else{
       router.push("/pages/login")
     }
   }
+
+
+  const token = localStorage.getItem("arabtoken");
+
+
   // <div className="header-top">
   //   {/* <div className="container">
   //     <div className="header-left d-none d-sm-block">
@@ -219,8 +227,8 @@ function Header({ adClass = "", wishlist }) {
                   {wishlist.length}
                 </span>
               </ALink>
-
-              <CartMenu />
+                {token&&  <CartMenu />}
+             
             </div>
           </div>
         </div>
