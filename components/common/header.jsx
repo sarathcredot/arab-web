@@ -20,7 +20,7 @@ function Header({ adClass = "", wishlist }) {
   }
 
   const token = localStorage.getItem("arabtoken");
-
+const click=localStorage.getItem("click")
   // <div className="header-top">
   //   {/* <div className="container">
   //     <div className="header-left d-none d-sm-block">
@@ -212,7 +212,7 @@ function Header({ adClass = "", wishlist }) {
                   {wishlist.length}
                 </span>
               </ALink>
-                {token&&  <CartMenu />}
+                {token&&  <CartMenu  click={click}/>}
              
             </div>
           </div>

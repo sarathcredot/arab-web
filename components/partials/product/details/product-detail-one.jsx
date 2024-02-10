@@ -315,6 +315,7 @@ function ProductDetailOne(props) {
   const  onAddCartClick= async (e)=> {
     e.preventDefault();
 
+  localStorage.setItem("click", "click");
     // if (product.stock > 0 && !e.currentTarget.classList.contains("disabled")) {
     //   if (product.variants.length === 0) {
     //     props.addToCart(product, qty, -1);

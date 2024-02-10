@@ -82,6 +82,7 @@ function ProductOne(props) {
     e.preventDefault();
 
     const token = localStorage.getItem("token");
+  
 
     try {
       const response = await addToCart({

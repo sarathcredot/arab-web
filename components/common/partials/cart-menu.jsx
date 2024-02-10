@@ -14,33 +14,26 @@ import withApollo from "../../../server/apollo";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 const GET_CART = gql`
   query GetCart {
-    getCart {
-      products {
-        _id
-        productId
-        quantity
-        name
-        stock
-        attributes {
-          attributeId
-          attributeName
-          attributeValueId
-          attributeValue
-          attributeDescription
-        }
-        price
-        image {
-          fileType
-          fileURL
-          mimeType
-          originalName
-        }
-      }
-      grandTotal
-      subTotal
-      deliveryCharge
+  getCart {
+    products {
+      _id
+      productId
+      quantity
+      name
+      shortDescription
+      stock
+      color
+      size
+      price
+      image
+      sellingPrice
+      mrp
     }
+    grandTotal
+    subTotal
+    deliveryCharge
   }
+}
 `;
 
 const REMOVE_CART = gql`
@@ -111,6 +104,7 @@ function CartMenu(props) {
     }
   };
 
+ 
   const {
     data: cartData,
     loading: cartLoading,
@@ -118,6 +112,7 @@ function CartMenu(props) {
     refetch: cartRefetch,
   } = useQuery(GET_CART);
 
+  const click=localStorage.getItem('click')
   useEffect(() => {
     if (cartError) {
       console.error("Error fetching cart data:", cartError);
@@ -126,7 +121,7 @@ function CartMenu(props) {
     }
     cartRefetch();
   }, [cartData]);
-  cartRefetch();
+  // cartRefetch();
   console.log(cartItems, "dd");
 
   return (
@@ -225,7 +220,7 @@ function CartMenu(props) {
                         className="product-image"
                       >
                         <img
-                          src={cart?.image[0]?.fileURL}
+                          src={cart?.image}
                           width="78"
                           height="78"
                           alt="product"
