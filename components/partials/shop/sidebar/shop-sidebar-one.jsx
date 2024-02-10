@@ -84,7 +84,7 @@ console.log(query);
     variables: { input: { parent: catId } },
   });
 
-
+console.log(data);
   //maxprice value getting
    const {data:maxPriceData,loading:priceLoading,priceError}=useQuery(MAX_PRICE,{variables:{input:{categories:[catId]}}})
    console.log(maxPriceData);
@@ -233,23 +233,7 @@ console.log(query);
     const searchParams=router.query
     const newSearchparams={...searchParams,max_price:priceRange.max,min_price:priceRange.min}
     router.replace({pathname:router.pathname,query:newSearchparams})
-    // let url = router.pathname.replace("[grid]", query.grid);
-    // let arr = [
-    //   `min_price=${priceRange.min}`,
-    //   `max_price=${priceRange.max}`,
-    //   "page=1",
-    // ];
-    // for (let key in query) {
-    //   if (
-    //     key !== "min_price" &&
-    //     key !== "max_price" &&
-    //     key !== "page" &&
-    //     key !== "grid"
-    //   )
-    //     arr.push(key + "=" + query[key]);
-    // }
-    // url = url + "?" + arr.join("&");
-    // router.push(url);
+   
   }
 
   function closeSidebar() {
@@ -318,14 +302,10 @@ console.log(query);
                       <div className="widget-body pb-4 m-4">
                         <ul>
                         {data &&
-                          data?.getActiveChildCategories?.records.length > 0 &&
+                          data?.getActiveChildCategories?.records.length > 0 ?
                           data?.getActiveChildCategories?.records?.map((category,index)=>(
                             <li
-                            //  className={
-                            //   containsAttrInUrl("category", category?.categoryName)
-                            //     ? "active"
-                            //     : ""
-                            // }
+                           
                             key={`category-${index}`}>
                               <ALink
 className="custom-categorylabels"
@@ -350,31 +330,10 @@ className="custom-categorylabels"
                             </li>
                           )
 
-                          )}
+                          ):<li>No categories</li>}
                           </ul>
                       </div>
-                      {/* <div
-                        className="widget-body"
-                        style={{ marginLeft: "20px" }}
-                      >
-                        <Tree
-                          className="no-icon cat-list border-0"
-                          selectable={true}
-                          showIcon={false}
-                          defaultExpandedKeys={
-                            query.category ? [query.category] : []
-                          }
-                          // switcherIcon={ ( props ) => {
-                          //     return ( !props.isLeaf ?
-                          //         <span className="toggle"></span>
-                          //         : ''
-                          //     )
-                          // } }
-                          selectedKeys={query.category ? [query.category] : []}
-                          treeData={categories}
-                          onSelect={filterByCategory}
-                        />
-                      </div> */}
+                     
                     </div>
                   </>
                 )}
@@ -382,13 +341,13 @@ className="custom-categorylabels"
             )}
           </div>
 
-          {/* {(query.category ||
+         
+           { (query.category ||
             query.sizes ||
             query.colors ||
-            query.brands ||
+            
             query.min_price ||
-            query.max_price) && ( */}
-            <div className="widget">
+            query.max_price) && <div className="widget">
               <ALink
               href={{ query: { cat_id: query.cat_id } }}
                 //  href={{ query: { grid: query.grid } }}
@@ -397,9 +356,83 @@ className="custom-categorylabels"
               >
                 Reset All Filters
               </ALink>
-            </div>
+            </div>}
           {/* )} */}
-
+          <div className="widget widget-brand">
+            {loading ? (
+              <div className="skel-widget"></div>
+            ) : (
+              <SlideToggle>
+                {({ onToggle, setCollapsibleElement, toggleState }) => (
+                  <>
+                    {brandData && brandData?.getBrandDetailsWithCategory?.records.length>0?<h3 className="widget-title">
+                      <a
+                        className={
+                          toggleState === "COLLAPSED" ? "collapsed" : ""
+                        }
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault(), onToggle();
+                        }}
+                      >
+                        Brand
+                      </a>
+                    </h3>:""}
+                    <div
+                      className="overflow-hidden"
+                      ref={setCollapsibleElement}
+                    >
+                      <div className="widget-body pb-0">
+                        <ul className="cat-list">
+                          {brandData?.getBrandDetailsWithCategory?.records?.map(
+                            (item, index) => (
+                              <li
+                                // className={
+                                //   containsAttrInUrl("brands", item.category)
+                                //     ? "active"
+                                //     : ""
+                                // }
+                                key={`brands-${index}`}
+                              >
+                                <label htmlFor={item.brandName}>
+                                  <input
+                                    id={item.brandName}
+                                    type="checkbox"
+                                    checked={query?.brands?.includes(
+                                      item._id
+                                    )}
+                                    onChange={() =>
+                                      handleBrandCheckboxChange(item.brandName)
+                                    }
+                                    style={{ marginRight: "5px" }}
+                                  />
+                                  <ALink
+                                    href={{
+                                      query: {
+                                        ...query,
+                                        page: 0,
+                                        brands: getUrlForAttrs(
+                                          "brands",
+                                          item._id
+                                        ),
+                                      },
+                                    }}
+                                    scroll={false}
+                                  >
+                                    {item.brandName}
+                                  </ALink>
+                                </label>
+                              </li>
+                            )
+                          )}
+                        </ul>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </SlideToggle>
+            )}
+          </div>
           <div
             className="widget widget-price overflow-hidden"
             style={{ padding: "0" }}
@@ -727,81 +760,7 @@ className="custom-categorylabels"
               }
             )}
 
-          <div className="widget widget-brand">
-            {loading ? (
-              <div className="skel-widget"></div>
-            ) : (
-              <SlideToggle>
-                {({ onToggle, setCollapsibleElement, toggleState }) => (
-                  <>
-                    {brandData && brandData?.getBrandDetailsWithCategory?.records.length>0?<h3 className="widget-title">
-                      <a
-                        className={
-                          toggleState === "COLLAPSED" ? "collapsed" : ""
-                        }
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault(), onToggle();
-                        }}
-                      >
-                        Brand
-                      </a>
-                    </h3>:""}
-                    <div
-                      className="overflow-hidden"
-                      ref={setCollapsibleElement}
-                    >
-                      <div className="widget-body pb-0">
-                        <ul className="cat-list">
-                          {brandData?.getBrandDetailsWithCategory?.records?.map(
-                            (item, index) => (
-                              <li
-                                // className={
-                                //   containsAttrInUrl("brands", item.category)
-                                //     ? "active"
-                                //     : ""
-                                // }
-                                key={`brands-${index}`}
-                              >
-                                <label htmlFor={item.brandName}>
-                                  <input
-                                    id={item.brandName}
-                                    type="checkbox"
-                                    checked={query?.brands?.includes(
-                                      item._id
-                                    )}
-                                    onChange={() =>
-                                      handleBrandCheckboxChange(item.brandName)
-                                    }
-                                    style={{ marginRight: "5px" }}
-                                  />
-                                  <ALink
-                                    href={{
-                                      query: {
-                                        ...query,
-                                        page: 0,
-                                        brands: getUrlForAttrs(
-                                          "brands",
-                                          item._id
-                                        ),
-                                      },
-                                    }}
-                                    scroll={false}
-                                  >
-                                    {item.brandName}
-                                  </ALink>
-                                </label>
-                              </li>
-                            )
-                          )}
-                        </ul>
-                      </div>
-                    </div>
-                  </>
-                )}
-              </SlideToggle>
-            )}
-          </div>
+         
         </StickyBox>
       </aside>
     </>
