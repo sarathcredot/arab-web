@@ -8,7 +8,61 @@ import { actions as WishlistAction } from "../../store/wishlist";
 import { actions as CartAction } from "../../store/cart";
 import { actions as ModalAction } from "../../store/modal";
 import { IoMdHome } from "react-icons/io";
-function Wishlist(props) {
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import withApollo from "../../server/apollo";
+
+const GET_ORDERS= gql `query GetUserOrderProducts($input: GetUserOrderProductsInput!) {
+  getUserOrderProducts(input: $input) {
+    maxRecords
+    records {
+      _id
+      productId
+      vendorId
+      orderId
+      itemId
+      productName
+      shortDescription
+      skuId
+      image {
+        fileType
+        fileURL
+        mimeType
+        originalName
+      }
+      returnPeriod
+      mrp
+      sellingPrice
+      shippingCharge
+      paymentMode
+      paymentStatus
+      orderDate
+      shippingStatus
+      shippedDate
+      deliveryDate
+      returnStatus
+      returnDate
+      returnRequestDate
+      returnRejectedDate
+      returnUserReason
+      refundStatus
+      refundAmount
+      refundDate
+      cancelledDate
+      cancelUserReason
+      courierId
+      invoiceNumber
+      invoice {
+        fileType
+        fileURL
+        mimeType
+        originalName
+      }
+    }
+  }
+}`;
+
+
+function Orders(props) {
   const { wishlist, addToCart, removeFromWishlist, showQuickView } = props;
   const [flag, setFlag] = useState(0);
 
@@ -29,6 +83,18 @@ function Wishlist(props) {
     e.preventDefault();
     showQuickView(product.slug);
   };
+
+
+
+  const {
+    data: orderData,
+    loading: orderLoading,
+    error: orderError,
+    refetch: orderRefetch
+  } = useQuery(GET_ORDERS);
+
+
+  
 
   return (
     <main className="main">
@@ -62,7 +128,7 @@ function Wishlist(props) {
                             <ol className="breadcrumb">
                                 <li className="breadcrumb-item"><ALink href="/">Home</ALink></li>
                                 <li className="breadcrumb-item active" aria-current="page">
-                                    Wishlist
+                                    Orders
                                 </li>
                             </ol>
                         </div>
@@ -234,8 +300,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
+export default withApollo({ ssr: typeof window === "undefined" })( connect(mapStateToProps, {
   ...WishlistAction,
   ...CartAction,
   ...ModalAction,
-})(Wishlist);
+})(Orders));

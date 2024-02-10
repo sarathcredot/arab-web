@@ -3,7 +3,12 @@ import Reveal from "react-awesome-reveal";
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 import { useRouter } from "next/router";
 
-function BannerSection({ offer }) {
+function BannerSection({ offer,data }) {
+  console.log(data);
+  const section2Data = data?.getAllCmsRecords?.records.find(record => record.sectionName === 'SECTION-2');
+  console.log(section2Data);
+  const section3Data = data?.getAllCmsRecords?.records.find(record => record.sectionName === 'SECTION-3');
+  console.log(section3Data);
   return (
     // <Reveal keyframes={fadeInUpShorter} delay={200} duration={1000} triggerOnce>
     <div className="banner-section">
@@ -24,7 +29,7 @@ function BannerSection({ offer }) {
           <div className="row pb-4">
             <div className="col-md-8 custom-web-banner2">
               <img
-                src="images/home/banners/homeimage2.svg"
+                src={section2Data?.images[0]?.fileURL}
                 className="bannerimg"
                 style={{ width: "100%", height: "470px", objectFit: "cover" }}
               />
@@ -38,7 +43,7 @@ function BannerSection({ offer }) {
             </div>
             <div className="col-md-4 custom-web-banner3">
               <img
-                src="images/home/banners/homeimage3.svg"
+                src={section3Data?.images[0]?.fileURL}
                 className="bannerimg"
                 style={{ width: "100%", height: "470px", objectFit: "cover" }}
               />

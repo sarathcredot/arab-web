@@ -21,11 +21,11 @@ const cartReducer = ( state = initialState, action ) => {
     switch ( action.type ) {
         case actionTypes.AddToCart:
 
-            const productSlug = action.payload.product.slug;
-            if ( state.cart.findIndex( product => product.slug === productSlug && product.index === action.index ) !== -1 ) {
+            const productSlug = action.payload.product._id;
+            if ( state.cart.findIndex( product => product._id === productSlug && product.index === action.index ) !== -1 ) {
 
                 const cart = state.cart.reduce( ( cartAcc, product ) => {
-                    if ( product.slug === productSlug && product.index === action.index ) {
+                    if ( product._id === productSlug && product.index === action.index ) {
                         cartAcc.push( { ...product, qty: parseInt( product.qty ) + parseInt( action.qty ), sum: ( product.sale_price ? product.sale_price : product.price ) * ( parseInt( product.qty ) + parseInt( action.qty ) ) } ) // Increment qty
                     } else {
                         cartAcc.push( product )
@@ -44,7 +44,7 @@ const cartReducer = ( state = initialState, action ) => {
                     {
                         ...action.payload.product,
                         qty: action.qty,
-                        price: ( action.payload.product.variants.length && !action.payload.product.variants.find( item => item.price === null ) ) ? ( action.payload.product.variants[ action.index ].sale_price ? action.payload.product.variants[ action.index ].sale_price : action.payload.product.variants[ action.index ].price ) : ( action.payload.product.sale_price ? action.payload.product.sale_price : action.payload.product.price[ 0 ] ),
+                        price: ( action.payload.product.price  ),
                         index: action.index
                     }
                 ]

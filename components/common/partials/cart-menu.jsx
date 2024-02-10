@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { connect } from "react-redux";
 import { useRouter } from "next/router";
 import { BsFillHandbagFill } from "react-icons/bs";
@@ -7,12 +7,46 @@ import { actions as CartAction } from "../../../store/cart";
 import styles from "../../common/header.module.css";
 // Import Custom Component
 import ALink from "../ALink";
-import {AiOutlineClose} from 'react-icons/ai'
+import { AiOutlineClose } from "react-icons/ai";
 // Import Utils
 import { getCartTotal } from "../../../utils";
+import withApollo from "../../../server/apollo";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+const GET_CART = gql`
+  query GetCart {
+  getCart {
+    products {
+      _id
+      productId
+      quantity
+      name
+      shortDescription
+      stock
+      color
+      size
+      price
+      image
+      sellingPrice
+      mrp
+    }
+    grandTotal
+    subTotal
+    deliveryCharge
+  }
+}
+`;
+
+const REMOVE_CART = gql`
+  mutation RemoveFromCart($input: removeFromCartInput!) {
+    removeFromCart(input: $input) {
+      message
+    }
+  }
+`;
 
 function CartMenu(props) {
-  const { cartItems } = props;
+  // const { cartItems } = props;
+  const [cartItems, setCartItems] = useState();
   const router = useRouter();
 
   useEffect(() => {
@@ -37,16 +71,58 @@ function CartMenu(props) {
     let total = 0;
     if (items) {
       for (let i = 0; i < items.length; i++) {
-        total += parseInt(items[i].qty, 10);
+        total += parseInt(items[i].quantity, 10);
       }
     }
     return total;
   }
 
-  function removeFromCart(e, cart) {
-    e.preventDefault();
-    props.removeFromCart(cart);
-  }
+  // function removeFromCart(e, cart) {
+  //   e.preventDefault();
+  //   props.removeFromCart(cart);
+  // }
+
+  const [removeFromCart] = useMutation(REMOVE_CART);
+  const removeCart = async (id) => {
+    try {
+      // props.removeFromCart(item);
+      const response = await removeFromCart({
+        variables: {
+          input: {
+            productId: id,
+          },
+        },
+      });
+
+      cartRefetch();
+
+      toast.success("successfully removed product");
+
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+ 
+  const {
+    data: cartData,
+    loading: cartLoading,
+    error: cartError,
+    refetch: cartRefetch,
+  } = useQuery(GET_CART);
+
+  const click=localStorage.getItem('click')
+  useEffect(() => {
+    if (cartError) {
+      console.error("Error fetching cart data:", cartError);
+    } else if (cartData) {
+      setCartItems(cartData.getCart.products || []);
+    }
+    cartRefetch();
+  }, [cartData]);
+  // cartRefetch();
+  console.log(cartItems, "dd");
 
   return (
     <div className="dropdown cart-dropdown">
@@ -61,7 +137,7 @@ function CartMenu(props) {
         </div>
         {/* <i className="icon-cart-thick"></i> */}
         <span className="cart-count badge-circle">
-          {getQtyTotal(cartItems)}
+          {cartItems && cartItems?.length}
         </span>
       </a>
 
@@ -81,25 +157,25 @@ function CartMenu(props) {
         </a>
 
         <div className="dropdownmenu-wrapper">
-          <div style={{display:"flex"}}> 
-          <div className="dropdown-cart-header">Shopping Cart</div>
-          <a
-          href="#"
-          title="Close (Esc)"
-          className="btn-close"
-          onClick={(e) => {
-            cartClose();
-            e.preventDefault();
-          }}
-        >
-          ×
-        </a>
+          <div style={{ display: "flex" }}>
+            <div className="dropdown-cart-header">Shopping Cart</div>
+            <a
+              href="#"
+              title="Close (Esc)"
+              className="btn-close"
+              onClick={(e) => {
+                cartClose();
+                e.preventDefault();
+              }}
+            >
+              ×
+            </a>
           </div>
-          
-          {cartItems.length > 0 ? (
+
+          {cartItems?.length > 0 ? (
             <>
               <div className="dropdown-cart-products">
-                {cartItems.map((cart, index) => (
+                {cartItems?.map((cart, index) => (
                   <div className="product" key={"cartItems" + index}>
                     <div className="product-details">
                       <h2 className="product-title">
@@ -126,14 +202,15 @@ function CartMenu(props) {
                             </ALink>
                           )
                         ) : (
-                          <ALink href={`/product/default/${cart.slug}`}>
+                          <ALink href={`/product/default/${cart._id}`}>
                             {cart.name}
                           </ALink>
                         )}
                       </h2>
 
                       <span className="cart-product-info">
-                        <span className="cart-product-qty">{cart.qty}</span> × OMR {cart.price.toFixed(2)}
+                        <span className="cart-product-qty">{cart.qty}</span> ×
+                        OMR {cart.price.toFixed(2)}
                       </span>
                     </div>
 
@@ -143,19 +220,35 @@ function CartMenu(props) {
                         className="product-image"
                       >
                         <img
-                          src={
-                            process.env.NEXT_PUBLIC_ASSET_URI +
-                            cart.small_pictures[0].url
-                          }
+                          src={cart?.image}
                           width="78"
                           height="78"
                           alt="product"
                         />
                       </ALink>
-                      <div title="Remove Product" style={{width:"20px", height:"20px",position:"absolute",top:"-7px",display:"flex",justifyContent:"center",alignItems:"center",right:"-5px",borderRadius:"50%", background:"white",filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))"}} onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }>
-<AiOutlineClose style={{fontSize:"10px"}}/>
-
-</div>
+                      <div
+                        title="Remove Product"
+                        style={{
+                          width: "20px",
+                          height: "20px",
+                          position: "absolute",
+                          top: "-7px",
+                          display: "flex",
+                          justifyContent: "center",
+                          alignItems: "center",
+                          right: "-5px",
+                          borderRadius: "50%",
+                          background: "white",
+                          filter:
+                            "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))",
+                        }}
+                        onClick={(e) => {
+                          e.preventDefault();
+                          removeCart(cart.productId, index);
+                        }}
+                      >
+                        <AiOutlineClose style={{ fontSize: "10px" }} />
+                      </div>
                       {/* <a
                         href="#"
                         className="btn-remove icon-cancel"
@@ -180,7 +273,8 @@ function CartMenu(props) {
               <div className="dropdown-cart-action">
                 <ALink
                   href="/pages/cart"
-                  className="btn  btn-block view-cart"style={{border: "1px solid #000", background:"white"}}
+                  className="btn  btn-block view-cart"
+                  style={{ border: "1px solid #000", background: "white" }}
                 >
                   View Cart
                 </ALink>
@@ -207,4 +301,6 @@ function mapStateToProps(state) {
   };
 }
 
-export default connect(mapStateToProps, CartAction)(CartMenu);
+export default withApollo({ ssr: typeof window === "undefined" })(
+  connect(mapStateToProps, CartAction)(CartMenu)
+);

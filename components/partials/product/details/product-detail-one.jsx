@@ -16,10 +16,11 @@ import ProductCountdown from "../../../features/product-countdown";
 // import{useLazyQuery, useQuery}from"@apollo/client"
 
 
-import {gql} from "@apollo/client";
+import {gql, useMutation} from "@apollo/client";
 import {useQuery} from "@apollo/react-hooks"
+import AddToCartPopup from "../../../features/modals/add-to-cart-popup";
 
-
+import { toast } from 'react-toastify';
 
 
 
@@ -58,8 +59,16 @@ function ProductDetailOne(props) {
     }
   }`
 
+  const POST_CART= gql`  mutation AddToCart($input: addToCartInput!) {
+    addToCart(input: $input) {
+      message
+    }
+  }`;
+
+  const [addToCart]=useMutation(POST_CART)
+
   const { data:variData, loading: variantLoading, error: variantError } = useQuery(GET_VARIANT, {
-    variables: { input: { _id: product?._id } }
+    variables: { input: { _id: product?._id  } }
   });
   
   // console.log("dfgfff",variData);
@@ -303,16 +312,53 @@ function ProductDetailOne(props) {
     }
   }
 
-  function onAddCartClick(e) {
-    // e.preventDefault();
+  const  onAddCartClick= async (e)=> {
+    e.preventDefault();
 
-    if (product.stock > 0 && !e.currentTarget.classList.contains("disabled")) {
-      if (product.variants.length === 0) {
-        props.addToCart(product, qty, -1);
-      } else {
-        props.addToCart(product, qty, variant.id);
+  localStorage.setItem("click", "click");
+    // if (product.stock > 0 && !e.currentTarget.classList.contains("disabled")) {
+    //   if (product.variants.length === 0) {
+    //     props.addToCart(product, qty, -1);
+    //   } else {
+    //     props.addToCart(product, qty, variant.id);
+    //   }
+    // }
+
+    const token = localStorage.getItem('token');
+
+    try {
+
+      // if (token) {
+      
+      if (product.stock > 0 && !e.currentTarget.classList.contains("disabled")) {
+        const response = await addToCart({variables: {
+          input: {
+            productId: product._id,
+            quantity: parseInt(qty)
+          }
+        }})
+
+
+
+     
+
+       if(response){
+        return toast( <AddToCartPopup product={ { product  } } /> );
+
+       }
+        
       }
+    // } else {
+      
+    //   alert('Please log in to add items to your cart.');
+      
+    // }
+      
+    } catch (error) {
+      console.log(error)
     }
+
+    
   }
 
   function changeQty(value) {

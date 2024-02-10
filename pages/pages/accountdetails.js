@@ -4,14 +4,30 @@ import ALink from "../../components/common/ALink";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import withApollo from "../../server/apollo"
+import { useEffect } from "react";
+import { toast } from 'react-toastify';
 export const ACCOUNT_DETAIL=gql`mutation UpdateUserProfile($input: updateUserProfileInput!) {
   updateUserProfile(input: $input) {
-    _id
+    
     message
   }
 }`
+export const USER_DETAIL=gql`query GetUserRecord($input: userInput!) {
+  getUserRecord(input: $input) {
+    message
+    record {
+      _id
+      firstName
+      displayName
+      email
+      lastName
+    }
+  }
+}`
 function accountdetails() {
-
+  const id=localStorage?.getItem("userId")
+  const [userdetail, { loading:userloading, error:usererror, data:userData,refetch }] = useLazyQuery(USER_DETAIL);
+  console.log(userData);
   const {
     register,
     handleSubmit,
@@ -29,23 +45,44 @@ function accountdetails() {
       // crLicense:""
     },
   });
+useEffect(()=>{
+  console.log("click");
+  userdetail({ variables: { input:{_id: id} } })
+  // setValue("firstName",userData?.getUserRecord?.record?.firstName)
+  console.log(userData);
+},[id])
+
+useEffect(() => {
+  if (userData && userData.getUserRecord && userData.getUserRecord.record) {
+    const { firstName } = userData.getUserRecord.record;
+    setValue("firstName", firstName);
+    setValue("lastName",userData.getUserRecord.record?.lastName)
+    setValue("email",userData.getUserRecord.record?.email)
+    setValue("displayName",userData?.getUserRecord?.record?.displayName)
+  }
+}, [userData]);
+
 
   const  [UpdateUserProfile] =
     useMutation(ACCOUNT_DETAIL);
   const onSubmit = async (values) => {
+  
+values._id=id
     console.log(values);
-    event.preventDefault();
+    // e.preventDefault();
     try {
       // if (!mobileNumber.trim()) {
       //   setError("Mobile number is required");
       //   return;
       // }
 
-    const response= await UpdateUserProfile({ variables: { input: {...values ,_id:"65bb85834825212140ac3aed"} } });
+console.log(id);
+    const response= await UpdateUserProfile({ variables: { input: {_id:id,firstName:values.firstName,email:values?.email,lastName:values?.lastName,displayName:values?.displayName} } });
       console.log(response);
       if(response){
-        window.alert(response?.data?.updateUserProfile?.message)
+        toast.success(response?.data?.updateUserProfile?.message)
         reset()
+        refetch();
       }
       SetIsOtp(true);
     } catch (error) {

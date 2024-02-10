@@ -4,16 +4,87 @@ import SlideToggle from "react-slide-toggle";
 import ALink from "../../components/common/ALink";
 import { getCartTotal } from "../../utils";
 import { BiSolidUpArrow, BiSolidDownArrow, BiBorderRight } from "react-icons/bi";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Select from "react-select";
+import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import withApollo from "../../server/apollo";
+import Shipping from "../../components/features/adresses/Shippingaddress"
+import { IoAddCircleOutline } from "react-icons/io5";
+import { toast } from 'react-toastify';
+import { useRouter } from "next/router";
 const countryOptions = [
   { value: "uae", label: "+971", flag: "/images/uae.svg" },
   { value: "india", label: "+91", flag: "/images/ind.svg" },
   { value: "oman", label: "+98", flag: "/images/omn.png" },
   { value: "saudi", label: "+966", flag: "/images/sar.png" },
 ];
-function CheckOut({ cartList }) {
+
+
+const GET_CART = gql`
+  query GetCart {
+    getCart {
+      products {
+        _id
+        productId
+        quantity
+        name
+        stock
+      
+        price
+        image
+      }
+      grandTotal
+      subTotal
+      deliveryCharge
+    }
+  }
+`;
+export const GET_ADDRESSES=gql`query GetUserShippingAddresses {
+  getUserShippingAddresses {
+    address {
+      _id
+      apartment
+      city
+    
+      country
+      email
+      firstname
+      houseNumber
+      mobile
+      postCode
+      streetName
+      suite
+      unit
+      isDefault
+    }
+  }
+}`
+
+export const REMOVE_ADDRESS=gql`mutation RemoveUserShippingAddress($input: UserRemoveShippingAddressInput!) {
+  removeUserShippingAddress(input: $input) {
+    _id
+    message
+  }
+}`
+
+export const PLACE_ORDER=gql`mutation CreateUserOrder($input: CreateUserOrderInput!) {
+  createUserOrder(input: $input) {
+    orderId
+  }
+}`
+
+function CheckOut() {
   const defaultOption = countryOptions[0]; 
+  const [cartList, setCartList] = useState();
+  const [isShipping,setIsshipping]=useState(false)
+  const [isEdit,setIsedit]=useState(false)
+  const [defaultAddressId, setDefaultAddressId] = useState('');
+  const [selectedAddressId, setSelectedAddressId] = useState(null);
+  const { data, loading, error,refetch } = useQuery(GET_ADDRESSES);
+  const [RemoveUserShippingAddress]=useMutation(REMOVE_ADDRESS);
+  const [CreateUserOrder]=useMutation(PLACE_ORDER)
+  const router=useRouter()
+  console.log(data);
   const customStyles = {
     control: (provided,state) => ({
       ...provided,
@@ -60,6 +131,69 @@ function CheckOut({ cartList }) {
   }
 `;
   const [toggler, setToggler] = useState(false);
+
+  console.log(cartList,"qcartaaaaaaaaaaaa")
+console.log(defaultAddressId);
+  const {
+    data: cartData,
+    loading: cartLoading,
+    error: cartError,
+    refetch: cartRefetch
+  } = useQuery(GET_CART);
+
+  useEffect(() => {
+    if (data && data.getUserShippingAddresses && data.getUserShippingAddresses.address.length > 0) {
+      console.log("vbn");
+      const defaultAddress = data.getUserShippingAddresses.address.find(address => address.isDefault);
+      console.log(defaultAddress);
+      if (defaultAddress) {
+        setDefaultAddressId(defaultAddress._id);
+      }
+    }
+  }, [data]);
+
+console.log(cartData);
+  useEffect(() => {
+    if (cartError) {
+      console.error("Error fetching cart data:", cartError);
+    } else if (cartData) {
+      setCartList(cartData.getCart.products || []);
+    }
+    cartRefetch()
+  }, [cartData]);
+  const handleCloseShipping = () => {
+    console.log("click");
+      setIsshipping(false);
+      refetch();
+    };
+    const handleRemove=async(id)=>{
+      console.log(id);
+     const response=await RemoveUserShippingAddress({variables:{input:{
+       _id:id
+     }}})
+     console.log(response);
+     refetch();
+    }
+
+    const handleAddressSelection = (addressId) => {
+      setDefaultAddressId(addressId);
+      
+    };
+
+    const handlePlaceOrder=async()=>{
+      console.log("click");
+      try{
+
+        const response=await CreateUserOrder({variables:{input:{grandTotal:cartData?.getCart?.grandTotal,paymentMode:"COD",shippingAddressId:defaultAddressId}}})
+        console.log(response);
+        toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
+        router.push("/pages/orders")
+        
+      }catch(error){
+        toast.error(<div style={{padding:"10px"}}>{error.message}</div>)
+      }
+
+    }
   return (
     <>
       <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
@@ -74,8 +208,9 @@ function CheckOut({ cartList }) {
         </li>
       </ul>
       <main className="main main-test">
+      {isShipping ? (<><Shipping isEdit={isEdit} addressId={selectedAddressId} onClose={handleCloseShipping}/></>):
         <div className="container checkout-container">
-          {cartList.length === 0 ? (
+          {cartList?.length === 0 ? (
             <div className="cart-empty-page text-center">
               <p className="noproduct-msg mb-2">
                 Checkout is not available while your cart is empty.
@@ -88,10 +223,12 @@ function CheckOut({ cartList }) {
               >
                 return to shop
               </ALink>
-            </div>
-          ) : (
+            </div> 
+           ) : ( 
             <>
-              <div className="checkout-discount">
+
+            {/* discount coupon */}
+              {/* <div className="checkout-discount">
                 <SlideToggle
                   duration={200}
                   collapsed
@@ -99,7 +236,7 @@ function CheckOut({ cartList }) {
                     setToggler(true);
                   }}
                   onCollapsed={() => {
-                    /* optional event hook */
+                    
                     setToggler(false);
                   }}
                 >
@@ -194,10 +331,41 @@ function CheckOut({ cartList }) {
                     </div>
                   )}
                 </SlideToggle>
-              </div>
+              </div> */}
               <div className="row" style={{ marginTop: "62px" }}>
+                
                 <div className="col-lg-7">
-                  <ul className="checkout-steps">
+                <div >
+                  <h2 className="step-title">Select a shipping address</h2>
+                  <div style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}>
+                  {data && data?.getUserShippingAddresses?.address.length>0 ? data?.getUserShippingAddresses?.address.map((address,index)=>{
+                  return(
+                    <>
+                  <div key={index} style={{display:"flex",lineHeight:"19px",alignItems:"baseline",gap:"20px",border:"1px solid #dfdfdf",margin:"15px 0",padding:"10px",borderRadius:"4px"}}>
+                  <input type="radio" id={`shipaddress${index}`}  name="fav_language" value={address._id}   checked={defaultAddressId === address._id}  onChange={() => handleAddressSelection(address._id)} />
+
+                   
+                    <label htmlFor={`shipaddress${index}`} >
+                    
+                      {address?.firstname},
+                    
+                    &nbsp;{address?.houseNumber}, {address?.streetName}, &nbsp;{address?.postCode},{address?.city}, {address?.country}
+                    <div style={{display:"flex",color:"black"}}>
+                      <button style={{cursor:"pointer",background:"none",border:"none",color: "#007185"}} onClick={()=>{setIsshipping(true);setIsedit(true);setSelectedAddressId(address?._id)}}>Edit</button>
+                      <button style={{cursor:"pointer",background:"none",border:"none",color:"#E30613"}} onClick={()=>handleRemove(address?._id)}>Remove</button>
+                    </div></label>
+                    </div>
+                  
+                    </>
+                    )
+
+                }):<>Add shipping address</>}
+
+                <div style={{display:"flex",gap:"20px",alignItems:"center"}} ><IoAddCircleOutline style={{fontSize:"20px"}} onClick={()=>{setIsshipping(true)}}/><p style={{margin:0}}> Add Address </p></div>
+                </div>
+                </div>
+
+                  {/* <ul className="checkout-steps">
                     <li>
                       <h2 className="step-title">Billing details</h2>
 
@@ -208,9 +376,7 @@ function CheckOut({ cartList }) {
                               <label>
                                 First name{" "}
                                 <span style={{ color: "red" }}>*</span>
-                                {/* <abbr className="required" title="required">
-                                *
-                              </abbr> */}
+                                
                               </label>
                               <input
                                 type="text"
@@ -225,9 +391,7 @@ function CheckOut({ cartList }) {
                               <label>
                                 Last name{" "}
                                 <span style={{ color: "red" }}>*</span>
-                                {/* <abbr className="required" title="required">
-                                *
-                              </abbr> */}
+                               
                               </label>
                               <input
                                 type="text"
@@ -247,9 +411,7 @@ function CheckOut({ cartList }) {
                           <label>
                             Country / Region{" "}
                             <span style={{ color: "red" }}>*</span>
-                            {/* <abbr className="required" title="required">
-                            *
-                          </abbr> */}
+                           
                           </label>
                           <select name="orderby" className="form-control">
                             <option value="" defaultValue="selected">
@@ -267,9 +429,7 @@ function CheckOut({ cartList }) {
                           <label>
                             Street address{" "}
                             <span style={{ color: "red" }}>*</span>
-                            {/* <abbr className="required" title="required">
-                            *
-                          </abbr> */}
+                           
                           </label>
                           <input
                             type="text"
@@ -291,9 +451,7 @@ function CheckOut({ cartList }) {
                         <div className="form-group">
                           <label>
                             Town / City <span style={{ color: "red" }}>*</span>
-                            {/* <abbr className="required" title="required">
-                            *
-                          </abbr> */}
+                            
                           </label>
                           <input
                             type="text"
@@ -306,9 +464,7 @@ function CheckOut({ cartList }) {
                           <label>
                             State / County{" "}
                             <span style={{ color: "red" }}>*</span>
-                            {/* <abbr className="required" title="required">
-                            *
-                          </abbr> */}
+                           
                           </label>
                           <select name="orderby" className="form-control">
                             <option value="" defaultValue="selected">
@@ -326,9 +482,7 @@ function CheckOut({ cartList }) {
                           <label>
                             Postcode / Zip{" "}
                             <span style={{ color: "red" }}>*</span>
-                            {/* <abbr className="required" title="required">
-                            *
-                          </abbr> */}
+                           
                           </label>
                           <input
                             type="text"
@@ -373,18 +527,14 @@ function CheckOut({ cartList }) {
                           />
                           <input type="tel" id="phoneNumber" class="form-control" required style={{borderLeft:"none"}} />
 </div>
-                          {/* <div> */}
-                          {/* </div> */}
-                          {/* <input type="tel" className="form-control" required /> */}
+                         
                         </div>
 
                         <div className="form-group">
                           <label>
                             Email address{" "}
                             <span style={{ color: "red" }}>*</span>
-                            {/* <abbr className="required" title="required">
-                            *
-                          </abbr> */}
+                           
                           </label>
                           <input
                             type="email"
@@ -607,7 +757,7 @@ function CheckOut({ cartList }) {
                         </div>
                       </form>
                     </li>
-                  </ul>
+                  </ul> */}
                 </div>
                 <div className="col-lg-5">
                   <div className="order-box">
@@ -626,16 +776,16 @@ function CheckOut({ cartList }) {
                           </tr>
                         </thead>
                         <tbody>
-                          {cartList.map((item, index) => (
+                          {cartList?.map((item, index) => (
                             <tr key={"checks" + index}>
                               <td className="product-col">
                                 <h2 className="product-title">
-                                  {item.name + "×" + item.qty}
+                                  {item?.name + " × " + item?.quantity}
                                 </h2>
                               </td>
 
                               <td className="price-col">
-                                <span>${item.price.toFixed(2) * item.qty}</span>
+                                <span>OMR {item?.price * item?.quantity}</span>
                               </td>
                             </tr>
                           ))}
@@ -647,10 +797,10 @@ function CheckOut({ cartList }) {
                             </td>
 
                             <td className="price-col">
-                              <span>${getCartTotal(cartList).toFixed(2)}</span>
+                              <span>OMR {getCartTotal(cartList)}</span>
                             </td>
                           </tr>
-                          <tr className="order-shipping">
+                          {/* <tr className="order-shipping">
                             <td className="text-left" colSpan="2">
                               <h4 className="m-b-sm">Shipping</h4>
                               <div className="form-group form-group-custom-control">
@@ -680,7 +830,7 @@ function CheckOut({ cartList }) {
                                 </div>
                               </div>
                             </td>
-                          </tr>
+                          </tr> */}
 
                           <tr className="order-total">
                             <td>
@@ -689,7 +839,7 @@ function CheckOut({ cartList }) {
                             <td>
                               <b className="total-price">
                                 <span>
-                                  ${getCartTotal(cartList).toFixed(2)}
+                                OMR {getCartTotal(cartList).toFixed(2)}
                                 </span>
                               </b>
                             </td>
@@ -700,12 +850,17 @@ function CheckOut({ cartList }) {
                       <div className="payment-methods">
                         <h4 className="">Payment methods</h4>
                         <div className="info-box with-icon p-0">
-                          <p>
-                            Sorry, it seems that there are no available payment
-                            methods for your state. Please contact us if you
-                            require assistance or wish to make alternate
-                            arrangements.
-                          </p>
+                        <div className="custom-control custom-radio d-flex">
+                                  <input
+                                    type="radio"
+                                    className="custom-control-input"
+                                    name="radio"
+                                    defaultChecked
+                                  />
+                                  <label className="custom-control-label">
+                                    Cash on Delivery
+                                  </label>
+                                </div>
                         </div>
                       </div>
 
@@ -713,7 +868,7 @@ function CheckOut({ cartList }) {
                         type="submit"
                         value="Place Order"
                         name="form-control"
-                        className="btn btn-dark btn-place-order"
+                        className="btn btn-dark btn-place-order" onClick={handlePlaceOrder}
                       >
                         Place order
                       </button>
@@ -724,6 +879,7 @@ function CheckOut({ cartList }) {
             </>
           )}
         </div>
+}
       </main>
     </>
   );
@@ -735,4 +891,5 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps)(CheckOut);
+
+export default withApollo({ ssr: typeof window === "undefined" })( connect(mapStateToProps)(CheckOut));
