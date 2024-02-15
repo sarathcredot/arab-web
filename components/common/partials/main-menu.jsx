@@ -144,7 +144,8 @@ function MainMenu({ router }) {
     try {
       catLevel2({ variables: { input:{parent: id} } })
       console.log(level2Data);
-    } catch (error) {
+    } 
+    catch (error) {
       console.error(error);
     }
   };
@@ -215,7 +216,7 @@ catch(error)
               <span className="custom__menu__item-image">
                 <img src={item.categoryImage?.fileURL} alt={item.label} />
               </span>
-              <p className="custom__menu__item-label">{item.categoryName}</p>
+              <p className="custom__menu__item-label">{item.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}</p>
             </li>
           ))}
         </ul>
@@ -275,7 +276,7 @@ catch(error)
                 }}
               >
                 <p className="custom__menufirstchild__item-label">
-                  {item.categoryName}
+                  {item.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}
                 </p>
               </li>
             ))}
@@ -314,7 +315,8 @@ handleBrandList(item?._id)
                   }}
                 >
                   <p className="custom__menusecondchild__item-label">
-                    {item?.categoryName}
+                    
+                    {item?.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}
                   </p>
                 </li>
               ))}

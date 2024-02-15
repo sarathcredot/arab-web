@@ -1,4 +1,4 @@
-import React from "react";
+import React ,{useState} from "react";
 import Reveal from "react-awesome-reveal";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
@@ -12,6 +12,7 @@ import { fadeIn } from "../../../utils/data/keyframes";
 import { productSlider } from "../../../utils/data/slider";
 import { useQuery } from "@apollo/react-hooks";
 import { gql, useMutation,useLazyQuery } from "@apollo/client";
+import { MdKeyboardArrowLeft,MdKeyboardArrowRight } from "react-icons/md";
 
 
 export const TOP_BRANDS=gql`query GetAllTopBrandRecords($input: BrandRecordsFilter) {
@@ -38,10 +39,10 @@ function TopBrand(props) {
   console.log(data);
   const options = {
     items: 8, // Number of items to show
-    margin: 60, // Space between items
+    margin: 50, // Space between items
     loop: true, // Enable loop
     autoplay: true, // Autoplay the slider
-    autoplayTimeout: 5000,
+    autoplayTimeout: 3000,
     // Autoplay interval (3 seconds in this example)
     dots: false,
     responsive: {
@@ -70,15 +71,44 @@ function TopBrand(props) {
     "images/sony.svg",
   ];
 
+  const [startIndex, setStartIndex] = useState(0);
+  const brandsPerPage = 7;
+  const totalBrands = data?.getAllTopBrandRecords?.records.length || 0;
+console.log(totalBrands);
+  const handleNext = () => {
+    if (startIndex + brandsPerPage >= totalBrands) {
+      setStartIndex(0); // If reaching the end, loop back to the beginning
+    } else {
+      setStartIndex(startIndex + 1);
+    }
+  //  if (startIndex + brandsPerPage < data.getAllTopBrandRecords.records.length) {
+  //     setStartIndex(startIndex + 1);
+  //   }
+  };
+
+  const handlePrev = () => {
+    if (startIndex === 0) {
+      setStartIndex(totalBrands - brandsPerPage); // If at the beginning, loop to the end
+    } else {
+      setStartIndex(startIndex - 1);
+    }
+    // if (startIndex > 0) {
+    //   setStartIndex(startIndex - 1);
+    // }
+  };
+
   return (
     <>
-      <div className="container">
+      <div className="container" style={{paddingLeft:"40px"}}>
         <div>
           <h4 className="mb-4 mt-4"style={{borderBottom:"1px solid #EEE",paddingBottom:"20px"}}>Top Brands</h4>
         </div>
-        <div>
-          <OwlCarousel options={options} autoplay>
-            {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
+        </div>
+        <div className="mb-5 mt-5" style={{display:"flex",alignItems:"center",padding:"0 60px"}}>
+        <div className="custom-top-prevbutton"onClick={handlePrev}><MdKeyboardArrowLeft style={{color:"black",fontSize:"20px"}}/></div>
+        <div className="custom-topbrandcontainer container">
+          {/* <OwlCarousel options={options} autoplay> */}
+            {/* {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
               <div key={index} className=" item mb-4 custom-brand" >
                 {brand.logo && (<img
                   src={brand.logo.fileURL}
@@ -86,11 +116,36 @@ function TopBrand(props) {
                   style={{ width: "128px", height: "128px"}}
                 />)}
               </div>
-            ))}
-          </OwlCarousel>
+            ))} */}
+          {/* </OwlCarousel> */}
+          {data && data?.getAllTopBrandRecords?.records
+          .slice(startIndex, startIndex + brandsPerPage)
+          .map((brand, index) => (
+            <div key={index} className="item  custom-brand">
+              {brand.logo && (
+                <img
+                  src={brand.logo.fileURL}
+                  alt={`Brand ${startIndex + index + 1}`}
+                  style={{ width: "128px", height: "128px" }}
+                />
+              )}
+            </div>
+          ))}
+          {/* {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
+              <div key={index} className=" item mb-4 custom-brand" >
+                {brand.logo && (<img
+                  src={brand.logo.fileURL}
+                  alt={`Brand ${index + 1}`}
+                  style={{ width: "128px", height: "128px"}}
+                />)}
+              </div>
+            ))} */}
         </div>
+
+      {/* </div> */}
+      <div className="custom-top-prevbutton"onClick={handleNext}><MdKeyboardArrowRight style={{color:"black",fontSize:"20px"}}/></div>
       </div>
-      <div className="custom-topbrand-img">
+      <div className="custom-topbrand-img mt-9">
         <img src={section4Data?.images[0]?.fileURL} />
       </div>
     </>

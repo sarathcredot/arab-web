@@ -59,17 +59,23 @@ function Home() {
   return (
     <>
       <main className="home">
-      <div className="header-bottom d-flex">
-          <div className="container">
+        <div style={{position:"relative"}}>
+
+      <div className="header-bottom d-flex" style={{zIndex:"99",position:"absolute",background:"#F9F9F9",width:"100%"}}>
+          <div className="container"style={{marginBottom:"-15px"}}>
+            <div >
+
             <MainMenu />
+            </div>
           </div>
         </div>
-        <div 
+        <div style={{paddingTop:"53px"}}
         // className="bg-gray"
         >
           <HomeSection className="pb-5" data={data}/>
         </div>
 
+        </div>
         <div
           className={`container skeleton-body skel-shop-products pt-5 ${
             false ? "" : "loaded"
@@ -77,7 +83,10 @@ function Home() {
         >
           <BannerSection  data={data}/>
 
-          {/* <DealSection products={bestSelling} /> */}
+          <DealSection 
+          // products={bestSelling
+          // }
+           />
         </div>
         <TopBrand data={data}/>
 

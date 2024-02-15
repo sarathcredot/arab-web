@@ -110,7 +110,7 @@ function ProductOne(props) {
   return (
     <div className={`product-default media-with-lazy ${adClass}`}>
       <figure style={props.customStyle && { paddingTop: props.customStyle }}>
-        <ALink href={`/product/${link}/${product._id}`}>
+        <ALink href={`product/default/${product?._id}`}>
           <div className="lazy-overlay"></div>
           <span
             style={{
