@@ -8,15 +8,15 @@ import OwlCarousel from "../../features/owl-carousel";
 
 // Import Settings 
 import { HomeSlider } from "../../../utils/data/slider";
-
+import MainMenu from "../../../components/common/partials/main-menu"
 // Import Keyframes
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
 function HomeSection({ offer,data }) {
   console.log(data);
   return (
-
-
+<div>
+{/* <MainMenu/> */}
 
     <OwlCarousel adClass="home-slider nav-circle mb-2" options={HomeSlider}>
      {data &&
@@ -124,6 +124,7 @@ function HomeSection({ offer,data }) {
         </div>
       </div> */}
     </OwlCarousel>
+    </div>
   );
 }
 

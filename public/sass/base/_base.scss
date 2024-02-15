@@ -97,7 +97,23 @@ button:focus {
 body.modal-open {
 	padding-right: 0 !important;
 }
-
+.owl-dots{
+position: absolute;
+bottom: 25px;
+width: 100%;
+justify-content: center;
+}
+.owl-dots .owl-dot{
+	// background-color: white;
+	border: none;
+}
+.owl-theme .owl-dots .owl-dot span{
+	background: white;
+}
+// .owl-carousel .owl-dots .owl-dot span{
+// 	width: 10px;
+// 	height: 10px;
+// }
 @keyframes spin {
 	0% {
 		transform: rotate(0deg);

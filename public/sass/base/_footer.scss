@@ -62,7 +62,7 @@
 
 			social-icon: (
 				color: false,
-				background: transparent,
+				background: #E9E9E9,
 				font-size: 1.8rem,
 				size: 4rem,
 				space: false,
@@ -85,6 +85,7 @@
 	display: flex;
 	justify-content: center;
 	align-items: center;
+	background-color: #E9E9E9;
 			
 }
 .twitter-cus-icon:hover{
@@ -132,12 +133,15 @@ footer {
 .responsive-footer{
 	display: none
 }
+.footer-top{
+	padding-top:5.7rem;
+}
 
 .footer {
 	&-top {
 		@include css( color, footer, top, color );
 		@include css( background, footer, top, background );
-		@include css( border-top, footer, top, border-top );
+		// @include css( border-top, footer, top, border-top );
 		@include css( padding-top, footer, top, padding-top );
 		@include css( padding-bottom, footer, top, padding-bottom );
 

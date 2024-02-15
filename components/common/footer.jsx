@@ -2,12 +2,12 @@ import React from "react";
 import { FaXTwitter } from "react-icons/fa6";
 import ALink from "./ALink";
 import { RiVisaLine } from "react-icons/ri";
-import { FaStripe } from "react-icons/fa";
-
+import { FaStripe,FaLinkedinIn } from "react-icons/fa";
+import { AiFillYoutube } from "react-icons/ai";
 function Footer() {
   return (
     <>
-    <footer className="footer font2"style={{marginTop:"30px"}}>
+    <footer className="footer font2">
       <div className="container">
         {/* <div className="widget-newsletter d-flex align-items-center align-items-sm-start flex-column flex-lg-row  justify-content-lg-between">
                     <div className="widget-newsletter-info text-center text-sm-left d-flex flex-column flex-sm-row align-items-center mb-1 mb-xl-0">
@@ -35,7 +35,7 @@ function Footer() {
           <div className="row">
             <div className="col-md-6 col-lg-3">
               <div className="widget">
-                <h3 className="widget-title">Customer Service</h3>
+                <h3 className="widget-title">IMPORTANT LINKS</h3>
                 <div className="widget-content">
                   <ul>
                     <li>
@@ -119,19 +119,29 @@ function Footer() {
                       title="Facebook"
                     ></ALink>
                     <div className="twitter-cus-icon"  style={{width:"40px",height:"40px"}}> <FaXTwitter className="twitter-color" /></div>
+                    <div className="twitter-cus-icon"  style={{width:"40px",height:"40px"}}> <FaLinkedinIn className="twitter-color" /></div>
+                    <div className="twitter-cus-icon"  style={{width:"40px",height:"40px"}}> <AiFillYoutube className="twitter-color" /></div>
+
                     {/* <ALink
-                      href="#"
-                      className="social-icon social-twitter icon-twitter"
-                      title="Twitter"
-                    ></ALink> */}
-                    <ALink
                       href="#"
                       className="social-icon social-instagram icon-instagram"
                       title="Instagram"
-                    ></ALink>
+                    ></ALink> */}
                   </div>
                 </div>
               </div>
+              <h3 className="widget-title">PAYMENT METHODS</h3>
+              <div >
+
+<div className="custom-pay"style={{display:"flex",gap:"10px"}}> 
+
+<ALink  href="#"><img src="/images/visa.svg" /></ALink>
+<ALink  href="#"><img src="/images/paypal.svg" /></ALink>
+<ALink  href="#"><img src="/images/stripe.svg" /></ALink>
+<ALink  href="#"><img src="/images/verisign.svg" /></ALink>
+</div>
+
+   </div>
             </div>
           </div>
         </div>
@@ -550,7 +560,7 @@ function Footer() {
 
         <div className="footer-bottom d-sm-flex align-items-center justify-content-left"style={{background:"#F4F4F4"}}>
           <span className="footer-copyright">
-          Arab Deals © 2023. All Rights Reserved
+          Arab Deals © 2024. All Rights Reserved
           </span>
         </div>
       </div>
