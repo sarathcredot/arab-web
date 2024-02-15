@@ -202,6 +202,37 @@ const click=localStorage.getItem("click")
                 </div>
               </div>
 
+              <div
+                className="header-dropdown mr-auto mr-sm-3 mr-md-0"
+                style={{ background: "rgba(249, 249, 249, 1)" }}
+              >
+                <ALink href="#">
+                  <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img>English
+                </ALink>
+                <div className="header-menu">
+                  <ul>
+                    <li>
+                      <ALink href="#">
+                      <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img>English
+                      </ALink>
+                    </li>
+                    <li>
+                      <ALink href="#">
+                        {/* <div style={{display:"flex",alignItems:"center",gap:"8px"}}>
+                        <div style={{width:"35px",height:"35px",borderRadius:"50%",overflow:"hidden"}}> */}
+
+                      <img src="/images/uae.svg" className={styles.flagimg}></img>
+                        {/* </div> */}
+                      Arabic
+                      {/* </div> */}
+                      </ALink>
+                    </li>
+                   
+                    
+                  </ul>
+                </div>
+              </div>
+
               {/* <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}> */}
                 <div className="header-user">
                   <div className={styles.circle} onClick={handleLog}>

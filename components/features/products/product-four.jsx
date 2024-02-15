@@ -14,6 +14,7 @@ import ProductCountdown from "../product-countdown";
 
 function ProductFour(props) {
   const router = useRouter();
+  console.log("props",props);
   const { adClass = "", link = "default", product } = props;
 
   function isSale() {
@@ -70,9 +71,11 @@ function ProductFour(props) {
       style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
     >
       {/* <figure> */}
-      <ALink href={`/product/${link}/${product.slug}`}>
-        <span style={{ display: "flex", justifyContent: "center" }}>
-          <img src="images/iphone.svg" style={{ marginTop: "74px" }} />
+      <ALink href={`product/default/${product?._id}`}>
+        <span style={{ display: "flex", justifyContent: "center",maxHeight:"383px" }}>
+          {/* <img src={"images/iphone.svg"} style={{ marginTop: "74px" }} /> */}
+          <img src={product?.images[0]?.fileURL} style={{ marginTop: "74px",objectFit:"contain" }} />
+
         </span>
         {/* <LazyLoadImage
             alt="product"
@@ -106,13 +109,13 @@ function ProductFour(props) {
       <div className="product-details" style={{ alignItems: "center" }}>
         <div className="category-wrap">
           <div className="category-list">
-            {product.categories
-              ? product.categories.map((item, index) => (
-                  <React.Fragment key={item.slug + "-" + index}>
+            {/* {product */}
+              {/* ? product.map((item, index) => ( */}
+                  <React.Fragment key={product._id }>
                     <ALink
                       href={{
-                        pathname: "/shop",
-                        query: { category: item.slug },
+                        pathname: `product/default/${product?._id}`,
+                        // query: { product._id },
                       }}
                       style={{
                         color: "rgba(227, 6, 19, 1)",
@@ -121,18 +124,18 @@ function ProductFour(props) {
                         justifyContent: "center",
                       }}
                     >
-                      {item.name}
+                      {product?.categoryNamePath}
                     </ALink>
-                    {index < product.categories.length - 1 ? ", " : ""}
+                    {/* {index < product.categories.length - 1 ? ", " : ""} */}
                   </React.Fragment>
-                ))
-              : ""}
+                {/* )) */}
+               {/* : ""} */}
           </div>
         </div>
 
         <h3 className="product-title" style={{ justifyContent: "center" }}>
           <ALink href={`/product/default/${product.slug}`}>
-            {product.name}
+            {product?.productName}
           </ALink>
         </h3>
 
@@ -160,13 +163,13 @@ function ProductFour(props) {
               marginLeft: "25px",
             }}
           >
-            {product.price[0].toFixed(2)}
+            {product?.price.toFixed(2)}
           </span>
           <span
             className="old-price"
             style={{ marginLeft: "25px", color: "#777777",fontWeight:"600" }}
           >
-            {+product.price[1].toFixed(2)}
+            {+product?.mrp?.toFixed(2)}
           </span>
         </div>
         {/* <div className="price-box">
@@ -192,9 +195,9 @@ function ProductFour(props) {
         </div> */}
 
         <div className="product-action">
-          {product.variants.length > 0 ? (
+          {product?.variants?.length > 0 ? (
             <ALink
-              href={`/product/default/${product.slug}`}
+              href={`/product/default/${product?.slug}`}
               className="btn-icon btn-add-cart"
             >
               <i className="fa fa-arrow-right"></i>

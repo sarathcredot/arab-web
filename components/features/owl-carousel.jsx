@@ -5,7 +5,7 @@ function OwlCarousel(props) {
   const { adClass, options, events, isTheme = true } = props;
   const carouselRef = useRef(null);
   const defaultOptions = {
-    loop: false,
+    loop: true,
    rewind:true,
     margin: 0,
     nav: false,

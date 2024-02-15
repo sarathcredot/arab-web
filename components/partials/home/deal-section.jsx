@@ -4,11 +4,55 @@ import Reveal from "react-awesome-reveal";
 //Import Custom Component
 import ProductOne from "../../features/products/product-one";
 import ProductFour from "../../features/products/product-four";
-
+import { useQuery, gql } from "@apollo/react-hooks";
 // Import Settigns
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
-function DealSection({ products }) {
+const GET_PRODUCTS=gql `query GetProducts($input: ProductFilters) {
+  getProducts(input: $input) {
+    maxRecords
+    records {
+      _id
+      attributes {
+        attributeValue
+        attributeName
+      }
+      brandId
+      brandName
+      categoryId
+      categoryIdPath
+      categoryNamePath
+      description
+      images {
+        fileURL
+        originalName
+        fileType
+      }
+      material
+      mrp
+      offerPrice
+      price
+      productCode
+      productInfo
+      productName
+      productShortInfo
+      rating
+      sellingPrice
+      shortDescription
+      skuId
+      status
+      stock
+      tags
+      vendorId
+      isBlocked
+    }
+  }
+}`
+
+function DealSection() {
+  const {data,loading,error}=useQuery(GET_PRODUCTS)
+  console.log(data);
+  const products=data?.getProducts?.records
   console.log(products);
   return (
     <section className="deal-products-section">
@@ -33,15 +77,18 @@ function DealSection({ products }) {
             {products
               ? products
                   .slice(0, 15)
-                  .filter((item) => item.until && item.until !== null)
+                  // .filter((item) => item.until && item.until !== null)
                   .slice(0, 1)
-                  .map((item, index) => (
+                  .map((item, index) => {
+                    console.log(item);
+                    return(
                     <ProductFour
                       adClass="deal-product"
                       product={item}
                       key={"All Products:" + index}
                     />
-                  ))
+                  )}
+                  )
               : [0].map((item, index) => (
                   <div
                     className="skel-pro skel-pro-grid"
@@ -55,13 +102,13 @@ function DealSection({ products }) {
               <div className="row row-joined">
                 {products
                   ? products
-                      .filter((item) => item.until === null)
+                      // .filter((item) => item.until === null)
                       .slice(0, 9)
                       .map((item, index) => (
                         <div
-                          className="col-xl-4 col-sm-4 col-6"
+                          className="col-xl-4 col-sm-4 col-6 customdeal-border"
                           key={"All Products:" + index}
-                          style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
+                          // style={{ border: "1px solid rgba(185, 185, 185, 1)", borderRight:"none" }}
                         >
                           <ProductOne
                             // adClass="inner-quickview inner-icon"
