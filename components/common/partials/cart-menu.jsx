@@ -12,6 +12,8 @@ import { AiOutlineClose } from "react-icons/ai";
 import { getCartTotal } from "../../../utils";
 import withApollo from "../../../server/apollo";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { EventEmitter } from "fbemitter";
+// import eventEmmitter from "../../../server/eventEmmitter";
 const GET_CART = gql`
   query GetCart {
   getCart {
@@ -113,14 +115,19 @@ function CartMenu(props) {
   } = useQuery(GET_CART);
 
   const click=localStorage.getItem('click')
+
+
+
+  // const added = eventEmmitter.addListener("productAdded",)
+  const token =localStorage.getItem("arabtoken")
   useEffect(() => {
     if (cartError) {
       console.error("Error fetching cart data:", cartError);
-    } else if (cartData) {
+    } else if (cartData && token) {
       setCartItems(cartData.getCart.products || []);
     }
     cartRefetch();
-  }, [cartData]);
+  }, [cartData, token]);
   // cartRefetch();
   console.log(cartItems, "dd");
 

@@ -61,16 +61,16 @@ function Cart(props) {
     loading: cartLoading,
     error: cartError,
     refetch: cartRefetch
-  } = useQuery(GET_CART);
+  } = useQuery(GET_CART,);
 
   useEffect(() => {
-    if (cartError) {
+    if (cartError ) {
       console.error("Error fetching cart data:", cartError);
-    } else if (cartData) {
+    } else if (cartData && token) {
       setCartList(cartData.getCart.products || []);
     }
     cartRefetch()
-  }, [cartData]);
+  }, [cartData,token]);
   
   const removeCart= async(id) => {
     try {
@@ -242,7 +242,7 @@ try {
                         <td>
                           <Qty
                             value={item?.quantity}
-                            max={item?.stock}
+                            max={10}
                             onChangeQty={(qty) => onChangeQty(item?.productId, qty)}
                           />
                         </td>
