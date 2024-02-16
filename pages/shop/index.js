@@ -61,7 +61,7 @@ function Shop() {
   
 
   const { cat_id, page, ...rest } = query;
-  const { category, brands, max_price,min_price,...filteredAttributes } = rest;
+  const { category, brands, max_price,min_price,sort_order,...filteredAttributes } = rest;
   const categoryValues = category ? category.split(',').map(id => id.trim())  : [];
   const brandValues = brands ? brands.split(',') : [];
   
@@ -72,7 +72,7 @@ function Shop() {
   console.log(attributes);
  const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
-  const [perPage, setPerPage] = useState(2);
+  const [perPage, setPerPage] = useState(8);
   // const [pagenumber,setPagenumber]=useState(page ?? 0)
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
   const products = data && data?.getProducts?.records;

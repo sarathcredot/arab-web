@@ -16,9 +16,9 @@ function FooterBannerSection({data}) {
   console.log(data);
   const options = {
     items: 1, // Number of items to show
-    margin: 50, // Space between items
+    // margin: 50, // Space between items
     loop: true, // Enable loop
-    autoplay: false, // Autoplay the slider
+    autoplay: true, // Autoplay the slider
     autoplayTimeout: 3000,
     // Autoplay interval (3 seconds in this example)
     dots: true,
@@ -47,8 +47,8 @@ function FooterBannerSection({data}) {
         record.images.map((item, imgIndex) => {
           console.log(item);
           return (
-            <div key={imgIndex} >
-              <img src={item.fileURL} alt="Image" style={{height:"350"}}/>
+            <div key={imgIndex} style={{maxHeight:"550px",height:"550px"}}>
+              <img src={item.fileURL} alt="Image" style={{height:"100%",maxHeight:"550px",objectFit:"cover"}}/>
              
             </div>
           );

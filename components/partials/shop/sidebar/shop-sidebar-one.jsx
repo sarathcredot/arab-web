@@ -80,6 +80,7 @@ function ShopSidebarOne(props) {
   const catId = query?.cat_id;
   const brand = query?.brand;
   const [selectedBrands, setSelectedBrands] = useState([]);
+  const [sortOrder, setSortOrder] = useState('Price Low-High');
   const [selectedAttributeValues, setSelectedAttributeValues] = useState([]);
   console.log(query);
   const { data, loading, error } = useQuery(GET_SHOP_SIDEBAR_DATA, {
@@ -242,6 +243,18 @@ function ShopSidebarOne(props) {
     };
     router.replace({ pathname: router.pathname, query: newSearchparams });
   }
+
+  function handleSortOrderChange(e) {
+    console.log(e);
+    const selectedSortOrder = e.target.value;
+    setSortOrder(selectedSortOrder);
+    const searchParams = router.query;
+    const newSearchParams = {
+        ...searchParams,
+        sort_order: selectedSortOrder
+    };
+    router.replace({ pathname: router.pathname, query: newSearchParams });
+}
 
   function closeSidebar() {
     document.querySelector("body").classList.contains("sidebar-opened") &&
@@ -446,6 +459,142 @@ function ShopSidebarOne(props) {
               </SlideToggle>
             )}
           </div>
+
+
+          {/* ppp */}
+          <div className="widget widget-brand">
+            {loading ? (
+              <div className="skel-widget"></div>
+            ) : (
+              <SlideToggle>
+                {({ onToggle, setCollapsibleElement, toggleState }) => (
+                  <>
+                   
+                      <h3 className="widget-title">
+                        <a
+                          className={
+                            toggleState === "COLLAPSED" ? "collapsed" : ""
+                          }
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault(), onToggle();
+                          }}
+                        >
+                          Sort
+                        </a>
+                      </h3>
+                   
+                    <div
+                      className="overflow-hidden"
+                      ref={setCollapsibleElement}
+                    >
+                      <div className="widget-body pb-0">
+                        <ul className="cat-list">
+                          
+                              <li>
+                            <input type="radio" id="lowToHigh" name="fav_language" value="lowToHigh"onChange={handleSortOrderChange}/>
+<label for="lowToHigh"style={{fontWeight:"500"}}> &nbsp;Price Low- High</label>
+
+
+                                {/* <label htmlFor="lowToHigh">
+                                  <input
+                                    id="lowToHigh"
+                                    type="radio"
+                                    name="sortOrder"
+                                                        value="Low-High"
+                                                        // checked={sortOrder === 'Price Low-High'}
+                                                        // onChange={handleSortOrderChange}
+                                    style={{ marginRight: "5px" }}
+                                  />
+                                 
+                                  <span>
+
+                                  Price Low- High
+                                  </span>
+                                 
+                                </label> */}
+                              </li>
+                              <li>
+                                 <input type="radio" id="highToLow" name="fav_language" value="highToLow" onChange={handleSortOrderChange}/>
+ <label for="highToLow" style={{fontWeight:"500"}}> &nbsp;Price High-Low</label>
+                                {/* <label htmlFor="highToLow">
+                                  <input
+                                    id="highToLow"
+                                    type="radio"
+                                    value="High-Low"
+                                                        
+                                                        // onChange={handleSortOrderChange}
+                                    style={{ marginRight: "5px" }}
+                                  />
+                                  
+                                  <span>Price High-Low</span>
+                                  
+                                </label> */}
+                              </li>
+                           
+                        </ul>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </SlideToggle>
+            )}
+          </div>
+          {/* ..... */}
+          {/* <div
+            className="widget widget-price overflow-hidden"
+            style={{ padding: "0" }}
+          >
+            {loading ? (
+              <div className="skel-widget"></div>
+            ) : (
+              <SlideToggle>
+                {({ onToggle, setCollapsibleElement, toggleState }) => (
+                  <>
+                    <h3
+                      className="widget-title"
+                      style={{
+                        borderBottom: "1px solid",
+                        borderColor: "#DDDDDD",
+                        width: "298px",
+                        marginLeft: "0px",
+                        paddingBottom: "20px",
+                      }}
+                    >
+                      <a
+                        className={
+                          toggleState === "COLLAPSED" ? "collapsed" : ""
+                        }
+                        href="#"
+                        role="button"
+                        onClick={(e) => {
+                          e.preventDefault(), onToggle();
+                        }}
+                        style={{ marginLeft: "20px", marginTop: "20px" }}
+                      >
+                        Sort Order
+                      </a>
+                    </h3>
+
+                    <div ref={setCollapsibleElement}>
+                      <div
+                        className="widget-body pb-2"
+                        style={{ padding: "20px" }}
+                      >
+                      <div>
+    <input type="radio" id="lowToHigh" name="priceSort" value="Price Low-High"/>
+    <label for="lowToHigh" style={{paddingLeft:"10px",color:"#525252",fontWeight:"500"}}>Price Low-High</label></div>
+    <div>
+    <input type="radio" id="highToLow" name="priceSort" value="Price High-Low"/>
+    <label for="highToLow" style={{paddingLeft:"10px"}}>Price High-Low</label>
+</div>
+                      </div>
+                    </div>
+                  </>
+                )}
+              </SlideToggle>
+            )}
+          </div> */}
           <div
             className="widget widget-price overflow-hidden"
             style={{ padding: "0" }}

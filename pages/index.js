@@ -95,7 +95,7 @@ function Home() {
             false ? "" : "loaded"
           }`}
         >
-          {/* <ElectronicCollection products={electronic} /> */}
+          <ElectronicCollection  />
 
           {/* <RecentCollection bestSelling={bestSelling} /> */}
         </div>

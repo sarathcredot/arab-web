@@ -14,11 +14,21 @@ import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
 function HomeSection({ offer,data }) {
   console.log(data);
+  const options = {
+    items: 1, // Number of items to show
+    // margin: 50, // Space between items
+    loop: true, // Enable loop
+    autoplay: false, // Autoplay the slider
+    // autoplayTimeout: 3000,
+    // Autoplay interval (3 seconds in this example)
+    // dots: true,
+    nav: true
+  }
   return (
 <div>
 {/* <MainMenu/> */}
 
-    <OwlCarousel adClass="home-slider nav-circle mb-2" options={HomeSlider}>
+    <OwlCarousel adClass="home-slider nav-circle mb-2" options={options}>
      {data &&
   data?.getAllCmsRecords?.records
     .filter(record => record.sectionName === 'SECTION-1')

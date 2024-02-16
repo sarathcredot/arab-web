@@ -7,7 +7,7 @@ import ProductFour from "../../features/products/product-four";
 import { useQuery, gql } from "@apollo/react-hooks";
 // Import Settigns
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
-
+import ALink from "../../common/ALink";
 const GET_PRODUCTS=gql `query GetProducts($input: ProductFilters) {
   getProducts(input: $input) {
     maxRecords
@@ -61,7 +61,7 @@ function DealSection() {
       <h2 className="section-title d-flex align-items-center text-transform-none">
         Deals of the day
       </h2>
-      <p style={{color:"rgba(0, 0, 0, 1)",fontWeight:"500"}}>View All Products</p>
+      <ALink  href="/shop"> <p style={{color:"rgba(0, 0, 0, 1)",fontWeight:"500"}}>View All Products</p></ALink>
      
       </div>
       <h4 className="recommendmob">Recommended for you</h4>
@@ -113,7 +113,7 @@ function DealSection() {
                           <ProductOne
                             // adClass="inner-quickview inner-icon"
                             product={item}
-                            // customStyle="60%"
+                            // customStyle="65%"
 
                           />
                         </div>
