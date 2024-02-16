@@ -131,7 +131,7 @@ try {
             </li>
 
             <li className="breadcrumb-item active" aria-current="page">
-              <ALink className="activeitem" href="/pages/cartt">
+              <ALink className="activeitem" href="/pages/cart">
                 Shoping cart
               </ALink>
             </li>
@@ -259,7 +259,7 @@ try {
                   </tbody>
 
                   <tfoot>
-                    <tr>
+                    {/* <tr>
                       <td colSpan="5" className="clearfix pl-0">
                         <div className="float-left">
                           <div className="cart-discount">
@@ -288,13 +288,13 @@ try {
                           </div>
                         </div>
 
-                        {/* <div className="float-right">
+                        <div className="float-right">
                                                         <button type="submit" className="btn btn-shop btn-update-cart" style={{border:"1px solid"}} onClick={ updateCart }>
                                                             Update Cart
                                                         </button>
-                                                    </div> */}
+                                                    </div>
                       </td>
-                    </tr>
+                    </tr> */}
                   </tfoot>
                 </table>
               </div>

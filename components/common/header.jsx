@@ -153,6 +153,12 @@ const click=localStorage.getItem("click")
   //   </div> */}
   // </div>
 
+  const handleLogout=()=>{
+    console.log("click");
+    localStorage.clear();
+  router.push('/')
+  }
+
   return (
     <>
       <header
@@ -242,7 +248,7 @@ const click=localStorage.getItem("click")
                 <div className="header-menu">
                   <ul>
                     <li>
-                      <ALink href="#">
+                      <ALink href="#" >
                       <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img>English
                       </ALink>
                     </li>
@@ -263,7 +269,11 @@ const click=localStorage.getItem("click")
                 </div>
               </div>
 
+
+             
+
               {/* <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}> */}
+              {!token?
                 <div className="header-user">
                   <div className={styles.circle} onClick={handleLog}>
                     <BiSolidUser style={{ fontSize: "20px" }} />
@@ -273,7 +283,39 @@ const click=localStorage.getItem("click")
                   <span>Welcome</span>
                   <h4 className="mb-0">My Account</h4>
                 </div> */}
+                </div> :  <div
+                className="header-dropdown mr-auto mr-sm-3"
+                // style={{ marginLeft:"20px"}}
+              >
+                {/* <ALink href="#">
+                  <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img>English
+                </ALink> */}
+                 <div className={styles.circle} >
+                    <BiSolidUser style={{ fontSize: "20px" }} />
+                  </div>
+                <div className="header-menu">
+                  <ul>
+                    <li>
+                      <ALink href="/pages/account">
+                      <img src="images/icon/vuesax/bold/frame.svg"style={{width:"25px",height:"25px"}}></img>My Account
+                      </ALink>
+                    </li>
+                    <li onClick={handleLogout}>
+                      <ALink href="#" >
+                        {/* <div style={{display:"flex",alignItems:"center",gap:"8px"}}>
+                        <div style={{width:"35px",height:"35px",borderRadius:"50%",overflow:"hidden"}}> */}
+
+                      <img src="images/icon/vuesax/bold/key.svg" className={styles.flagimg}></img>
+                        {/* </div> */}
+                    LogOut
+                      {/* </div> */}
+                      </ALink>
+                    </li>
+                   
+                    
+                  </ul>
                 </div>
+              </div>}
               {/* </ALink> */}
 
               {/* <div className="header-user header-dropdown">

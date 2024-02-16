@@ -66,14 +66,14 @@
 	
 
 	& + & {
-		@include css( padding-left, breadcrumb, divider, space);
+		// @include css( padding-left, breadcrumb, divider, space);
 
 		&:before {
 			color: inherit;
 			padding-right: 1.4rem;
-			@include css( content, breadcrumb, divider, content);
-			@include css( font-size, breadcrumb, divider, size);
-			@include css( font-weight, breadcrumb, divider, weight);
+			// @include css( content, breadcrumb, divider, content);
+			// @include css( font-size, breadcrumb, divider, size);
+			// @include css( font-weight, breadcrumb, divider, weight);
 			font-family: 'porto';
 			vertical-align: middle;
 			margin-top: -2px;
@@ -86,7 +86,7 @@
 	}
 
 	a{
-		border: 1px solid #ccc;
+		// border: 1px solid #ccc;
 		padding: 10px 14px;
 		border-radius: 50px;
 font-weight: 600;
