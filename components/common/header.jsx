@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import React from "react";
+import React, { useState } from "react";
 // Import Actions
 import { actions as WishlistAction } from "../../store/wishlist";
 
@@ -13,6 +13,21 @@ import { AiFillHeart } from "react-icons/ai";
 import styles from "./header.module.css";
 import { useRouter } from "next/router";
 // import offer from "../../public/images/ticket-discount.svg";
+import withApollo from "../../server/apollo.js";
+import { gql, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
+
+const GET_WISH_LIST=gql `query Products {
+  getWishListProducts {
+    products {
+      image
+      productId
+      productName
+      sellingPrice
+      shortDescription
+    }
+  }
+}`;
 function Header({ adClass = "", wishlist }) {
   function openMobileMenu(e) {
     e.preventDefault();
@@ -33,7 +48,22 @@ function Header({ adClass = "", wishlist }) {
   }
 
 
+
   const token = localStorage.getItem("arabtoken");
+
+  const {
+    data: wishListData,
+    loading: wishListLoading,
+    error: wishListError,
+    refetch: wishListRefetch,
+  } = useQuery(GET_WISH_LIST, {
+    skip: !token,
+  });
+  const [showDropdown, setShowDropdown] = useState(false);
+
+  const handleToggleDropdown = () => {
+    setShowDropdown(prevState => !prevState);
+  };
 
 const click=localStorage.getItem("click")
 
@@ -246,6 +276,20 @@ const click=localStorage.getItem("click")
                 </div>
               {/* </ALink> */}
 
+              {/* <div className="header-user header-dropdown">
+                <div className={styles.circle} onClick={handleToggleDropdown}>
+                  <BiSolidUser style={{ fontSize: "20px" }} />
+                </div>
+                {showDropdown && (
+                    <div className="header-menu "  >
+                      <ul style={{width:"120px"}} >
+                        <li >Profile</li>
+                        <li >Logout</li>
+                      </ul>
+                    </div>
+                )}
+              </div> */}
+
               <ALink
                 href="/pages/wishlist"
                 className="header-icon position-relative"
@@ -256,7 +300,7 @@ const click=localStorage.getItem("click")
                 </div>
                 {/* <i className="icon-wishlist-2"></i> */}
                 <span className="wishlist-count badge-circle">
-                  {wishlist.length}
+                  {wishListData?.getWishListProducts.products.length}
                 </span>
               </ALink>
                 {token&&  <CartMenu  click={click}/>}
@@ -281,4 +325,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, WishlistAction)(Header);
+export default withApollo({ ssr: typeof window === "undefined" })( connect(mapStateToProps, WishlistAction)(Header));

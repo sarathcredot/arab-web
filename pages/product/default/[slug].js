@@ -138,8 +138,8 @@ function ProductDefault () {
 
                         <ProductDetailOne
                             product={ product }
-                            prev={ product && product }
-                            next={ product && product }
+                            // prev={ product && product }
+                            // next={ product && product }
                         />
                     </div>
                 </div>
