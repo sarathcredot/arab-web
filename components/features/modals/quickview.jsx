@@ -3,10 +3,10 @@ import React, { useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { connect } from 'react-redux';
 import Modal from 'react-modal';
-
+import{gql}from"@apollo/client"
 // Import Apollo Server and Query
 import withApollo from '../../../server/apollo';
-import { GET_PRODUCT } from '../../../server/queries';
+// import { GET_PRODUCT } from '../../../server/queries';
 
 // Import Action
 import { actions as ModalAction } from "../../../store/modal";
@@ -31,12 +31,59 @@ const customStyles = {
     }
 };
 
+
+const GET_PRODUCT = gql `query GetProduct($input: ProductId!) {
+    getProduct(input: $input) {
+      message
+      product {
+        _id
+        vendorId
+        brandId
+        brandName
+        productName
+        shortDescription
+        skuId
+        description
+        productInfo
+        productShortInfo
+        material
+        images {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
+        rating
+        sellingPrice
+        price
+        mrp
+        tags
+        productCode
+        categoryId
+        categoryNamePath
+        categoryIdPath
+        isBlocked
+        stock
+        status
+        offerPrice
+        attributes {
+          attributeId
+          attributeName
+          attributeValueId
+          attributeValue
+          attributeDescription
+        }
+      }
+    }
+  }`;
 function QuickModal ( props ) {
     const { slug } = props;
     if ( !slug ) return <div></div>
-    const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { demo: 4, slug, onlyData: true } } );
+    // const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { demo: 4, slug, onlyData: true } } );
+    const {data, loading, error} = useQuery( GET_PRODUCT,{variables: { input:{_id:slug.toString() }} })
     const router = useRouter();
-    const product = data && data.product.data;
+    const product = data && data.getProduct.product;
+
 
     useEffect( () => {
         router.events.on( 'routeChangeStart', closeModal );

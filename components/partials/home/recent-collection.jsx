@@ -14,6 +14,8 @@ import { productSlider } from "../../../utils/data/slider";
 function RecentCollection(props) {
   const { bestSelling } = props;
 
+  
+
   return (
     <>
       <section className="recent-products-section" style={{ marginTop: "10px" }}>
@@ -25,11 +27,11 @@ function RecentCollection(props) {
           style={{ marginTop: "30px" }}
         >
           <div
-            className="heading shop-list d-flex align-items-center flex-wrap bg-gray mb-0 pl-0 pr-0"
+            className="heading shop-list d-flex align-items-center flex-wrap  mb-0 pl-0 pr-0"
             style={{ borderBottom: "1px solid ", borderColor: "#EEEEEE" }}
           >
             <h4 className="section-title text-transform-none mb-0 mr-0">
-              SmartPhones
+             50% Off
             </h4>
             <ALink className="view-all ml-auto" href="/shop">
               View All Products
@@ -51,7 +53,7 @@ function RecentCollection(props) {
           >
             {bestSelling
               ? bestSelling
-                  .slice(0, 7)
+                 
                   .map((item, index) => (
                     <ProductOne
                       adClass="inner-quickview inner-icon"
@@ -60,7 +62,7 @@ function RecentCollection(props) {
                       customStyle="20%"
                     />
                   ))
-              : [0, 1, 2, 3].map((item, index) => (
+              : [0, 1].map((item, index) => (
                   <div
                     className="skel-pro skel-pro-grid"
                     key={"product-one" + index}
@@ -78,11 +80,11 @@ function RecentCollection(props) {
           style={{ marginTop: "30px" }}
         >
           <div
-            className="heading shop-list d-flex align-items-center flex-wrap bg-gray mb-0 pl-0 pr-0"
+            className="heading shop-list d-flex align-items-center flex-wrap mb-0 pl-0 pr-0"
             style={{ borderBottom: "1px solid ", borderColor: "#EEEEEE" }}
           >
             <h4 className="section-title text-transform-none mb-0 mr-0">
-              Games
+            30%of
             </h4>
             <ALink className="view-all ml-auto" href="/shop">
               View All Products
@@ -103,10 +105,8 @@ function RecentCollection(props) {
               },
             }}
           >
-            {bestSelling
-              ? bestSelling
-                  .slice(0, 7)
-                  .map((item, index) => (
+            {bestSelling?
+               bestSelling.map((item, index) => (
                     <ProductOne
                       adClass="inner-quickview inner-icon"
                       product={item}
@@ -114,7 +114,7 @@ function RecentCollection(props) {
                       customStyle="20%"
                     />
                   ))
-              : [0, 1, 2, 3].map((item, index) => (
+              : [0, 1].map((item, index) => (
                   <div
                     className="skel-pro skel-pro-grid"
                     key={"product-one" + index}
@@ -132,11 +132,11 @@ function RecentCollection(props) {
           style={{ marginTop: "30px" }}
         >
           <div
-            className="heading shop-list d-flex align-items-center flex-wrap bg-gray mb-0 pl-0 pr-0"
+            className="heading shop-list d-flex align-items-center flex-wrap mb-0 pl-0 pr-0"
             style={{ borderBottom: "1px solid ", borderColor: "#EEEEEE" }}
           >
             <h4 className="section-title text-transform-none mb-0 mr-0">
-              Accessories
+              10% Off
             </h4>
             <ALink className="view-all ml-auto" href="/shop">
               View All Products
@@ -157,10 +157,8 @@ function RecentCollection(props) {
               },
             }}
           >
-            {bestSelling
-              ? bestSelling
-                  .slice(0, 7)
-                  .map((item, index) => (
+            {
+              bestSelling?.map((item, index) => (
                     <ProductOne
                       adClass="inner-quickview inner-icon"
                       product={item}
@@ -168,12 +166,7 @@ function RecentCollection(props) {
                       customStyle="20%"
                     />
                   ))
-              : [0, 1, 2, 3].map((item, index) => (
-                  <div
-                    className="skel-pro skel-pro-grid"
-                    key={"product-one" + index}
-                  ></div>
-                ))}
+             }
           </OwlCarousel>
         </Reveal>
       </section>

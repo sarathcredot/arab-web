@@ -15,14 +15,13 @@ import ALink from "../../../common/ALink";
 import ProductCountdown from "../../../features/product-countdown";
 // import{useLazyQuery, useQuery}from"@apollo/client"
 
-
-import {gql, useMutation} from "@apollo/client";
-import {useQuery} from "@apollo/react-hooks"
+import { gql, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
 import AddToCartPopup from "../../../features/modals/add-to-cart-popup";
 
-import { toast } from 'react-toastify';
-
-
+import { toast } from "react-toastify";
+// import eventEmmitter from "../../../../server/eventEmmitter";
+import withApollo from "../../../../server/apollo.js";
 
 function ProductDetailOne(props) {
   const router = useRouter();
@@ -42,45 +41,120 @@ function ProductDetailOne(props) {
   const [qty, setQty] = useState(1);
   const [selectedcolor, setSelectedColor] = useState();
   const [selectedAttributes, setSelectedAttributes] = useState({});
-  const [variantData, setVariantData] = useState([])
-
-  console.log(variant,"varianteeeeeeeees")
-  const GET_VARIANT= gql `query Query($input: VariantsInput!) {
-    getVariants(input: $input) {
-      variants {
-        productId
-        attributeId
-        attributeName
-        attributeValueId
-        attributeValue
-        attributeDescription
-        colorCode
+  const [variantData, setVariantData] = useState([]);
+  const token = localStorage.getItem("arabtoken");
+const [wishlistDatas, setWishlistDatas]=useState(Boolean);
+  console.log(variant, "varianteeeeeeeees");
+  const GET_VARIANT = gql`
+    query Query($input: VariantsInput!) {
+      getVariants(input: $input) {
+        variants {
+          productId
+          attributeId
+          attributeName
+          attributeValueId
+          attributeValue
+          attributeDescription
+          colorCode
+        }
       }
     }
-  }`
+  `;
 
-  const POST_CART= gql`  mutation AddToCart($input: addToCartInput!) {
-    addToCart(input: $input) {
-      message
+  const POST_CART = gql`
+    mutation AddToCart($input: addToCartInput!) {
+      addToCart(input: $input) {
+        message
+      }
     }
-  }`;
+  `;
 
-  const [addToCart]=useMutation(POST_CART)
+  const GET_CART = gql`
+    query GetCart {
+      getCart {
+        products {
+          _id
+          productId
+          quantity
+          name
+          shortDescription
+          stock
+          color
+          size
+          price
+          image
+          sellingPrice
+          mrp
+        }
+        grandTotal
+        subTotal
+        deliveryCharge
+      }
+    }
+  `;
 
-  const { data:variData, loading: variantLoading, error: variantError } = useQuery(GET_VARIANT, {
-    variables: { input: { _id: product?._id  } }
+
+const POST_WISHLIST= gql `mutation AddToWishList($input: AddToWishListInput!) {
+  addToWishList(input: $input) {
+    message
+  }
+}`;
+
+const GET_WISH_LIST=gql `query Products {
+  getWishListProducts {
+    products {
+      image
+      productId
+      productName
+      sellingPrice
+      shortDescription
+    }
+  }
+}`;
+
+const GET_WISHLIST_PRODUCT_STATUS= gql`query GetWishListProductStatus($input: GetWishListProductStatusInput!) {
+  getWishListProductStatus(input: $input) {
+    isExist
+  }
+}`;
+
+
+  const [addToCart] = useMutation(POST_CART);
+  const [addToWishList] = useMutation(POST_WISHLIST);
+
+  const {
+    data: variData,
+    loading: variantLoading,
+    error: variantError,
+  } = useQuery(GET_VARIANT, {
+    variables: { input: { _id: product?._id } },
   });
-  
-  // console.log("dfgfff",variData);
 
+
+  
+  const {
+    
+    refetch: wishListRefetch,
+  } = useQuery(GET_WISH_LIST, {
+    skip: !token,
+  });
+
+
+ 
+
+
+
+
+
+  // console.log("dfgfff",variData);
 
   const getUniqueVariants = (data) => {
     const uniqueVariants = [];
     const variantSet = new Set();
-  
+
     data.forEach((variant) => {
       const key = `${variant.attributeName}_${variant.attributeValue}`;
-  
+
       if (!variantSet.has(key)) {
         variantSet.add(key);
         uniqueVariants.push(variant);
@@ -89,26 +163,20 @@ function ProductDetailOne(props) {
     return uniqueVariants;
   };
 
-
   useEffect(() => {
     if (variantError) {
       console.error("Error fetching variant data:", variantError);
     } else {
       // setVariantData(variData?.getVariants.variants || []);
-      const uniqueVariants = getUniqueVariants(variData?.getVariants.variants || []);
+      const uniqueVariants = getUniqueVariants(
+        variData?.getVariants.variants || []
+      );
       setVariantData(uniqueVariants);
     }
-  }, [ variData]);
-  
+  }, [variData]);
 
-  
+  console.log(variantData);
 
-
- 
-  
-
-    console.log( variantData)
- 
   // useEffect(() => {
   //   if (product) {
   //     let attributes = variants?.reduce(
@@ -128,11 +196,6 @@ function ProductDetailOne(props) {
   //   }
   // }, [product]);
 
-
-
-  
-
-
   useEffect(() => {
     if (product && variantData) {
       let attributes = variantData.reduce(
@@ -140,32 +203,33 @@ function ProductDetailOne(props) {
           const attributeType = cur?.attributeDescription.toLowerCase();
           const attributeName = cur?.attributeName;
           const attributeValue = cur?.attributeValue;
-  
+
           if (!acc[attributeType]) {
             acc[attributeType] = [];
           }
-  
+
           if (
             attributeValue &&
             !acc[attributeType].find((attr) => attr.value === attributeValue)
           ) {
-            acc[attributeType].push({ name: attributeName, value: attributeValue });
+            acc[attributeType].push({
+              name: attributeName,
+              value: attributeValue,
+            });
           }
-  
+
           return acc;
         },
         {} // Initialize an empty object
       );
-  
+
       setAttrs(attributes);
       initState();
     }
   }, [variantData]);
-  
-  
+
   // console.log(attrs,"atrrrs")
 
-  
   // useEffect(() => {
   //   if (product) {
   //     let priceToggle = document.querySelector(`${parent} .price-toggle`);
@@ -219,18 +283,19 @@ function ProductDetailOne(props) {
   //   }
   // }, [size, color]);
 
-
   useEffect(() => {
     if (product && attrs) {
       let priceToggle = document.querySelector(`${parent} .price-toggle`);
-      let variationToggle = document.querySelector(`${parent} .variation-toggle`);
-  
+      let variationToggle = document.querySelector(
+        `${parent} .variation-toggle`
+      );
+
       // Check if there are any attributes
       const hasAttributes = Object.keys(attrs).length > 0;
-  
+
       // Check if any attribute is not selected
       const hasUnselectedAttribute = Object.values(attrs).some((attr) => !attr);
-  
+
       if (hasAttributes && hasUnselectedAttribute) {
         document.querySelector(`${parent} .shopping-cart`) &&
           document
@@ -252,20 +317,22 @@ function ProductDetailOne(props) {
           document
             .querySelector(`${parent} .sticky-cart .add-cart`)
             .classList.remove("disabled");
-  
+
         let index = product?.variants?.findIndex((item) => {
           const hasAttributeMatches = Object.keys(attrs).every((key) => {
             const attributeValue = attrs[key];
-            return !item[key] || (item[key] && item[key].name === attributeValue);
+            return (
+              !item[key] || (item[key] && item[key].name === attributeValue)
+            );
           });
-  
+
           return hasAttributeMatches;
         });
-  
+
         // TODO: when adding remove commented
         setVariant({ ...product?.attributes[index], id: index });
       }
-  
+
       if (Object.values(attrs).some((attr) => attr !== null)) {
         variationToggle &&
           variationToggle.classList.contains("collapsed") &&
@@ -277,7 +344,6 @@ function ProductDetailOne(props) {
       }
     }
   }, [product]);
-  
 
   useEffect(() => {
     if (variant && variant.id >= 0) {
@@ -288,13 +354,49 @@ function ProductDetailOne(props) {
     }
   }, [product]);
 
-  function isInWishlist() {
-    return (
-      product &&
-      props.wishlist.findIndex((item) => item.slug === product.slug) > -1
-    );
-  }
+  const { loading, error, data ,refetch} = useQuery(GET_WISHLIST_PRODUCT_STATUS, {
+    variables: {
+      input:{
+        productId: product && product._id
+      }
+      
+    },
+    skip: !token
+    });
+  useEffect(()=>{
+    if(error){
+      console.log(wishListError.message)
+    }else if (data){
+      console.log(data,"wishList")
+      setWishlistDatas(data?.getWishListProductStatus.isExist )
+    }
+    refetch()
+  },[data])
 
+  console.log(wishlistDatas,"sssssssssss")
+
+  
+
+  // function isInWishlist() {
+  //   return (
+  //     product &&
+  //     props.wishlist.findIndex((item) => item.slug === product.slug) > -1
+  //   );
+  // }
+
+
+ 
+
+
+console.log(data)
+
+  function isInWishlist() {
+    
+  
+  
+    // Check if the product exists in the wishlist
+    return wishlistDatas;
+  }
   function onWishlistClick(e) {
     e.preventDefault();
     if (!isInWishlist()) {
@@ -305,17 +407,33 @@ function ProductDetailOne(props) {
       setTimeout(() => {
         target.classList.remove("load-more-overlay");
         target.classList.remove("loading");
-        props.addToWishList(product);
+        // props.addToWishList(product);
+
+        addToWishList({variables:{input: {
+          productId: product._id,
+        }}}).then((res)=>{refetch(), wishListRefetch()}).catch((err)=>{console.log(err,"err")})
       }, 1000);
     } else {
       router.push("/pages/wishlist");
     }
   }
+  
+  const {
+    data: cartData,
+    loading: cartLoading,
+    error: cartError,
+    refetch: cartRefetch,
+  } = useQuery(GET_CART, {
+    skip: !token,
+  });
 
-  const  onAddCartClick= async (e)=> {
+
+
+  const onAddCartClick = async (e) => {
     e.preventDefault();
 
-  localStorage.setItem("click", "click");
+    localStorage.setItem("click", "click");
+
     // if (product.stock > 0 && !e.currentTarget.classList.contains("disabled")) {
     //   if (product.variants.length === 0) {
     //     props.addToCart(product, qty, -1);
@@ -324,42 +442,35 @@ function ProductDetailOne(props) {
     //   }
     // }
 
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
 
     try {
+    
 
-      // if (token) {
-      
-      if (product.stock > 0 && !e.currentTarget.classList.contains("disabled")) {
-        const response = await addToCart({variables: {
-          input: {
-            productId: product._id,
-            quantity: parseInt(qty)
-          }
-        }})
+      if (
+        product.stock > 0 &&
+        !e.currentTarget.classList.contains("disabled")
+      ) {
+        const response = await addToCart({
+          variables: {
+            input: {
+              productId: product._id,
+              quantity: parseInt(qty),
+            },
+          },
+        });
 
-
-
-     
-
-       if(response){
-        return toast( <AddToCartPopup product={ { product  } } /> );
-
-       }
-        
+        if (response) {
+          // eventEmmitter.emit("productAdded")
+          cartRefetch();
+          return toast(<AddToCartPopup product={{ product }} />);
+        }
       }
-    // } else {
-      
-    //   alert('Please log in to add items to your cart.');
-      
-    // }
       
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-
-    
-  }
+  };
 
   function changeQty(value) {
     setQty(value);
@@ -381,28 +492,27 @@ function ProductDetailOne(props) {
   //   setQty(1);
   // }
 
-
   // function initState() {
   //   // Default values for each attribute type
   //   const defaultValues = {};
-  
+
   //   // Iterate over variants to find unique attribute types and their default values
   //   variants.forEach((variant) => {
   //     const attributeType = variant.attributeDescription.toLowerCase();
   //     const defaultValue = variant.attributeValue;
-  
+
   //     // Set default value for the attribute type if not set already
   //     if (!defaultValues[attributeType]) {
   //       defaultValues[attributeType] = defaultValue;
   //     }
   //   });
-  
+
   //   // Set default values for each attribute type
   //   const defaultAttributes = {};
   //   Object.keys(defaultValues).forEach((attributeType) => {
   //     defaultAttributes[attributeType] = defaultValues[attributeType];
   //   });
-  
+
   //   // Set default values and trigger selection functions
   //   Object.keys(defaultAttributes).forEach((attributeType) => {
   //     const attributeName = defaultAttributes[attributeType];
@@ -414,29 +524,19 @@ function ProductDetailOne(props) {
   //     }
   //     // Add similar logic for other attribute types if needed
   //   });
-  
+
   //   // Set default values to state
   //   setAttrs(defaultAttributes);
   // }
-
-
- 
-
-
-
-
-
 
   function initState() {
     // Default values for each attribute type
     const defaultValues = {};
 
-    
     product.attributes.forEach((variant) => {
       const attributeType = variant.attributeDescription.toLowerCase();
       const defaultValue = variant.attributeValue;
 
-      
       if (!defaultValues[attributeType]) {
         defaultValues[attributeType] = defaultValue;
       }
@@ -447,7 +547,6 @@ function ProductDetailOne(props) {
       defaultAttributes[attributeType] = defaultValues[attributeType];
     });
 
-    
     setSelectedAttributes(defaultAttributes);
   }
 
@@ -456,26 +555,24 @@ function ProductDetailOne(props) {
   function selectAttribute(attributeType, e) {
     e.preventDefault();
     // setAttrs({})
-    setSelectedAttributes({})
-    console.log(attributeType)
+    setSelectedAttributes({});
+    console.log(attributeType);
     const productId = attributeType; // Replace with your dynamic value
     router.replace({
-      pathname: '/product/default/[...slug]',
+      pathname: "/product/default/[...slug]",
       query: { slug: [productId] },
     });
-   
   }
 
-  
   // ...
-  
+
   useEffect(() => {
     if (product && variantData) {
       initState();
       // ... (rest of the useEffect logic)
     }
-  }, [product,variData]);
-  
+  }, [product, variData]);
+
   function clearVariation(e) {
     e.preventDefault();
     initState();
@@ -494,33 +591,30 @@ function ProductDetailOne(props) {
   //   return false;
   // }
 
-
-
-
-
   function isDisabled(selectedAttributes) {
     if (!product) {
       return false;
     }
-  
+
     const hasSelectedAttributes = Object.values(selectedAttributes).some(
       (value) => value !== null
     );
-  
+
     if (hasSelectedAttributes) {
       return !product?.attributes?.find((variant) => {
-        const attributeMatches = Object.keys(selectedAttributes).every((key) => {
-          const selectedValue = selectedAttributes[key];
-          return !variant[key] || (variant[key].name === selectedValue);
-        });
-  
+        const attributeMatches = Object.keys(selectedAttributes).every(
+          (key) => {
+            const selectedValue = selectedAttributes[key];
+            return !variant[key] || variant[key].name === selectedValue;
+          }
+        );
+
         return attributeMatches;
       });
     }
-  
+
     return false;
   }
-
 
   function updateSelectedAttributes(attributeType, value) {
     setSelectedAttributes((prev) => ({
@@ -528,18 +622,7 @@ function ProductDetailOne(props) {
       [attributeType]: value,
     }));
   }
-  
 
-
-  
-
-
- console.log(product)
-  
-
-  console.log(variantData);
-
-  console.log(selectedAttributes,"222222222222")
   return (
     <>
       <div className={`skel-pro skel-detail ${adClass}`}></div>
@@ -667,7 +750,10 @@ function ProductDetailOne(props) {
                       fontWeight: "600",
                     }}
                   >
-                    &nbsp;&nbsp;&nbsp;<strike>{product?.mrp?product?.mrp:product?.price}</strike>
+                    &nbsp;&nbsp;&nbsp;
+                    <strike>
+                      {product?.mrp ? product?.mrp : product?.price}
+                    </strike>
                   </span>
                   {/* <span style={{fontSize:"12px",fontFamily: "Plus Jakarta Sans",color:"#606060",fontWeight:"600"}}> OMR </span> */}
                   {/* <span>{product.price[1].toFixed(2)}</span> */}
@@ -717,32 +803,36 @@ function ProductDetailOne(props) {
           >
             <p style={{ fontWeight: "400" }}>{product?.shortDescription}</p>
           </div>
-         
 
           {variantData?.length > 0 ? (
             <div className="product-filters-container">
-
-{variantData?.some(
-                  (value) =>
-                    value?.attributeDescription?.toLowerCase() === "color"
-                )?<>
-                 <label>
-                      Color:&nbsp;{""}
-                      <span style={{ fontWeight: "500" }}>
-                        {selectedAttributes &&
-                          // selectedAttributes.charAt(0).toUpperCase() +
-                          selectedAttributes.color}
-                      </span>
-                    </label>
-                </>:null}
-                <div className="product-single-filter  d-flex" style={{gap:"20px"}}>
-              {variantData?.filter(
-                  (value) =>
-                    value?.attributeDescription?.toLowerCase() === "color"
-                )
-                .map((item,index) => (
-                  <>
-                    {/* <label>
+              {variantData?.some(
+                (value) =>
+                  value?.attributeDescription?.toLowerCase() === "color"
+              ) ? (
+                <>
+                  <label>
+                    Color:&nbsp;{""}
+                    <span style={{ fontWeight: "500" }}>
+                      {selectedAttributes &&
+                        // selectedAttributes.charAt(0).toUpperCase() +
+                        selectedAttributes.color}
+                    </span>
+                  </label>
+                </>
+              ) : null}
+              <div
+                className="product-single-filter  d-flex"
+                style={{ gap: "20px" }}
+              >
+                {variantData
+                  ?.filter(
+                    (value) =>
+                      value?.attributeDescription?.toLowerCase() === "color"
+                  )
+                  .map((item, index) => (
+                    <>
+                      {/* <label>
                       Color:&nbsp;{""}
                       <span style={{ fontWeight: "500" }}>
                         {selectedcolor &&
@@ -750,260 +840,256 @@ function ProductDetailOne(props) {
                             selectedcolor.slice(1)}
                       </span>
                     </label> */}
-                    
+
                       <ul
                         className="config-size-list config-color-list config-filter-list"
                         style={{ gap: "20px" }}
                       >
-                       
-                          <li
-                            key={`filter-color-${index}`}
-                            className={`${
-                              item?.attributeValue === selectedAttributes.color
-                                ? "active"
-                                : ""
-                            } ${
-                              isDisabled("color", item.attributeValue)
-                                ? "disabled"
-                                : ""
-                            }`}
-                          >
-                            {item?.thumb ? (
+                        <li
+                          key={`filter-color-${index}`}
+                          className={`${
+                            item?.attributeValue === selectedAttributes.color
+                              ? "active"
+                              : ""
+                          } ${
+                            isDisabled("color", item.attributeValue)
+                              ? "disabled"
+                              : ""
+                          }`}
+                        >
+                          {item?.thumb ? (
+                            <a
+                              href="#"
+                              className="filter-thumb p-0"
+                              onClick={(e) => selectColor(item?.thumb, e)}
+                            >
+                              <LazyLoadImage
+                                src={
+                                  process.env.NEXT_PUBLIC_ASSET_URI +
+                                  item?.thumb?.url
+                                }
+                                alt="product thumb"
+                                width={item?.thumb?.width}
+                                height={item?.thumb?.height}
+                              />
+                            </a>
+                          ) : (
+                            <div
+                              style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "center",
+                                width: "63px",
+                                height: "63px",
+                                backgroundColor: "#F8F8F8",
+                                borderRadius: "50%",
+                              }}
+                            >
                               <a
                                 href="#"
-                                className="filter-thumb p-0"
-                                onClick={(e) => selectColor(item?.thumb, e)}
-                              >
-                                <LazyLoadImage
-                                  src={
-                                    process.env.NEXT_PUBLIC_ASSET_URI +
-                                    item?.thumb?.url
-                                  }
-                                  alt="product thumb"
-                                  width={item?.thumb?.width}
-                                  height={item?.thumb?.height}
-                                />
-                              </a>
-                            ) : (
-                              
-                              <div
+                                className="filter-color border-0"
                                 style={{
-                                  display: "flex",
-                                  alignItems: "center",
-                                  justifyContent: "center",
-                                  width: "63px",
-                                  height: "63px",
-                                  backgroundColor: "#F8F8F8",
+                                  backgroundColor: item.colorCode,
                                   borderRadius: "50%",
+                                  width: "3.8rem",
+                                  height: "3.8rem",
+                                  border: `1px solid ${item.colorCode}`,
                                 }}
-                              >
-                                <a
-                                  href="#"
-                                  className="filter-color border-0"
-                                  style={{
-                                    backgroundColor: item.colorCode,
-                                    borderRadius: "50%",
-                                    width: "3.8rem",
-                                    height: "3.8rem",
-                                    border: `1px solid ${item.colorCode}`,
-                                  }}
-                                  onClick={(e) => {
-                                    selectColor(item.attributeValue, e);
-                                    setSelectedColor(item.attributeValue);
-                                  }}
-                                ></a>
-                              </div>
-                            )}
-                          </li>
-                        
+                                onClick={(e) => {
+                                  selectColor(item.attributeValue, e);
+                                  setSelectedColor(item.attributeValue);
+                                }}
+                              ></a>
+                            </div>
+                          )}
+                        </li>
                       </ul>
-                    
-                  </>
-                ))}
-                </div>
-
-
-
-
-
-
+                    </>
+                  ))}
+              </div>
 
               {variantData?.length > 0 ? (
                 <div className="product-single-filter">
-                   <label
-                          style={{
-                            // fontWeight: "600px",
-                            // fontSize: "14px",
-                            // lineHeight: "22px",
-                            color: "#000",
-                            fontWeight: "500"
-                            
-                          }}
-                        >
-                          Size &nbsp;{""}
-                        </label>
-                      <div className=" d-flex " style={{gap:"4px"}}>
-                  {variantData?.filter(
-                      (value) =>
-                        value.attributeDescription.toLowerCase() === "size"
-                    )
-                  
-                   
-                    
-                    .map((item, index) => (
-                      <>
-                        
-                        <ul className="config-size-list mt-2 d-flex">
-                          <li
-                            key={`filter-size-${index}`}
-                            className={`${
-                              item?.attributeValue === selectedAttributes.size ? "active" : ""
-                              
-                            // attrs["size"]?.find((value) =>
-                            //   product?.attributes?.some((attrValue) => attrValue?.attributeValue === value.value)
-                            // )
-                            //   ? "active"
-                            //   : ""
-                            
+                  <label
+                    style={{
+                      // fontWeight: "600px",
+                      // fontSize: "14px",
+                      // lineHeight: "22px",
+                      color: "#000",
+                      fontWeight: "500",
+                    }}
+                  >
+                    Size &nbsp;{""}
+                  </label>
+                  <div className=" d-flex " style={{ gap: "4px" }}>
+                    {variantData
+                      ?.filter(
+                        (value) =>
+                          value.attributeDescription.toLowerCase() === "size"
+                      )
 
-                             
-                             
-                            } ${
-                              isDisabled("size", item?.attributeValue)
-                                ? "disabled"
-                                : ""
-                            }`}
-                          >
-                            {item?.thumb ? (
-                              <a
-                                href="#"
-                                className="filter-thumb p-0"
-                                onClick={(e) =>{
-                                  selectAttribute(item?.productId, e)
-                                  updateSelectedAttributes(
-                                    item?.attributeDescription.toLowerCase(),
-                                    item?.attributeValue
-                                  )
-                                  
-                                }}
-                              >
-                                <LazyLoadImage
-                                  src={
-                                    process.env.NEXT_PUBLIC_ASSET_URI +
-                                    item?.thumb?.url
+                      .map((item, index) => (
+                        <>
+                          <ul className="config-size-list mt-2 d-flex">
+                            <li
+                              key={`filter-size-${index}`}
+                              className={`${
+                                item?.attributeValue === selectedAttributes.size
+                                  ? "active"
+                                  : ""
+
+                                // attrs["size"]?.find((value) =>
+                                //   product?.attributes?.some((attrValue) => attrValue?.attributeValue === value.value)
+                                // )
+                                //   ? "active"
+                                //   : ""
+                              } ${
+                                isDisabled("size", item?.attributeValue)
+                                  ? "disabled"
+                                  : ""
+                              }`}
+                            >
+                              {item?.thumb ? (
+                                <a
+                                  href="#"
+                                  className="filter-thumb p-0"
+                                  onClick={(e) => {
+                                    selectAttribute(item?.productId, e);
+                                    updateSelectedAttributes(
+                                      item?.attributeDescription.toLowerCase(),
+                                      item?.attributeValue
+                                    );
+                                  }}
+                                >
+                                  <LazyLoadImage
+                                    src={
+                                      process.env.NEXT_PUBLIC_ASSET_URI +
+                                      item?.thumb?.url
+                                    }
+                                    alt="product thumb"
+                                    width={item.thumb.width}
+                                    height={item.thumb.height}
+                                  />
+                                </a>
+                              ) : (
+                                <a
+                                  href="#"
+                                  className="d-flex align-items-center justify-content-center"
+                                  onClick={(e) =>
+                                    selectAttribute(item?.productId, e)
                                   }
-                                  alt="product thumb"
-                                  width={item.thumb.width}
-                                  height={item.thumb.height}
-                                />
-                              </a>
-                            ) : (
-                              <a
-                                href="#"
-                                className="d-flex align-items-center justify-content-center"
-                                onClick={(e) =>
-                                  selectAttribute(item?.productId, e)
-                                }
-                                style={{
-                                  fontWeight: "600",
-                                  fontSize: "12px",
-                                  lineHeight: "15px",
-                                  color: "#292D32",
-                                }}
-                              >
-                                {item?.attributeValue}
-                              </a>
-                            )}
-                          </li>
-                        </ul>
-                      </>
-                    ))}
-                    </div>
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "12px",
+                                    lineHeight: "15px",
+                                    // color: "#292D32",
+                                  }}
+                                >
+                                  {item?.attributeValue}
+                                </a>
+                              )}
+                            </li>
+                          </ul>
+                        </>
+                      ))}
+                  </div>
                 </div>
               ) : (
                 ""
               )}
-{variantData?.length > 0 ? (
-  <div className="product-single-filter">
-    {Array.from(new Set(variantData
-      ?.filter(
-        (value) =>
-          value.attributeDescription.toLowerCase() !== "size" &&
-          value.attributeDescription.toLowerCase() !== "color"
-      )
-      .map((item) => item.attributeDescription.toLowerCase())
-    )).map((uniqueDescription, index) => (
-      <div key={`attribute-group-${index}`}>
-        <label
-          style={{
-            color: "#000",
-                            fontWeight: "500"
-          }}
-        >
-          {uniqueDescription} &nbsp;
-        </label>
-        <ul className="config-size-list mt-2" >
-          {variantData
-            ?.filter((item) =>
-              item.attributeDescription.toLowerCase() === uniqueDescription
-            )
-            .map((item, subIndex) => (
-              <li
-                key={`filter-size-${subIndex}`}
-                className={`${
-                  Object.values(selectedAttributes).includes(item?.attributeValue) ? "active" : ""
-                } ${
-                  isDisabled(item.attributeDescription, item?.attributeValue)
-                    ? "disabled"
-                    : ""
-                }`}
-              >
-                {item?.thumb ? (
-                  <a
-                    href="#"
-                    className="filter-thumb p-0"
-                    onClick={(e) =>
-                      selectAttribute(item?.productId, e)
-                    }
-                  >
-                    <LazyLoadImage
-                      src={
-                        process.env.NEXT_PUBLIC_ASSET_URI +
-                        item?.thumb?.url
-                      }
-                      alt="product thumb"
-                      width={item.thumb.width}
-                      height={item.thumb.height}
-                    />
-                  </a>
-                ) : (
-                  <a
-                    href="#"
-                    className="d-flex align-items-center justify-content-center"
-                    onClick={(e) =>
-                      selectAttribute(item?.productId, e)
-                    }
-                    style={{
-                      fontWeight: "600",
-                      fontSize: "12px",
-                      lineHeight: "15px",
-                      color: "#292D32",
-                      marginRight: "5px",
-                    }}
-                  >
-                    {item?.attributeValue}
-                  </a>
-                )}
-              </li>
-            ))}
-        </ul>
-      </div>
-    ))}
-  </div>
-) : (
-  ""
-)}
-
+              {variantData?.length > 0 ? (
+                <div className="product-single-filter">
+                  {Array.from(
+                    new Set(
+                      variantData
+                        ?.filter(
+                          (value) =>
+                            value.attributeDescription.toLowerCase() !==
+                              "size" &&
+                            value.attributeDescription.toLowerCase() !== "color"
+                        )
+                        .map((item) => item.attributeDescription.toLowerCase())
+                    )
+                  ).map((uniqueDescription, index) => (
+                    <div key={`attribute-group-${index}`}>
+                      <label
+                        style={{
+                          color: "#000",
+                          fontWeight: "500",
+                        }}
+                      >
+                        {uniqueDescription} &nbsp;
+                      </label>
+                      <ul className="config-size-list mt-2">
+                        {variantData
+                          ?.filter(
+                            (item) =>
+                              item.attributeDescription.toLowerCase() ===
+                              uniqueDescription
+                          )
+                          .map((item, subIndex) => (
+                            <li
+                              key={`filter-size-${subIndex}`}
+                              className={`${
+                                Object.values(selectedAttributes).includes(
+                                  item?.attributeValue
+                                )
+                                  ? "active"
+                                  : ""
+                              } ${
+                                isDisabled(
+                                  item.attributeDescription,
+                                  item?.attributeValue
+                                )
+                                  ? "disabled"
+                                  : ""
+                              }`}
+                            >
+                              {item?.thumb ? (
+                                <a
+                                  href="#"
+                                  className="filter-thumb p-0"
+                                  onClick={(e) =>
+                                    selectAttribute(item?.productId, e)
+                                  }
+                                >
+                                  <LazyLoadImage
+                                    src={
+                                      process.env.NEXT_PUBLIC_ASSET_URI +
+                                      item?.thumb?.url
+                                    }
+                                    alt="product thumb"
+                                    width={item.thumb.width}
+                                    height={item.thumb.height}
+                                  />
+                                </a>
+                              ) : (
+                                <a
+                                  href="#"
+                                  className="d-flex align-items-center justify-content-center"
+                                  onClick={(e) =>
+                                    selectAttribute(item?.productId, e)
+                                  }
+                                  style={{
+                                    fontWeight: "600",
+                                    fontSize: "12px",
+                                    lineHeight: "15px",
+                                    // color: "#292D32",
+                                    marginRight: "5px",
+                                  }}
+                                >
+                                  {item?.attributeValue}
+                                </a>
+                              )}
+                            </li>
+                          ))}
+                      </ul>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                ""
+              )}
 
               {
                 // <SlideToggle collapsed={true}>
@@ -1034,7 +1120,6 @@ function ProductDetailOne(props) {
           ) : (
             ""
           )}
-         
 
           {isSticky && (
             <div className="sticky-wrapper">
@@ -1058,9 +1143,6 @@ function ProductDetailOne(props) {
                       <h2 className="product-title w-100 ls-0">
                         {product.productName}
                       </h2>
-                    
-
-                      
                     </div>
                     <div className="ratings-container">
                       <div className="product-ratings">
@@ -1153,19 +1235,17 @@ function ProductDetailOne(props) {
               ""
             )}
 
-            <Qty max={product.stock} value={qty} onChangeQty={changeQty} />
+            <Qty max={10} value={qty} onChangeQty={changeQty} />
 
             <a
               href="#"
               className={`btn btn-dark add-cart shopping-cart mr-2 custom-detail-cart ${
-                attrs?.sizes?.length > 0 || attrs?.colors?.length > 0
-                  ? "disabled"
-                  : ""
+                product.stock < 0 ? "disabled" : ""
               }`}
               title="Add To Cart"
               onClick={onAddCartClick}
             >
-              Add to Cart
+              {product?.stock > 0 ? "Add To Cart" : "Out of Stock"}
             </a>
           </div>
 
@@ -1272,6 +1352,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, { ...WishlistAction, ...CartAction })(
-  ProductDetailOne
+export default withApollo({ ssr: typeof window === "undefined" })(
+  connect(mapStateToProps, { ...WishlistAction, ...CartAction })(
+    ProductDetailOne
+  )
 );
