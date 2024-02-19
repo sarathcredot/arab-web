@@ -816,7 +816,7 @@ console.log(data)
                     <span style={{ fontWeight: "500" }}>
                       {selectedAttributes &&
                         // selectedAttributes.charAt(0).toUpperCase() +
-                        selectedAttributes.color}
+                        selectedAttributes?.color}
                     </span>
                   </label>
                 </>
@@ -889,15 +889,20 @@ console.log(data)
                                 href="#"
                                 className="filter-color border-0"
                                 style={{
-                                  backgroundColor: item.colorCode,
+                                  backgroundColor: item?.colorCode,
                                   borderRadius: "50%",
                                   width: "3.8rem",
                                   height: "3.8rem",
-                                  border: `1px solid ${item.colorCode}`,
+                                  border: `1px solid ${item?.colorCode}`,
                                 }}
                                 onClick={(e) => {
-                                  selectColor(item.attributeValue, e);
-                                  setSelectedColor(item.attributeValue);
+                                  // selectColor(item.attributeValue, e);
+                                  selectAttribute(item?.productId, e);
+                                  // setSelectedColor(item.attributeValue);
+                                  updateSelectedAttributes(
+                                    item?.attributeDescription.toLowerCase(),
+                                    item?.attributeValue
+                                  );
                                 }}
                               ></a>
                             </div>
