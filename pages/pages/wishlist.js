@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 
 import ALink from "../../components/common/ALink";
@@ -7,10 +7,102 @@ import ALink from "../../components/common/ALink";
 import { actions as WishlistAction } from "../../store/wishlist";
 import { actions as CartAction } from "../../store/cart";
 import { actions as ModalAction } from "../../store/modal";
+import { gql, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
+import withApollo from "../../server/apollo";
+import AddToCartPopup from "../../components/features/modals/add-to-cart-popup";
+
+import { toast } from "react-toastify";
+const GET_WISH_LIST=gql `query Products {
+  getWishListProducts {
+    products {
+      image
+      productId
+      productName
+      sellingPrice
+      shortDescription
+    }
+  }
+}`;
+
+
+const POST_CART = gql`
+mutation AddToCart($input: addToCartInput!) {
+  addToCart(input: $input) {
+    message
+  }
+}
+`;
+
+
+const GET_CART = gql`
+query GetCart {
+  getCart {
+    products {
+      _id
+      productId
+      quantity
+      name
+      shortDescription
+      stock
+      color
+      size
+      price
+      image
+      sellingPrice
+      mrp
+    }
+    grandTotal
+    subTotal
+    deliveryCharge
+  }
+}
+`;
+
+const REMOVE_WISHLIST = gql`mutation RemoveFromWishList($input: RemoveFromWishListInput!) {
+  removeFromWishList(input: $input) {
+    message
+  }
+}`;
+
+
+
 
 function Wishlist(props) {
-  const { wishlist, addToCart, removeFromWishlist, showQuickView } = props;
+  const { wishlist,  removeFromWishlist, showQuickView } = props;
   const [flag, setFlag] = useState(0);
+  const [wishlistDatas, setWishlistDatas]=useState([]);
+
+  const [addToCart] = useMutation(POST_CART);
+  const [removeFromWishList]=useMutation(REMOVE_WISHLIST)
+  const token = localStorage.getItem("arabtoken");
+
+  const {
+    data: cartData,
+    loading: cartLoading,
+    error: cartError,
+    refetch: cartRefetch,
+  } = useQuery(GET_CART, {
+    skip: !token,
+  });
+
+  const {
+    data: wishListData,
+    loading: wishListLoading,
+    error: wishListError,
+    refetch: wishListRefetch,
+  } = useQuery(GET_WISH_LIST, {
+    skip: !token,
+  });
+
+  useEffect(()=>{
+      if(wishListError){
+        console.log(wishListError)
+      }else if(wishlistDatas){
+        setWishlistDatas(wishListData?.getWishListProducts.products || [])
+      }
+  },[wishListData])
+
 
   const onMoveFromToWishlit = (e, item) => {
     setFlag(2);
@@ -19,16 +111,80 @@ function Wishlist(props) {
     removeFromWishlist(item);
   };
 
-  const removeProduct = (e, item) => {
-    setFlag(1);
-    e.preventDefault();
-    removeFromWishlist(item);
+  const removeProduct =  async(e, item) => {
+    try {
+      if(item){
+        const response = await removeFromWishList({
+          variables: {
+            input: {
+              productId: item.productId,
+             
+            },
+          },
+        });
+        if(response){
+          wishListRefetch()
+          return toast.success("Successfully product removed to cart");
+        }
+      }
+    } catch (error) {
+      console.log(error)
+      
+    }
   };
 
   const onQuickViewClick = (e, product) => {
     e.preventDefault();
-    showQuickView(product.slug);
+      showQuickView(product.productId);
   };
+
+
+
+
+
+
+ 
+  const onAddCartClick = async (e,product) => {
+    e.preventDefault();
+
+
+   
+
+   
+
+
+
+    try {
+    
+
+      if (
+        product
+        
+      ) {
+        const response = await addToCart({
+          variables: {
+            input: {
+              productId: product.productId,
+              quantity: 1,
+            },
+          },
+        });
+
+        console.log(response,"resp")
+
+        if (response) {
+          
+          cartRefetch();
+          wishListRefetch()
+          return toast.success("Successfully product added to cart");
+        }
+      }
+      
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
 
   return (
     <main className="main">
@@ -57,7 +213,7 @@ function Wishlist(props) {
         {/* <div className="wishlist-title">
                     <h2>My wishlist on Porto Shop 36</h2>
                 </div> */}
-        {wishlist.length === 0 ? (
+        {wishlistDatas?.length === 0 ? (
           <div className="wishlist-table-container">
             <div className="table table-wishlist mb-0">
               <div className="wishlist-empty-page text-center">
@@ -77,27 +233,27 @@ function Wishlist(props) {
             <table className="table table-wishlist mb-0">
               <thead>
                 <tr>
-                  <th className="thumbnail-col"></th>
-                  <th className="product-col">Product</th>
+                  <th className="thumbnail-col">Product</th>
+                  <th className="product-col"></th>
                   <th className="price-col">Price</th>
-                  <th className="status-col">Stock Status</th>
+                  {/* <th className="status-col">Stock Status</th> */}
                   <th className="action-col">Actions</th>
                 </tr>
               </thead>
               <tbody>
-                {wishlist.map((item, index) => (
+                {wishlistDatas?.map((item, index) => (
                   <tr key={"wishlist-item" + index} className="product-row"style={{borderBottom: "1px solid #e7e7e7"}}>
                     <td className="media-with-lazy">
                       <figure className="product-image-container">
                         <ALink
-                          href={`/product/default/${item.slug}`}
+                          href={`/product/default/${item?.productId}`}
                           className="product-image"
                         >
                           <LazyLoadImage
                             alt="product"
                             src={
-                              process.env.NEXT_PUBLIC_ASSET_URI +
-                              item.pictures[0].url
+                             
+                              item.image
                             }
                             threshold={500}
                             width="80"
@@ -105,7 +261,7 @@ function Wishlist(props) {
                           />
                         </ALink>
                         <a
-                          href="#"
+                          
                           className="btn-remove icon-cancel"
                           title="Remove Product"
                           onClick={(e) => removeProduct(e, item)}
@@ -114,37 +270,25 @@ function Wishlist(props) {
                     </td>
                     <td>
                       <h5 className="product-title">
-                        <ALink href={`/product/default/${item.slug}`}>
-                          {item.name}
+                        <ALink href={`/product/default/${item.productId}`}>
+                          {item?.productName}
                         </ALink>
                       </h5>
                     </td>
                     <td style={{ color: "black" }}>
                       <div className="price-box">
-                        {item.price[0] == item.price[1] ? (
+                        
                           <span className="product-price" style={{color:"#000"}}>
-                            {"OMR " + item.price[0].toFixed(2)}
+                            {"OMR " + item?.sellingPrice}
                           </span>
-                        ) : item.variants.length > 0 ? (
-                          <span className="product-price" style={{color:"#000"}}>
-                            {"OMR " + item.price[0].toFixed(2)} &ndash;{" "}
-                            {"$" + item.price[1].toFixed(2)}
-                          </span>
-                        ) : (
-                          <>
-                            {/* <span className="old-price">{'OMR ' + item.price[ 1 ].toFixed( 2 ) }</span> */}
-                            <span className="product-price">
-                              {"OMR " + item.price[0].toFixed(2)}
-                            </span>
-                          </>
-                        )}
+                       
                       </div>
                     </td>
-                    <td>
+                    {/* <td>
                       <span className="stock-status">
                         {item.is_out_of_stock ? "Out of stock" : "In stock"}
                       </span>
-                    </td>
+                    </td> */}
                     <td className="action">
                       <a
                         href="ajax/product-quick-view"
@@ -157,7 +301,7 @@ function Wishlist(props) {
                       >
                         Quick View
                       </a>
-                      {item.variants.length > 0 ? (
+                      {item?.variants?.length > 0 ? (
                         <ALink
                           className="btn btn-dark btn-add-cart product-type-simple btn-shop"
                           href={`/product/default/${item.slug}`}
@@ -168,7 +312,7 @@ function Wishlist(props) {
                         <button
                           className="btn btn-dark btn-add-cart product-type-simple btn-shop"
                           onClick={(e) => {
-                            onMoveFromToWishlit(e, item);
+                            onAddCartClick(e, item);
                           }}
                         >
                           ADD TO CART
@@ -192,8 +336,8 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, {
+export default withApollo({ ssr: typeof window === "undefined" })( connect(mapStateToProps, {
   ...WishlistAction,
   ...CartAction,
   ...ModalAction,
-})(Wishlist);
+})(Wishlist));

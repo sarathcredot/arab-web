@@ -772,10 +772,11 @@ main .sticky-header {
 		}
 
 		&.active a {
-			border-color: $primary-color;
+			border-color: #222529;;
 			outline: none;
 			color: #fff;
-			background-color: $primary-color;
+		
+			background-color: #222529;;
 			// color: #21293c;
 
 			&.filter-color:before {
@@ -980,6 +981,7 @@ main .sticky-header {
 	right: 0; 
 	bottom: 0;
 	left: 0;
+	
 }
 
 // 3.2) Thumbnail

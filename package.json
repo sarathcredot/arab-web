@@ -17,6 +17,7 @@
     "@emotion/react": "^11.4.1",
     "apollo-boost": "^0.4.9",
     "dayjs": "^1.11.10",
+    "fbemitter": "^3.0.0",
     "google-map-react": "^2.1.10",
     "graphql": "^15.6.0",
     "graphql-tag": "^2.12.5",

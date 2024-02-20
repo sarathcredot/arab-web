@@ -128,9 +128,10 @@ function ProductDefault () {
                         <ALink className="activeitem" href="">{ product && product.productName }</ALink>
                         </li>
                     </ol>
+                  
                 </div>
             </nav>
-
+            <hr style={{height:"1px", color:"#F0F0F0", marginTop:"-10px"}}/>
             <div className={ `container pt-2 skeleton-body skel-shop-products ${productLoading ? '' : 'loaded'}` }>
                 <div className="product-single-container product-single-default">
                     <div className="row">
@@ -138,8 +139,8 @@ function ProductDefault () {
 
                         <ProductDetailOne
                             product={ product }
-                            prev={ product && product }
-                            next={ product && product }
+                            // prev={ product && product }
+                            // next={ product && product }
                         />
                     </div>
                 </div>

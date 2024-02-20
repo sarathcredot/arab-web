@@ -28,6 +28,9 @@ function ProductOne(props) {
 
   const [addToCart] = useMutation(POST_CART);
 
+
+ 
+
   function isSale() {
     console.log(product);
     return product.price[0] !== product.price[1] &&
