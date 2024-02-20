@@ -219,3 +219,10 @@ span.toggle {
        padding: 0rem;
    }
 }
+@media (max-width:700px){
+    .custom-shopproduct {
+        &:nth-child(n+5){
+            border-bottom: 1px solid #B9B9B9 !important;
+           }
+    }
+}

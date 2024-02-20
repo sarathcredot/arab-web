@@ -61,7 +61,10 @@ function Home() {
       <main className="home">
         <div style={{position:"relative"}}>
 
-      <div className="header-bottom d-flex" style={{zIndex:"99",position:"absolute",background:"#F9F9F9",width:"100%"}}>
+      <div className="header-bottom d-flex"  
+      style={{zIndex:"99",position:"absolute",width:"100%" ,
+     }}
+      >
           <div className="container"style={{marginBottom:"-15px"}}>
             <div >
 
@@ -69,7 +72,8 @@ function Home() {
             </div>
           </div>
         </div>
-        <div style={{paddingTop:"53px"}}
+        <div className="homebannerpadding"
+        // style={{paddingTop:"53px"}}
         // className="bg-gray"
         >
           <HomeSection className="pb-5" data={data}/>

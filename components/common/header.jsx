@@ -204,9 +204,10 @@ const click=localStorage.getItem("click")
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
                 <ALink href="#">
-                  <img src="/images/uae.svg"></img>UAE
+                  {/* <img src="/images/uae.svg"></img>UAE */}
+                  <img src="/images/omn.png"className={styles.flagimg} ></img>OMN
                 </ALink>
-                <div className="header-menu">
+                {/* <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#">
@@ -229,10 +230,10 @@ const click=localStorage.getItem("click")
                       </ALink>
                     </li>
                   </ul>
-                </div>
+                </div> */}
               </div>
 
-              <div
+              {/* <div
                 className="header-dropdown mr-auto mr-sm-3 mr-md-0"
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
@@ -248,20 +249,18 @@ const click=localStorage.getItem("click")
                     </li>
                     <li>
                       <ALink href="#">
-                        {/* <div style={{display:"flex",alignItems:"center",gap:"8px"}}>
-                        <div style={{width:"35px",height:"35px",borderRadius:"50%",overflow:"hidden"}}> */}
-
+                       
                       <img src="/images/uae.svg" className={styles.flagimg}></img>
-                        {/* </div> */}
+                      
                       Arabic
-                      {/* </div> */}
+                     
                       </ALink>
                     </li>
                    
                     
                   </ul>
                 </div>
-              </div>
+              </div> */}
 
               {/* <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}> */}
                 <div className="header-user">

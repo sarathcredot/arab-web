@@ -187,9 +187,12 @@ header {
 .header-right {
 	margin-left: auto;
 }
-
+.homebannerpadding{
+	padding-top: 53px;
+}
 .header-bottom {
 	padding-bottom: 0;
+	background: #F9F9F9;
 	.header-center {
 		width: 100%;
 	}
@@ -501,3 +504,12 @@ header {
 		}
 	}
 }
+
+@media (max-width: 600px) {
+	.header-bottom {
+	  background: white;
+	}
+	.homebannerpadding{
+		padding-top: 117px;
+	}
+  }

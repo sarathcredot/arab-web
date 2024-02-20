@@ -596,6 +596,12 @@
 }
 
 // custom 
+.custom-navbg{
+	z-index: 99;
+	position: absolute;
+	background:"#F9F9F9";
+	width: 100%;
+}
 .mobile_backward{
 	display: none;
 }
@@ -615,6 +621,7 @@ width: 54px;
 height: 54px;
 border-radius: 50%;
 background-color: rgba(245, 245, 245, 1);
+overflow: hidden;
 	}}
 	&-imgage{
 		img{

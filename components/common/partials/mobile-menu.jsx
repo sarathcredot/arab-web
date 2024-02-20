@@ -55,7 +55,7 @@ function MobileMenu ( { router } ) {
                             <li className={ pathname === '/' ? 'active' : '' }>
                                 <ALink href="/">Home</ALink>
                             </li>
-                            <li className={ pathname.startsWith( '/shop' ) ? 'active' : '' }>
+                            {/* <li className={ pathname.startsWith( '/shop' ) ? 'active' : '' }>
                                 {
                                     <SlideToggle collapsed={ true }>
                                         { ( { onToggle, setCollapsibleElement, toggleState } ) => (
@@ -109,9 +109,9 @@ function MobileMenu ( { router } ) {
                                         ) }
                                     </SlideToggle>
                                 }
-                            </li>
+                            </li> */}
 
-                            <li className={ pathname.startsWith( '/product' ) ? 'active' : '' }>
+                            {/* <li className={ pathname.startsWith( '/product' ) ? 'active' : '' }>
                                 {
                                     <SlideToggle collapsed={ true }>
                                         { ( { onToggle, setCollapsibleElement, toggleState } ) => (
@@ -165,7 +165,7 @@ function MobileMenu ( { router } ) {
                                         ) }
                                     </SlideToggle>
                                 }
-                            </li>
+                            </li> */}
 
                             <li className={ isOtherPage() ? 'active' : '' }>
                                 <SlideToggle collapsed={ true }>
@@ -178,28 +178,28 @@ function MobileMenu ( { router } ) {
                                                 <li><ALink href="/pages/checkout">Checkout</ALink></li>
                                                 <li><ALink href="/pages/account">Dashboard</ALink></li>
                                                 <li><ALink href="/pages/login">Login</ALink></li>
-                                                <li><ALink href="/pages/forgot-password">Forgot Password</ALink></li>
+                                                {/* <li><ALink href="/pages/forgot-password">Forgot Password</ALink></li> */}
                                             </ul>
                                         </>
                                     ) }
                                 </SlideToggle>
                             </li>
 
-                            <li><ALink href="/pages/blog">Blog</ALink></li>
-                            <li><ALink href="/pages/about-us">About Us</ALink></li>
+                            {/* <li><ALink href="/pages/blog">Blog</ALink></li>
+                            <li><ALink href="/pages/about-us">About Us</ALink></li> */}
                         </ul>
 
                         <ul className="mobile-menu mt-2 mb-2">
-                            <li className="border-0"><ALink href="#">Special Offer!</ALink></li>
-                            <li className="border-0"><a href="https://1.envato.market/DdLk5" target="_blank">Buy Porto!<span className="tip tip-hot">Hot</span></a></li>
+                            <li className="border-0"><ALink href="/pages/offers">Special Offer!</ALink></li>
+                            
                         </ul>
 
                         <ul className="mobile-menu">
                             <li><ALink href="/pages/account">My Account</ALink></li>
-                            <li><ALink href="/pages/contact-us">Contact Us</ALink></li>
-                            <li><ALink href="/pages/blog">Blog</ALink></li>
-                            <li><ALink href="/pages/wishlist">My Wishlist</ALink></li>
-                            <li><ALink href="/pages/cart">Cart</ALink></li>
+                            
+                           
+                           
+                           
                             <li><ALink href="/pages/login" className="login-link">Log In</ALink></li>
                         </ul>
                     </nav>

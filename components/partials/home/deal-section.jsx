@@ -103,7 +103,7 @@ function DealSection() {
                 {products
                   ? products
                       // .filter((item) => item.until === null)
-                      .slice(0, 9)
+                      .slice(0, 6)
                       .map((item, index) => (
                         <div
                           className="col-xl-4 col-sm-4 col-6 customdeal-border"
@@ -118,7 +118,7 @@ function DealSection() {
                           />
                         </div>
                       ))
-                  : new Array(8).fill(1).map((item, index) => (
+                  : new Array(6).fill(1).map((item, index) => (
                       <div
                         className="col-xl-3 col-sm-4 col-6"
                         key={"All Products:" + index}

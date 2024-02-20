@@ -83,7 +83,7 @@ const products=data?.getProducts?.records
         <h4 className="section-title text-transform-none mb-0 mr-0 pt-5 pb-5 mt-5">
           Best Selling
         </h4>
-        <ALink  href="/shop"className="pt-5 pb-5 mt-5">
+        <ALink  href="/shop"className="pt-5 pb-5 mt-4">
           View All Products
         </ALink>
       </div>
@@ -94,17 +94,25 @@ const products=data?.getProducts?.records
           ...productSlider,
           responsive: {
             ...productSlider.responsive,
+           
             1200: {
               items: 5,
               nav: true,
               loop:true
             },
+            // 600:{
+            //   item:2,
+            //   nav:true,
+            //   loop:true
+            // }, 0: {
+            //   items: 1, // Number of items to show on small screens
+            // },
           },
         }}
       >
         {products
-          ? products
-              .slice(0, 7)
+          && products
+              // .slice(0, 7)
               .map((item, index) => (
                 <ProductOne
                   adClass="inner-quickview inner-icon"
@@ -113,12 +121,14 @@ const products=data?.getProducts?.records
                   customStyle="20%"
                 />
               ))
-          : [0, 1, 2, 3].map((item, index) => (
-              <div
-                className="skel-pro skel-pro-grid"
-                key={"product-one" + index}
-              ></div>
-            ))}
+          // : [0, 1, 2, 3].map((item, index) => (
+          //     <div
+          //       className="skel-pro skel-pro-grid"
+          //       key={"product-one" + index}
+          //     ></div>
+          //   )
+          //   )
+            }
       </OwlCarousel>
     </Reveal>
   </section>

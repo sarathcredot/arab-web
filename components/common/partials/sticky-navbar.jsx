@@ -16,16 +16,16 @@ function StickyNavbar ( { cartItems } ) {
     }
 
     return (
-        <div className="sticky-navbar">
+        <div className="sticky-navbar" style={{display:"flex",justifyContent:"center"}}>
             <div className="sticky-info">
                 <ALink href="/">
-                    <IoIosAdd style={{fontSize:"16px"}}/>
+                    <IoIosAdd style={{fontSize:"35px"}}/>
                     {/* <i className="icon-home"></i> */}
                     Home</ALink>
             </div>
-            <div className="sticky-info">
+            {/* <div className="sticky-info">
                 <ALink href="/shop" className=""><i className="icon-bars"></i>Categories</ALink>
-            </div>
+            </div> */}
             <div className="sticky-info">
                 <ALink href="/pages/wishlist" className=""><i className="icon-wishlist-2"></i>Wishlist</ALink>
             </div>

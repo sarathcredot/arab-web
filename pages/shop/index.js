@@ -61,10 +61,10 @@ function Shop() {
   
 
   const { cat_id, page, ...rest } = query;
-  const { category, brands, max_price,min_price,sort_order,...filteredAttributes } = rest;
+  const { category, brands, max_price,min_price,sort_order,discount,...filteredAttributes } = rest;
   const categoryValues = category ? category.split(',').map(id => id.trim())  : [];
   const brandValues = brands ? brands.split(',') : [];
-  
+  console.log(discount);
   const attributes = Object.entries(filteredAttributes).map(([id, values]) => ({
     id,
     values: values.split(','),
@@ -139,38 +139,7 @@ console.log(attributesWithNonEmptyValues);
                     shop
                   </ALink>
                 </li>
-                {/* {data &&
-                  data?.getProducts?.records.map((item, index) => (
-                    <li
-                      className="breadcrumb-item"
-                      key={`category-family-${index}`}
-                    >
-                      <ALink
-                        href={{ query: { category: item.slug } }}
-                        scroll={false}
-                      >
-                      {item?.categoryNamePath}  
-                      </ALink>
-                    </li>
-                  ))} */}
-                {/* <li className="breadcrumb-item active">
-                  {query.search ? (
-                    <>
-                      Search -{" "}
-                      <ALink
-                        href={{ query: { category: query.category } }}
-                        scroll={false}
-                      >
-                        {query.category}
-                      </ALink>{" "}
-                      / {query.search}
-                    </>
-                  ) : 
-                 
-                    query.category
-                  
-                  }
-                </li> */}
+                
                 <li className="breadcrumb-item ">
   {query.search ? (
     <>

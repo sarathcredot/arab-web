@@ -25,7 +25,7 @@ function HomeSection({ offer,data }) {
     nav: true
   }
   return (
-<div>
+<div className="skeleton-body skel-shop-products">
 {/* <MainMenu/> */}
 
     <OwlCarousel adClass="home-slider nav-circle mb-2" options={options}>

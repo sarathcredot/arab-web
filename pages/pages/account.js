@@ -95,13 +95,13 @@ function Account() {
                     From your account dashboard you can view your recent orders, manage your shipping and billing addresses, and
                     edit your account details.
                   </p>
-                  <div className="container p-5">
+                  <div className="container p-md-5 p-sm-0">
                   
                     <div className="row">
 
                       <div className="col-12 col-md-4 mb-4">
                         <div
-                          className="feature-box text-center justify-content-center pb-4 content-box"
+                          className="feature-box text-center justify-content-center content-box mr-sm-0 w-sm-100"
                           style={{ width: "321.46px", height: "276.71px" }}
                         >
                           <ALink href="/pages/orders">
@@ -143,7 +143,7 @@ function Account() {
                       </div>
                       <div className="col-12 col-md-4 mb-4">
                         <div
-                          className="feature-box text-center justify-content-center pb-4 content-box"
+                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100 "
                           style={{ width: "321.46px", height: "276.71px" }}
                         >
                           <ALink href="/pages/wishlist">
@@ -182,7 +182,7 @@ function Account() {
                       </div>
                       <div className="col-12 col-md-4 mb-4">
                         <div
-                          className="feature-box text-center justify-content-center pb-4 content-box"
+                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
                           style={{ width: "321.46px", height: "276.71px" }}
                         >
                           <ALink href="/pages/affliation">
@@ -230,7 +230,7 @@ function Account() {
                       </div>
                       <div className="col-12 col-md-4 mb-4">
                         <div
-                          className="feature-box text-center justify-content-center pb-4 content-box"
+                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
                           style={{ width: "321.46px", height: "276.71px" }}
                         >
                           <ALink href="/pages/addresses">
@@ -272,7 +272,7 @@ function Account() {
                       </div>
                       <div className="col-12 col-md-4 mb-4">
                         <div
-                          className="feature-box text-center justify-content-center pb-4 content-box"
+                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
                           style={{ width: "321.46px", height: "276.71px" }}
                         >
                           <ALink href="/pages/accountdetails">
@@ -311,18 +311,15 @@ function Account() {
                         </div>
                       </div>
                       <div className="col-12 col-md-4 mb-4">
+                        
                         <div
-                          className="feature-box text-center justify-content-center pb-4 content-box"
+                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
                           style={{ width: "321.46px", height: "276.71px" }} onClick={handleLogout}
                         >
+<div>
                           {/* <ALink href="/pages"> */}
                             <div
-                               style={{
-                                width: "321.46px",
-                                height: "276.71p",
-                                display: "flex",
-                                justifyContent: "center",
-                              }}
+                               
                             >
                               <div className='iconwrapper-dash'
                                 style={{
@@ -345,6 +342,7 @@ function Account() {
 
                             <div className="feature-box-content" style={{ marginTop: '20px' }} >
                               <h3>Logout</h3>
+                            </div>
                             </div>
                           {/* </ALink> */}
                         </div>
