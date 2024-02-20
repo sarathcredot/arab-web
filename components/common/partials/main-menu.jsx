@@ -214,7 +214,7 @@ catch(error)
               }}
             >
               <span className="custom__menu__item-image">
-                <img src={item.categoryImage?.fileURL} alt={item.label} />
+                <img src={item.categoryImage?.fileURL} alt={item.categoryName} />
               </span>
               <p className="custom__menu__item-label">{item.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}</p>
             </li>
@@ -227,8 +227,10 @@ catch(error)
             <li
               className="custom__mobilemenu__item"
               onClick={() => {
+                console.log("click");
+                handleLevel2category(item?._id);
                 setParentcategory((e) => ({
-                  cat1: item.key,
+                  cat1: item._id,
                   cat2: "",
                   cat3: "",
                   cat4: "",
@@ -238,10 +240,10 @@ catch(error)
             >
               <div className="custom__mobilemenu__item-circle">
                 <span className="custom__mobilemenu__item-image">
-                  <img src={item.icon} alt={item.label} />
+                  <img src={item.categoryImage?.fileURL} alt={item.categoryName} />
                 </span>
               </div>
-              <p>{item.label}</p>
+              <p>{item.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}</p>
             </li>
           ))}
         </ul>

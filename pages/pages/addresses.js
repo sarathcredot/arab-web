@@ -103,7 +103,7 @@ console.log("click");
       >
         {/* <h1>orders</h1>*/}
 
-        <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+        <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap mb-0">
           <li className="">
             <ALink href="/pages/account">My Account</ALink>
           </li>
@@ -133,7 +133,7 @@ console.log("click");
       ) :isShipping ? (<><Shipping isEdit={isEdit} addressId={selectedAddressId} onClose={handleCloseShipping}/></>): (
         <>
           <div
-            className="container d-flex justify-content-between"
+            className="container d-flex justify-content-between flex-column flex-sm-row w-sm-100"
             style={{ gap: "5rem", marginBottom: "20px" }}
           >
             <div
