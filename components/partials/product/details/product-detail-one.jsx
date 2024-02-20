@@ -591,31 +591,45 @@ console.log(data)
   //   return false;
   // }
 
-  function isDisabled(selectedAttributes) {
-    if (!product) {
-      return false;
-    }
+  // function isDisabled(selectedAttributes) {
+  //   if (!product) {
+  //     return false;
+  //   }
 
-    const hasSelectedAttributes = Object.values(selectedAttributes).some(
-      (value) => value !== null
-    );
+ 
 
-    if (hasSelectedAttributes) {
-      return !product?.attributes?.find((variant) => {
-        const attributeMatches = Object.keys(selectedAttributes).every(
-          (key) => {
-            const selectedValue = selectedAttributes[key];
-            return !variant[key] || variant[key].name === selectedValue;
-          }
-        );
+  //   const hasSelectedAttributes = Object.values(selectedAttributes).some(
+  //     (value) => value !== null
+  //   );
 
-        return attributeMatches;
-      });
-    }
+  //   if (hasSelectedAttributes) {
+  //     return !product?.attributes?.find((variant) => {
+  //       const attributeMatches = Object.keys(selectedAttributes).every(
+  //         (key) => {
+  //           const selectedValue = selectedAttributes[key];
+  //           return !variant[key] || variant[key].name === selectedValue;
+  //         }
+  //       );
 
-    return false;
+  //       return attributeMatches;
+  //     });
+  //   }
+
+  //   return false;
+  // }
+
+  console.log(product,"producttttttt")
+
+  function isDisabled(passvalue){
+    // const value = "red";
+    const attrbutsvalue = product?.attributes?.map(attribute => attribute.attributeValue); // Assuming `attrbutsvalue` is the property you want to compare
+    const matchedElements = attrbutsvalue?.some(element => element === passvalue);
+    console.log(matchedElements);
+    return matchedElements;
+    
   }
 
+  // isDisabled()
   function updateSelectedAttributes(attributeType, value) {
     setSelectedAttributes((prev) => ({
       ...prev,
@@ -816,7 +830,7 @@ console.log(data)
                     <span style={{ fontWeight: "500" }}>
                       {selectedAttributes &&
                         // selectedAttributes.charAt(0).toUpperCase() +
-                        selectedAttributes.color}
+                        selectedAttributes?.color}
                     </span>
                   </label>
                 </>
@@ -852,8 +866,8 @@ console.log(data)
                               ? "active"
                               : ""
                           } ${
-                            isDisabled("color", item.attributeValue)
-                              ? "disabled"
+                            !isDisabled(item.attributeValue)
+                              ? "tag-remove"
                               : ""
                           }`}
                         >
@@ -883,21 +897,27 @@ console.log(data)
                                 height: "63px",
                                 backgroundColor: "#F8F8F8",
                                 borderRadius: "50%",
+                        
                               }}
                             >
                               <a
                                 href="#"
                                 className="filter-color border-0"
                                 style={{
-                                  backgroundColor: item.colorCode,
+                                  backgroundColor: item?.colorCode,
                                   borderRadius: "50%",
                                   width: "3.8rem",
                                   height: "3.8rem",
-                                  border: `1px solid ${item.colorCode}`,
+                                  border: `1px solid ${item?.colorCode}`,
                                 }}
                                 onClick={(e) => {
-                                  selectColor(item.attributeValue, e);
-                                  setSelectedColor(item.attributeValue);
+                                  // selectColor(item.attributeValue, e);
+                                  selectAttribute(item?.productId, e);
+                                  // setSelectedColor(item.attributeValue);
+                                  updateSelectedAttributes(
+                                    item?.attributeDescription.toLowerCase(),
+                                    item?.attributeValue
+                                  );
                                 }}
                               ></a>
                             </div>
@@ -910,7 +930,7 @@ console.log(data)
 
               {variantData?.length > 0 ? (
                 <div className="product-single-filter">
-                  <label
+                  {/* <label
                     style={{
                       // fontWeight: "600px",
                       // fontSize: "14px",
@@ -920,7 +940,22 @@ console.log(data)
                     }}
                   >
                     Size &nbsp;{""}
+                  </label> */}
+
+
+{variantData?.some(
+                (value) =>
+                  value?.attributeDescription?.toLowerCase() === "size"
+              ) ? (
+                <>
+                  <label>
+                    Size
+                  
+                     
+                   
                   </label>
+                </>
+              ) : null}
                   <div className=" d-flex " style={{ gap: "4px" }}>
                     {variantData
                       ?.filter(
@@ -944,8 +979,8 @@ console.log(data)
                                 //   ? "active"
                                 //   : ""
                               } ${
-                                isDisabled("size", item?.attributeValue)
-                                  ? "disabled"
+                                !isDisabled( item?.attributeValue)
+                                  ? "strikethrough"
                                   : ""
                               }`}
                             >
@@ -983,6 +1018,8 @@ console.log(data)
                                     fontSize: "12px",
                                     lineHeight: "15px",
                                     // color: "#292D32",
+                          
+
                                   }}
                                 >
                                   {item?.attributeValue}
@@ -1037,11 +1074,11 @@ console.log(data)
                                   ? "active"
                                   : ""
                               } ${
-                                isDisabled(
-                                  item.attributeDescription,
+                                !isDisabled(
+                                 
                                   item?.attributeValue
                                 )
-                                  ? "disabled"
+                                  ? "strikethrough"
                                   : ""
                               }`}
                             >
@@ -1076,6 +1113,7 @@ console.log(data)
                                     lineHeight: "15px",
                                     // color: "#292D32",
                                     marginRight: "5px",
+                                    // color:`${  isDisabled(item.attributeDescription, item.attributeValue)? "blue":"black"}`
                                   }}
                                 >
                                   {item?.attributeValue}

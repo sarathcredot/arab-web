@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useRouter,useParams } from "next/router";
+import { useRouter, useParams } from "next/router";
 import { useLazyQuery } from "@apollo/react-hooks";
 import { gql, useQuery } from "@apollo/client";
 import ALink from "../../components/common/ALink";
@@ -12,53 +12,53 @@ import { IoMdHome } from "react-icons/io";
 import withApollo from "../../server/apollo";
 // import { useSearchParams } from 'next/navigation'
 
-const GET_PRODUCTS=gql `query GetProducts($input: ProductFilters) {
-  getProducts(input: $input) {
-    maxRecords
-    records {
-      _id
-      attributes {
-        attributeValue
-        attributeName
+const GET_PRODUCTS = gql`
+  query GetProducts($input: ProductFilters) {
+    getProducts(input: $input) {
+      maxRecords
+      records {
+        _id
+        attributes {
+          attributeValue
+          attributeName
+        }
+        brandId
+        brandName
+        categoryId
+        categoryIdPath
+        categoryNamePath
+        description
+        images {
+          fileURL
+          originalName
+          fileType
+        }
+        material
+        mrp
+        offerPrice
+        price
+        productCode
+        productInfo
+        productName
+        productShortInfo
+        rating
+        sellingPrice
+        shortDescription
+        skuId
+        status
+        stock
+        tags
+        vendorId
+        isBlocked
       }
-      brandId
-      brandName
-      categoryId
-      categoryIdPath
-      categoryNamePath
-      description
-      images {
-        fileURL
-        originalName
-        fileType
-      }
-      material
-      mrp
-      offerPrice
-      price
-      productCode
-      productInfo
-      productName
-      productShortInfo
-      rating
-      sellingPrice
-      shortDescription
-      skuId
-      status
-      stock
-      tags
-      vendorId
-      isBlocked
     }
   }
-}`
+`;
 
 function Shop() {
   const router = useRouter();
-  
- 
+
   const query = router.query;
-  
 
   const { cat_id, page, ...rest } = query;
   const { category, brands, max_price,min_price,sort_order,discount,...filteredAttributes } = rest;
@@ -67,10 +67,10 @@ function Shop() {
   console.log(discount);
   const attributes = Object.entries(filteredAttributes).map(([id, values]) => ({
     id,
-    values: values.split(','),
+    values: values.split(","),
   }));
   console.log(attributes);
- const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
+  const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
   const [perPage, setPerPage] = useState(8);
   // const [pagenumber,setPagenumber]=useState(page ?? 0)
@@ -81,28 +81,27 @@ function Shop() {
       (data?.getProducts?.maxRecords % perPage ? 1 : 0)
     : 0;
 
-    const attributesWithNonEmptyValues = attributes.filter(attribute => attribute.values.some(value => value !== ''));
+  const attributesWithNonEmptyValues = attributes.filter((attribute) =>
+    attribute.values.some((value) => value !== "")
+  );
 
-console.log(attributesWithNonEmptyValues);
-    useEffect(()=>{
-      getProducts({
-        variables:{
-          input:{
-            size:perPage,
-            page:parseInt(page??0),
-            categories:categoryValues?categoryValues:[],           
-            brands:brandValues,           
-            maxPrice:parseInt(query.max_price),
-            minPrice:parseInt(query.min_price),
-            attributes: attributesWithNonEmptyValues,
-            parentCategory:query?.cat_id
-          }
-        }
-      })
-
-    },[query,perPage])
- 
-
+  console.log(attributesWithNonEmptyValues);
+  useEffect(() => {
+    getProducts({
+      variables: {
+        input: {
+          size: perPage,
+          page: parseInt(page ?? 0),
+          categories: categoryValues ? categoryValues : [],
+          brands: brandValues,
+          maxPrice: parseInt(query.max_price),
+          minPrice: parseInt(query.min_price),
+          attributes: attributesWithNonEmptyValues,
+          parentCategory: query?.cat_id,
+        },
+      },
+    });
+  }, [query, perPage]);
 
   function sidebarToggle(e) {
     let body = document.querySelector("body");
@@ -125,7 +124,7 @@ console.log(attributesWithNonEmptyValues);
           <ol className="breadcrumb">
             <li className="breadcrumb-item">
               <ALink href="/">
-              <IoMdHome style={{fontSize:"16px"}}/>
+                <IoMdHome style={{ fontSize: "16px" }} />
                 {/* <i className="icon-home"></i> */}
               </ALink>
             </li>
@@ -139,30 +138,61 @@ console.log(attributesWithNonEmptyValues);
                     shop
                   </ALink>
                 </li>
-                
-                <li className="breadcrumb-item ">
-  {query.search ? (
-    <>
-      Search -{" "}
-      <ALink
-        href={{ query: { category: query.category } }}
-        scroll={false}
-      >
-        {query.category}
-      </ALink>{" "}
-      / {query.search}
-    </>
-  ) : (
-    <span>
-      {data &&
-        data?.getProducts?.records.map((item, index) => (
-          <React.Fragment key={index}>
-            {item?.categoryNamePath}
-          </React.Fragment>
-        ))}
-    </span>
-  )}
-</li>
+                {/* {data &&
+                  data?.getProducts?.records.map((item, index) => (
+                    <li
+                      className="breadcrumb-item"
+                      key={`category-family-${index}`}
+                    >
+                      <ALink
+                        href={{ query: { category: item.slug } }}
+                        scroll={false}
+                      >
+                      {item?.categoryNamePath}  
+                      </ALink>
+                    </li>
+                  ))}
+                <li className="breadcrumb-item active">
+                  {query.search ? (
+                    <>
+                      Search -{" "}
+                      <ALink
+                        href={{ query: { category: query.category } }}
+                        scroll={false}
+                      >
+                        {query.category}
+                      </ALink>{" "}
+                      / {query.search}
+                    </>
+                  ) : 
+                 
+                    query.category
+                  
+                  }
+                </li> */}
+                <li className="breadcrumb-item  ">
+                  {query.search ? (
+                    <>
+                      Search -{" "}
+                      <ALink
+                        href={{ query: { category: query.category } }}
+                        scroll={false}
+                      >
+                        {query.category}
+                      </ALink>{" "}
+                      / {query.search}
+                    </>
+                  ) : (
+                    <span>
+                      {data &&
+                        data?.getProducts?.records.map((item, index) => (
+                          <React.Fragment key={index}>
+                            {item?.categoryNamePath}
+                          </React.Fragment>
+                        ))}
+                    </span>
+                  )}
+                </li>
               </>
             ) : query.search ? (
               <>
@@ -221,13 +251,19 @@ console.log(attributesWithNonEmptyValues);
               lineHeight: "26px",
             }}
           >
-           {data?.getProducts?.maxRecords} Search Results Found
+            {data?.getProducts?.maxRecords} Search Results Found
           </p>
         </div>
 
         <div className="row" style={{ border: "1px solid #B9B9B9" }}>
-          <div className="col-lg-9 main-content" style={{ padding: 0,  borderLeft: '1px solid #B9B9B9'}}>
-            <nav className="toolbox sticky-header mobile-sticky" style={{margin: '0' }}>
+          <div
+            className="col-lg-9 main-content"
+            style={{ padding: 0, borderLeft: "1px solid #B9B9B9" }}
+          >
+            <nav
+              className="toolbox sticky-header mobile-sticky"
+              style={{ margin: "0" }}
+            >
               <div className="toolbox-left">
                 <a
                   href="#"
@@ -307,16 +343,13 @@ console.log(attributesWithNonEmptyValues);
             </div>
           </div>
 
-          <ShopSidebarOne 
-          
-          />
+          <ShopSidebarOne />
         </div>
       </div>
 
       {loading || (products && products.length) ? (
         <div className="container">
           <nav className="toolbox toolbox-pagination border-0">
-           
             <Pagination totalPage={totalPage} />
           </nav>
         </div>

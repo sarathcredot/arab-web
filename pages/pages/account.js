@@ -180,7 +180,7 @@ function Account() {
                           </ALink>
                         </div>
                       </div>
-                      <div className="col-12 col-md-4 mb-4">
+                      {/* <div className="col-12 col-md-4 mb-4">
                         <div
                           className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
                           style={{ width: "321.46px", height: "276.71px" }}
@@ -213,21 +213,21 @@ function Account() {
 <path d="M12.0423 22.4218C12.0423 24.1052 12.4067 25.7019 13.0662 27.1423C10.6192 27.4026 8.06804 26.882 6.19373 25.6498C3.4517 23.8276 3.4517 20.8599 6.19373 19.0377C8.05068 17.7881 10.6712 17.2848 13.1356 17.5625C12.4241 19.0203 12.0423 20.669 12.0423 22.4218Z" />
 <path d="M21.7088 27.6629C21.57 27.6455 21.4138 27.6455 21.2576 27.6629C18.0643 27.5588 15.5132 24.9382 15.5132 21.7102C15.5305 18.4128 18.1858 15.7402 21.5005 15.7402C24.7979 15.7402 27.4705 18.4128 27.4705 21.7102C27.4532 24.9382 24.9194 27.5588 21.7088 27.6629Z" />
 <path d="M16.0684 31.2547C13.4479 33.0075 13.4479 35.8883 16.0684 37.6238C19.0534 39.6196 23.9475 39.6196 26.9325 37.6238C29.553 35.871 29.553 32.9901 26.9325 31.2547C23.9648 29.2589 19.0708 29.2589 16.0684 31.2547Z" />
-</svg>
+</svg> */}
                                {/* <img
                                   src="images\icon\vuesax\bold\people.svg"
                                   alt="affliation"
                                   style={{maxWidth:"100"}}
                                 /> */}
-                              </div>
-                            </div>
+                              {/* </div>
+                            </div> */}
 
-                            <div className="feature-box-content" style={{ marginTop: '20px' }}>
+                            {/* <div className="feature-box-content" style={{ marginTop: '20px' }}>
                               <h3>Affliation</h3>
                             </div>
                           </ALink>
                         </div>
-                      </div>
+                      </div> */}
                       <div className="col-12 col-md-4 mb-4">
                         <div
                           className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
