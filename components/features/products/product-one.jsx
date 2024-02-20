@@ -226,28 +226,7 @@ function ProductOne(props) {
               </svg>
             </div>
           </div>
-          {/* <a
-            href="#"
-            className={`btn ${(e) => (onAddCartClick(e) ? "" : "")}`}
-            onClick={(e) => onAddCartClick(e)}
-            title={`${(e) =>
-              isInCart(e) === true ? "Go cart" : "Add to Cart"}`}
-            style={{ width: "70px", height: "70px", marginLeft: "20px" }}
-          >
-            <i
-              class="icon-plus"
-              style={{
-                height: "40px",
-                width: "40px",
-                borderRadius: "200px",
-                display: "inline-block",
-                padding: "11px",
-                backgroundColor: isInWishlist() == true ? "#E30613" : "",
-                borderColor: "#DDDDDD",
-                border: isInWishlist() == true ? "" : "1px solid ",
-              }}
-            ></i>
-          </a> */}
+          
         </div>
 
         <h3 className="product-title">
@@ -259,17 +238,7 @@ function ProductOne(props) {
           </ALink>
         </h3>
 
-        {/* <div className="ratings-container">
-          <div className="product-ratings">
-            <span
-              className="ratings"
-              style={{ width: 20 * product.ratings + "%" }}
-            ></span>
-            <span className="tooltiptext tooltip-top">
-              {product?.ratings?.toFixed(2)}
-            </span>
-          </div>
-        </div> */}
+       
 
         <div className="price-box">
           <span style={{ fontFamily: "Plus Jakarta Sans" }}>OMR</span>
@@ -280,14 +249,14 @@ function ProductOne(props) {
               fontWeight: "800px",
               fontSize: "16px",
               lineHeight: "15px",
-              marginLeft: "25px",
+              marginLeft: "14px",
             }}
           >
             {product?.price}
           </span>
           <span
             className="old-price"
-            style={{ marginLeft: "25px", color: "#777777" }}
+            style={{ marginLeft: "14px", color: "#777777" }}
           >
             {+product?.mrp?.toFixed(2)}
           </span>

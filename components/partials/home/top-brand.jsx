@@ -1,4 +1,4 @@
-import React ,{useState} from "react";
+import React ,{useState,useEffect} from "react";
 import Reveal from "react-awesome-reveal";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
@@ -59,20 +59,11 @@ function TopBrand(props) {
     nav: false,
   };
 
-  const brands = [
-    // Add your brand images here
-    "images/apple.svg",
-    "images/realme.svg",
-    "images/sony.svg",
-    "images/mi.svg",
-    "images/samsung.svg",
-    "images/lg.svg",
-    "images/dell.svg",
-    "images/sony.svg",
-  ];
+  
 
   const [startIndex, setStartIndex] = useState(0);
-  const brandsPerPage = 7;
+  const [brandsPerPage, setBrandsPerPage] = useState(window.innerWidth<700?4:7); 
+  // const brandsPerPage = 7;
   const totalBrands = data?.getAllTopBrandRecords?.records.length || 0;
 console.log(totalBrands);
   const handleNext = () => {
@@ -81,9 +72,7 @@ console.log(totalBrands);
     } else {
       setStartIndex(startIndex + 1);
     }
-  //  if (startIndex + brandsPerPage < data.getAllTopBrandRecords.records.length) {
-  //     setStartIndex(startIndex + 1);
-  //   }
+ 
   };
 
   const handlePrev = () => {
@@ -92,10 +81,27 @@ console.log(totalBrands);
     } else {
       setStartIndex(startIndex - 1);
     }
-    // if (startIndex > 0) {
-    //   setStartIndex(startIndex - 1);
-    // }
+   
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 700) {
+        console.log("700");
+        setBrandsPerPage(4); // If screen width is less than 700, set to 4
+      } else {
+        setBrandsPerPage(7); // Otherwise, set to default 7
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    // Clean up event listener on unmount
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, [window.innerWidth]);
+
+
 
   return (
     <>
@@ -104,7 +110,9 @@ console.log(totalBrands);
           <h4 className="mb-4 mt-4"style={{borderBottom:"1px solid #EEE",paddingBottom:"20px"}}>Top Brands</h4>
         </div>
         </div>
-        <div className="mb-5 mt-5" style={{display:"flex",alignItems:"center",padding:"0 60px"}}>
+        <div className="mb-5 mt-5 custom-brandouter-container" 
+        // style={{display:"flex",alignItems:"center",padding:"0 60px"}}
+        >
         <div className="custom-top-prevbutton"onClick={handlePrev}><MdKeyboardArrowLeft style={{color:"black",fontSize:"20px"}}/></div>
         <div className="custom-topbrandcontainer container">
           {/* <OwlCarousel options={options} autoplay> */}
@@ -126,7 +134,7 @@ console.log(totalBrands);
                 <img
                   src={brand.logo.fileURL}
                   alt={`Brand ${startIndex + index + 1}`}
-                  style={{ width: "128px", height: "128px" }}
+                  // style={{ width: "128px", height: "128px" }}
                 />
               )}
             </div>

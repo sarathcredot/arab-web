@@ -61,13 +61,10 @@ function Shop() {
   const query = router.query;
 
   const { cat_id, page, ...rest } = query;
-  const { category, brands, max_price, min_price, ...filteredAttributes } =
-    rest;
-  const categoryValues = category
-    ? category.split(",").map((id) => id.trim())
-    : [];
-  const brandValues = brands ? brands.split(",") : [];
-
+  const { category, brands, max_price,min_price,sort_order,discount,...filteredAttributes } = rest;
+  const categoryValues = category ? category.split(',').map(id => id.trim())  : [];
+  const brandValues = brands ? brands.split(',') : [];
+  console.log(discount);
   const attributes = Object.entries(filteredAttributes).map(([id, values]) => ({
     id,
     values: values.split(","),
