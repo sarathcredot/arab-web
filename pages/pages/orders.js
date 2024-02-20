@@ -72,6 +72,15 @@ const CANCEL_ORDER = gql`
   }
 `;
 
+
+const DOWNLOAD_INVOICE = gql`
+mutation GetUserIvoiceSignedUrl($input: GetUserIvoiceUrlInput!) {
+  getUserIvoiceSignedUrl(input: $input) {
+    url
+  }
+}`
+
+
 function Orders(props) {
   const { wishlist, addToCart, removeFromWishlist, showQuickView } = props;
   const [flag, setFlag] = useState(0);
@@ -123,7 +132,7 @@ function Orders(props) {
   });
 
   const [cancelUserOrderProduct] = useMutation(CANCEL_ORDER);
-
+  const [downloadInvoice] = useMutation(DOWNLOAD_INVOICE)
   const { data, loading, error, refetch } = useQuery(GET_ORDERS, {
     variables: { input: { page: null, size: null } },
   });
@@ -156,6 +165,32 @@ function Orders(props) {
       console.log(error);
     }
   };
+
+
+  const handleDownload = async (_id) => {
+    try {
+      const invoice = await downloadInvoice({
+        variables: {
+          input: {
+            _id
+          }
+        }
+      })
+
+      const url = invoice.data.getUserIvoiceSignedUrl.url
+      // console.log("invoice", url);
+      // const link = document.createElement('a');
+      // link.href = url;
+      // link.setAttribute('download', 'invoice.pdf');
+      // document.body.appendChild(link);
+      // link.click();
+      // document.body.removeChild(link);
+      window.open(url, '_blank');
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
+
 
   return (
     <main className="main">
@@ -263,8 +298,8 @@ function Orders(props) {
             <table className="table table-wishlist mb-0">
               <thead>
                 <tr>
-                  <th className="thumbnail-col"></th>
-                  <th className="status-col">Product</th>
+                  <th className="thumbnail-col">Product</th>
+                  <th className="status-col"></th>
                   <th className="status-col">Order Id</th>
                   <th className="status-col">Date</th>
                   <th className="status-col">Status</th>
@@ -328,7 +363,7 @@ function Orders(props) {
                     </td>
 
                     {item?.shippingStatus !== "COMPLETED" &&
-                    item?.shippingStatus !== "CANCELED" &&(
+                    item?.shippingStatus !== "CANCELED" ?(
                       <td className="action">
                         <button
                           className="btn btn-quickview mt-1 mt-md-0"
@@ -342,7 +377,18 @@ function Orders(props) {
                           Cancel
                         </button>
                       </td>
-                    ) 
+                    ) :
+                    <td className="action">
+                    <button
+                        className="btn btn-quickview mt-1 mt-md-0"
+                        title="Quick View"
+                        style={{ border: "1px solid", display: "none" }}
+                        disabled
+                    >
+                        Cancel
+                    </button>
+                </td>
+                    
                       // <>
                       //   <td>
                       //     <a
@@ -356,6 +402,25 @@ function Orders(props) {
                       //   </td>
                       // </>
                     }
+
+
+
+                    {item?.invoice &&
+                
+                     <td className="action">
+                        <button
+                          className="btn btn-dark btn-add-cart product-type-simple btn-shop"
+                          title="Quick View"
+                          style={{ border: "1px solid" }}
+                          onClick={(e) => {
+                            e.preventDefault();
+                            handleDownload(item._id);
+                          }}
+                        >
+                          Download Invoice
+                        </button>
+                      </td>
+                          }
                   </tr>
                 ))}
               </tbody>

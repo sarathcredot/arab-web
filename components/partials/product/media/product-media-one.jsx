@@ -32,19 +32,17 @@ export default function ProductMediaOne ( props ) {
             setPhotoIndex( 0 );
             setRedraw( true );
             mediaRef && mediaRef.current && mediaRef.current.goTo( 0 );
-            document?.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ) && document?.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ) && document?.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` )?.classList?.remove( 'active' );
-            document?.querySelector( `${ parent } .prod-thumbnail .owl-dot` )?.classList?.add( 'active' );
+            document.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ) && document.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ) && document.querySelector( `${ parent } .prod-thumbnail .owl-dot.active` ).classList.remove( 'active' );
+            document.querySelector( `${ parent } .prod-thumbnail .owl-dot` ).classList.add( 'active' );
         }
     }, [ product ] )
 
-    /// TODO: Remove this when we add sale or offer
-
-    // function isSale () {
-    //     return product.price[ 0 ] !== product.price[ 1 ] && product.variants.length === 0 ?
-    //         '-' + ( 100 * ( product.price[ 1 ] - product.price[ 0 ] ) / product.price[ 1 ] ).toFixed( 0 ) + '%'
-    //         :
-    //         product.variants.find( variant => variant.sale_price ) ? "Sale" : false;
-    // }
+    function isSale () {
+        return product?.price[ 0 ] !== product?.price[ 1 ] && product.variants.length === 0 ?
+            '-' + ( 100 * ( product.price[ 1 ] - product.price[ 0 ] ) / product.price[ 1 ] ).toFixed( 0 ) + '%'
+            :
+            product?.variants?.find( variant => variant.sale_price ) ? "Sale" : false;
+    }
 
     function openLightBox () {
         setOpenLB( true );
@@ -74,29 +72,30 @@ export default function ProductMediaOne ( props ) {
     }
 
     return (
-        <div className={ `product-single-gallery ${ adClass }` } style={{paddingRight:"35px"}}>
+        <div className={ `product-single-gallery ${ adClass }` }>
             <div className="skel-pro skel-magnifier"></div>
             {
                 product && <>
                     <div className="product-slider-container">
-                        {/* <div className="label-group">
+                        <div className="label-group">
                             { product.is_hot ? <div className="product-label label-hot">HOT</div> : '' }
 
                             { isSale() ? <div className="product-label label-sale">{ isSale() }</div> : '' }
-                        </div> */}
+                        </div>
 
                         <OwlCarousel adClass="product-single-carousel owl-carousel owl-theme show-nav-hover" options={ productSingleSlider } events={ events } onChangeRef={ setMediaRef } redraw={ redraw }>
                             {
-                                product?.images?.map( ( item, index ) => (
+                                product.images.map( ( item, index ) => (
                                     <div className="product-item" key={ `product-item-${ index }` }>
                                         <Magnifier
-                                            style={ { paddingTop: "100%", position: "relative" } }
-                                            imageSrc={ item.fileURL }
+                                            style={ { paddingTop: "100%", position: "relative", height:"auto !important" } }
+                                            imageSrc={  item.fileURL }
                                             imageAlt="product"
                                             mouseActivation="hover"
                                             cursorStyleActive="crosshair"
                                             dragToMove={ false }
                                             className="product-single-image"
+                                            // style={{}}
                                         />
                                     </div>
                                 ) )
@@ -108,16 +107,18 @@ export default function ProductMediaOne ( props ) {
                         </span>
                     </div>
 
-                    <OwlCarousel adClass="prod-thumbnail owl-theme owl-dots" options={ prodThumbSlider }>
+                    <OwlCarousel adClass="prod-thumbnail owl-theme owl-dots" options={ prodThumbSlider } >
                         {
-                            product?.images?.map( ( item, index ) => (
-                                <div className="owl-dot media-with-lazy" key={ `owl-dot-${ index }` } onClick={ ( e ) => changeMediaIndex( index, e ) }>
-                                    <figure className="mb-0">
+                            product.images.map( ( item, index ) => (
+                                <div className="owl-dot media-with-lazy" key={ `owl-dot-${ index }` } onClick={ ( e ) => changeMediaIndex( index, e ) }  >
+                                    <figure className="mb-0" style={{paddingTop:"0px"}}>
                                         <LazyLoadImage src={ item.fileURL }
                                             alt="Thumbnail"
                                             width="100%"
                                             height="auto"
                                             className="d-block"
+                                            style={{height:"auto" }}
+
                                         />
                                     </figure>
                                 </div>
