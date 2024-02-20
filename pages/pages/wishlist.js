@@ -233,8 +233,8 @@ function Wishlist(props) {
             <table className="table table-wishlist mb-0">
               <thead>
                 <tr>
-                  <th className="thumbnail-col"></th>
-                  <th className="product-col">Product</th>
+                  <th className="thumbnail-col">Product</th>
+                  <th className="product-col"></th>
                   <th className="price-col">Price</th>
                   {/* <th className="status-col">Stock Status</th> */}
                   <th className="action-col">Actions</th>
