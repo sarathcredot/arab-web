@@ -76,6 +76,7 @@ export default function ProductMediaOne ( props ) {
             <div className="skel-pro skel-magnifier"></div>
             {
                 product && <>
+                <div>
                     <div className="product-slider-container">
                         <div className="label-group">
                             { product.is_hot ? <div className="product-label label-hot">HOT</div> : '' }
@@ -107,6 +108,7 @@ export default function ProductMediaOne ( props ) {
                         </span>
                     </div>
 
+                    </div>
                     <OwlCarousel adClass="prod-thumbnail owl-theme owl-dots" options={ prodThumbSlider } >
                         {
                             product.images.map( ( item, index ) => (
@@ -125,7 +127,6 @@ export default function ProductMediaOne ( props ) {
                             ) )
                         }
                     </OwlCarousel>
-
                     {
                         openLB && (
                             <LightBox
