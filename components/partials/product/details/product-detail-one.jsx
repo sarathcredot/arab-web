@@ -948,7 +948,13 @@ console.log(data)
                   value?.attributeDescription?.toLowerCase() === "size"
               ) ? (
                 <>
-                  <label>
+                  <label  style={{
+                      // fontWeight: "600px",
+                      // fontSize: "14px",
+                      // lineHeight: "22px",
+                      color: "#000",
+                      fontWeight: "500",
+                    }}>
                     Size
                   
                      
