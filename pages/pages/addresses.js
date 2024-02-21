@@ -122,7 +122,7 @@ console.log("click");
           padding: "2px",
         }}
       >
-        <h2 className="step-title">Address</h2>
+        <h2 className="step-title addresstitle">Address</h2>
       </div>
      
       {isAddress ? (
@@ -136,7 +136,7 @@ console.log("click");
             className="container d-flex justify-content-between flex-column flex-sm-row w-sm-100"
             style={{ gap: "5rem", marginBottom: "20px" }}
           >
-            <div
+            {/* <div
               className=""
               style={{
                 width: "653.45px",
@@ -185,17 +185,17 @@ console.log("click");
                   ADD ADDRESSES
                 </button>
               </div>
-            </div>
+            </div> */}
 {/* shipping */}
 <div
-              className=""
-              style={{
-                width: "653.45px",
-                minHeight: "234px",
-                border: "1px solid ",
-                marginTop: "40px",
-                borderColor: "#CDCDCD",
-              }}
+              className="custom-addressbox"
+              // style={{
+              //   width: "653.45px",
+              //   minHeight: "234px",
+              //   border: "1px solid ",
+              //   marginTop: "40px",
+              //   borderColor: "#CDCDCD",
+              // }}
             >
               <div className="p-5">
                 <h4
