@@ -393,7 +393,7 @@ function filterByDiscount(selectedDiscount) {
             </div>
           ):""}
           {/* )} */}
-          <div className="widget widget-brand">
+          <div className=" widget-brand">
             {loading ? (
               <div className="skel-widget"></div>
             ) : (
@@ -403,6 +403,7 @@ function filterByDiscount(selectedDiscount) {
                     {brandData &&
                     brandData?.getBrandDetailsWithCategory?.records.length >
                       0 ? (
+                        <div style={{borderBottom:"1px solid #B9B9B9",borderTop:"1px solid #B9B9B9",padding:"2rem"}}>
                       <h3 className="widget-title">
                         <a
                           className={
@@ -415,12 +416,12 @@ function filterByDiscount(selectedDiscount) {
                         >
                           Brand
                         </a>
-                      </h3>
+                      </h3></div>
                     ) : (
                       ""
                     )}
                     <div
-                      className="overflow-hidden"
+                      className="overflow-hidden widget"
                       ref={setCollapsibleElement}
                     >
                       <div className="widget-body pb-0">
@@ -487,14 +488,14 @@ function filterByDiscount(selectedDiscount) {
 
 
           {/* sort */}
-          <div className="widget widget-brand">
+          <div className=" widget-brand">
             {loading ? (
               <div className="skel-widget"></div>
             ) : (
               <SlideToggle>
                 {({ onToggle, setCollapsibleElement, toggleState }) => (
                   <>
-                   
+                    <div style={{borderBottom:"1px solid #B9B9B9",borderTop:"1px solid #B9B9B9",padding:"2rem"}}>
                       <h3 className="widget-title">
                         <a
                           className={
@@ -508,9 +509,9 @@ function filterByDiscount(selectedDiscount) {
                           Sort
                         </a>
                       </h3>
-                   
+                      </div>
                     <div
-                      className="overflow-hidden"
+                      className="overflow-hidden widget"
                       ref={setCollapsibleElement}
                     >
                       <div className="widget-body pb-0">
@@ -549,15 +550,15 @@ function filterByDiscount(selectedDiscount) {
           </div>
 
           {/* discount */}
-          <div className="widget widget-brand">
+          <div className=" widget-brand">
             {loading ? (
               <div className="skel-widget"></div>
             ) : (
               <SlideToggle>
                 {({ onToggle, setCollapsibleElement, toggleState }) => (
                   <>
-                   
-                      <h3 className="widget-title">
+                   <div style={{borderBottom:"1px solid #B9B9B9",borderTop:"1px solid #B9B9B9",padding:"2rem"}}>
+                      <h3 className="widget-title ">
                         <a
                           className={
                             toggleState === "COLLAPSED" ? "collapsed" : ""
@@ -570,9 +571,9 @@ function filterByDiscount(selectedDiscount) {
                           Discount
                         </a>
                       </h3>
-                   
+                      </div>
                     <div
-                      className="overflow-hidden"
+                      className="overflow-hidden widget"
                       ref={setCollapsibleElement}
                     >
                       <div className="widget-body pb-0">
@@ -630,7 +631,7 @@ function filterByDiscount(selectedDiscount) {
          
          
           <div
-            className="widget widget-price overflow-hidden"
+            className=" widget-price overflow-hidden"
             style={{ padding: "0" }}
           >
             {loading ? (
@@ -639,14 +640,15 @@ function filterByDiscount(selectedDiscount) {
               <SlideToggle>
                 {({ onToggle, setCollapsibleElement, toggleState }) => (
                   <>
+                  <div style={{borderBottom:"1px solid #B9B9B9",borderTop:"1px solid #B9B9B9",padding:"2rem"}}>
                     <h3
                       className="widget-title"
                       style={{
-                        borderBottom: "1px solid",
-                        borderColor: "#DDDDDD",
+                        // borderBottom: "1px solid",
+                        // borderColor: "#DDDDDD",
                         width: "298px",
                         marginLeft: "0px",
-                        paddingBottom: "20px",
+                        // paddingBottom: "20px",
                       }}
                     >
                       <a
@@ -658,12 +660,12 @@ function filterByDiscount(selectedDiscount) {
                         onClick={(e) => {
                           e.preventDefault(), onToggle();
                         }}
-                        style={{ marginLeft: "20px", marginTop: "20px" }}
+                        // style={{ marginLeft: "20px", marginTop: "20px" }}
                       >
                         Price
                       </a>
                     </h3>
-
+                    </div>
                     <div ref={setCollapsibleElement}>
                       <div
                         className="widget-body pb-2"
@@ -729,7 +731,7 @@ function filterByDiscount(selectedDiscount) {
                 if (attri.attributeType === "COLOR") {
                   attributeComponent = (
                     <div
-                      className="widget widget-color"
+                      className=" widget-color"
                       style={{ padding: "0" }}
                     >
                       {loading ? (
@@ -742,15 +744,15 @@ function filterByDiscount(selectedDiscount) {
                             toggleState,
                           }) => (
                             <>
-                              <div>
+                              <div style={{borderBottom:"1px solid #B9B9B9",borderTop:"1px solid #B9B9B9",padding:"2rem"}}>
                                 <h3
                                   className="widget-title"
                                   style={{
-                                    borderBottom: "1px solid",
-                                    borderColor: "#DDDDDD",
+                                    // borderBottom: "1px solid",
+                                    // borderColor: "#DDDDDD",
                                     width: "298px",
                                     marginLeft: "0px",
-                                    paddingBottom: "20px",
+                                    // paddingBottom: "20px",
                                   }}
                                 >
                                   <a
@@ -764,17 +766,17 @@ function filterByDiscount(selectedDiscount) {
                                       e.preventDefault();
                                       onToggle();
                                     }}
-                                    style={{
-                                      marginLeft: "20px",
-                                      marginTop: "20px",
-                                    }}
+                                    // style={{
+                                    //   marginLeft: "20px",
+                                    //   marginTop: "20px",
+                                    // }}
                                   >
                                     {attri?.description}
                                   </a>
                                 </h3>
                               </div>
                               <div
-                                className="overflow-hidden"
+                                className="overflow-hidden widget"
                                 ref={setCollapsibleElement}
                               >
                                 <div className="widget-body pb-4">
@@ -836,7 +838,7 @@ function filterByDiscount(selectedDiscount) {
                 } else {
                   attributeComponent = (
                     <div
-                      className="widget widget-normal"
+                      className=" widget-normal"
                       style={{ padding: "0" }}
                     >
                       {loading ? (
@@ -849,15 +851,15 @@ function filterByDiscount(selectedDiscount) {
                             toggleState,
                           }) => (
                             <>
-                              <div>
+                              <div style={{borderBottom:"1px solid #B9B9B9",borderTop:"1px solid #B9B9B9",padding:"2rem"}}>
                                 <h3
                                   className="widget-title"
                                   style={{
-                                    borderBottom: "1px solid",
-                                    borderColor: "#DDDDDD",
+                                    // borderBottom: "1px solid",
+                                    // borderColor: "#DDDDDD",
                                     width: "298px",
                                     marginLeft: "0px",
-                                    paddingBottom: "20px",
+                                    // paddingBottom: "20px",
                                   }}
                                 >
                                   <a
@@ -871,17 +873,17 @@ function filterByDiscount(selectedDiscount) {
                                       e.preventDefault();
                                       onToggle();
                                     }}
-                                    style={{
-                                      marginLeft: "20px",
-                                      marginTop: "20px",
-                                    }}
+                                    // style={{
+                                    //   marginLeft: "20px",
+                                    //   marginTop: "20px",
+                                    // }}
                                   >
                                     {attri?.description}
                                   </a>
                                 </h3>
                               </div>
                               <div
-                                className="overflow-hidden"
+                                className="overflow-hidden widget"
                                 ref={setCollapsibleElement}
                               >
                                 {/* design */}

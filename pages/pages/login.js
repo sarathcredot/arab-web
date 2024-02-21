@@ -110,9 +110,11 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
         <div className="row">
           <div className="col-lg-12 mx-auto">
             {isOtp ? (
-              <div className="row" style={{ marginLeft: "115px" }}>
+              <div className="row custom-loginleft" 
+              // style={{ marginLeft: "115px" }}
+              >
                 <div className="col-md-6">
-                  <div className="heading mb-1" style={{ marginTop: "200px" }}>
+                  <div className="heading mb-1 otpcontainer" >
                     <h2 className="title">Verify Phone Number</h2>
                     <div className="">
                       <p
@@ -136,7 +138,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                       <OTPInput
                         value={otp}
                         onChange={setOtp}
-                        numInputs={6}
+                        numInputs={5}
                         containerStyle={{
                           textAlign: "center",
                           width: "60px",
@@ -146,19 +148,18 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                         renderInput={(props) => (
                           <input
                             {...props}
-                            style={{
-                              width: "60px",
-                              height: "60px",
-                              textAlign: "center",
-                              fontSize: "18px ",
-                              borderColor: "#ECECEC",
-                              // textDecoration:"none",
-                              outline: "none",
-                              border: "1px solid #ECECEC",
-                              // outlineColor:"#ECECEC"
-
-                              //   border:"1px"
-                            }}
+                            className="otpbox"
+                            // style={{
+                            //   width: "60px",
+                            //   height: "60px",
+                            //   textAlign: "center",
+                            //   fontSize: "18px ",
+                            //   borderColor: "#ECECEC",
+                             
+                            //   outline: "none",
+                            //   border: "1px solid #ECECEC",
+                             
+                            // }}
                           />
                         )}
                       />
@@ -212,7 +213,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                 </div>
               </div>
             ) : (
-              <div className="row" style={{ marginLeft: "115px" }}>
+              <div className="row custom-loginleft" >
                 <div className="col-md-6 left-login-section">
                   <div className="heading mb-1">
                     <h2 className="title">Login/ Register to your account</h2>
@@ -245,36 +246,23 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                     />
                     {error && <div style={{ color: "red" }}>{error}</div>}
 
-                    {/* <input
-                      type="number"
-                      className="form-input form-wide"
-                      id="login-email"
-                      //   required
-                      placeholder="Enter Mobile Number"
-                      style={{ width: "538px", height: "60px" }}
-                      onChange={handleMobileNumberChange}
-                    /> */}
+                   
 
                     <div
-                      className=""
-                      style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        width: "538px",
-                      }}
+                      className="orcontainer"
+                     
                     >
-                      <div
-                        style={{
-                          backgroundColor: "#F8F8F8",
-                          borderRadius: "50%",
-                          width: "46px",
-                          height: "46px",
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginTop: "14px",
-                        }}
+                      <div className="orcircle"
+                        // style={{
+                        //   backgroundColor: "#F8F8F8",
+                        //   borderRadius: "50%",
+                        //   width: "46px",
+                        //   height: "46px",
+                        //   display: "flex",
+                        //   alignItems: "center",
+                        //   justifyContent: "center",
+                        //   marginTop: "14px",
+                        // }}
                       >
                         <div style={{ fontSize: "14px", fontWeight: "500" }}>
                           <p
@@ -286,17 +274,10 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                       </div>
                     </div>
 
-                    <div className="mt-3">
+                    <div className="mt-3 buttonwrapper">
                       <div
-                        class="google-btn   "
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          height: "60px",
-                          width: "538px",
-                          border: "1px solid #CDCDCD",
-                        }}
+                        class="google-btn googlebtn"
+                       
                       >
                         <div class="google-icon-wrapper ">
                           <img
@@ -320,16 +301,16 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                         </p>
                       </div>
                       <div
-                        class="google-btn   "
-                        style={{
-                          display: "flex",
-                          alignItems: "center",
-                          justifyContent: "center",
-                          marginTop: "20px",
-                          height: "60px",
-                          width: "538px",
-                          border: "1px solid #CDCDCD",
-                        }}
+                        class="google-btn googlebtn  "
+                        // style={{
+                        //   display: "flex",
+                        //   alignItems: "center",
+                        //   justifyContent: "center",
+                        //   marginTop: "20px",
+                        //   height: "60px",
+                        //   width: "538px",
+                        //   border: "1px solid #CDCDCD",
+                        // }}
                       >
                         <div class="google-icon-wrapper">
                           <img

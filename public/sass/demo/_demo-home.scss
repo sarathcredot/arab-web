@@ -709,6 +709,7 @@ hr {
     }
 }
 
+
 .deal-product {
     border-right: 1px solid rgba(185, 185, 185, 1);
 .customimg{
@@ -1600,6 +1601,13 @@ display: none;
 .custom-web-banner2{
     padding-right: 20px;
 }
+.custom-addressbox{
+    width: 653.45px;
+    min-height: 234px;
+    border: 1px solid;
+    margin-top: 40px;
+    border-color: #CDCDCD;
+}
 // 3. Responsive
 @media(min-width: 768px) {
     .deal-products-section {
@@ -1607,7 +1615,7 @@ display: none;
             margin-left: -21px;
         }
     }
-   
+    
 }
 
 @media(min-width: 992px) {
@@ -1809,7 +1817,12 @@ display: none;
     .categories-container{
         width: 100%;
     }
-
+    .custom-addressbox{
+        width: 100%;
+    }
+   .addresstitle{
+    padding-left: 15px;
+   }
     .category-filter-section{
         display: none;
     }

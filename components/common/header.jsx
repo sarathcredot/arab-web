@@ -205,8 +205,9 @@ const click=localStorage.getItem("click")
                 
                 <span>OFFERZONE</span>
               </div>
+              <div className="custom-countryhide">
               <div
-                className="header-dropdown mr-auto mr-sm-3 mr-md-0"
+                className="header-dropdown mr-auto mr-sm-3 mr-md-0 d-sm-none"
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
                 <ALink href="#">
@@ -237,6 +238,7 @@ const click=localStorage.getItem("click")
                     </li>
                   </ul>
                 </div> */}
+              </div>
               </div>
 
               {/* <div
@@ -282,7 +284,8 @@ const click=localStorage.getItem("click")
                   <span>Welcome</span>
                   <h4 className="mb-0">My Account</h4>
                 </div> */}
-                </div> :  <div
+                </div> :  
+                <div
                 className="header-dropdown mr-auto mr-sm-3"
                 // style={{ marginLeft:"20px"}}
               >

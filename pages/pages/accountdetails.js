@@ -91,6 +91,20 @@ console.log(id);
 
   }
 
+  const fieldRules = {
+    firstName: {
+      required: "FirstName is required",
+    },
+    lastName: {
+      required: "LastName is required",
+    },
+    displayName: {
+      required: "DisplayName is required",
+    },
+    email: {
+      required: "Email is required",
+    },
+  }
 
   return (
     <main className="main main-test">
@@ -105,9 +119,7 @@ console.log(id);
           <li className="active">
             <ALink href="/pages/accountdetails">Account Details</ALink>
           </li>
-          {/* <li className="disabled">
-            <ALink href="#">Order Complete</ALink>
-          </li> */}
+         
         </ul>
       </div>
       <div className="container checkout-container">
@@ -129,8 +141,8 @@ console.log(id);
 
                 <form onSubmit={handleSubmit(onSubmit)} id="checkout-form">
                   <div className="row">
-                    <div className="col-md-6">
-                      <div className="form-group">
+                    <div className="col-md-6 mb-2">
+                      <div className="form-group mb-0">
                         <label
                           style={{
                             fontFamily: "Poppins",
@@ -155,12 +167,18 @@ console.log(id);
                               onChange={onChange}
                           style={{ marginTop: "10px" }}
                         />)}
+                        rules={fieldRules.firstName}
                         />
                       </div>
+                      {errors?.firstName ? (
+                    <div style={{color:"red",marginTop:"10px"}}>
+                      {errors?.firstName?.message}
+                    </div>
+                  ) : null}
                     </div>
 
                     <div className="col-md-6">
-                      <div className="form-group">
+                      <div className="form-group mb-0">
                         <label
                           style={{
                             fontFamily: "Poppins",
@@ -184,12 +202,18 @@ console.log(id);
                           onChange={onChange}
                           style={{ marginTop: "10px" }}
                         />)}
+                        rules={fieldRules.lastName}
                         />
                       </div>
+                      {errors?.lastName ? (
+                    <div style={{color:"red",marginTop:"10px"}}>
+                      {errors?.lastName?.message}
+                    </div>
+                  ) : null}
                     </div>
 
                     <div className="col-md-6">
-                      <div className="form-group">
+                      <div className="form-group mb-0">
                         <label
                           style={{
                             fontFamily: "Poppins",
@@ -208,14 +232,20 @@ console.log(id);
                           render={({ field: { onChange, value } }) => (
                         <input
                           type="text"
-                          className="form-control"
+                          className="form-control mb-0"
                           
                           style={{ marginTop: "10px" }}
                           value={value}
                           onChange={onChange}
                         />)}
+                        rules={fieldRules.displayName}
                         />
                       </div>
+                      {errors?.displayName ? (
+                    <div style={{color:"red",marginTop:"10px"}}>
+                      {errors?.displayName?.message}
+                    </div>
+                  ) : null}
                     </div>
                   </div>
 
@@ -231,7 +261,7 @@ console.log(id);
                     section and in reviews
                   </p>
 
-                  <div className="form-group">
+                  <div className="form-group mb-0">
                     <label
                       style={{
                         fontFamily: "Poppins",
@@ -250,101 +280,22 @@ console.log(id);
                           render={({ field: { onChange, value } }) => (
                     <input
                       type="email"
-                      className="form-control"
-                      required
+                      className="form-control "
+                     
                       style={{ marginTop: "10px" }}
                       value={value}
                       onChange={onChange}
                     />)}
+                    rules={fieldRules.email}
                     />
+                     {errors?.email ? (
+                    <div style={{color:"red",marginTop:"10px"}}>
+                      {errors?.email?.message}
+                    </div>
+                  ) : null}
                   </div>
 
-                  {/* <div
-                    className="container"
-                    style={{
-                      border: "2px solid ",
-                      borderColor: "#CACACA",
-                      marginTop: "4rem",
-                      height: "503px",
-                    }}
-                  >
-                    <div className="container" style={{ padding: "51px" }}>
-                      <h1
-                        style={{
-                          fontFamily: "Poppins",
-                          fontWeight: "600px",
-                          fontSize: "16px",
-                          lineHeight: "15px",
-                          letterSpacing: "0.75px",
-                        }}
-                      >
-                        {"Password Change".toUpperCase()}
-                      </h1>
-
-                      <div className="form-group" style={{ marginTop: "50px" }}>
-                        <label
-                          style={{
-                            fontFamily: "Poppins",
-                            fontWeight: "400px",
-                            lineHeight: "20px",
-                          }}
-                        >
-                          Current Password (leave blank to leave unchanged)
-                          <ab className="required" title="required">
-                            *
-                          </ab>
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          required
-                          style={{ marginTop: "10px" }}
-                          value="12352"
-                        />
-                      </div>
-                      <div className="form-group">
-                        <label
-                          style={{
-                            fontFamily: "Poppins",
-                            fontWeight: "400px",
-                            lineHeight: "20px",
-                          }}
-                        >
-                          New Password (leave blank to leave unchanged)
-                          <ab className="required" title="required">
-                            *
-                          </ab>
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          required
-                          style={{ marginTop: "10px" }}
-                        />
-                      </div>
-
-                      <div className="form-group">
-                        <label
-                          style={{
-                            fontFamily: "Poppins",
-                            fontWeight: "400px",
-                            lineHeight: "20px",
-                          }}
-                        >
-                          Confirm New Password
-                          <ab className="required" title="required">
-                            *
-                          </ab>
-                        </label>
-                        <input
-                          type="password"
-                          className="form-control"
-                          required
-                          style={{ marginTop: "10px" }}
-                        />
-                      </div>
-                    </div>
-                  </div> */}
+                 
 
                   <div
                     className="container"

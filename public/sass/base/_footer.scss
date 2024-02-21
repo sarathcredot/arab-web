@@ -387,7 +387,8 @@ footer {
 
 @media (max-width: 768px) {
 	.responsive-footer{
-		display: block
+		display: block;
+		margin-top: 47px;
 	}
 	
 	.footer-sub{
@@ -409,7 +410,7 @@ footer {
     // border-top: 1px solid #ece8e8;
     // padding-bottom: 55px;
     // border-bottom: 1px solid #ece8e8;
-	padding: 52px 0;
+	padding: 0px 0 52px 0;
     border-bottom: 1px solid #f1f1f1;
     border-top: 1px solid #f1f1f1;
 
