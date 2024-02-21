@@ -30,6 +30,9 @@
             padding-bottom: .8rem;
             border-color: #CDCDCD;
             line-height: 32px;
+            width: 100%;
+            max-width: 538px;
+            
         }
 
         .btn {
@@ -65,6 +68,52 @@
     .col-md-6:first-child .form-footer {
         margin-top: 1.3rem;
     }
+}
+.custom-loginleft{
+margin-left: 115px;
+}
+.otpcontainer{
+    margin-top: 200px;
+}
+.orcircle{
+    background-color: #F8F8F8;
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 14px;   
+}
+.orcontainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 538px;
+}
+.googlebtn{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    width: 100%;
+    max-width: 538px;
+    border: 1px solid #CDCDCD,
+}
+.buttonwrapper{
+    display: flex;
+flex-direction: column;
+gap: 20px
+}
+.otpbox{
+    width: 60px;
+    height: 60px;
+    text-align: center;
+    font-size: 18px;
+    border-color: #ECECEC;
+  
+    outline: none;
+    border: 1px solid #ECECEC;
 }
 .left-login-section{
     margin-top: 110px;
@@ -118,7 +167,38 @@
         }
     }
 }
-
+@media (max-width: 768px)
+    {
+        .custom-loginleft{
+            margin: 10px;
+        }
+        .otpbox{
+            width: 45px !important;
+            height: 45px;
+        }
+        .otpcontainer{
+margin-top: 0;
+        }
+        .left-login-section {
+margin-top: 15px;
+        }
+        .googlebtn{
+            width: 100%;
+        }
+        .orcontainer{
+            width: 100%;
+        }
+        .login-container form .btn{
+            display: flex;
+            width: 100%;
+            justify-content: center;
+        }
+    //     .buttonwrapper{
+    //         display: flex;
+    // flex-direction: column;
+    // gap: 10px
+    //     }
+}
 @include mq(md) {
     .login-container {
         .col-md-6:first-child {

@@ -1123,6 +1123,11 @@
   align-self: self-end;
   flex-direction: column;
 }
+.custom-helplineweb{
+    display: flex;
+  align-self: self-end;
+  flex-direction: column;
+}
 // 3. Component
 // 3.1) Base
 body {
@@ -1451,8 +1456,12 @@ body {
         font-weight: 600;
     }
     .custom-helpline{
-		display: none;
+        margin-bottom: 20px
+		
 	}
+    .custom-helplineweb{
+        display: none;
+    }
     .custom-mobOnlyapple{
         display: block;
     }
@@ -1492,8 +1501,11 @@ body {
             margin: 0;
         }
     }
-    .header-dropdown {
-        display: none;
+    .custom-countryhide .header-dropdown{
+
+        
+         display: none;
+        
     }
     .custom-topbrandcontainer{
        
