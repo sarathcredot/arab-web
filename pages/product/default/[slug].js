@@ -135,7 +135,7 @@ function ProductDefault () {
             <div className={ `container pt-2 skeleton-body skel-shop-products ${productLoading ? '' : 'loaded'}` }>
                 <div className="product-single-container product-single-default">
                     <div className="row">
-                        <ProductMediaOne product={ product } />
+                        <ProductMediaOne product={ product }   />
 
                         <ProductDetailOne
                             product={ product }
