@@ -26,14 +26,14 @@ function RecentCollection(props) {
           triggerOnce
           style={{ marginTop: "30px" }}
         >
-          <div
+          <div  
             className="heading shop-list d-flex align-items-center flex-wrap  mb-0 pl-0 pr-0"
             style={{ borderBottom: "1px solid ", borderColor: "#EEEEEE" }}
           >
             <h4 className="section-title text-transform-none mb-0 mr-0">
              50% Off
             </h4>
-            <ALink className="view-all ml-auto" href="/shop">
+            <ALink className="view-all ml-auto" href='/shop?discount=10%'>
               View All Products
             </ALink>
           </div>
@@ -44,10 +44,26 @@ function RecentCollection(props) {
               ...productSlider,
               responsive: {
                 ...productSlider.responsive,
-                1200: {
+                0: {
+                  items: 2,
+                  nav: true
+              },
+              576: {
+                  items: 2,
+                  nav: true
+              },
+              768: {
+                  items: 3,
+                  nav: true
+              },
+              992: {
+                  items: 4,
+                  nav: true
+              },
+              1200: {
                   items: 5,
-                  nav: true,
-                },
+                  nav: true
+              }
               },
             }}
           >
@@ -86,7 +102,7 @@ function RecentCollection(props) {
             <h4 className="section-title text-transform-none mb-0 mr-0">
             30%of
             </h4>
-            <ALink className="view-all ml-auto" href="/shop">
+            <ALink className="view-all ml-auto" href="/shop?discount=30%">
               View All Products
             </ALink>
           </div>
@@ -98,10 +114,26 @@ function RecentCollection(props) {
               ...productSlider,
               responsive: {
                 ...productSlider.responsive,
-                1200: {
+                0: {
+                  items: 2,
+                  nav: true
+              },
+              576: {
+                  items: 2,
+                  nav: true
+              },
+              768: {
+                  items: 3,
+                  nav: true
+              },
+              992: {
+                  items: 4,
+                  nav: true
+              },
+              1200: {
                   items: 5,
-                  nav: true,
-                },
+                  nav: true
+              }
               },
             }}
           >
@@ -138,7 +170,7 @@ function RecentCollection(props) {
             <h4 className="section-title text-transform-none mb-0 mr-0">
               10% Off
             </h4>
-            <ALink className="view-all ml-auto" href="/shop">
+            <ALink className="view-all ml-auto" href='/shop?discount=10%'>
               View All Products
             </ALink>
           </div>
@@ -150,10 +182,26 @@ function RecentCollection(props) {
               ...productSlider,
               responsive: {
                 ...productSlider.responsive,
-                1200: {
+                0: {
+                  items: 2,
+                  nav: true
+              },
+              576: {
+                  items: 2,
+                  nav: true
+              },
+              768: {
+                  items: 3,
+                  nav: true
+              },
+              992: {
+                  items: 4,
+                  nav: true
+              },
+              1200: {
                   items: 5,
-                  nav: true,
-                },
+                  nav: true
+              }
               },
             }}
           >

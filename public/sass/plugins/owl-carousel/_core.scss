@@ -22,7 +22,7 @@
 		clear: both;
 		visibility: hidden;
 		line-height: 0;
-		height: 0;
+		height: auto !important;
 	}
 
 	.owl-stage-outer {
@@ -30,7 +30,38 @@
 		overflow: hidden;
 		/* fix for flashing background */
 		-webkit-transform: translate3d(0px, 0px, 0px);
+		// margin-top: -299;
 	}
+
+
+
+	// @media (max-width: 667px) {
+	// 	.owl-stage-outer {
+	// 		// margin-top: /* Your desired margin-top value for mobile */;
+	// 		margin-top: 200px;
+	// 	}
+	// }
+	
+	// @media (min-width: 768px) and (max-width: 991px) {
+	// 	.owl-stage-outer {
+	// 		margin-top: -299px;
+	// 		// margin-top: /* Your desired margin-top value for tablets */;
+	// 	}
+	// }
+	
+	// @media (min-width: 992px) and (max-width: 1199px) {
+	// 	.owl-stage-outer {
+	// 		margin-top: -299px;
+			
+	// 	}
+	// }
+	
+	// /* For screens 1200px and above */
+	// @media (min-width: 1200px) {
+	// 	.owl-stage-outer {
+	// 		margin-top: -299px;
+	// 	}
+	// }
 
 	.owl-wrapper,
 	.owl-item{
