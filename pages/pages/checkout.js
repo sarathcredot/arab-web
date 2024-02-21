@@ -337,7 +337,9 @@ console.log(cartData);
                 <div className="col-lg-7">
                 <div >
                   <h2 className="step-title">Select a shipping address</h2>
-                  <div style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}>
+                  <div className="shipingBox"
+                  // style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}
+                  >
                   {data && data?.getUserShippingAddresses?.address.length>0 ? data?.getUserShippingAddresses?.address.map((address,index)=>{
                   return(
                     <>
@@ -359,9 +361,9 @@ console.log(cartData);
                     </>
                     )
 
-                }):<>Add shipping address</>}
+                }):""}
 
-                <div style={{display:"flex",gap:"20px",alignItems:"center"}} ><IoAddCircleOutline style={{fontSize:"20px"}} onClick={()=>{setIsshipping(true)}}/><p style={{margin:0}}> Add Address </p></div>
+                <div style={{display:"flex",gap:"15px",alignItems:"center"}} ><IoAddCircleOutline style={{fontSize:"20px"}} onClick={()=>{setIsshipping(true)}}/><p className="addaddressbtn" style={{margin:0}}> Add Address </p></div>
                 </div>
                 </div>
 
