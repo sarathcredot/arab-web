@@ -95,6 +95,14 @@
 		}
 	}
 }
+.shipingBox{
+	border:1px solid #dfdfdf;
+	border-radius:4px;
+	padding:20px 10px 
+}
+.addaddressbtn{
+	font-size: 17px
+}
 
 .step-title {
 	@include clearfix;
@@ -744,7 +752,29 @@ p.noproduct-msg {
 		}
 	}
 }
-
+.custom-formspace{
+	margin-top: 6rem;
+	padding: 2px;
+}
+.radiocolor{
+	color: red;
+	background-color: red;
+}
+input[type="radio"]{
+	border-color: red;
+	background-color: red;
+}
+@media(max-width:700px){
+.shipingBox{
+	margin-bottom: 25px;
+}
+.custom-formspace{
+	margin-top: 0;
+}
+.order-box{
+	margin-left: 0;
+}
+}
 @media(max-width: 576px) {
 	.checkout-container .order-summary {
 		padding-left: 2rem;

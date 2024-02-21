@@ -151,14 +151,13 @@ if(isEdit){
                         <ul className="checkout-steps">
                             <li>
                                 <div
-                                    className="container"
-                                    style={{
-                                        marginTop: "6rem",
-                                        // borderBottom:"1px solid",
-                                        // borderColor:""
+                                    className="container custom-formspace"
+                                    // style={{
+                                    //     marginTop: "6rem",
+                                       
 
-                                        padding: "2px"
-                                    }}
+                                    //     padding: "2px"
+                                    // }}
                                 >
                                     <h4 className="step-title" >Shipping address</h4>
                                 </div>
