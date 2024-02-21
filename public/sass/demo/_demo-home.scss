@@ -1608,6 +1608,9 @@ display: none;
     margin-top: 40px;
     border-color: #CDCDCD;
 }
+.editbtn:hover{
+color:red
+}
 // 3. Responsive
 @media(min-width: 768px) {
     .deal-products-section {

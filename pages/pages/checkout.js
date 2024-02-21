@@ -337,31 +337,37 @@ console.log(cartData);
                 <div className="col-lg-7">
                 <div >
                   <h2 className="step-title">Select a shipping address</h2>
-                  <div style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}>
+                  <div className="shipingBox"
+                  // style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}
+                  >
                   {data && data?.getUserShippingAddresses?.address.length>0 ? data?.getUserShippingAddresses?.address.map((address,index)=>{
                   return(
                     <>
                   <div key={index} style={{display:"flex",lineHeight:"19px",alignItems:"baseline",gap:"20px",border:"1px solid #dfdfdf",margin:"15px 0",padding:"10px",borderRadius:"4px"}}>
-                  <input type="radio" id={`shipaddress${index}`}  name="fav_language" value={address._id}   checked={defaultAddressId === address._id}  onChange={() => handleAddressSelection(address._id)} />
+                 <div>
+                  <div className="custom-control custom-radio d-flex">
+                  <input type="radio" className="custom-control-input" id={`shipaddress${index}`}   value={address._id}   checked={defaultAddressId === address._id}  onChange={() => handleAddressSelection(address._id)} />
 
                    
-                    <label htmlFor={`shipaddress${index}`} >
+                    <label className="custom-control-label" style={{paddingLeft:"10px",maxWidth:"575px"}} htmlFor={`shipaddress${index}`} >
                     
                       {address?.firstname},
                     
-                    &nbsp;{address?.houseNumber}, {address?.streetName}, &nbsp;{address?.postCode},{address?.city}, {address?.country}
+                    &nbsp;{address?.houseNumber}, {address?.streetName}, &nbsp;{address?.postCode},{address?.city}, {address?.country}</label>
+                    </div>
                     <div style={{display:"flex",color:"black"}}>
-                      <button style={{cursor:"pointer",background:"none",border:"none",color: "#007185"}} onClick={()=>{setIsshipping(true);setIsedit(true);setSelectedAddressId(address?._id)}}>Edit</button>
+                      <button style={{cursor:"pointer",background:"none",border:"none",color: "black"}} onClick={()=>{setIsshipping(true);setIsedit(true);setSelectedAddressId(address?._id)}}>Edit</button>
                       <button style={{cursor:"pointer",background:"none",border:"none",color:"#E30613"}} onClick={()=>handleRemove(address?._id)}>Remove</button>
-                    </div></label>
+                    </div>
+                    </div>
                     </div>
                   
                     </>
                     )
 
-                }):<>Add shipping address</>}
+                }):""}
 
-                <div style={{display:"flex",gap:"20px",alignItems:"center"}} ><IoAddCircleOutline style={{fontSize:"20px"}} onClick={()=>{setIsshipping(true)}}/><p style={{margin:0}}> Add Address </p></div>
+                <div style={{display:"flex",gap:"15px",alignItems:"center"}} onClick={()=>{setIsshipping(true)}}><IoAddCircleOutline style={{fontSize:"20px"}} /><p className="addaddressbtn" style={{margin:0}}> Add Address </p></div>
                 </div>
                 </div>
 
