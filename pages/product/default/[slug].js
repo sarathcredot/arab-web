@@ -76,7 +76,7 @@ function ProductDefault () {
     );
 
     const slug = useRouter().query.slug;
-    console.log(slug,"productddddddddddddddddddddddddddddddddddddddddd")
+
     // const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
     // const product = data && data.product.data;
     // const related = data && data.product.related;
