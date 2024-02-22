@@ -131,15 +131,16 @@ function CheckOut() {
   }
 `;
   const [toggler, setToggler] = useState(false);
+  const token =localStorage.getItem("arabtoken")
+ 
 
-  console.log(cartList,"qcartaaaaaaaaaaaa")
 console.log(defaultAddressId);
   const {
     data: cartData,
     loading: cartLoading,
     error: cartError,
     refetch: cartRefetch
-  } = useQuery(GET_CART);
+  } = useQuery(GET_CART,{skip:!token});
 
   useEffect(() => {
     if (data && data.getUserShippingAddresses && data.getUserShippingAddresses.address.length > 0) {

@@ -16,6 +16,8 @@ function SearchForm(props) {
   const [search, setSearch] = useState("");
   const [searchProducts, { data }] = useLazyQuery(GET_PRODUCTS);
   const [timer, setTimer] = useState(null);
+  const [options, setOptions] = useState([]);
+
 
   useEffect(() => {
     document.querySelector("body").addEventListener("click", onBodyClick);
@@ -95,9 +97,9 @@ function SearchForm(props) {
     setCat(e.target.value);
   }
 
-  function onSearchChange(e) {
-    setSearch(e.target.value);
-  }
+  // function onSearchChange(e) {
+  //   setSearch(e.target.value);
+  // }
 
   function onSubmitSearchForm(e) {
     e.preventDefault();
@@ -109,6 +111,22 @@ function SearchForm(props) {
       },
     });
   }
+
+
+  const onSearchChange = (e) => {
+    const searchText = e.target.value;
+    setSearch(searchText);
+    
+    const suggestions = ['Apple', 'Banana', 'Cherry', 'Date', 'Fig']
+      .filter(option => option.toLowerCase().includes(searchText.toLowerCase()));
+    setOptions(suggestions);
+  };
+
+  const handleOptionClick = (option) => {
+    setSearch(option);
+    setOptions([]); // Clear options when an option is selected
+  };
+
 
   return (
     <div className="header-icon header-search header-search-inline header-search-category w-lg-max text-right mb-0 d-sm-block d-none">
@@ -133,6 +151,16 @@ function SearchForm(props) {
             required
             onChange={(e) => onSearchChange(e)}
           />
+
+{/* {options.length > 0 && (
+        <ul className="search-options">
+          {options.map((option, index) => (
+            <li key={index} onClick={() => handleOptionClick(option)}>
+              {option}
+            </li>
+          ))}
+        </ul>
+      )} */}
           {/* <div className="select-custom">
             <select
               id={`${props.type === 1 ? "cat1" : "cat"}`}
@@ -178,19 +206,17 @@ function SearchForm(props) {
           </button>
 
           <div className="live-search-list bg-white">
-            {search.length > 2 &&
-              data &&
-              data?.products?.data.map((product, index) => (
+            {options.length > 2 &&
+              
+              options.map((product, index) => (
                 <ALink
-                  href={`/product/default/${product.slug}`}
+                  href={`/product/default/${product}`}
                   className="autocomplete-suggestion"
                   key={`search-result-${index}`}
+                  style={{  borderBottom: '0px' }}
                 >
                   <LazyLoadImage
-                    src={
-                      process.env.NEXT_PUBLIC_ASSET_URI +
-                      product.small_pictures[0].url
-                    }
+                    src="images/iphone.svg"
                     width={40}
                     height={40}
                     alt="product"
@@ -198,10 +224,10 @@ function SearchForm(props) {
                   <div
                     className="search-name"
                     dangerouslySetInnerHTML={removeXSSAttacks(
-                      matchEmphasize(product.name)
+                      matchEmphasize(product)
                     )}
                   ></div>
-                  <span className="search-price">
+                  {/* <span className="search-price">
                     {product?.price[0] == product?.price[1] ? (
                       <span className="product-price">
                         {"$" + product?.price[0].toFixed(2)}
@@ -221,7 +247,7 @@ function SearchForm(props) {
                         </span>
                       </>
                     )}
-                  </span>
+                  </span> */}
                 </ALink>
               ))}
           </div>

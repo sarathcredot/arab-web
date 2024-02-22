@@ -72,7 +72,7 @@ function Shop() {
   console.log(attributes);
   const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
-  const [perPage, setPerPage] = useState(8);
+  const [perPage, setPerPage] = useState(12);
   // const [pagenumber,setPagenumber]=useState(page ?? 0)
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
   const products = data && data?.getProducts?.records;
@@ -357,14 +357,14 @@ function Shop() {
         ""
       )}
 
-      <div className=" container" style={{ paddingTop: "37px" }}>
+      {/* <div className=" container" style={{ paddingTop: "37px" }}>
         <div>
           <img
             src="images\brands\banner Image Lising.svg"
             style={{ width: "100%", height: "100%", objectFit: "cover" }}
           />
         </div>
-      </div>
+      </div> */}
 
       <div className="mb-xl-4 mb-0"></div>
     </main>
