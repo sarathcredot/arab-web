@@ -129,7 +129,7 @@ export default function SingleTabOne(props) {
                             {/* <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> */}
                         </div>
 
-                        <div className='container' style={{ padding: "15px" }}>
+                        {/* <div className='container' style={{ padding: "15px" }}>
                             <div
 
                             >
@@ -140,7 +140,7 @@ export default function SingleTabOne(props) {
                                 />
                             </div>
 
-                        </div>
+                        </div> */}
                     </TabPanel>
 
 

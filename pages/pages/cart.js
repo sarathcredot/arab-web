@@ -61,7 +61,7 @@ function Cart(props) {
     loading: cartLoading,
     error: cartError,
     refetch: cartRefetch
-  } = useQuery(GET_CART,);
+  } = useQuery(GET_CART,{skip:!token});
 
   useEffect(() => {
     if (cartError ) {
@@ -70,7 +70,7 @@ function Cart(props) {
       setCartList(cartData.getCart.products || []);
     }
     cartRefetch()
-  }, [cartData,token]);
+  }, [cartData]);
   
   const removeCart= async(id) => {
     try {

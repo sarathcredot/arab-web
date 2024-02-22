@@ -85,6 +85,7 @@ function CartMenu(props) {
   // }
 
   const [removeFromCart] = useMutation(REMOVE_CART);
+  const token = localStorage.getItem("arabtoken")
   const removeCart = async (id) => {
     try {
       // props.removeFromCart(item);
@@ -112,14 +113,14 @@ function CartMenu(props) {
     loading: cartLoading,
     error: cartError,
     refetch: cartRefetch,
-  } = useQuery(GET_CART);
+  } = useQuery(GET_CART );
 
-  const click=localStorage.getItem('click')
+  
 
 
 
   // const added = eventEmmitter.addListener("productAdded",)
-  const token =localStorage.getItem("arabtoken")
+ 
   useEffect(() => {
     if (cartError) {
       console.error("Error fetching cart data:", cartError);

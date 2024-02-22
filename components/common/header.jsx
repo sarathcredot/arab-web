@@ -348,7 +348,7 @@ const click=localStorage.getItem("click")
                   {wishListData?.getWishListProducts.products.length}
                 </span>
               </ALink>
-                {token&&  <CartMenu  click={click}/>}
+                {token&&  <CartMenu/>}
              
             </div>
           </div>
