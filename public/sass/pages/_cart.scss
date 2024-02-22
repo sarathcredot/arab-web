@@ -238,7 +238,7 @@ i.cart-empty {
     padding: 2.4rem 3rem 3.4rem;
 	border: 2px solid #e7e7e7;
 	background: #fff;
-	margin-left: 45px;
+	// margin-left: 45px;
 
 	h3 {
 		margin-bottom: 2.3rem;
@@ -423,7 +423,9 @@ i.cart-empty {
 
 @include mq(sm, max) {
 	.cart-table-container {
-		border-top: 4px solid  #E30613;
+		// border-top: 4px solid  #E30613;
+		border-top: 1px solid 	#E6E6E6;
+
 	}
 
 	.table.table-cart {

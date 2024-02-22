@@ -236,7 +236,7 @@ function Wishlist(props) {
                   <th className="thumbnail-col">Product</th>
                   <th className="product-col"></th>
                   <th className="price-col">Price</th>
-                  {/* <th className="status-col">Stock Status</th> */}
+                  <th className="status-col">Stock Status</th>
                   <th className="action-col">Actions</th>
                 </tr>
               </thead>
@@ -284,11 +284,11 @@ function Wishlist(props) {
                        
                       </div>
                     </td>
-                    {/* <td>
+                    <td>
                       <span className="stock-status">
-                        {item.is_out_of_stock ? "Out of stock" : "In stock"}
+                      {item.stock <= 0 ? "Out of stock" : "In stock"}
                       </span>
-                    </td> */}
+                    </td>
                     <td className="action">
                       <a
                         href="ajax/product-quick-view"

@@ -125,7 +125,7 @@ function ProductDefault () {
                             }
                         </li> */}
                         <li className="breadcrumb-item active" aria-current="page">
-                        <ALink className="activeitem" href="">{ product && product.productName }</ALink>
+                        <ALink className="activeitem" href="">{ product && product.brandName }</ALink>
                         </li>
                     </ol>
                   

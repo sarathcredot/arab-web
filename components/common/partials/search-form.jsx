@@ -116,8 +116,7 @@ function SearchForm(props) {
   const onSearchChange = (e) => {
     const searchText = e.target.value;
     setSearch(searchText);
-    // Here, you can fetch search suggestions from an API based on the searchText
-    // For demonstration purposes, I'm using static data
+    
     const suggestions = ['Apple', 'Banana', 'Cherry', 'Date', 'Fig']
       .filter(option => option.toLowerCase().includes(searchText.toLowerCase()));
     setOptions(suggestions);
@@ -214,16 +213,14 @@ function SearchForm(props) {
                   href={`/product/default/${product}`}
                   className="autocomplete-suggestion"
                   key={`search-result-${index}`}
+                  style={{  borderBottom: '0px' }}
                 >
-                  {/* <LazyLoadImage
-                    src={
-                      process.env.NEXT_PUBLIC_ASSET_URI +
-                      product.small_pictures[0]?.url
-                    }
+                  <LazyLoadImage
+                    src="images/iphone.svg"
                     width={40}
                     height={40}
                     alt="product"
-                  /> */}
+                  />
                   <div
                     className="search-name"
                     dangerouslySetInnerHTML={removeXSSAttacks(

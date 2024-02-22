@@ -417,6 +417,7 @@ console.log(data)
       router.push("/pages/wishlist");
     }
   }
+ 
   
   const {
     data: cartData,
@@ -442,7 +443,7 @@ console.log(data)
     //   }
     // }
 
-    const token = localStorage.getItem("token");
+   
 
     try {
     
@@ -652,7 +653,7 @@ console.log(data)
               marginBottom: "0px",
             }}
           >
-            {product?.productName}
+            {product.categoryNamePath ? product.categoryNamePath.split(' ').pop() :""}
           </p>
           <h1
             className="product-title"
@@ -1330,13 +1331,13 @@ console.log(data)
               </span>
             </a>
 
-            <a
+            {/* <a
               href="#"
               className="btn-icon-wish add-wishlist"
               onClick={onWishlistClick}
               title={`${isInWishlist() ? "Go to Wishlist" : "Add to Wishlist"}`}
-            >
-              <div
+            > */}
+              {/* <div
                 style={{
                   width: "38px",
                   height: "38px",
@@ -1347,7 +1348,7 @@ console.log(data)
                   border: "1px solid #E7E7E7",
                 }}
               >
-                {/* <i className="fa fa-share"></i> */}
+                <i className="fa fa-share"></i>
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="21"
@@ -1370,9 +1371,9 @@ console.log(data)
                     </clipPath>
                   </defs>
                 </svg>
-              </div>
+              </div> */}
 
-              <span
+              {/* <span
                 style={{
                   marginLeft: "10px",
                   fontFamily: "Poppins",
@@ -1382,7 +1383,7 @@ console.log(data)
               >
                 share this
               </span>
-            </a>
+            </a> */}
           </div>
         </div>
       )}
