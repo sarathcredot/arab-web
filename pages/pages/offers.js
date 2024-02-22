@@ -112,14 +112,14 @@ function offers() {
           
         </div>
 
-        <div className={`container skeleton-body skel-shop-products `}>
+        {/* <div className={`container skeleton-body skel-shop-products `}>
           {/* <InfoSection /> free shilping and return section*/}
 
           {/* <DealSection products={bestSelling} /> */}
-          <BannerSection data={cmsData} />
+          {/* <BannerSection data={cmsData} /> */}
 
           {/* <TopBrand /> */}
-        </div>
+        {/* </div> */} 
 
         {/* <CategoryFilterSection />  */}
 
