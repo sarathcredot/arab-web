@@ -127,8 +127,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                           fontWeight: "400",
                         }}
                       >
-                        Lorem ipsum dolor sit amet consectetur. Sapien ut libero
-                        sed lacinia egestas placerat ut sagittionec.
+                       Secure Your Account, Shop With Confidence.
                       </p>
                     </div>
                   </div>
@@ -228,8 +227,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                           fontWeight: "400",
                         }}
                       >
-                        Lorem ipsum dolor sit amet consectetur. Sapien ut libero
-                        sed lacinia egestas placerat ut sagittionec.
+                        Access Exclusive Offer Now.
                       </p>
                     </div>
                   </div>
