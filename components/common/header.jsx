@@ -207,7 +207,7 @@ const click=localStorage.getItem("click")
               </div>
               <div className="custom-countryhide">
               <div
-                className="header-dropdown mr-auto mr-sm-3 mr-md-0 d-sm-none"
+                className="header-dropdown mr-auto mr-sm-3 mr-md-2 d-sm-none d-md-flex"
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
                 <ALink href="#">
@@ -241,14 +241,15 @@ const click=localStorage.getItem("click")
               </div>
               </div>
 
-              {/* <div
-                className="header-dropdown mr-auto mr-sm-3 mr-md-0"
+               <div
+                className="header-dropdown mr-auto mr-sm-3 mr-md-0 d-sm-none d-md-flex"
                 style={{ background: "rgba(249, 249, 249, 1)" }}
               >
                 <ALink href="#">
-                  <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img>English
+                  {/* <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img> */}
+                  English
                 </ALink>
-                <div className="header-menu">
+                {/* <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#" >
@@ -267,8 +268,8 @@ const click=localStorage.getItem("click")
                    
                     
                   </ul>
-                </div>
-              </div> */}
+                </div> */}
+              </div> 
 
 
              

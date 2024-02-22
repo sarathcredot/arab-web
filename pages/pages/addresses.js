@@ -223,7 +223,7 @@ console.log("click");
                     <div style={{display:"flex",gap:"35px",color:"black",marginTop:"10px"}}>
 
                       <button className="editbtn" style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600", color:"black !important"}} onClick={()=>{setIsshipping(true);setIsedit(true);setSelectedAddressId(address?._id)}}>Edit</button>
-                      <button className="editbtn" style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600"}} onClick={()=>handleRemove(address?._id)}>Remove</button>
+                      {data && data?.getUserShippingAddresses?.address.length>1 &&<button className="editbtn" style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600"}} onClick={()=>handleRemove(address?._id)}>Remove</button>}
 
                      { !address.isDefault && <button style={{cursor:"pointer",background:"none",border:"none",fontWeight:"600"}} onClick={()=>handleDefault(address?._id)}>Set as default</button>}
                     

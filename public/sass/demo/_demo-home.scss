@@ -1829,10 +1829,21 @@ color:red
     .category-filter-section{
         display: none;
     }
-// .custom-banner4img{
-//     background-image: url("images/home/banners/applebannermob.jpg");
+    .owl-carousel.nav-blackcircle .owl-nav{
+        .owl-prev{
+            left: -10px;
+        }
+        .owl-next{
+            right: -14px;
+        }
+        .owl-next,
+    .owl-prev{
+        width: 30px;
+        height: 30px;
+    }
 
-// }
+    }
+
 .product-slider-tab .shop-list li{
     margin-right: -2rem;
 }
