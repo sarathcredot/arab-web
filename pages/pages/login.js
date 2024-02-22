@@ -238,7 +238,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
 
                   <form style={{ marginTop: "70px" }}>
                     <input
-                      type="text"
+                      type="number"
                       placeholder="Enter Mobile Number"
                       className="form-input form-wide"
                       value={mobileNumber}
@@ -293,7 +293,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                             style={{
                               fontSize: "12px",
                               fontWeight: "600",
-                              color: "#000000",
+                              color: "#000000",cursor:"pointer"
                             }}
                           >
                             Login in with google
@@ -302,15 +302,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                       </div>
                       <div
                         class="google-btn googlebtn  "
-                        // style={{
-                        //   display: "flex",
-                        //   alignItems: "center",
-                        //   justifyContent: "center",
-                        //   marginTop: "20px",
-                        //   height: "60px",
-                        //   width: "538px",
-                        //   border: "1px solid #CDCDCD",
-                        // }}
+                        
                       >
                         <div class="google-icon-wrapper">
                           <img
@@ -327,6 +319,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                               fontSize: "12px",
                               fontWeight: "600",
                               color: "#000000",
+                              cursor:"pointer"
                             }}
                           >
                             Sign in wIth Apple
