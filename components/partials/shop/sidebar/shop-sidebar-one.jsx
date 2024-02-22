@@ -393,7 +393,9 @@ function filterByDiscount(selectedDiscount) {
             </div>
           ):""}
           {/* )} */}
-          <div className=" widget-brand">
+         {brandData &&
+                    brandData?.getBrandDetailsWithCategory?.records.length >
+                      0&& <div className=" widget-brand">
             {loading ? (
               <div className="skel-widget"></div>
             ) : (
@@ -429,12 +431,7 @@ function filterByDiscount(selectedDiscount) {
                           {brandData?.getBrandDetailsWithCategory?.records?.map(
                             (item, index) => (
                               <li
-                                // className={
-                                //   containsAttrInUrl("brands", item.category)
-                                //     ? "active"
-                                //     : ""
-                                // }
-                                // key={`brands-${index}`}
+                               
                               >
 <ALink
                                     href={{
@@ -484,7 +481,7 @@ function filterByDiscount(selectedDiscount) {
                 )}
               </SlideToggle>
             )}
-          </div>
+          </div>}
 
 
           {/* sort */}

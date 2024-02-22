@@ -357,7 +357,7 @@ console.log(cartData);
                     </div>
                     <div style={{display:"flex",color:"black"}}>
                       <button style={{cursor:"pointer",background:"none",border:"none",color: "black"}} onClick={()=>{setIsshipping(true);setIsedit(true);setSelectedAddressId(address?._id)}}>Edit</button>
-                      <button style={{cursor:"pointer",background:"none",border:"none",color:"#E30613"}} onClick={()=>handleRemove(address?._id)}>Remove</button>
+                      {data && data?.getUserShippingAddresses?.address.length>1 &&<button style={{cursor:"pointer",background:"none",border:"none",color:"#E30613"}} onClick={()=>handleRemove(address?._id)}>Remove</button>}
                     </div>
                     </div>
                     </div>
@@ -367,7 +367,7 @@ console.log(cartData);
 
                 }):""}
 
-                <div style={{display:"flex",gap:"15px",alignItems:"center"}} onClick={()=>{setIsshipping(true)}}><IoAddCircleOutline style={{fontSize:"20px"}} /><p className="addaddressbtn" style={{margin:0}}> Add Address </p></div>
+                <div style={{display:"flex",gap:"15px",alignItems:"center",cursor:"pointer"}} onClick={()=>{setIsshipping(true)}}><IoAddCircleOutline style={{fontSize:"20px"}} /><p className="addaddressbtn" style={{margin:0}}> Add Address </p></div>
                 </div>
                 </div>
 
