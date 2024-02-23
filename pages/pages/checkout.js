@@ -187,11 +187,12 @@ console.log(cartData);
 
         const response=await CreateUserOrder({variables:{input:{grandTotal:cartData?.getCart?.grandTotal,paymentMode:"COD",shippingAddressId:defaultAddressId}}})
         console.log(response);
-        toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
-        router.push("/pages/orders")
+        // toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
+        router.push("/pages/success")
         
       }catch(error){
-        toast.error(<div style={{padding:"10px"}}>{error.message}</div>)
+        // toast.error(<div style={{padding:"10px"}}>{error.message}</div>)
+        router.push("/pages/failed")
       }
 
     }

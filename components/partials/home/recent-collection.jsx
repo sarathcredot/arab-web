@@ -100,7 +100,7 @@ function RecentCollection(props) {
             style={{ borderBottom: "1px solid ", borderColor: "#EEEEEE" }}
           >
             <h4 className="section-title text-transform-none mb-0 mr-0">
-            30%of
+            30%off
             </h4>
             <ALink className="view-all ml-auto" href="/shop?discount=30%">
               View All Products

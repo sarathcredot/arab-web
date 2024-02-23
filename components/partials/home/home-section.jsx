@@ -29,7 +29,7 @@ function HomeSection({ offer,data }) {
 {/* <MainMenu/> */}
 
     <OwlCarousel adClass="home-slider nav-circle mb-2" options={options}>
-     {data &&
+     {!offer ? data &&
   data?.getAllCmsRecords?.records
     .filter(record => record.sectionName === 'SECTION-1')
     .map((record, index) => {
@@ -45,8 +45,26 @@ function HomeSection({ offer,data }) {
           );
         })
       );
+    }):data?.getAllCmsRecords?.records
+    .filter(record => record.pageName === 'OFFER')
+    .map((record, index) => {
+      console.log(record);
+      return (
+        record.images.map((item, imgIndex) => {
+          console.log(item);
+          return (
+            <div key={imgIndex} >
+              <img src={item.fileURL} alt="Image" style={{height:"350"}}/>
+             
+            </div>
+          );
+        })
+      );
     })
 }
+
+
+
 
 
 
