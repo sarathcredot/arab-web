@@ -38,6 +38,12 @@ const GET_PRODUCT = gql `query GetProduct($input: ProductId!) {
           mimeType
           originalName
         }
+        productDetailImages {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
         rating
         sellingPrice
         price

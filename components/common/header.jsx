@@ -156,7 +156,7 @@ const click=localStorage.getItem("click")
   const handleLogout=()=>{
     console.log("click");
     localStorage.clear();
-  router.push('/')
+  router.push('/pages/login')
   }
 
   return (
@@ -310,7 +310,7 @@ const click=localStorage.getItem("click")
 
                       <img src="images/icon/vuesax/bold/key.svg" className={styles.flagimg}></img>
                         {/* </div> */}
-                    LogOut
+                    Log out
                       {/* </div> */}
                       </ALink>
                     </li>
