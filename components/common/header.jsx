@@ -310,7 +310,7 @@ const click=localStorage.getItem("click")
 
                       <img src="images/icon/vuesax/bold/key.svg" className={styles.flagimg}></img>
                         {/* </div> */}
-                    Log out
+                    LogOut
                       {/* </div> */}
                       </ALink>
                     </li>
