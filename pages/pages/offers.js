@@ -18,6 +18,7 @@ import HomeSection from "../../components/partials/home/home-section";
 import BrandSection from "../../components/partials/home/brand-section";
 import { gql, useQuery } from "@apollo/client";
 import MainMenu from "../../components/common/partials/main-menu";
+import Footerbanner from "../../components/partials/home/footerbanner";
 
 const GET_PRODUCTS = gql`
   query GetProducts($input: ProductFilters) {
@@ -108,7 +109,7 @@ function offers() {
           </div>
         </div>
         <div className="bg-gray">
-          <HomeSection data={cmsData} />
+          <HomeSection data={cmsData}  offer={true}/>
           
         </div>
 
@@ -465,20 +466,9 @@ function offers() {
         <RecentCollection bestSelling={bestSelling} />
         </div>
         
-        <div
-          style={{
-            width: "100%",
-            maxWidth: "100%",
-            height: "auto",
-            backgroundColor: "white",
-            marginTop: "40px",
-          }}
-        >
-          <img
-            src="images\banners\offerBanner2.svg"
-            style={{ width: "100%", height: "auto", objectFit: "cover" }}
-          />
-        </div>
+        <Footerbanner data={cmsData}/>
+      
+       
       </main>
 
       {/* <NewsletterModal /> */}

@@ -179,9 +179,9 @@ try {
                 <table className="table table-cart">
                   <thead>
                     <tr>
-                      {/* <th className="thumbnail-col"></th> */}
-                      <th className="product-col pl-0">Product</th>
-                      <th className="price-col">Name</th>
+                      <th className="thumbnail-col">Product</th>
+                      <th className="product-col pl-0"></th>
+                      {/* <th className="price-col"></th> */}
                       <th className="price-col">Price</th>
                       <th className="qty-col">Quantity</th>
                       <th className="text-right">Subtotal</th>

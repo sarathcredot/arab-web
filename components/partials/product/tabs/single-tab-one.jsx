@@ -43,88 +43,42 @@ export default function SingleTabOne(props) {
                         </Tab> */}
                     </TabList>
 
-                    
+
 
                     <TabPanel className="tab-pane fade">
-                    <div className="container" style={{ marginTop: "79px" }} >
-                        <div
-                            
-                        >
-                            <img
-                                src="images\brands\deatail-banner-1.svg"
 
-                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                            />
-                        </div>
-                        <div
-                           
-                        >
-                            <img
-                                src="images\brands\product-detail-banner-2.svg"
+                        <p>{product?.description}</p>
+                        <div className="container" style={{ marginTop: "79px" }} >
 
-                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                            />
-                        </div>
-                        <div
-                            
-                        >
-                            <img
-                                src="images\brands\detail-3.svg"
+                            {product && product?.productDetailImages?.map((image, index) => (
+                                <div key={index}>
+                                    <img
+                                        src={image.fileURL}
+                                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                                    />
+                                </div>
+                            ))}
 
-                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                            />
-                        </div>
-                        <div
-                           
-                        >
-                            <img
-                                src="images\brands\detail-4.svg"
 
-                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                            />
-                        </div>
-                        <div
-                           
-                        >
-                            <img
-                                src="images\brands\deatil-5.svg"
 
-                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                            />
-                        </div>
-                        <div
-                           
-                        >
-                            <img
-                                src="images\brands\detail-6.svg"
 
-                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                            />
-                        </div>
-                        <div
-                           
-                        >
-                            <img
-                                src="images\brands\detail-7.svg"
 
-                                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-                            />
+
                         </div>
-                    </div>
                     </TabPanel>
 
 
                     <TabPanel className="tab-pane fade">
 
-                        
+
                         <div className="product-desc-content">
                             {/* <p>{product.short_description}</p> */}
                             <ul>
-                                {product?.productInfo?.map((item,index)=>{
-                                   return <li key={index}>{item}</li>
+                                {product?.productInfo?.map((item, index) => {
+                                    return <li key={index}>{item}</li>
                                 })}
-                                
-                               
+
+
                             </ul>
                             {/* <p>Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p> */}
                         </div>
