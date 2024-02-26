@@ -306,12 +306,22 @@ try {
 
                 <table className="table table-totals">
                   <tbody>
+
+                  <tr>
+                      <td>Shipping Charge</td>
+                      <td style={{ color: "black" }}>
+                        OMR {cartData?.getCart?.deliveryCharge}
+                      </td>
+                      
+                    </tr>
                     <tr>
                       <td>Subtotal</td>
                       <td style={{ color: "black" }}>
-                        OMR {getCartTotal(cartList).toFixed(2)}
+                        OMR {cartData?.getCart.subTotal}
                       </td>
+                      
                     </tr>
+                    
                     {/* 
                                             <tr>
                                                 <td colSpan="2" className="text-left">
@@ -376,7 +386,7 @@ try {
                   <tfoot>
                     <tr>
                       <td>Total</td>
-                      <td>OMR {getCartTotal(cartList).toFixed(2)}</td>
+                      <td>OMR {cartData?.getCart?.grandTotal}</td>
                     </tr>
                   </tfoot>
                 </table>
@@ -384,7 +394,7 @@ try {
                 <div className="checkout-methods">
                   <ALink href="checkout" className="btn btn-block btn-dark">
                     Proceed to Checkout
-                    <i className="fa fa-arrow-right"></i>
+                    {/* <i className="fa fa-arrow-right"></i> */}
                   </ALink>
                 </div>
               </div>
