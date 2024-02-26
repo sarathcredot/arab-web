@@ -61,7 +61,7 @@ function Shop() {
   const query = router.query;
 
   const { cat_id, page, ...rest } = query;
-  const { category, brands, max_price,min_price,sort_order,discount,...filteredAttributes } = rest;
+  const { category, brands, max_price,min_price,sort_order,discount,bestseller,...filteredAttributes } = rest;
   const categoryValues = category ? category.split(',').map(id => id.trim())  : [];
   const brandValues = brands ? brands.split(',') : [];
   console.log(discount);
@@ -69,7 +69,7 @@ function Shop() {
     id,
     values: values.split(","),
   }));
-  console.log(attributes);
+  console.log(bestseller);
   const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
   const [perPage, setPerPage] = useState(12);
@@ -98,6 +98,8 @@ function Shop() {
           minPrice: parseInt(query.min_price),
           attributes: attributesWithNonEmptyValues,
           parentCategory: query?.cat_id,
+          discount:parseInt(discount),
+          // bestseller:bestseller
         },
       },
     });

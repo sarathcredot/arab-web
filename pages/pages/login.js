@@ -106,7 +106,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
   }
   return (
     <main className="main">
-      <div className=" login-container">
+      <div className=" login-container container">
         <div className="row">
           <div className="col-lg-12 mx-auto">
             {isOtp ? (

@@ -291,7 +291,7 @@ function filterByDiscount(selectedDiscount) {
         style={{
           paddingLeft: "0",
           paddingRight: "0",
-          maxHeight: "650px",
+          maxHeight: "976px",
           overflow: "scroll",
         }}
       >
@@ -577,9 +577,9 @@ function filterByDiscount(selectedDiscount) {
                         <ul className="cat-list">
                           
                               <li>
-<label  onClick={() => filterByDiscount('10%')}
+<label  onClick={() => filterByDiscount('10')}
   style={{
-    color: query.discount === '10%' ? "red" : "inherit", // Apply red color if selected, otherwise use default color
+    color: query.discount === '10' ? "red" : "inherit", // Apply red color if selected, otherwise use default color
     fontWeight: "500"
   }}
  > 
@@ -591,24 +591,24 @@ function filterByDiscount(selectedDiscount) {
                               <li>
  <label   onClick={() => filterByDiscount('25%')}
  style={{
-  color: query.discount === '25%' ? "red" : "inherit", 
+  color: query.discount === '25' ? "red" : "inherit", 
   fontWeight: "500"
 }}
   >25% off or more</label>
                                 
                               </li>
                               <li>
- <label  onClick={() => filterByDiscount('50%')}
+ <label  onClick={() => filterByDiscount('50')}
   style={{
-    color: query.discount === '50%' ? "red" : "inherit", 
+    color: query.discount === '50' ? "red" : "inherit", 
     fontWeight: "500"
   }}> 50% off or more</label>
                                 
                               </li>
                               <li>
- <label   onClick={() => filterByDiscount('75%')}
+ <label   onClick={() => filterByDiscount('75')}
   style={{
-    color: query.discount === '75%' ? "red" : "inherit", 
+    color: query.discount === '75' ? "red" : "inherit", 
     fontWeight: "500"
   }}
  >75% off or more</label>
@@ -817,6 +817,7 @@ function filterByDiscount(selectedDiscount) {
                                             style={{
                                               backgroundColor: item?.value,
                                               borderRadius: "50%",
+                                              border:"1px solid black"
                                             }}
                                             scroll={false}
                                           ></ALink>
