@@ -167,7 +167,7 @@ function MobileMenu ( { router } ) {
                                 }
                             </li> */}
 
-                            <li className={ isOtherPage() ? 'active' : '' }>
+                            {/* <li className={ isOtherPage() ? 'active' : '' }>
                                 <SlideToggle collapsed={ true }>
                                     { ( { onToggle, setCollapsibleElement, toggleState } ) => (
                                         <>
@@ -178,12 +178,12 @@ function MobileMenu ( { router } ) {
                                                 <li><ALink href="/pages/checkout">Checkout</ALink></li>
                                                 <li><ALink href="/pages/account">Dashboard</ALink></li>
                                                 <li><ALink href="/pages/login">Login</ALink></li>
-                                                {/* <li><ALink href="/pages/forgot-password">Forgot Password</ALink></li> */}
+                                                <li><ALink href="/pages/forgot-password">Forgot Password</ALink></li>
                                             </ul>
                                         </>
                                     ) }
                                 </SlideToggle>
-                            </li>
+                            </li> */}
 
                             {/* <li><ALink href="/pages/blog">Blog</ALink></li>
                             <li><ALink href="/pages/about-us">About Us</ALink></li> */}

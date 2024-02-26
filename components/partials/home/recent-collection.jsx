@@ -33,7 +33,7 @@ function RecentCollection(props) {
             <h4 className="section-title text-transform-none mb-0 mr-0">
              50% Off
             </h4>
-            <ALink className="view-all ml-auto" href='/shop?discount=10%'>
+            <ALink className="view-all ml-auto" href='/shop?discount=50'>
               View All Products
             </ALink>
           </div>
@@ -102,7 +102,7 @@ function RecentCollection(props) {
             <h4 className="section-title text-transform-none mb-0 mr-0">
             30%off
             </h4>
-            <ALink className="view-all ml-auto" href="/shop?discount=30%">
+            <ALink className="view-all ml-auto" href="/shop?discount=30">
               View All Products
             </ALink>
           </div>
@@ -170,7 +170,7 @@ function RecentCollection(props) {
             <h4 className="section-title text-transform-none mb-0 mr-0">
               10% Off
             </h4>
-            <ALink className="view-all ml-auto" href='/shop?discount=10%'>
+            <ALink className="view-all ml-auto" href='/shop?discount=10'>
               View All Products
             </ALink>
           </div>

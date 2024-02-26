@@ -1,6 +1,33 @@
 ;
 import React from 'react'
 import { useRouter } from 'next/router';
+import withApollo from "../../server/apollo";
+import { gql, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
+import { connect } from "react-redux";
+
+const GET_ORDER_DETAILS=gql`query GetUserOrderDetails($input: GetUserOrderDetailsInput!) {
+  getUserOrderDetails(input: $input) {
+    _id
+    orderDate
+    orderId
+    orderPriceInfo {
+      totalMRP
+      totalSellingPrice
+      totalShippingCharge
+      totalRefundAmount
+    }
+    orderStatus
+    paymentMode
+    shippingAddress {
+      firstname
+      houseNumber
+      streetName
+    }
+  }
+}`;
+
+
 function success() {
     const router = useRouter();
     const shopHandle=(e)=>{
@@ -11,6 +38,29 @@ function success() {
         e.preventDefault();
         router.push('/pages/orders')
     }
+
+
+
+// Retrieve the order ID from the query parameters
+const { orderId } = router.query;
+
+const { loading, error, data } = useQuery(GET_ORDER_DETAILS, {
+    variables: { input: { orderId } },
+});
+
+
+
+const getExpectedDeliveryDate = (orderDate) => {
+    const newDate = new Date(orderDate);
+    newDate.setDate(newDate.getDate() + 10);
+    return newDate.toLocaleDateString('en-US', { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' });
+};
+
+
+
+const order = data?.getUserOrderDetails;
+const orderDate = order?.orderDate;
+const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
   return (
     <div class='container' >
     {/* <div   style={{display:"flex" ,alignItems:"center",textAlign:"center",flexDirection:"column", gap:"15px" , maxWidth:"700px",width:"100%",margin:"auto", marginTop:"110px"}}>
@@ -42,7 +92,6 @@ function success() {
         <div className='head-card'>
         <h4>Payment by</h4>
         </div>
-        
       </div>
     <div class="cards-container" style={{marginBottom:"40px "}}>
    
@@ -52,9 +101,9 @@ function success() {
             <img src="/images/locationIcon.svg" alt="Card Image 1"/>
             </div>
              <div>
-            <p style={{fontWeight:"400px",fontSize:"18px", color:"#000000"}}>Elisha David</p>
-            <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>Opera Villa-46, Al Barsha-Dubai</p>
-            <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>+971 456858987</p>
+            <p style={{fontWeight:"400px",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.firstname}</p>
+            <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.houseNumber},{data?.getUserOrderDetails?.shippingAddress?.streetName} </p>
+            <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.phoneNumber}</p>
             </div>
            
            
@@ -66,14 +115,14 @@ function success() {
          <img src="/images/card.svg" alt="Card Image 1"/>
          </div>
           <div>
-         <p style={{fontWeight:"400px",fontSize:"18px", color:"#000000"}}>Card Payment</p>
+         <p style={{fontWeight:"400px",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.paymentMode}</p>
          <div style={{display:"flex", flexDirection:"row", gap:"20px",}}>
          <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>Subtotal</p>
-         <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>OMR 912.00</p>
+         <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>OMR {data?.getUserOrderDetails?.orderPriceInfo?.totalSellingPrice}</p>
          </div>
          <div style={{display:"flex", flexDirection:"row", gap:"20px",}}>
          <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>Expected Delivery</p>
-         <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>19th Monday, Feb</p>
+         <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>{expectedDeliveryDate}</p>
          </div>
      
          </div>
@@ -98,4 +147,4 @@ function success() {
   )
 }
 
-export default success
+export default withApollo({ ssr: typeof window === "undefined" })((success))

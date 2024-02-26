@@ -96,16 +96,16 @@ export default function ProductMediaOne ( props ) {
                                             cursorStyleActive="crosshair"
                                             dragToMove={ false }
                                             className="product-single-image"
-                                            // style={{}}
+                                           
                                         />
                                     </div>
                                 ) )
                             }
                         </OwlCarousel>
 
-                        <span className="prod-full-screen" onClick={ openLightBox }>
+                        {/* <span className="prod-full-screen" onClick={ openLightBox }>
                             <i className="icon-plus"></i>
-                        </span>
+                        </span> */}
                     <OwlCarousel adClass="prod-thumbnail owl-theme owl-dots" options={ prodThumbSlider } >
                         {
                             product.images.map( ( item, index ) => (
