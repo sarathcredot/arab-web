@@ -217,10 +217,11 @@ try {
                                 alignItems: "center",
                                 right: "-5px",
                                 borderRadius: "50%",
-                                background: "white",
+                                // background: "white",
                                 filter:
                                   "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))",
                               }}
+                              className="hoverinto"
                               onClick={(e) => {
                                 e.preventDefault();
                                 removeCart(item.productId, index);
@@ -392,7 +393,7 @@ try {
                 </table>
 
                 <div className="checkout-methods">
-                  <ALink href="checkout" className="btn btn-block btn-dark">
+                  <ALink href="checkout" className="btn btn-block btn-dark hoverbtn">
                     Proceed to Checkout
                     {/* <i className="fa fa-arrow-right"></i> */}
                   </ALink>
