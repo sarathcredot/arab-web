@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Reveal from "react-awesome-reveal";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
@@ -10,11 +10,75 @@ import OwlCarousel from "../../features/owl-carousel";
 // Import Settigns
 import { fadeIn } from "../../../utils/data/keyframes";
 import { productSlider } from "../../../utils/data/slider";
-
+import withApollo from "../.././../server/apollo";
+import { gql, useQuery } from "@apollo/client";
 function RecentCollection(props) {
   const { bestSelling } = props;
 
-  
+
+
+  const GET_PRODUCTS = gql`
+  query GetProducts($input: ProductFilters) {
+    getProducts(input: $input) {
+      maxRecords
+      records {
+        _id
+        attributes {
+          attributeValue
+          attributeName
+        }
+        brandId
+        brandName
+        categoryId
+        categoryIdPath
+        categoryNamePath
+        description
+        images {
+          fileURL
+          originalName
+          fileType
+        }
+        material
+        mrp
+        offerPrice
+        price
+        productCode
+        productInfo
+        productName
+        productShortInfo
+        rating
+        sellingPrice
+        shortDescription
+        skuId
+        status
+        stock
+        tags
+        vendorId
+        isBlocked
+      }
+    }
+  }
+`;
+
+
+const { data: tenPercentData } = useQuery(GET_PRODUCTS, {
+  variables: { discount: 10 },
+});
+const tenPercentProducts = tenPercentData?.getProducts?.records;
+
+// Query products with 30% discount
+const { data: thirtyPercentData } = useQuery(GET_PRODUCTS, {
+  variables: { discount: 30 },
+});
+const thirtyPercentProducts = thirtyPercentData?.getProducts?.records;
+
+// Query products with 50% discount
+const { data: fiftyPercentData } = useQuery(GET_PRODUCTS, {
+  variables: { discount: 50 },
+});
+const fiftyPercentProducts = fiftyPercentData?.getProducts?.records;
+
+
 
   return (
     <>
@@ -67,8 +131,8 @@ function RecentCollection(props) {
               },
             }}
           >
-            {bestSelling
-              ? bestSelling
+            {fiftyPercentProducts
+              ? fiftyPercentProducts
                  
                   .map((item, index) => (
                     <ProductOne
@@ -137,8 +201,8 @@ function RecentCollection(props) {
               },
             }}
           >
-            {bestSelling?
-               bestSelling.map((item, index) => (
+            {thirtyPercentProducts?
+               thirtyPercentProducts.map((item, index) => (
                     <ProductOne
                       adClass="inner-quickview inner-icon"
                       product={item}
@@ -206,7 +270,7 @@ function RecentCollection(props) {
             }}
           >
             {
-              bestSelling?.map((item, index) => (
+              tenPercentProducts?.map((item, index) => (
                     <ProductOne
                       adClass="inner-quickview inner-icon"
                       product={item}
@@ -222,4 +286,4 @@ function RecentCollection(props) {
   );
 }
 
-export default React.memo(RecentCollection);
+export default withApollo({ ssr: typeof window === "undefined" })(RecentCollection);

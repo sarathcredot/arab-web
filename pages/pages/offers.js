@@ -97,8 +97,22 @@ function offers() {
 
  
   const { data: cmsData } = useQuery(CMS);
+  console.log(cmsData)
+
+  const filteredImages = cmsData?.getAllCmsRecords?.records.find(
+    record => record.pageName === 'OFFER2' && record.sectionName === 'SECTION-OFFER'
+  );
+
+  if (filteredImages?.length === 0) {
+    return null; 
+  }
 
   
+  const firstImage = filteredImages?.images[0];
+
+
+  console.log(filteredImages)
+
   
   return (
     <>
@@ -437,7 +451,7 @@ function offers() {
             }}
           >
             <img
-              src="images\banners\offersBanner2.svg"
+              src={firstImage?.fileURL}
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>

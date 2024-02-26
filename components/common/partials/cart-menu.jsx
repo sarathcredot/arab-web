@@ -246,16 +246,17 @@ function CartMenu(props) {
                           alignItems: "center",
                           right: "-5px",
                           borderRadius: "50%",
-                          background: "white",
+                          // background: "black",
                           filter:
                             "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))",
                         }}
+                        className="hoverinto"
                         onClick={(e) => {
                           e.preventDefault();
                           removeCart(cart.productId, index);
                         }}
                       >
-                        <AiOutlineClose style={{ fontSize: "10px" }} />
+                        <AiOutlineClose style={{ fontSize: "10px" }}  />
                       </div>
                       {/* <a
                         href="#"
@@ -281,14 +282,14 @@ function CartMenu(props) {
               <div className="dropdown-cart-action">
                 <ALink
                   href="/pages/cart"
-                  className="btn  btn-block view-cart"
+                  className="btn btn-block view-cart hoverbtn"
                   style={{ border: "1px solid #000", background: "white" }}
                 >
                   View Cart
                 </ALink>
                 <ALink
                   href="/pages/checkout"
-                  className="btn btn-dark btn-block text-white"
+                  className="btn btn-dark btn-block text-white hoverbtn"
                 >
                   Checkout
                 </ALink>

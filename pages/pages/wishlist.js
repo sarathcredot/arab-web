@@ -310,7 +310,7 @@ function Wishlist(props) {
                         </ALink>
                       ) : (
                         <button
-                          className="btn btn-dark btn-add-cart product-type-simple btn-shop"
+                          className="btn btn-dark btn-add-cart product-type-simple btn-shop hoverbtn"
                           onClick={(e) => {
                             onAddCartClick(e, item);
                           }}
