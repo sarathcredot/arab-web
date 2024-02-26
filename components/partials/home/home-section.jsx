@@ -28,7 +28,7 @@ function HomeSection({ offer,data }) {
 <div className="skeleton-body skel-shop-products">
 {/* <MainMenu/> */}
 
-    <OwlCarousel adClass="home-slider nav-circle mb-2" options={options}>
+    <OwlCarousel adClass="home-slider nav-circle mb-2 " options={options}>
      {!offer ? data &&
   data?.getAllCmsRecords?.records
     .filter(record => record.sectionName === 'SECTION-1')

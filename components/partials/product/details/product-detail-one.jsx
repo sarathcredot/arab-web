@@ -827,7 +827,7 @@ console.log(data)
               ) ? (
                 <>
                   <label>
-                    Color:&nbsp;{""}
+                    COLOR:&nbsp;{""}
                     <span style={{ fontWeight: "500" }}>
                       {selectedAttributes &&
                         // selectedAttributes.charAt(0).toUpperCase() +
@@ -953,6 +953,7 @@ console.log(data)
                       // fontWeight: "600px",
                       // fontSize: "14px",
                       // lineHeight: "22px",
+                      // marginBottom:"5px",
                       color: "#000",
                       fontWeight: "500",
                     }}>
@@ -972,7 +973,7 @@ console.log(data)
 
                       .map((item, index) => (
                         <>
-                          <ul className="config-size-list mt-2 d-flex">
+                          <ul className="config-size-list d-flex" style={{marginTop:"5px"}}>
                             <li
                               key={`filter-size-${index}`}
                               className={`${
@@ -1064,7 +1065,7 @@ console.log(data)
                       >
                         {uniqueDescription} &nbsp;
                       </label>
-                      <ul className="config-size-list mt-2">
+                      <ul className="config-size-list " style={{marginTop:"5px"}}>
                         {variantData
                           ?.filter(
                             (item) =>
@@ -1397,7 +1398,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withApollo({ ssr: typeof window === "undefined" })(
+  export default withApollo({ ssr: typeof window === "undefined" })(
   connect(mapStateToProps, { ...WishlistAction, ...CartAction })(
     ProductDetailOne
   )

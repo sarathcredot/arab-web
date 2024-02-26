@@ -310,7 +310,7 @@ const click=localStorage.getItem("click")
 
                       <img src="images/icon/vuesax/bold/key.svg" className={styles.flagimg}></img>
                         {/* </div> */}
-                    Log out
+                    Log Out
                       {/* </div> */}
                       </ALink>
                     </li>
@@ -335,7 +335,8 @@ const click=localStorage.getItem("click")
                 )}
               </div> */}
 
-              <ALink
+             
+                {token&& <> <ALink
                 href="/pages/wishlist"
                 className="header-icon position-relative"
                 title="wishlist"
@@ -347,8 +348,7 @@ const click=localStorage.getItem("click")
                 <span className="wishlist-count badge-circle">
                   {wishListData?.getWishListProducts.products.length}
                 </span>
-              </ALink>
-                {token&&  <CartMenu/>}
+              </ALink> <CartMenu/> </> }
              
             </div>
           </div>
