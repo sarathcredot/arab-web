@@ -188,7 +188,11 @@ console.log(cartData);
         const response=await CreateUserOrder({variables:{input:{grandTotal:cartData?.getCart?.grandTotal,paymentMode:"COD",shippingAddressId:defaultAddressId}}})
         console.log(response);
         // toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
-        router.push("/pages/success")
+        // router.push("/pages/success")
+        router.push({
+          pathname: '/pages/success',
+          query: { orderId: response?.data?.createUserOrder?.orderId },
+        });
         
       }catch(error){
         // toast.error(<div style={{padding:"10px"}}>{error.message}</div>)
@@ -799,13 +803,22 @@ console.log(cartData);
                           ))}
                         </tbody>
                         <tfoot>
+                        <tr className="cart-subtotal">
+                            <td>
+                              <h4>Shipping Charge</h4>
+                            </td>
+
+                            <td className="price-col">
+                              <span>OMR {cartData?.getCart?.deliveryCharge}</span>
+                            </td>
+                          </tr>
                           <tr className="cart-subtotal">
                             <td>
                               <h4>Subtotal</h4>
                             </td>
 
                             <td className="price-col">
-                              <span>OMR {getCartTotal(cartList)}</span>
+                              <span>OMR {cartData?.getCart?.subTotal}</span>
                             </td>
                           </tr>
                           {/* <tr className="order-shipping">
@@ -846,9 +859,7 @@ console.log(cartData);
                             </td>
                             <td>
                               <b className="total-price">
-                                <span>
-                                OMR {getCartTotal(cartList).toFixed(2)}
-                                </span>
+                                <span>OMR{cartData?.getCart?.grandTotal}</span>
                               </b>
                             </td>
                           </tr>

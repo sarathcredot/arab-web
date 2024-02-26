@@ -104,7 +104,7 @@ function ProductDefault () {
         }
       }, [productData]);
 
-    console.log(product,"productdfghjklvbnm," )
+    // console.log(product,"productdfghjklvbnm," )
 
 
 

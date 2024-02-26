@@ -217,7 +217,7 @@ function CartMenu(props) {
                       </h2>
 
                       <span className="cart-product-info">
-                        <span className="cart-product-qty">{cart.qty}</span> ×
+                        <span className="cart-product-qty">{cart.quantity}</span> ×
                         OMR {cart.price.toFixed(2)}
                       </span>
                     </div>

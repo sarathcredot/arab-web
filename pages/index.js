@@ -73,7 +73,7 @@ function Home() {
           </div>
         </div>
         <div className="homebannerpadding"
-        // style={{paddingTop:"53px"}}
+        // style={{paddingTop:"20px", backgroundColor:"white"}}
         // className="bg-gray"
         >
           <HomeSection className="pb-5" data={data}/>

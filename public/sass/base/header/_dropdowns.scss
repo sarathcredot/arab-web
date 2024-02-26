@@ -90,9 +90,9 @@
 		bottom: 0;
 		right: 0;
 		left: auto;
-		width: 300px;
+		width: 400px;
 		margin: 0;
-		transform: translate(340px);
+		transform: translate(400px);
 		transition: transform .2s ease-in-out 0s;
 		background-color: #fff;
 		z-index: 1050;
@@ -108,7 +108,8 @@
 			position: absolute;
 			// left: -4.2rem;
 			right: 23px;
-			// top: .7rem;
+			// top: 1rem;
+			margin-top: 6px;
 			font-size: 3.3rem;
 			color: #fff;
 			font-weight: 300;

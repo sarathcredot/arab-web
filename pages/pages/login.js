@@ -246,7 +246,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
 
                    
 
-                    <div
+                    {/* <div
                       className="orcontainer"
                      
                     >
@@ -270,10 +270,10 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                           </p>
                         </div>
                       </div>
-                    </div>
+                    </div> */}
 
                     <div className="mt-3 buttonwrapper">
-                      <div
+                      {/* <div
                         class="google-btn googlebtn"
                        
                       >
@@ -323,7 +323,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                             Sign in wIth Apple
                           </p>
                         </p>
-                      </div>
+                      </div> */}
                     </div>
 
                     <button
