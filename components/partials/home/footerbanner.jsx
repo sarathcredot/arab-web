@@ -47,7 +47,7 @@ function FooterBannerSection({data}) {
         record.images.map((item, imgIndex) => {
           console.log(item);
           return (
-            <div key={imgIndex} style={{maxHeight:"550px",maxHeight:"550px"}}>
+            <div key={imgIndex} style={{maxHeight:"550px"}} className="bannerheight">
               <img src={item.fileURL} alt="Image" style={{height:"100%",maxHeight:"550px",objectFit:"cover"}}/>
              
             </div>

@@ -70,7 +70,7 @@
     }
 }
 .custom-loginleft{
-margin-left: 115px;
+// margin-left: 115px;
 }
 .otpcontainer{
     margin-top: 200px;
@@ -169,6 +169,13 @@ gap: 20px
 }
 @media (max-width: 768px)
     {
+        .custom_loginresp{
+            padding: 0 25px;
+        }
+        .custom_headlog{
+            margin-top: 115px;
+        }
+
         .custom-loginleft{
             margin: 10px;
         }
