@@ -73,7 +73,7 @@ function Shop() {
   const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
   const [perPage, setPerPage] = useState(12);
-  // const [pagenumber,setPagenumber]=useState(page ?? 0)
+  
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
   const products = data && data?.getProducts?.records;
   const totalPage = data
