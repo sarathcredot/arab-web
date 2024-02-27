@@ -62,19 +62,19 @@ function RecentCollection(props) {
 
 
 const { data: tenPercentData } = useQuery(GET_PRODUCTS, {
-  variables: { discount: 10 },
+  variables: { input:{ discount: 10 }},
 });
 const tenPercentProducts = tenPercentData?.getProducts?.records;
 
 // Query products with 30% discount
 const { data: thirtyPercentData } = useQuery(GET_PRODUCTS, {
-  variables: { discount: 30 },
+  variables: { input:{discount: 30} },
 });
 const thirtyPercentProducts = thirtyPercentData?.getProducts?.records;
 
 // Query products with 50% discount
 const { data: fiftyPercentData } = useQuery(GET_PRODUCTS, {
-  variables: { discount: 50 },
+  variables: { input:{discount: 50} },
 });
 const fiftyPercentProducts = fiftyPercentData?.getProducts?.records;
 

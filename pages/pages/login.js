@@ -49,7 +49,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
         return;
       }
 
-    const response= await userLoginOtp({ variables: { input: { mobileNumber: mobileNumber } } });
+    const response= await userLoginOtp({ variables: { input: { mobileNumber: `+968 ${mobileNumber}` } } });
       console.log(response);
       toast.success(<div style={{padding:"10px"}}>otp sent successfully</div>)
       SetIsOtp(true);
@@ -61,7 +61,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
   console.log("click");
   try{
 
-    const response=await UserResendLoginOtp({variables:{input:{mobileNumber:mobileNumber}}});
+    const response=await UserResendLoginOtp({variables:{input:{mobileNumber:`+968 ${mobileNumber}`}}});
     console.log(response);
     if(response){
     
@@ -242,14 +242,28 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
 
                   <div></div>
 
-                  <form style={{ marginTop: "70px" }}>
-                    <input
-                      type="number"
-                      placeholder="Enter Mobile Number"
-                      className="form-input form-wide"
-                      value={mobileNumber}
-                      onChange={(e) => setMobileNumber(e.target.value)}
-                    />
+                  <form style={{ marginTop: "70px" , marginLeft:"7rem"}} >
+       
+
+<div className="container">
+<div className="input-group" style={{position:"relative"}}>
+  <div className="input-group-prepend" style={{position:"absolute" , left:"-6.5rem"}}>
+    <span className="input-group-text" style={{ padding: "10px" , height:"5rem" }}>
+      <img src="images/brands/flag1.svg" alt="Flag" width="24" height="20" />
+      +968
+    </span>
+  </div>
+  <input
+    type="number"
+    placeholder="Enter Mobile Number"
+    className="form-input form-wide"
+    value={mobileNumber}
+    onChange={(e) => setMobileNumber(e.target.value)}
+    // style={{position:"relative"}}
+  />
+</div>
+</div>
+
                     {error && <div style={{ color: "red" }}>{error}</div>}
 
                    
