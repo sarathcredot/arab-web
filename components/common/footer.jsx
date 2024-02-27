@@ -4,7 +4,47 @@ import ALink from "./ALink";
 import { RiVisaLine } from "react-icons/ri";
 import { FaStripe,FaLinkedinIn } from "react-icons/fa";
 import { AiFillYoutube } from "react-icons/ai";
+import withApollo from "../../server/apollo";
+import { gql, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
+
+const GET_ALL_CATEGORY = gql`
+  query GetAllChildCategories($input: GetAllChildLevelCategoriesInput!) {
+    getAllChildCategories(input: $input) {
+      records {
+        categoryName
+        _id
+        isBlocked
+        fullCategoryName
+        isLeaf
+        description
+      }
+    }
+  }
+`;
+
+
+const GET_ALL_BRANDS=gql`query GetAllTopBrandRecords($input: BrandRecordsFilter) {
+  getAllTopBrandRecords(input: $input) {
+    maxRecords
+    message
+    records {
+      brandName
+      _id
+    }
+  }
+}`;
 function Footer() {
+
+  const {data: categoryData} = useQuery(GET_ALL_CATEGORY,{variables:{
+    input:{
+      parent: null
+    }
+  }});
+
+  const {data: brndData} = useQuery(GET_ALL_BRANDS)
+
+  
   return (
     <>
     <footer className="footer font2">
@@ -39,20 +79,20 @@ function Footer() {
                 <div className="widget-content">
                   <ul>
                     <li>
-                      <ALink href="#">Help & FAQs</ALink>
+                      <ALink href="#">Privacy& Policy</ALink>
                     </li>
                     <li>
-                      <ALink href="#">Order Tracking</ALink>
+                      <ALink href="/page/orders">Orders</ALink>
                     </li>
                     <li>
-                      <ALink href="#">Shipping & Delivery</ALink>
+                      <ALink href="#">Become a seller</ALink>
                     </li>
-                    <li>
+                    {/* <li>
                       <ALink href="#">Orders History</ALink>
                     </li>
                     <li>
                       <ALink href="#">Advanced Search</ALink>
-                    </li>
+                    </li> */}
                     <li>
                       <ALink href="/pages/login">Login</ALink>
                     </li>
@@ -61,7 +101,7 @@ function Footer() {
               </div>
             </div>
 
-            <div className="col-md-6 col-lg-3">
+            {/* <div className="col-md-6 col-lg-3">
               <div className="widget">
                 <h3 className="widget-title">About Us</h3>
                 <div className="widget-content">
@@ -84,7 +124,7 @@ function Footer() {
                   </ul>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             <div className="col-md-6 col-lg-3">
               <div className="widget">
@@ -95,13 +135,16 @@ function Footer() {
                       <ALink href="#">Affiliates</ALink>
                     </li>
                     <li>
-                      <ALink href="#">Refer a Friend</ALink>
+                      <ALink href="/pages/account">My Profile</ALink>
                     </li>
                     <li>
-                      <ALink href="#">Student Beans Offers</ALink>
+                      <ALink href="/pages/wishlist">whislist</ALink>
                     </li>
                     <li>
-                      <ALink href="#">Gift Vouchers</ALink>
+                      <ALink href="/pages/cart">Cart</ALink>
+                    </li>
+                    <li>
+                      <ALink href="/pages/offers">OfferZone</ALink>
                     </li>
                   </ul>
                 </div>
@@ -157,11 +200,11 @@ function Footer() {
 <div className="footer-flexcolumns">
   <div className="footer-sub">
     <h6 style={{letterSpacing: "0.75px"}}>IMPORTANT LINKS</h6>
-  <span>Help & FAQs</span>
-  <span>Rhoncus</span>
-  <span>Shipping & Delivery</span>
-  <span>Orders History</span>
-  <span>Rhoncus</span>
+  <span>Privacy & Policy</span>
+  <span>Become a Seller</span>
+  <span>Orders</span>
+  {/* <span>Orders History</span>
+  <span>Rhoncus</span> */}
   
   </div>
   <div className="footer-sub">
@@ -238,17 +281,23 @@ function Footer() {
             <div className="col-md-12 col-lg-8 mb-3 mb-lg-0">
               <ul className="footer-category-list mb-0">
                 <li>
-                  <h4 className="d-inline-block">Fashion:</h4>{" "}
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: "tops-and-blouses" },
-                    }}
-                  >
-                    Tops &amp; Blouses
-                  </ALink>{" "}
-                  |{" "}
-                  <ALink
+                  <h4 className="d-inline-block">Categories:</h4>{" "}
+                  {categoryData?.getAllChildCategories?.records.map((value, index) => (
+  <React.Fragment key={index}>
+    <ALink
+      href={{
+        pathname: "/shop",
+        query: { category: value._id },
+      }}
+    >
+      {value.categoryName}
+    </ALink>{" "}
+    {index !== categoryData.getAllChildCategories.records.length - 1 && "| "}
+  </React.Fragment>
+))}
+
+                 
+                  {/* <ALink
                     href={{
                       pathname: "/shop",
                       query: { category: "accessories" },
@@ -274,23 +323,27 @@ function Footer() {
                   >
                     Shoes &amp; Boots
                   </ALink>{" "}
-                  |{" "}
+                  |{" "} */}
                   <ALink className="view-all" href={{ pathname: "/shop" }}>
                     View All
                   </ALink>
                 </li>
                 <li>
-                  <h4 className="d-inline-block">Electronics:</h4>{" "}
-                  <ALink
-                    href={{
-                      pathname: "/shop",
-                      query: { category: "cables-and-adapters" },
-                    }}
-                  >
-                    Cables &amp; Adapters
-                  </ALink>{" "}
-                  |{" "}
-                  <ALink
+                  <h4 className="d-inline-block">Brands:</h4>{" "}
+                  {brndData?.getAllTopBrandRecords?.records.map((value, index) => (
+  <React.Fragment key={index}>
+    <ALink
+      href={{
+        pathname: "/shop",
+        query: { category: value._id },
+      }}
+    >
+      {value.brandName}
+    </ALink>{" "}
+    {index !== brndData.getAllTopBrandRecords?.records.length - 1 && "| "}
+  </React.Fragment>
+))}
+                  {/* <ALink
                     href={{
                       pathname: "/shop",
                       query: { category: "electronic-and-cigarettes" },
@@ -325,13 +378,13 @@ function Footer() {
                   >
                     Home Electronic
                   </ALink>{" "}
-                  |{" "}
+                  |{" "} */}
                  
                   <ALink className="view-all" href={{ pathname: "/shop" }}>
                     View All
                   </ALink>
                 </li>
-                <li>
+                {/* <li>
                   <h4 className="d-inline-block">Gifts:</h4>{" "}
                   <ALink
                     href={{
@@ -544,7 +597,7 @@ function Footer() {
                   <ALink className="view-all" href={{ pathname: "/shop" }}>
                     View All
                   </ALink>
-                </li>
+                </li> */}
               </ul>
             </div>
 
@@ -569,4 +622,4 @@ function Footer() {
   );
 }
 
-export default React.memo(Footer);
+export default  withApollo({ ssr: typeof window === "undefined" })(Footer);
