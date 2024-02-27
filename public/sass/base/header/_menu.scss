@@ -639,9 +639,11 @@ overflow: hidden;
 	cursor: pointer;
 	margin-bottom: 0;
 	padding-left: 0;
+	
 	padding-bottom: 0 !important;
 	&__item {
 		display: flex;
+		background: white;
 		gap: 4px;
 		place-items: center;
 		justify-content: center;
@@ -677,7 +679,7 @@ overflow: hidden;
 // child menu
 .custom__menufirstchild {
 	display: flex;
-	justify-content: center;
+	// justify-content: center;
 	padding-bottom: 28px;
 	border-bottom: 1px solid rgba(240, 240, 240, 1);
 	cursor: pointer;
@@ -685,11 +687,14 @@ overflow: hidden;
 color: black;
 	&__item {
 		display: flex;
+		background: white;
 		gap: 4px;
 		place-items: center;
 		justify-content: center;
 		height: 51px;
-		flex: 1;
+		min-width: 130px;
+		max-width: 130px;
+		// flex: 1;
 		border: 1px solid rgba(240, 240, 240, 1);
 		border-right: 0px solid rgba(240, 240, 240, 1);
 		box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.08);
@@ -737,6 +742,7 @@ color: black;
 	&__item{
 		border: 1px solid rgba(240, 240, 240, 1);
 		height: 51px;
+		background: white;
 		display: flex;
 		justify-content: center;
 		place-items: center;
@@ -766,6 +772,7 @@ color: black;
 		justify-content: left;
 		place-items: center;
 		gap: 10;
+		background: white;
 		cursor: pointer;
 		box-shadow: 1px 2px 10px 0px rgba(0, 0, 0, 0.08);
 		min-width: 121px;

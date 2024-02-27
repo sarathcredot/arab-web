@@ -6,6 +6,7 @@ import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import withApollo from "../../server/apollo"
 import { useRouter } from "next/router";
 import { toast } from 'react-toastify';
+import MainMenu from "../../components/common/partials/main-menu"
 // import { useForm, Controller } from "react-hook-form";
 export const LOGIN = gql`
   mutation Mutation($input: userLoginOtpInput!) {
@@ -106,9 +107,16 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
   }
   return (
     <main className="main">
-      <div className=" login-container container">
+      <div className=" login-container container" style={{marginTop:"0",position:"relative"}}>
+      <div style={{zIndex:"99",position:"absolute",width:"100%" ,left:"0",right:"0",background:"white" 
+     }} className="custom_loginresp">
+      <div >
+
+         <MainMenu/>
+      </div>
+        </div> 
         <div className="row">
-          <div className="col-lg-12 mx-auto">
+          <div className="col-lg-12 mx-auto custom_headlog">
             {isOtp ? (
               <div className="row custom-loginleft" 
               // style={{ marginLeft: "115px" }}
@@ -221,7 +229,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                         className=""
                         style={{
                           marginTop: "20px",
-                          paddingBottom: "20px",
+                          
                           fontSize: "12px",
                           color: "#777777",
                           fontWeight: "400",
@@ -272,7 +280,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                       </div>
                     </div> */}
 
-                    <div className="mt-3 buttonwrapper">
+                    {/* <div className="mt-3 buttonwrapper"> */}
                       {/* <div
                         class="google-btn googlebtn"
                        
@@ -324,19 +332,19 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
                           </p>
                         </p>
                       </div> */}
-                    </div>
+                    {/* </div> */}
 
                     <button
                       type="submit"
                       className="btn btn-dark btn-md "
-                      style={{ marginTop: "48px", fontWeight: "600" }}
+                      style={{ marginTop: "36px", fontWeight: "600" }}
                       onClick={handleOtpChange}
                     >
                       GET OTP
                     </button>
                   </form>
                 </div>
-                <div className="col-md-6">
+                <div className="col-md-6" style={{paddingRight:"0"}}>
                   <div>
                     <img
                       class="google-icon"

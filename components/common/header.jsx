@@ -287,7 +287,7 @@ const click=localStorage.getItem("click")
                 </div> */}
                 </div> :  
                 <div
-                className="header-dropdown mr-auto mr-sm-3"
+                className="header-dropdown mr-auto mr-sm-3 custom_userborder"
                 // style={{ marginLeft:"20px"}}
               >
                 {/* <ALink href="#">

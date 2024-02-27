@@ -256,6 +256,10 @@ header {
 	left: 0;
 	z-index: 1040;
 }
+.custom_userborder{
+	border-left: 1px solid #EBEBEB;
+    padding-left: 14px !important
+}
 
 // 2. Header Elements
 
@@ -512,4 +516,9 @@ header {
 	.homebannerpadding{
 		padding-top: 117px;
 	}
+	.custom_userborder{
+		border-left: none;
+		padding-left: 0
+	}
+	
   }
