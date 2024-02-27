@@ -100,7 +100,7 @@ function offers() {
   console.log(cmsData)
 
   const filteredImages = cmsData?.getAllCmsRecords?.records.find(
-    record => record.pageName === 'OFFER2' && record.sectionName === 'SECTION-OFFER'
+    record => record.pageName === 'Offer' && record.sectionName === 'SECTION-3'
   );
 
   if (filteredImages?.length === 0) {
