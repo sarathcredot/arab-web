@@ -55,7 +55,7 @@ const GET_PRODUCTS=gql `query GetProducts($input: ProductFilters) {
 }`
 
 function ElectronicCollection() {
-  const {data,loading,error}=useQuery(GET_PRODUCTS)
+  const {data,loading,error}=useQuery(GET_PRODUCTS,{variables:{input:{bestSeller:true}}})
 console.log(data);
 const products=data?.getProducts?.records
 //   const { data, loading, error } = useQuery(GET_HOME_DATA, {
@@ -93,18 +93,22 @@ const products=data?.getProducts?.records
         options={{
           ...productSlider,
           responsive: {
+           
             ...productSlider.responsive,
             0: {
               items: 2,
-              nav: true
+              nav: true,
+              loop:true
           },
           576: {
               items: 2,
-              nav: true
+              nav: true,
+              loop:true,
           },
           768: {
               items: 3,
-              nav: true
+              nav: true,
+              loop:true
           },
           992: {
               items: 4,
@@ -112,7 +116,8 @@ const products=data?.getProducts?.records
           },
           1200: {
               items: 5,
-              nav: true
+              nav: true,
+              loop:true
           }
           },
         }}

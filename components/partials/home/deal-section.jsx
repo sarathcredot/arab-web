@@ -1,10 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Reveal from "react-awesome-reveal";
 
 //Import Custom Component
 import ProductOne from "../../features/products/product-one";
 import ProductFour from "../../features/products/product-four";
-import { useQuery, gql } from "@apollo/react-hooks";
+import { useQuery, gql ,useLazyQuery} from "@apollo/react-hooks";
 // Import Settigns
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 import ALink from "../../common/ALink";
@@ -50,7 +50,19 @@ const GET_PRODUCTS=gql `query GetProducts($input: ProductFilters) {
 }`
 
 function DealSection() {
-  const {data,loading,error}=useQuery(GET_PRODUCTS)
+  // const {data,loading,error}=useQuery(GET_PRODUCTS)
+  const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS)
+  useEffect(()=>{
+    getProducts({
+      variables:{
+        input:{
+          discount:10,
+          size:6
+        }
+      }
+    })
+  },[])
+
   console.log(data);
   const products=data?.getProducts?.records
   console.log(products);

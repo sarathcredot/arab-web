@@ -99,7 +99,9 @@ function Shop() {
           attributes: attributesWithNonEmptyValues,
           parentCategory: query?.cat_id,
           discount:parseInt(discount),
-          // bestseller:bestseller
+          bestseller:bestseller,
+          priceHighToLow:sort_order&&sort_order==="lowToHigh"?false:true,
+          priceLowToHigh:sort_order && sort_order==="highToLow"?false:true
         },
       },
     });

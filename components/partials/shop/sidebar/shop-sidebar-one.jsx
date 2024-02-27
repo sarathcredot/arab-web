@@ -514,6 +514,18 @@ function filterByDiscount(selectedDiscount) {
                       <div className="widget-body pb-0">
                         <ul className="cat-list">
                           
+                        <li>
+                            <input type="radio" id="none" name="fav_language" value="none"onChange={handleSortOrderChange}/>
+<label for="none"
+ style={{
+  color: query.sort_order === 'none' ? "red" : "inherit", 
+  fontWeight: "500"
+}}
+> &nbsp;None</label>
+
+
+                               
+                              </li>
                               <li>
                             <input type="radio" id="lowToHigh" name="fav_language" value="lowToHigh"onChange={handleSortOrderChange}/>
 <label for="lowToHigh"
