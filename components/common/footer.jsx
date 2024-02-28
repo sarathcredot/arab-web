@@ -131,9 +131,9 @@ function Footer() {
                 <h3 className="widget-title">More Information</h3>
                 <div className="widget-content">
                   <ul>
-                    <li>
+                    {/* <li>
                       <ALink href="#">Affiliates</ALink>
-                    </li>
+                    </li> */}
                     <li>
                       <ALink href="/pages/account">My Profile</ALink>
                     </li>
@@ -173,7 +173,7 @@ function Footer() {
                   </div>
                 </div>
               </div>
-              <h3 className="widget-title">PAYMENT METHODS</h3>
+              <h3 className="widget-title" style={{marginTop:"60px"}}>PAYMENT METHODS</h3>
               <div >
 
 <div className="custom-pay"style={{display:"flex",gap:"10px"}}> 
@@ -190,7 +190,7 @@ function Footer() {
         </div>
 
         {/* mobile footer */}
-        <div className="responsive-footer">
+        <div className="responsive-footer" style={{marginTop:"56px"}}>
         <div className="col-md-12 offset-lg-1 col-lg-3 custom-helpline">
 
 <img src="images/helpline.svg" style={{width:"30px"}}/>
@@ -274,7 +274,7 @@ function Footer() {
         {/* ,,,,,,,,,, */}
         </div>
         </footer>
-        <footer className="footer font2" style={{background:"#F4F4F4"}}>
+        <footer className="footer font2" style={{background:"#F4F4F4", marginTop:"5.5rem"}}>
         <div className="container">
         <div className="footer-middle">
           <div className="row">
