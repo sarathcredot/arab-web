@@ -13,6 +13,7 @@ export const LOGIN = gql`
     userLoginOtp(input: $input) {
       message
       mobileNumber
+      _id
     }
   }
 `;
@@ -36,6 +37,7 @@ function Login({mutate}) {
   const [error, setError] = useState("");
   const [otperror,setOtperror]=useState("")
   const [otp, setOtp] = useState("");
+  const [otpId,setOtpTd]=useState("");
 const router=useRouter()
   const  [userLoginOtp] =
     useMutation(LOGIN);
@@ -50,7 +52,8 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
       }
 
     const response= await userLoginOtp({ variables: { input: { mobileNumber: `+968 ${mobileNumber}` } } });
-      console.log(response);
+      console.log(response.data.userLoginOtp._id,"responsseeeeeeeeeeeeeee");
+      setOtpTd(response.data.userLoginOtp._id)
       toast.success(<div style={{padding:"10px"}}>otp sent successfully</div>)
       SetIsOtp(true);
     } catch (error) {
@@ -81,7 +84,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
       setOtperror("Otp is required")
       return;
     }
-      const response =await UserVerifyOtp({variables:{input:{code:otp}}})
+      const response =await UserVerifyOtp({variables:{input:{code:otp,_id:otpId}}})
       console.log(response);
 
       if(response){
