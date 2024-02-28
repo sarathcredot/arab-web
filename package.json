@@ -3,11 +3,11 @@
   "version": "2.1.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env next",
-"build": "cross-env  next build && next export",
-"start": "next start",
-"prod-build": "cross-env NODE_OPTIONS=--openssl-legacy-provider next build",
-"prod-start": "next start --port 3003"
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && next",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && next build & next export",
+    "start": "next start",
+    "prod-build": "export NODE_OPTIONS=--openssl-legacy-provider && next build",
+    "prod-start": "next start --port 3003"
 
   },
   "dependencies": {
