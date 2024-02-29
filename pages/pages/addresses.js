@@ -134,7 +134,7 @@ console.log("click");
         <>
           <div
             className="container d-flex justify-content-between flex-column flex-sm-row w-sm-100"
-            style={{ gap: "5rem", marginBottom: "20px" }}
+            style={{ gap: "5rem", marginBottom: "75px" }}
           >
             {/* <div
               className=""

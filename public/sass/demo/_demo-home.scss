@@ -14,6 +14,9 @@
     padding-top: 80px;
     padding-bottom: 30px;
 }
+.custom-brand-title{
+    padding-left: 40px;
+}
 .custom-divide-line,
 .home {
     .product-default figure {
@@ -193,7 +196,7 @@ hr {
 }
 
 .btn {
-    border-radius: 1px;
+    // border-radius: 1px;
 }
 
 // Plugin 
@@ -1819,6 +1822,9 @@ color:red
 @media(max-width: 767px) {
     .categories-container{
         width: 100%;
+    }
+    .custom-brand-title{
+        padding-left: 15px;
     }
     .custom-addressbox{
         width: 100%;

@@ -6,6 +6,7 @@ import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import withApollo from "../../server/apollo"
 import { useRouter } from "next/router";
 import { toast } from 'react-toastify';
+import { IoMdHome } from "react-icons/io";
 import MainMenu from "../../components/common/partials/main-menu"
 // import { useForm, Controller } from "react-hook-form";
 export const LOGIN = gql`
@@ -118,6 +119,27 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
          <MainMenu/>
       </div>
         </div> 
+        <div className="container custom_login_space" >
+        <nav aria-label="breadcrumb" className="breadcrumb-nav mb-0"style={{paddingBottom: "15px",borderBottom: "1px solid #F0F0F0"}}>
+          <div className="container" >
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <ALink href="/">
+                  <IoMdHome style={{ fontSize: "16px" }} />
+                  {/* <i className="icon-home" ></i> */}
+                </ALink>
+              </li>
+             
+
+              <li className="breadcrumb-item active" aria-current="page">
+                <ALink className="activeitem" href="/pages/orders">
+                  Login
+                </ALink>
+              </li>
+            </ol>
+          </div>
+        </nav>
+      </div>
         <div className="row">
           <div className="col-lg-12 mx-auto custom_headlog">
             {isOtp ? (
@@ -245,13 +267,13 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
 
                   <div></div>
 
-                  <form style={{ marginTop: "70px" , marginLeft:"7rem"}} >
+                  <form style={{ marginTop: "70px"}} >
        
 
 <div className="container">
 <div className="input-group" style={{position:"relative"}}>
-  <div className="input-group-prepend" style={{position:"absolute" , left:"-6.5rem"}}>
-    <span className="input-group-text" style={{ padding: "10px" , height:"5rem" }}>
+  <div className="input-group-prepend" style={{position:"absolute" }}>
+    <span className="input-group-text countrycodeinput" style={{ padding: "10px" }}>
       <img src="images/brands/flag1.svg" alt="Flag" width="24" height="20" />
       +968
     </span>
@@ -262,7 +284,7 @@ const [UserResendLoginOtp]=useMutation(RESENT_OTP)
     className="form-input form-wide"
     value={mobileNumber}
     onChange={(e) => setMobileNumber(e.target.value)}
-    // style={{position:"relative"}}
+    style={{outline:"none",paddingLeft:"73px"}}
   />
 </div>
 </div>

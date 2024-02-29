@@ -130,7 +130,7 @@ const products=data?.getProducts?.records
                   adClass="inner-quickview inner-icon"
                   product={item}
                   key={"product-one" + index}
-                  customStyle="20%"
+                  // customStyle="20%"
                 />
               ))
           // : [0, 1, 2, 3].map((item, index) => (

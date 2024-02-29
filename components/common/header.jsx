@@ -212,7 +212,7 @@ const click=localStorage.getItem("click")
               >
                 <ALink href="#">
                   {/* <img src="/images/uae.svg"></img>UAE */}
-                  <img src="/images/omn.png"className={styles.flagimg} ></img>OMN
+                  <img src="/images/omn.svg"className={styles.flagimg} ></img>OMN 
                 </ALink>
                 {/* <div className="header-menu">
                   <ul>
@@ -243,7 +243,7 @@ const click=localStorage.getItem("click")
 
                <div
                 className="header-dropdown mr-auto mr-sm-3 mr-md-0 d-sm-none d-md-flex"
-                style={{ background: "rgba(249, 249, 249, 1)" }}
+                style={{ background: "rgba(249, 249, 249, 1)",padding:"11px" }}
               >
                 <ALink href="#">
                   {/* <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img> */}
@@ -276,8 +276,8 @@ const click=localStorage.getItem("click")
 
               {/* <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}> */}
               {!token?
-                <div className="header-user">
-                  <div className={styles.circle} onClick={handleLog}>
+                <div className="header-user custom_userborder">
+                  <div className={styles.circle} onClick={handleLog} >
                     <BiSolidUser style={{ fontSize: "20px" }} />
                   </div>
 
@@ -294,7 +294,7 @@ const click=localStorage.getItem("click")
                   <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img>English
                 </ALink> */}
                  <div className={styles.circle} >
-                    <BiSolidUser style={{ fontSize: "20px" }} />
+                    <BiSolidUser style={{ fontSize: "20px" }}/>
                   </div>
                 <div className="header-menu">
                   <ul>
