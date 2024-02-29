@@ -189,7 +189,7 @@
 
 @include mq(sm) {
 	.sticky-navbar {
-		display: none;
+		display: none !important;
 	}
 }
 
@@ -203,5 +203,13 @@
 
 	.main .sticky-header.toolbox.fixed .toolbox-left {
 		margin-right: 0;
+	}
+}
+@media (min-width:1000px){
+
+	.sticky-navbar{
+		&.fixed {
+			display: none;
+		}
 	}
 }
