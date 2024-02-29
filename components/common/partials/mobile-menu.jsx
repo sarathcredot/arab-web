@@ -195,7 +195,7 @@ function MobileMenu ( { router } ) {
                         </ul>
 
                         <ul className="mobile-menu">
-                            <li><ALink href="/pages/account">My Account</ALink></li>
+                            {/* <li><ALink href="/pages/account">My Account</ALink></li> */}
                             
                            
                            
