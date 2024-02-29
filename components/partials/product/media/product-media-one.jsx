@@ -84,7 +84,7 @@ export default function ProductMediaOne ( props ) {
                             { isSale() ? <div className="product-label label-sale">{ isSale() }</div> : '' }
                         </div>
 
-                        <OwlCarousel adClass="product-single-carousel owl-carousel owl-theme show-nav-hover" options={ productSingleSlider } events={ events } onChangeRef={ setMediaRef } redraw={ redraw }>
+                        <OwlCarousel adClass="product-single-carousel owl-carousel owl-theme show-nav-hover" options={ productSingleSlider } events={ events } onChangeRef={ setMediaRef } redraw={ redraw } >
                             {
                                 product.images.map( ( item, index ) => (
                                     <div className="product-item" key={ `product-item-${ index }` }>

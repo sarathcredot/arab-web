@@ -116,7 +116,7 @@ function offers() {
   
   return (
     <>
-      <main className="home" style={{ marginTop: "-10px" }}>
+      <main className="home" style={{ marginTop: "-20" }}>
       <div className="header-bottom d-flex">
           <div className="container">
             <MainMenu />
