@@ -41,7 +41,7 @@ export const CMS=gql`query GetAllCmsRecords($input: CmsRecordsFilter) {
 }`
 
 function Home() {
-  const { data, loading, error } = useQuery(CMS)
+  const { data, loading, error } = useQuery(CMS,{variables:{input:{pageName:"Home"}}})
   console.log(data);
   //   variables: { productsCount: 15 },
   // });

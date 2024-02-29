@@ -76,7 +76,7 @@ function DealSection() {
       <ALink  href="/shop?discount=10"> <p style={{color:"rgba(0, 0, 0, 1)",fontWeight:"500"}}>View All Products</p></ALink>
      
       </div>
-      <h4 className="recommendmob">Recommended for you</h4>
+      <h4 className="recommendmob">Deals of the day</h4>
       <Reveal
         keyframes={fadeInUpShorter}
         delay={100}

@@ -91,7 +91,9 @@ a.btn.disabled {
 }
 
 .btn-dark {
-	@include button-variant( #fff, $primary-color-dark, $primary-color-dark);
+	@include button-variant( #fff, 
+	#000000, 
+	#000000);
 }
 
 .btn-gray {

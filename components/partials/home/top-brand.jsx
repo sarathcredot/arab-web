@@ -38,16 +38,18 @@ function TopBrand(props) {
   const { data, loading, error } = useQuery(TOP_BRANDS)
   console.log(data);
   const options = {
-    items: 8, // Number of items to show
-    margin: 50, // Space between items
+    items: 7, // Number of items to show
+   // Space between items
     loop: true, // Enable loop
-    autoplay: true, // Autoplay the slider
+    // autoplay: true, // Autoplay the slider
     autoplayTimeout: 3000,
     // Autoplay interval (3 seconds in this example)
     dots: false,
     responsive: {
       0: {
-        items: 3, // Number of items to show on small screens
+        items: 4,
+        loop:true ,
+        autoplay:true// Number of items to show on small screens
       },
       768: {
         items: 5, // Number of items to show on medium screens
@@ -76,10 +78,22 @@ console.log(totalBrands);
   };
 
   const handlePrev = () => {
-    if (startIndex === 0) {
-      setStartIndex(totalBrands - brandsPerPage); // If at the beginning, loop to the end
-    } else {
-      setStartIndex(startIndex - 1);
+    if(window.innerWidth > 700 ){
+if( totalBrands >7){
+
+  if (startIndex === 0) {
+    setStartIndex(totalBrands - brandsPerPage); // If at the beginning, loop to the end
+  } else {
+    setStartIndex(startIndex - 1);
+  }
+}
+    }
+    else{
+      if (startIndex === 0) {
+        setStartIndex(totalBrands - brandsPerPage); // If at the beginning, loop to the end
+      } else {
+        setStartIndex(startIndex - 1);
+      }
     }
    
   };
@@ -105,7 +119,7 @@ console.log(totalBrands);
 
   return (
     <>
-      <div className="container" style={{paddingLeft:"40px"}}>
+      <div className="container custom-brand-title" >
         <div>
           <h4 className="mb-4 mt-4"style={{borderBottom:"1px solid #EEE",paddingBottom:"20px"}}>Top Brands</h4>
         </div>
@@ -115,8 +129,8 @@ console.log(totalBrands);
         >
         <div className="custom-top-prevbutton"onClick={handlePrev}><MdKeyboardArrowLeft style={{color:"black",fontSize:"20px"}}/></div>
         <div className="custom-topbrandcontainer container">
-          {/* <OwlCarousel options={options} autoplay> */}
-            {/* {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
+          {/* <OwlCarousel options={options} autoplay> 
+           {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
               <div key={index} className=" item mb-4 custom-brand" >
                 {brand.logo && (<img
                   src={brand.logo.fileURL}
@@ -124,8 +138,8 @@ console.log(totalBrands);
                   style={{ width: "128px", height: "128px"}}
                 />)}
               </div>
-            ))} */}
-          {/* </OwlCarousel> */}
+            ))} 
+           </OwlCarousel> */}
           {data && data?.getAllTopBrandRecords?.records
           .slice(startIndex, startIndex + brandsPerPage)
           .map((brand, index) => (

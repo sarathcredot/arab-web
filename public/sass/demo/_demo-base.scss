@@ -78,7 +78,7 @@
     letter-spacing: 0.02em;
 
     &:not(.dropdown-expanded) {
-        padding-top: 6px;
+        // padding-top: 6px;
     }
 
     &.dropdown-expanded {
@@ -1451,6 +1451,9 @@ body {
 }
 
 @media (max-width: 768px) {
+    // .custom-top-prevbutton{
+    //     display: none;;
+    // }
     .recommendmob{
         display: flex;
         font-weight: 600;
