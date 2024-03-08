@@ -60,19 +60,28 @@ function Shop() {
   const query = router.query;
 
   const { cat_id, page, ...rest } = query;
-  const { category, brands, max_price,min_price,sort_order,discount,bestseller,...filteredAttributes } = rest;
-  const categoryValues = category ? category.split(',').map(id => id.trim())  : [];
-  const brandValues = brands ? brands.split(',') : [];
+  const {
+    category,
+    brands,
+    max_price,
+    min_price,
+    sort_order,
+    discount,
+    bestSeller,
+    ...filteredAttributes
+  } = rest;
+  const categoryValues = category ? category.split(",").map((id) => id.trim()) : [];
+  const brandValues = brands ? brands.split(",") : [];
   console.log(discount);
   const attributes = Object.entries(filteredAttributes).map(([id, values]) => ({
     id,
     values: values.split(","),
   }));
-  console.log(bestseller);
+  console.log(bestSeller);
   const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   console.log(data);
   const [perPage, setPerPage] = useState(12);
-  
+
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
   const products = data && data?.getProducts?.records;
   const totalPage = data
@@ -97,10 +106,10 @@ function Shop() {
           minPrice: parseInt(query.min_price),
           attributes: attributesWithNonEmptyValues,
           parentCategory: query?.cat_id,
-          discount:parseInt(discount),
-          bestseller:bestseller,
-          priceHighToLow:sort_order&&sort_order==="lowToHigh"?false:true,
-          priceLowToHigh:sort_order && sort_order==="highToLow"?false:true
+          discount: parseInt(discount),
+          bestSeller: bestSeller === "true" ? true : false,
+          priceHighToLow: sort_order && sort_order === "lowToHigh" ? false : true,
+          priceLowToHigh: sort_order && sort_order === "highToLow" ? false : true,
         },
       },
     });
@@ -134,10 +143,7 @@ function Shop() {
             {query.category ? (
               <>
                 <li className="breadcrumb-item">
-                  <ALink
-                    href={{ pathname: router.pathname, query: {} }}
-                    scroll={false}
-                  >
+                  <ALink href={{ pathname: router.pathname, query: {} }} scroll={false}>
                     shop
                   </ALink>
                 </li>
@@ -177,10 +183,7 @@ function Shop() {
                   {query.search ? (
                     <>
                       Search -{" "}
-                      <ALink
-                        href={{ query: { category: query.category } }}
-                        scroll={false}
-                      >
+                      <ALink href={{ query: { category: query.category } }} scroll={false}>
                         {query.category}
                       </ALink>{" "}
                       / {query.search}
@@ -189,9 +192,7 @@ function Shop() {
                     <span>
                       {data &&
                         data?.getProducts?.records.map((item, index) => (
-                          <React.Fragment key={index}>
-                            {item?.categoryNamePath}
-                          </React.Fragment>
+                          <React.Fragment key={index}>{item?.categoryNamePath}</React.Fragment>
                         ))}
                     </span>
                   )}
@@ -200,10 +201,7 @@ function Shop() {
             ) : query.search ? (
               <>
                 <li className="breadcrumb-item">
-                  <ALink
-                    href={{ pathname: router.pathname, query: {} }}
-                    scroll={false}
-                  >
+                  <ALink href={{ pathname: router.pathname, query: {} }} scroll={false}>
                     shop
                   </ALink>
                 </li>
@@ -215,10 +213,7 @@ function Shop() {
             ) : query.tag ? (
               <>
                 <li className="breadcrumb-item">
-                  <ALink
-                    href={{ pathname: router.pathname, query: {} }}
-                    scroll={false}
-                  >
+                  <ALink href={{ pathname: router.pathname, query: {} }} scroll={false}>
                     shop
                   </ALink>
                 </li>
@@ -263,58 +258,21 @@ function Shop() {
             className="col-lg-9 main-content"
             style={{ padding: 0, borderLeft: "1px solid #B9B9B9" }}
           >
-            <nav
-              className="toolbox sticky-header mobile-sticky"
-              style={{ margin: "0" }}
-            >
+            <nav className="toolbox sticky-header mobile-sticky" style={{ margin: "0" }}>
               <div className="toolbox-left">
-                <a
-                  href="#"
-                  className="sidebar-toggle"
-                  onClick={(e) => sidebarToggle(e)}
-                >
+                <a href="#" className="sidebar-toggle" onClick={(e) => sidebarToggle(e)}>
                   <svg
                     data-name="Layer 3"
                     id="Layer_3"
                     viewBox="0 0 32 32"
                     xmlns="http://www.w3.org/2000/svg"
                   >
-                    <line
-                      x1="15"
-                      x2="26"
-                      y1="9"
-                      y2="9"
-                      className="cls-1"
-                    ></line>
+                    <line x1="15" x2="26" y1="9" y2="9" className="cls-1"></line>
                     <line x1="6" x2="9" y1="9" y2="9" className="cls-1"></line>
-                    <line
-                      x1="23"
-                      x2="26"
-                      y1="16"
-                      y2="16"
-                      className="cls-1"
-                    ></line>
-                    <line
-                      x1="6"
-                      x2="17"
-                      y1="16"
-                      y2="16"
-                      className="cls-1"
-                    ></line>
-                    <line
-                      x1="17"
-                      x2="26"
-                      y1="23"
-                      y2="23"
-                      className="cls-1"
-                    ></line>
-                    <line
-                      x1="6"
-                      x2="11"
-                      y1="23"
-                      y2="23"
-                      className="cls-1"
-                    ></line>
+                    <line x1="23" x2="26" y1="16" y2="16" className="cls-1"></line>
+                    <line x1="6" x2="17" y1="16" y2="16" className="cls-1"></line>
+                    <line x1="17" x2="26" y1="23" y2="23" className="cls-1"></line>
+                    <line x1="6" x2="11" y1="23" y2="23" className="cls-1"></line>
                     <path
                       d="M14.5,8.92A2.6,2.6,0,0,1,12,11.5,2.6,2.6,0,0,1,9.5,8.92a2.5,2.5,0,0,1,5,0Z"
                       className="cls-2"
@@ -323,10 +281,7 @@ function Shop() {
                       d="M22.5,15.92a2.5,2.5,0,1,1-5,0,2.5,2.5,0,0,1,5,0Z"
                       className="cls-2"
                     ></path>
-                    <path
-                      d="M21,16a1,1,0,1,1-2,0,1,1,0,0,1,2,0Z"
-                      className="cls-3"
-                    ></path>
+                    <path d="M21,16a1,1,0,1,1-2,0,1,1,0,0,1,2,0Z" className="cls-3"></path>
                     <path
                       d="M16.5,22.92A2.6,2.6,0,0,1,14,25.5a2.6,2.6,0,0,1-2.5-2.58,2.5,2.5,0,0,1,5,0Z"
                       className="cls-2"
@@ -338,11 +293,7 @@ function Shop() {
             </nav>
 
             <div>
-              <ProductsGrid
-                products={products}
-                loading={loading}
-                perPage={perPage}
-              />
+              <ProductsGrid products={products} loading={loading} perPage={perPage} />
             </div>
           </div>
 
