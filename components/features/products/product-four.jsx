@@ -194,7 +194,7 @@ function ProductFour(props) {
           )}
         </div> */}
 
-        <div className="product-action">
+        {/* <div className="product-action">
           {product?.variants?.length > 0 ? (
             <ALink
               href={`/product/default/${product?.slug}`}
@@ -210,31 +210,11 @@ function ProductFour(props) {
               title="Add To Cart"
               onClick={onAddCartClick}
             >
-              {/* <i className="icon-shopping-cart"></i> */}
               <span>ADD TO CART</span>
             </a>
           )}
-          {/* <a
-            href="#"
-            className={`btn-icon-wish ${
-              isInWishlist() ? "added-wishlist" : ""
-            }`}
-            onClick={onWishlistClick}
-            title={`${
-              isInWishlist() === true ? "Go to Wishlist" : "Add to Wishlist"
-            }`}
-          >
-            <i className="icon-heart"></i>
-          </a> */}
-          {/* <a
-            href="#"
-            className="btn-quickview"
-            title="Quick View"
-            onClick={onQuickViewClick}
-          >
-            <i className="fas fa-external-link-alt"></i>
-          </a> */}
-        </div>
+
+        </div> */}
       </div>
     </div>
   );
