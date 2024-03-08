@@ -3,30 +3,34 @@ import { connect } from "react-redux";
 import ALink from "../../components/common/ALink";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
-import withApollo from "../../server/apollo"
+import withApollo from "../../server/apollo";
 import { useEffect } from "react";
-import { toast } from 'react-toastify';
-export const ACCOUNT_DETAIL=gql`mutation UpdateUserProfile($input: updateUserProfileInput!) {
-  updateUserProfile(input: $input) {
-    
-    message
-  }
-}`
-export const USER_DETAIL=gql`query GetUserRecord($input: userInput!) {
-  getUserRecord(input: $input) {
-    message
-    record {
-      _id
-      firstName
-      displayName
-      email
-      lastName
+import { toast } from "react-toastify";
+export const ACCOUNT_DETAIL = gql`
+  mutation UpdateUserProfile($input: updateUserProfileInput!) {
+    updateUserProfile(input: $input) {
+      message
     }
   }
-}`
+`;
+export const USER_DETAIL = gql`
+  query GetUserRecord($input: userInput!) {
+    getUserRecord(input: $input) {
+      message
+      record {
+        _id
+        firstName
+        displayName
+        email
+        lastName
+      }
+    }
+  }
+`;
 function accountdetails() {
-  const id=localStorage?.getItem("userId")
-  const [userdetail, { loading:userloading, error:usererror, data:userData,refetch }] = useLazyQuery(USER_DETAIL);
+  const id = localStorage?.getItem("userId");
+  const [userdetail, { loading: userloading, error: usererror, data: userData, refetch }] =
+    useLazyQuery(USER_DETAIL);
   console.log(userData);
   const {
     register,
@@ -41,33 +45,30 @@ function accountdetails() {
       firstName: "",
       lastName: "",
       displayName: "",
-      email:""
+      email: "",
       // crLicense:""
     },
   });
-useEffect(()=>{
-  console.log("click");
-  userdetail({ variables: { input:{_id: id} } })
-  // setValue("firstName",userData?.getUserRecord?.record?.firstName)
-  console.log(userData);
-},[id])
+  useEffect(() => {
+    console.log("click");
+    userdetail({ variables: { input: { _id: id } } });
+    // setValue("firstName",userData?.getUserRecord?.record?.firstName)
+    console.log(userData);
+  }, [id]);
 
-useEffect(() => {
-  if (userData && userData.getUserRecord && userData.getUserRecord.record) {
-    const { firstName } = userData.getUserRecord.record;
-    setValue("firstName", firstName);
-    setValue("lastName",userData.getUserRecord.record?.lastName)
-    setValue("email",userData.getUserRecord.record?.email)
-    setValue("displayName",userData?.getUserRecord?.record?.displayName)
-  }
-}, [userData]);
+  useEffect(() => {
+    if (userData && userData.getUserRecord && userData.getUserRecord.record) {
+      const { firstName } = userData.getUserRecord.record;
+      setValue("firstName", firstName);
+      setValue("lastName", userData.getUserRecord.record?.lastName);
+      setValue("email", userData.getUserRecord.record?.email);
+      setValue("displayName", userData?.getUserRecord?.record?.displayName);
+    }
+  }, [userData]);
 
-
-  const  [UpdateUserProfile] =
-    useMutation(ACCOUNT_DETAIL);
+  const [UpdateUserProfile] = useMutation(ACCOUNT_DETAIL);
   const onSubmit = async (values) => {
-  
-values._id=id
+    values._id = id;
     console.log(values);
     // e.preventDefault();
     try {
@@ -76,20 +77,28 @@ values._id=id
       //   return;
       // }
 
-console.log(id);
-    const response= await UpdateUserProfile({ variables: { input: {_id:id,firstName:values.firstName,email:values?.email,lastName:values?.lastName,displayName:values?.displayName} } });
+      console.log(id);
+      const response = await UpdateUserProfile({
+        variables: {
+          input: {
+            firstName: values.firstName,
+            email: values?.email,
+            lastName: values?.lastName,
+            displayName: values?.displayName,
+          },
+        },
+      });
       console.log(response);
-      if(response){
-        toast.success(response?.data?.updateUserProfile?.message)
-        reset()
+      if (response) {
+        toast.success(response?.data?.updateUserProfile?.message);
+        reset();
         refetch();
       }
       SetIsOtp(true);
     } catch (error) {
       console.log("error", error);
     }
-
-  }
+  };
 
   const fieldRules = {
     firstName: {
@@ -104,7 +113,7 @@ console.log(id);
     email: {
       required: "Email is required",
     },
-  }
+  };
 
   return (
     <main className="main main-test">
@@ -119,7 +128,6 @@ console.log(id);
           <li className="active">
             <ALink href="/pages/accountdetails">Account Details</ALink>
           </li>
-         
         </ul>
       </div>
       <div className="container checkout-container">
@@ -160,21 +168,22 @@ console.log(id);
                           control={control}
                           name="firstName"
                           render={({ field: { onChange, value } }) => (
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={value}
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={value}
                               onChange={onChange}
-                          style={{ marginTop: "10px" }}
-                        />)}
-                        rules={fieldRules.firstName}
+                              style={{ marginTop: "10px" }}
+                            />
+                          )}
+                          rules={fieldRules.firstName}
                         />
                       </div>
                       {errors?.firstName ? (
-                    <div style={{color:"red",marginTop:"10px"}}>
-                      {errors?.firstName?.message}
-                    </div>
-                  ) : null}
+                        <div style={{ color: "red", marginTop: "10px" }}>
+                          {errors?.firstName?.message}
+                        </div>
+                      ) : null}
                     </div>
 
                     <div className="col-md-6">
@@ -195,21 +204,22 @@ console.log(id);
                           control={control}
                           name="lastName"
                           render={({ field: { onChange, value } }) => (
-                        <input
-                          type="text"
-                          className="form-control"
-                          value={value}
-                          onChange={onChange}
-                          style={{ marginTop: "10px" }}
-                        />)}
-                        rules={fieldRules.lastName}
+                            <input
+                              type="text"
+                              className="form-control"
+                              value={value}
+                              onChange={onChange}
+                              style={{ marginTop: "10px" }}
+                            />
+                          )}
+                          rules={fieldRules.lastName}
                         />
                       </div>
                       {errors?.lastName ? (
-                    <div style={{color:"red",marginTop:"10px"}}>
-                      {errors?.lastName?.message}
-                    </div>
-                  ) : null}
+                        <div style={{ color: "red", marginTop: "10px" }}>
+                          {errors?.lastName?.message}
+                        </div>
+                      ) : null}
                     </div>
 
                     <div className="col-md-6">
@@ -230,22 +240,22 @@ console.log(id);
                           control={control}
                           name="displayName"
                           render={({ field: { onChange, value } }) => (
-                        <input
-                          type="text"
-                          className="form-control mb-0"
-                          
-                          style={{ marginTop: "10px" }}
-                          value={value}
-                          onChange={onChange}
-                        />)}
-                        rules={fieldRules.displayName}
+                            <input
+                              type="text"
+                              className="form-control mb-0"
+                              style={{ marginTop: "10px" }}
+                              value={value}
+                              onChange={onChange}
+                            />
+                          )}
+                          rules={fieldRules.displayName}
                         />
                       </div>
                       {errors?.displayName ? (
-                    <div style={{color:"red",marginTop:"10px"}}>
-                      {errors?.displayName?.message}
-                    </div>
-                  ) : null}
+                        <div style={{ color: "red", marginTop: "10px" }}>
+                          {errors?.displayName?.message}
+                        </div>
+                      ) : null}
                     </div>
                   </div>
 
@@ -257,8 +267,8 @@ console.log(id);
                       lineHeight: "26px",
                     }}
                   >
-                    This will be how your name will be displayed in the account
-                    section and in reviews
+                    This will be how your name will be displayed in the account section and in
+                    reviews
                   </p>
 
                   <div className="form-group mb-0">
@@ -275,27 +285,25 @@ console.log(id);
                       </ab>
                     </label>
                     <Controller
-                          control={control}
-                          name="email"
-                          render={({ field: { onChange, value } }) => (
-                    <input
-                      type="email"
-                      className="form-control "
-                     
-                      style={{ marginTop: "10px" }}
-                      value={value}
-                      onChange={onChange}
-                    />)}
-                    rules={fieldRules.email}
+                      control={control}
+                      name="email"
+                      render={({ field: { onChange, value } }) => (
+                        <input
+                          type="email"
+                          className="form-control "
+                          style={{ marginTop: "10px" }}
+                          value={value}
+                          onChange={onChange}
+                        />
+                      )}
+                      rules={fieldRules.email}
                     />
-                     {errors?.email ? (
-                    <div style={{color:"red",marginTop:"10px"}}>
-                      {errors?.email?.message}
-                    </div>
-                  ) : null}
+                    {errors?.email ? (
+                      <div style={{ color: "red", marginTop: "10px" }}>
+                        {errors?.email?.message}
+                      </div>
+                    ) : null}
                   </div>
-
-                 
 
                   <div
                     className="container"
@@ -324,4 +332,4 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withApollo( { ssr: typeof window === 'undefined' } )( accountdetails ) 
+export default withApollo({ ssr: typeof window === "undefined" })(accountdetails);
