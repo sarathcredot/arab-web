@@ -356,6 +356,7 @@ function Orders(props) {
 
                     {
                       item?.shippingStatus !== "DELIVERED" &&
+                      item?.shippingStatus !== "SHIPPED" &&
                       item?.shippingStatus !== "CANCELED" ? (
                         <td className="action">
                           <button
