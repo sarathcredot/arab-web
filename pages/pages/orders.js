@@ -349,7 +349,9 @@ function Orders(props) {
                       <div className="price-box">
                         <>
                           {/* <span className="old-price">{'OMR ' + item.price[ 1 ].toFixed( 2 ) }</span> */}
-                          <span className="product-price">{"OMR " + item.sellingPrice}</span>
+                          <span className="product-price">
+                            {"OMR " + item.sellingPrice + item?.shippingCharge}
+                          </span>
                         </>
                       </div>
                     </td>
