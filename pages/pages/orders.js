@@ -72,14 +72,13 @@ const CANCEL_ORDER = gql`
   }
 `;
 
-
 const DOWNLOAD_INVOICE = gql`
-mutation GetUserIvoiceSignedUrl($input: GetUserIvoiceUrlInput!) {
-  getUserIvoiceSignedUrl(input: $input) {
-    url
+  mutation GetUserIvoiceSignedUrl($input: GetUserIvoiceUrlInput!) {
+    getUserIvoiceSignedUrl(input: $input) {
+      url
+    }
   }
-}`
-
+`;
 
 function Orders(props) {
   const { wishlist, addToCart, removeFromWishlist, showQuickView } = props;
@@ -129,10 +128,11 @@ function Orders(props) {
         size: null,
       },
     },
+    fetchPolicy: "network-only",
   });
 
   const [cancelUserOrderProduct] = useMutation(CANCEL_ORDER);
-  const [downloadInvoice] = useMutation(DOWNLOAD_INVOICE)
+  const [downloadInvoice] = useMutation(DOWNLOAD_INVOICE);
   const { data, loading, error, refetch } = useQuery(GET_ORDERS, {
     variables: { input: { page: null, size: null } },
   });
@@ -158,26 +158,23 @@ function Orders(props) {
       });
       console.log(response.message);
       refetch();
-      toast.success(
-        <div style={{ padding: "10px" }}>Your order has been canceled.</div>
-      );
+      toast.success(<div style={{ padding: "10px" }}>Your order has been canceled.</div>);
     } catch (error) {
       console.log(error);
     }
   };
-
 
   const handleDownload = async (_id) => {
     try {
       const invoice = await downloadInvoice({
         variables: {
           input: {
-            _id
-          }
-        }
-      })
+            _id,
+          },
+        },
+      });
 
-      const url = invoice.data.getUserIvoiceSignedUrl.url
+      const url = invoice.data.getUserIvoiceSignedUrl.url;
       // console.log("invoice", url);
       // const link = document.createElement('a');
       // link.href = url;
@@ -185,12 +182,11 @@ function Orders(props) {
       // document.body.appendChild(link);
       // link.click();
       // document.body.removeChild(link);
-      window.open(url, '_blank');
+      window.open(url, "_blank");
     } catch (error) {
-      toast.error(error.message)
+      toast.error(error.message);
     }
-  }
-
+  };
 
   return (
     <main className="main">
@@ -344,9 +340,7 @@ function Orders(props) {
                       </h5>
                     </td>
                     <td style={{ color: "black" }}>{item.orderId}</td>
-                    <td style={{ color: "black" }}>
-                      {dayjs(item.orderDate).format("YYYY/MM/DD")}
-                    </td>
+                    <td style={{ color: "black" }}>{dayjs(item.orderDate).format("YYYY/MM/DD")}</td>
                     <td style={{ color: getStatusColor(item?.shippingStatus) }}>
                       {item?.shippingStatus}
                     </td>
@@ -355,40 +349,40 @@ function Orders(props) {
                       <div className="price-box">
                         <>
                           {/* <span className="old-price">{'OMR ' + item.price[ 1 ].toFixed( 2 ) }</span> */}
-                          <span className="product-price">
-                            {"OMR " + item.sellingPrice}
-                          </span>
+                          <span className="product-price">{"OMR " + item.sellingPrice}</span>
                         </>
                       </div>
                     </td>
 
-                    {item?.shippingStatus !== "COMPLETED" &&
-                    item?.shippingStatus !== "CANCELED" ?(
-                      <td className="action">
-                        <button
-                          className="btn btn-quickview mt-1 mt-md-0"
-                          title="Quick View"
-                          style={{ border: "1px solid" }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            orderCancel(item._id);
-                          }}
-                        >
-                          Cancel
-                        </button>
-                      </td>
-                    ) :
-                    <td className="action">
-                    <button
-                        className="btn btn-quickview mt-1 mt-md-0"
-                        title="Quick View"
-                        style={{ border: "1px solid", display: "none" }}
-                        disabled
-                    >
-                        Cancel
-                    </button>
-                </td>
-                    
+                    {
+                      item?.shippingStatus !== "DELIVERED" &&
+                      item?.shippingStatus !== "CANCELED" ? (
+                        <td className="action">
+                          <button
+                            className="btn btn-quickview mt-1 mt-md-0"
+                            title="Quick View"
+                            style={{ border: "1px solid" }}
+                            onClick={(e) => {
+                              e.preventDefault();
+                              orderCancel(item._id);
+                            }}
+                          >
+                            Cancel
+                          </button>
+                        </td>
+                      ) : (
+                        <td className="action">
+                          <button
+                            className="btn btn-quickview mt-1 mt-md-0"
+                            title="Quick View"
+                            style={{ border: "1px solid", display: "none" }}
+                            disabled
+                          >
+                            Cancel
+                          </button>
+                        </td>
+                      )
+
                       // <>
                       //   <td>
                       //     <a
@@ -403,11 +397,8 @@ function Orders(props) {
                       // </>
                     }
 
-
-
-                    {item?.invoice &&
-                
-                     <td className="action">
+                    {item?.invoice && (
+                      <td className="action">
                         <button
                           className="btn btn-dark btn-add-cart product-type-simple btn-shop"
                           title="Quick View"
@@ -420,7 +411,7 @@ function Orders(props) {
                           Download Invoice
                         </button>
                       </td>
-                          }
+                    )}
                   </tr>
                 ))}
               </tbody>

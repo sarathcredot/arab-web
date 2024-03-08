@@ -6,6 +6,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 //Import Custom Component
 import OwlCarousel from '../../../features/owl-carousel';
 
+
 //Import Utils
 import { productSingleSlider, prodThumbSlider } from '../../../../utils/data/slider';
 
