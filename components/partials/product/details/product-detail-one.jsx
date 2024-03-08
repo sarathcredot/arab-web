@@ -584,7 +584,7 @@ function ProductDetailOne(props) {
                   }}
                 >
                   {" "}
-                  {product?.offerPrice?.toFixed(2)}
+                  {product?.sellingPrice?.toFixed(2)}
                 </span>
                 <span
                   className="old-price"
@@ -891,7 +891,8 @@ function ProductDetailOne(props) {
                           (value) =>
                             value.attributeName.toLowerCase() !==
                             "size" &&
-                            value.attributeName.toLowerCase() !== "color"
+                            value.attributeName.toLowerCase() !== "color" &&
+                            value.attributeName.toLowerCase() !== "colour" 
                         )
                         .map((item) => item.attributeName.toLowerCase())
                     )
