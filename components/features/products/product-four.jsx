@@ -14,21 +14,21 @@ import ProductCountdown from "../product-countdown";
 
 function ProductFour(props) {
   const router = useRouter();
-  console.log("props",props);
+  console.log("props", props);
   const { adClass = "", link = "default", product } = props;
 
   function isSale() {
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +
-          (
-            (100 * (product.price[1] - product.price[0])) /
-            product.price[1]
-          ).toFixed(0) +
-          "%"
+      (
+        (100 * (product.price[1] - product.price[0])) /
+        product.price[1]
+      ).toFixed(0) +
+      "%"
       : product.variants.find((variant) => variant.sale_price)
-      ? "Sale"
-      : false;
+        ? "Sale"
+        : false;
   }
 
   function isInWishlist() {
@@ -72,9 +72,9 @@ function ProductFour(props) {
     >
       {/* <figure> */}
       <ALink href={`product/default/${product?._id}`}>
-        <span style={{ display: "flex", justifyContent: "center",maxHeight:"383px" }}>
+        <span style={{ display: "flex", justifyContent: "center", maxHeight: "383px" }}>
           {/* <img src={"images/iphone.svg"} style={{ marginTop: "74px" }} /> */}
-          <img src={product?.images[0]?.fileURL} style={{ marginTop: "74px",objectFit:"contain" }} />
+          <img src={product?.images[0]?.fileURL} style={{ marginTop: "74px", objectFit: "contain" }} />
 
         </span>
         {/* <LazyLoadImage
@@ -110,26 +110,26 @@ function ProductFour(props) {
         <div className="category-wrap">
           <div className="category-list">
             {/* {product */}
-              {/* ? product.map((item, index) => ( */}
-                  <React.Fragment key={product._id }>
-                    <ALink
-                      href={{
-                        pathname: `product/default/${product?._id}`,
-                        // query: { product._id },
-                      }}
-                      style={{
-                        color: "rgba(227, 6, 19, 1)",
-                        fontSize: "12px",
-                        fontWeight: "700",
-                        justifyContent: "center",
-                      }}
-                    >
-                      {product?.categoryNamePath}
-                    </ALink>
-                    {/* {index < product.categories.length - 1 ? ", " : ""} */}
-                  </React.Fragment>
-                {/* )) */}
-               {/* : ""} */}
+            {/* ? product.map((item, index) => ( */}
+            <React.Fragment key={product._id}>
+              <ALink
+                href={{
+                  pathname: `product/default/${product?._id}`,
+                  // query: { product._id },
+                }}
+                style={{
+                  color: "rgba(227, 6, 19, 1)",
+                  fontSize: "12px",
+                  fontWeight: "700",
+                  justifyContent: "center",
+                }}
+              >
+                {product?.categoryNamePath}
+              </ALink>
+              {/* {index < product.categories.length - 1 ? ", " : ""} */}
+            </React.Fragment>
+            {/* )) */}
+            {/* : ""} */}
           </div>
         </div>
 
@@ -151,12 +151,12 @@ function ProductFour(props) {
           </div>
         </div> */}
 
-<div className="price-box">
-          <span style={{fontFamily:"Plus Jakarta Sans"}}>OMR</span>
+        <div className="price-box">
+          <span style={{ fontFamily: "Plus Jakarta Sans" }}>OMR</span>
           <span
             className="product-price"
             style={{
-              
+
               fontWeight: "800px",
               fontSize: "16px",
               lineHeight: "15px",
@@ -167,7 +167,7 @@ function ProductFour(props) {
           </span>
           <span
             className="old-price"
-            style={{ marginLeft: "25px", color: "#777777",fontWeight:"600" }}
+            style={{ marginLeft: "25px", color: "#777777", fontWeight: "600" }}
           >
             {+product?.mrp?.toFixed(2)}
           </span>
