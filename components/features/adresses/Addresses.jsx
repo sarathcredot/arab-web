@@ -42,7 +42,6 @@ function Addresses() {
         defaultValues: {
           firstName: "",
           lastName: "",
-         
           email:"",
           mobileNumber:"",
           pincode:"",

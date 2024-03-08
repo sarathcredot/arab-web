@@ -51,6 +51,8 @@ function CartMenu(props) {
   const [cartItems, setCartItems] = useState();
   const router = useRouter();
 
+  const isLocalCart = localStorage.getItem("cart");
+
   useEffect(() => {
     router.events.on("routeChangeStart", cartClose);
 
@@ -58,6 +60,8 @@ function CartMenu(props) {
       router.events.off("routeChangeStart", cartClose);
     };
   }, []);
+
+
 
   function toggleCart(e) {
     e.preventDefault();
@@ -85,7 +89,7 @@ function CartMenu(props) {
   // }
 
   const [removeFromCart] = useMutation(REMOVE_CART);
-  const token = localStorage.getItem("arabtoken")
+  const token = localStorage.getItem("arabtoken");
   const removeCart = async (id) => {
     try {
       // props.removeFromCart(item);
@@ -107,30 +111,37 @@ function CartMenu(props) {
     }
   };
 
- 
+
   const {
     data: cartData,
     loading: cartLoading,
     error: cartError,
     refetch: cartRefetch,
-  } = useQuery(GET_CART );
+  } = useQuery(GET_CART, {
+    skip: !token,
+  });
 
-  
+
 
 
 
   // const added = eventEmmitter.addListener("productAdded",)
- 
+
   useEffect(() => {
-    if (cartError) {
-      console.error("Error fetching cart data:", cartError);
-    } else if (cartData && token) {
-      setCartItems(cartData.getCart.products || []);
+    if (token) {
+      if (cartError) {
+        console.error("Error fetching cart data:", cartError);
+      } else if (cartData) {
+        setCartItems(cartData.getCart.products || []);
+      }
+      cartRefetch();
+    } else {
+      const localCart = JSON.parse(localStorage.getItem("cart"));
+      if (localCart && localCart.length > 0) {
+        setCartItems(localCart);
+      }
     }
-    cartRefetch();
-  }, [cartData, token]);
-  // cartRefetch();
-  console.log(cartItems, "dd");
+  }, [cartData, token, isLocalCart]);
 
   return (
     <div className="dropdown cart-dropdown">
@@ -256,7 +267,7 @@ function CartMenu(props) {
                           removeCart(cart.productId, index);
                         }}
                       >
-                        <AiOutlineClose style={{ fontSize: "10px" }}  />
+                        <AiOutlineClose style={{ fontSize: "10px" }} />
                       </div>
                       {/* <a
                         href="#"

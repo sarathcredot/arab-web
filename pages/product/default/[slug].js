@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from 'react';
-import { useRouter } from 'next/router';
+import React, { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 // import { useQuery } from '@apollo/react-hooks';
 
 // Import Apollo Server and Query
-import withApollo from '../../../server/apollo';
+import withApollo from "../../../server/apollo";
 // import { GET_PRODUCT } from '../../../server/queries';
 
 // Import Custom Component
-import ALink from '../../../components/common/ALink';
-import ProductMediaOne from '../../../components/partials/product/media/product-media-one';
-import ProductDetailOne from '../../../components/partials/product/details/product-detail-one';
-import ProductWidgetContainer from '../../../components/partials/product/widgets/product-widget-container';
-import RelatedProducts from '../../../components/partials/product/widgets/related-products';
-import SingleTabOne from '../../../components/partials/product/tabs/single-tab-one';
+import ALink from "../../../components/common/ALink";
+import ProductMediaOne from "../../../components/partials/product/media/product-media-one";
+import ProductDetailOne from "../../../components/partials/product/details/product-detail-one";
+import ProductWidgetContainer from "../../../components/partials/product/widgets/product-widget-container";
+import RelatedProducts from "../../../components/partials/product/widgets/related-products";
+import SingleTabOne from "../../../components/partials/product/tabs/single-tab-one";
 import { IoMdHome } from "react-icons/io";
-import{gql,useQuery}from"@apollo/client"
+import { gql, useQuery } from "@apollo/client";
 
-
-const GET_PRODUCT = gql `query GetProduct($input: ProductId!) {
+const GET_PRODUCT = gql`
+  query GetProduct($input: ProductId!) {
     getProduct(input: $input) {
       message
       product {
@@ -66,60 +66,63 @@ const GET_PRODUCT = gql `query GetProduct($input: ProductId!) {
         }
       }
     }
-  }`;
+  }
+`;
 
-function ProductDefault () {
-
-
-    if ( !useRouter().query.slug ) return (
-        <div className="loading-overlay">
-            <div className="bounce-loader">
-                <div className="bounce1"></div>
-                <div className="bounce2"></div>
-                <div className="bounce3"></div>
-            </div>
+function ProductDefault() {
+  if (!useRouter().query.slug)
+    return (
+      <div className="loading-overlay">
+        <div className="bounce-loader">
+          <div className="bounce1"></div>
+          <div className="bounce2"></div>
+          <div className="bounce3"></div>
         </div>
+      </div>
     );
 
-    const slug = useRouter().query.slug;
+  const slug = useRouter().query.slug;
 
-    // const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
-    // const product = data && data.product.data;
-    // const related = data && data.product.related;
+  // const { data, loading, error } = useQuery( GET_PRODUCT, { variables: { slug } } );
+  // const product = data && data.product.data;
+  // const related = data && data.product.related;
 
+  const [product, setProduct] = useState();
 
-    const [product,setProduct]=useState()
+  // if ( productError ) {
+  //     return useRouter().push( '/pages/404' );
+  // }
 
-    // if ( productError ) {
-    //     return useRouter().push( '/pages/404' );
-    // }
+  const id = slug;
 
-    const id = slug
-   
+  const {
+    data: productData,
+    loading: productLoading,
+    error: productError,
+  } = useQuery(GET_PRODUCT, { variables: { input: { _id: id.toString() } } });
+  useEffect(() => {
+    if (productData && productData.getProduct) {
+      setProduct(productData.getProduct.product);
+    }
+  }, [productData]);
 
-    const {data:productData, loading:productLoading, error:productError} = useQuery( GET_PRODUCT,{variables: { input:{_id:id.toString() }} })
-    useEffect(() => {
-        if (productData && productData.getProduct) {
-          setProduct(productData.getProduct.product);
-        }
-      }, [productData]);
+  // console.log(product,"productdfghjklvbnm," )
 
-    // console.log(product,"productdfghjklvbnm," )
-
-
-
-
-    return (
-        <main className="main">
-            <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
-                <div className="container">
-                    <ol className="breadcrumb">
-                        <li className="breadcrumb-item"><ALink href="/">
-                            <IoMdHome style={{fontSize:"16px"}}/>
-                            {/* <i className="icon-home"></i> */}
-                            </ALink></li>
-                        <li className="breadcrumb-item"><ALink href="/shop">Shop</ALink></li>
-                    {/*TODO: when add the category is to the api uncomment and 
+  return (
+    <main className="main">
+      <nav aria-label="breadcrumb" className="breadcrumb-nav mb-3">
+        <div className="container">
+          <ol className="breadcrumb">
+            <li className="breadcrumb-item">
+              <ALink href="/">
+                <IoMdHome style={{ fontSize: "16px" }} />
+                {/* <i className="icon-home"></i> */}
+              </ALink>
+            </li>
+            <li className="breadcrumb-item">
+              <ALink href="/shop">Shop</ALink>
+            </li>
+            {/*TODO: when add the category is to the api uncomment and 
                         {/* <li className="breadcrumb-item">
                             {
                                 product && product.categories.map( ( item, index ) => (
@@ -130,33 +133,40 @@ function ProductDefault () {
                                 ) )
                             }
                         </li> */}
-                        <li className="breadcrumb-item active" aria-current="page">
-                        <ALink className="activeitem" href="">{ product && product?.brandName }</ALink>
-                        </li>
-                    </ol>
-                  
-                </div>
-            </nav>
-            <hr style={{height:"1px", color:"#F0F0F0", marginTop:"-10px"}}/>
-            <div className={ `container pt-2 skeleton-body skel-shop-products ${productLoading ? '' : 'loaded'}` }>
-                <div className="product-single-container product-single-default">
-                    <div className="row">
-                        <ProductMediaOne product={ product }   />
+            <li className="breadcrumb-item active" aria-current="page">
+              <ALink className="activeitem" href="">
+                {product && product.categoryNamePath
+                  ? product.categoryNamePath.split(" ").pop()
+                  : ""}
+              </ALink>
+            </li>
+          </ol>
+        </div>
+      </nav>
+      <hr style={{ height: "1px", color: "#F0F0F0", marginTop: "-10px" }} />
+      <div
+        className={`container pt-2 skeleton-body skel-shop-products ${
+          productLoading ? "" : "loaded"
+        }`}
+      >
+        <div className="product-single-container product-single-default">
+          <div className="row">
+            <ProductMediaOne product={product} />
 
-                        <ProductDetailOne
-                            product={ product }
-                            // prev={ product && product }
-                            // next={ product && product }
-                        />
-                    </div>
-                </div>
+            <ProductDetailOne
+              product={product}
+              // prev={ product && product }
+              // next={ product && product }
+            />
+          </div>
+        </div>
 
-                <SingleTabOne product={ product } />
+        <SingleTabOne product={product} />
 
-                <RelatedProducts products={ product } loading={ productLoading } />
-            </div>
-        </main >
-    )
+        <RelatedProducts products={product} loading={productLoading} />
+      </div>
+    </main>
+  );
 }
 
-export default withApollo( { ssr: typeof window === 'undefined' } )( ProductDefault );
+export default withApollo({ ssr: typeof window === "undefined" })(ProductDefault);

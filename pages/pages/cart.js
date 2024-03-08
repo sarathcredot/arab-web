@@ -11,108 +11,132 @@ import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 // import {useQuery} from "@apollo/react-hooks"
 
 import withApollo from "../../server/apollo";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 
 const GET_CART = gql`
- query GetCart {
-  getCart {
-    products {
-      _id
-      productId
-      quantity
-      name
-      shortDescription
-      stock
-      color
-      size
-      price
-      image
-      sellingPrice
-      mrp
+  query GetCart {
+    getCart {
+      products {
+        _id
+        productId
+        quantity
+        name
+        shortDescription
+        stock
+        color
+        size
+        price
+        image
+        sellingPrice
+        mrp
+      }
+      grandTotal
+      subTotal
+      deliveryCharge
     }
-    grandTotal
-    subTotal
-    deliveryCharge
   }
-}
 `;
 
-
-
-const PUT_CART=gql `mutation UpdateCartQuantity($input: updateCartQuantityInput!) {
+const PUT_CART = gql`
+  mutation UpdateCartQuantity($input: updateCartQuantityInput!) {
     updateCartQuantity(input: $input) {
       message
     }
-  }`;
+  }
+`;
 
-const REMOVE_CART=gql `mutation RemoveFromCart($input: removeFromCartInput!) {
+const REMOVE_CART = gql`
+  mutation RemoveFromCart($input: removeFromCartInput!) {
     removeFromCart(input: $input) {
       message
     }
-  }`;
+  }
+`;
 
 function Cart(props) {
-  const [cartList, setCartList] = useState();
-    const [updateCartQuantity]=useMutation(PUT_CART);
-    const [removeFromCart]=useMutation(REMOVE_CART);
-    const token =localStorage.getItem("arabtoken")
+  const [cartList, setCartList] = useState([]);
+  const [cartCharges, setCartCharges] = useState({ grandTotal: 0, subTotal: 0, deliveryCharge: 0 });
+  const [updateCartQuantity] = useMutation(PUT_CART);
+  const [removeFromCart] = useMutation(REMOVE_CART);
+  const token = localStorage.getItem("arabtoken");
   const {
     data: cartData,
     loading: cartLoading,
     error: cartError,
-    refetch: cartRefetch
-  } = useQuery(GET_CART,{skip:!token});
+    refetch: cartRefetch,
+  } = useQuery(GET_CART, { skip: !token });
 
   useEffect(() => {
-    if (cartError ) {
-      console.error("Error fetching cart data:", cartError);
-    } else if (cartData && token) {
-      setCartList(cartData.getCart.products || []);
+    if (token) {
+      if (cartError) {
+        console.error("Error fetching cart data:", cartError);
+      } else if (cartData) {
+        setCartList(cartData.getCart.products || []);
+        setCartCharges({
+          grandTotal: cartData.getCart.grandTotal,
+          subTotal: cartData.getCart.subTotal,
+          deliveryCharge: cartData.getCart.deliveryCharge,
+        });
+      }
+      cartRefetch();
+    } else {
+      const localCart = JSON.parse(localStorage.getItem("cart"));
+      if (localCart && localCart.length > 0) {
+        setCartList(localCart);
+        const subTotal = localCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
+        setCartCharges({
+          ...cartCharges,
+          subTotal: subTotal,
+        });
+      }
     }
-    cartRefetch()
   }, [cartData]);
-  
-  const removeCart= async(id) => {
+
+  const removeCart = async (id) => {
     try {
-         // props.removeFromCart(item);
-    const response= await removeFromCart({variables:{input:{
-        productId: id,
-        
-    }}})
+      // props.removeFromCart(item);
+      const response = await removeFromCart({
+        variables: {
+          input: {
+            productId: id,
+          },
+        },
+      });
 
- cartRefetch()
- 
- toast.success("successfully removed product")
- 
-    console.log(response)
+      cartRefetch();
+
+      toast.success("successfully removed product");
+
+      console.log(response);
     } catch (error) {
-        console.log(error)
+      console.log(error);
     }
-  }
+  };
 
-  const  onChangeQty= async (id, qty)=> {
+  const onChangeQty = async (id, qty) => {
     // qty.preventDefault();
-try {
-    
-    console.log(id,qty);
-    const response= await updateCartQuantity({variables:{input:{
-        productId: id,
-        quantity: qty
-    }}})
-    console.log(response)
- if (response){
-    return cartRefetch()
- }
-    console.log(response)
-} catch (error) {
-    console.log(error)
-}
+    try {
+      console.log(id, qty);
+      const response = await updateCartQuantity({
+        variables: {
+          input: {
+            productId: id,
+            quantity: qty,
+          },
+        },
+      });
+      console.log(response);
+      if (response) {
+        return cartRefetch();
+      }
+      console.log(response);
+    } catch (error) {
+      console.log(error);
+    }
     // setCartList( cartList.map( ( item, index ) => {
     //     return index === id ? { ...item, qty: qty } : item
     // } ) );
-
-
-  }
+  };
 
   function updateCart() {
     props.updateCart(cartList);
@@ -200,10 +224,7 @@ try {
                               href={`/product/default/${item.productId}`}
                               className="product-image"
                             >
-                              <img
-                                src={item?.image}
-                                alt="product"
-                              />
+                              <img src={item?.image} alt="product" />
                             </ALink>
                             <div
                               title="Remove Product"
@@ -218,8 +239,7 @@ try {
                                 right: "-5px",
                                 borderRadius: "50%",
                                 // background: "white",
-                                filter:
-                                  "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))",
+                                filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))",
                               }}
                               className="hoverinto"
                               onClick={(e) => {
@@ -234,9 +254,7 @@ try {
                         </td>
                         <td className="product-col">
                           <h5 className="product-title">
-                            <ALink href={`/product/default/${item?.productId}`}>
-                              {item.name}
-                            </ALink>
+                            <ALink href={`/product/default/${item?.productId}`}>{item.name}</ALink>
                           </h5>
                         </td>
                         <td>OMR {item.price.toFixed(2)}</td>
@@ -249,10 +267,7 @@ try {
                         </td>
                         <td className="text-right">
                           <span className="subtotal-price">
-                            OMR{" "}
-                            {(
-                              parseInt(item.price) * parseInt(item.quantity)
-                            ).toFixed(2)}
+                            OMR {(parseInt(item.price) * parseInt(item.quantity)).toFixed(2)}
                           </span>
                         </td>
                       </tr>
@@ -307,22 +322,17 @@ try {
 
                 <table className="table table-totals">
                   <tbody>
-
-                  <tr>
-                      <td>Shipping Charge</td>
-                      <td style={{ color: "black" }}>
-                        OMR {cartData?.getCart?.deliveryCharge}
-                      </td>
-                      
-                    </tr>
+                    {token && (
+                      <tr>
+                        <td>Shipping Charge</td>
+                        <td style={{ color: "black" }}>OMR {cartCharges.deliveryCharge}</td>
+                      </tr>
+                    )}
                     <tr>
                       <td>Subtotal</td>
-                      <td style={{ color: "black" }}>
-                        OMR {cartData?.getCart.subTotal}
-                      </td>
-                      
+                      <td style={{ color: "black" }}>OMR {cartCharges.subTotal}</td>
                     </tr>
-                    
+
                     {/* 
                                             <tr>
                                                 <td colSpan="2" className="text-left">
@@ -385,10 +395,12 @@ try {
                   </tbody>
 
                   <tfoot>
-                    <tr>
-                      <td>Total</td>
-                      <td>OMR {cartData?.getCart?.grandTotal}</td>
-                    </tr>
+                    {token && (
+                      <tr>
+                        <td>Total</td>
+                        <td>OMR {cartCharges.grandTotal}</td>
+                      </tr>
+                    )}
                   </tfoot>
                 </table>
 
@@ -399,7 +411,7 @@ try {
                   </ALink>
                 </div>
               </div>
-            </div> 
+            </div>
           </div>
         )}
       </div>

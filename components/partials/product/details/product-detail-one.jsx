@@ -302,7 +302,7 @@ function ProductDetailOne(props) {
       let priceToggle = document.querySelector(`${parent} .price-toggle`);
       priceToggle &&
         priceToggle.classList.contains("collapsed") &&
-        priceToggle.click();
+        priceToggle.cccccc();
     }
   }, [product]);
 
@@ -397,13 +397,36 @@ function ProductDetailOne(props) {
         if (productIndex > -1) {
           localCart[productIndex].quantity += qty;
         } else {
-          localCart.push({ productId: product._id, quantity: qty });
+          localCart.push({
+            productId: product._id, quantity: qty,
+            name: product.productName,
+            shortDescription: product.shortDescription,
+            stock: product.stock,
+            color: selectedAttributes.color,
+            size: selectedAttributes.size,
+            price: product.price,
+            image: product.images[0] && product.images[0].fileURL,
+            sellingPrice: product.offerPrice,
+            mrp: product.price,
+          });
         }
         localStorage.setItem("cart", JSON.stringify(localCart));
       } else {
-        localStorage.setItem("cart", JSON.stringify([{ productId: product._id, quantity: qty }]));
+        localStorage.setItem("cart", JSON.stringify([{
+          productId: product._id, quantity: qty,
+          name: product.productName,
+          shortDescription: product.shortDescription,
+          stock: product.stock,
+          color: selectedAttributes.color,
+          size: selectedAttributes.size,
+          price: product.price,
+          image: product.images[0] && product.images[0].fileURL,
+          sellingPrice: product.offerPrice,
+          mrp: product.price,
+        }]));
       }
     }
+    return toast(<AddToCartPopup product={{ product }} />);
   };
 
   function changeQty(value) {
