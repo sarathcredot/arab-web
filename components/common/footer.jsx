@@ -19,7 +19,7 @@ const GET_ALL_CATEGORY = gql`
         isLeaf
         description
       }
-    }
+    } 
   }
 `;
 

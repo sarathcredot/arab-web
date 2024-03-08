@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import ElectronicCollection from "../../components/partials/home/electronic-collection";
 import GiftCollection from "../../components/partials/home/gift-collection";
 import GardenCollection from "../../components/partials/home/garden-collection";
@@ -78,12 +78,31 @@ export const CMS = gql`
     }
   }
 `;
+
+export const CMS_ONE = gql`
+  query getCmsRecord($input: cmsRecordFilter!) {
+    getCmsRecord(input: $input) {
+      record {
+        _id
+        images {
+          fileType
+          fileURL
+          originalName
+        }
+        sectionName
+        pageName
+      }
+    }
+  }
+`;
+
 function offers() {
   // const { data, loading, error } = useQuery(GET_HOME_DATA, {
   //   variables: { productsCount: 15 },
   // });
   const { data, loading, error } = useQuery(GET_PRODUCTS);
   const bestSelling = data && data?.getProducts?.records;
+  const [cmsOfferData, setCmsOfferData] = useState({});
   // const electronic = data && data?.electronic?.data;
   // const giftAndGadgets = data && data?.giftAndGadgets?.data;
   // const latest = data && data?.specialProducts?.latest;
@@ -94,66 +113,64 @@ function offers() {
   // }
   // console.log(bestSelling)
 
- 
+  const { data: cmsOfferDataSection1 } = useQuery(CMS_ONE, {
+    variables: { input: { pageName: "Offer", sectionName: "SECTION-1" } },
+  });
+
   const { data: cmsData } = useQuery(CMS);
-  console.log(cmsData)
+  console.log(cmsData);
 
   const filteredImages = cmsData?.getAllCmsRecords?.records.find(
-    record => record.pageName === 'Offer' && record.sectionName === 'SECTION-3'
+    (record) => record.pageName === "Offer" && record.sectionName === "SECTION-3"
   );
 
   if (filteredImages?.length === 0) {
-    return null; 
+    return null;
   }
 
-  
   const firstImage = filteredImages?.images[0];
 
+  console.log(filteredImages);
 
-  console.log(filteredImages)
+  useEffect(() => {
+    if (cmsOfferDataSection1) {
+      setCmsOfferData(cmsOfferDataSection1?.getCmsRecord?.record);
+    }
+  }, [cmsOfferDataSection1]);
 
-  
+  console.log(cmsOfferData);
+
   return (
     <>
       <main className="home" style={{ marginTop: "-20" }}>
-      <div className="header-bottom d-flex">
+        <div className="header-bottom d-flex">
           <div className="container">
             <MainMenu />
           </div>
         </div>
         <div className="bg-gray">
-          <HomeSection data={cmsData}  offer={true}/>
-          
+          <HomeSection data={cmsOfferData} offer={false} />
         </div>
 
         {/* <div className={`container skeleton-body skel-shop-products `}>
           {/* <InfoSection /> free shilping and return section*/}
 
-          {/* <DealSection products={bestSelling} /> */}
-          {/* <BannerSection data={cmsData} /> */}
+        {/* <DealSection products={bestSelling} /> */}
+        {/* <BannerSection data={cmsData} /> */}
 
-          {/* <TopBrand /> */}
-        {/* </div> */} 
+        {/* <TopBrand /> */}
+        {/* </div> */}
 
         {/* <CategoryFilterSection />  */}
-        <div
-          className={`container skeleton-body skel-shop-products pt-5 ${
-            false ? "" : "loaded"
-          }`}
-        >
+        <div className={`container skeleton-body skel-shop-products pt-5 ${false ? "" : "loaded"}`}>
           {/* <BannerSection  data={data}/> */}
-         
 
-          <DealSection 
+          <DealSection
           // products={bestSelling
           // }
+          />
 
-
-          
-           />
-
-
-<div className="row pt-4">
+          <div className="row pt-4">
             <div className="col-md-12">
               <img
                 className="home_banner3"
@@ -165,7 +182,8 @@ function offers() {
                   position: "relative",
                 }}
               />
-              <div className="app-downloadbtn"
+              <div
+                className="app-downloadbtn"
                 // style={{
                 //   position: "absolute",
                 //   top: 0,
@@ -181,15 +199,17 @@ function offers() {
                 //   justifyContent:"center"
                 // }}
               >
-                <div><img src="/images/bannerlogo.svg"/></div>
-                <div style={{display:"flex",gap:"24px"}}>
+                <div>
+                  <img src="/images/bannerlogo.svg" />
+                </div>
+                <div style={{ display: "flex", gap: "24px" }}>
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
                     width="139"
                     height="42"
                     viewBox="0 0 139 42"
                     fill="none"
-                    style={{cursor:"pointer"}}
+                    style={{ cursor: "pointer" }}
                   >
                     <path
                       d="M113.17 0.898521H9.79992C9.42198 0.898521 9.0513 0.898522 8.67578 0.900945C8.36082 0.903367 8.04829 0.908212 7.73092 0.913057C7.04044 0.920325 6.35239 0.980893 5.6716 1.09476C4.99081 1.21105 4.33425 1.42668 3.71888 1.73921C3.10351 2.05416 2.54386 2.4636 2.05447 2.95057C1.56508 3.43754 1.15564 3.99961 0.843107 4.6174C0.530576 5.23278 0.314955 5.89176 0.201087 6.57254C0.0872185 7.25333 0.0242253 7.93896 0.0169572 8.62944C0.00726625 8.94439 0.00484545 9.25935 0 9.57672V33.3267C0.00484545 33.6465 0.00726625 33.9542 0.0169572 34.274C0.0242253 34.962 0.0872185 35.6501 0.201087 36.3309C0.314955 37.0117 0.530576 37.6731 0.843107 38.2884C1.15564 38.9014 1.56266 39.4635 2.05447 39.9456C2.54144 40.435 3.10109 40.8444 3.71646 41.1569C4.33183 41.4695 4.99081 41.6875 5.66918 41.8062C6.34996 41.9177 7.03801 41.9782 7.72849 41.9879C8.04587 41.9952 8.3584 41.9976 8.67336 41.9976C9.04888 42.0001 9.42198 42.0001 9.7975 42.0001H128.976C129.344 42.0001 129.72 42.0001 130.091 41.9976C130.403 41.9976 130.725 41.9928 131.038 41.9855C131.726 41.9783 132.414 41.9177 133.092 41.8038C133.776 41.6875 134.435 41.467 135.052 41.1545C135.668 40.842 136.23 40.4325 136.714 39.9432C137.204 39.4586 137.613 38.8965 137.928 38.286C138.238 37.6706 138.454 37.0092 138.565 36.3285C138.679 35.6477 138.742 34.962 138.757 34.2716C138.762 33.9518 138.762 33.6441 138.762 33.3243C138.769 32.9512 138.769 32.5805 138.769 32.2001V10.696C138.769 10.3205 138.769 9.9474 138.762 9.5743C138.762 9.25935 138.762 8.94439 138.757 8.62701C138.745 7.93896 138.682 7.25091 138.565 6.57012C138.454 5.88934 138.238 5.23035 137.928 4.61498C137.293 3.37939 136.288 2.37154 135.052 1.73678C134.435 1.42425 133.773 1.20863 133.092 1.09234C132.412 0.978472 131.726 0.917904 131.038 0.910636C130.725 0.90579 130.403 0.898521 130.091 0.896098C129.722 0.893675 129.347 0.893677 128.976 0.893677H113.17V0.898521Z"
@@ -220,7 +240,7 @@ function offers() {
                     height="42"
                     viewBox="0 0 139 42"
                     fill="none"
-                    style={{cursor:"pointer"}}
+                    style={{ cursor: "pointer" }}
                   >
                     <path
                       fill-rule="evenodd"
@@ -319,10 +339,7 @@ function offers() {
                       stroke="#010202"
                       stroke-width="0.2"
                     />
-                    <path
-                      d="M109.467 18.5314H107.55V31.3767H109.467V18.5314Z"
-                      fill="black"
-                    />
+                    <path d="M109.467 18.5314H107.55V31.3767H109.467V18.5314Z" fill="black" />
                     <path
                       fill-rule="evenodd"
                       clip-rule="evenodd"
@@ -454,7 +471,7 @@ function offers() {
               style={{ width: "100%", height: "100%", objectFit: "cover" }}
             />
           </div>
-           
+
           {/* <div className="container" style={{height:"20000px"}}>
             {/* <ElectronicCollection products={electronic} />
             <GiftCollection products={giftAndGadgets} />
@@ -471,17 +488,13 @@ function offers() {
               topRated={topRated}
             /> */}
 
-
-            
           {/* </div> */}
         </div>
         <div className="container">
-        <RecentCollection bestSelling={bestSelling} />
+          <RecentCollection bestSelling={bestSelling} />
         </div>
-        
-        <Footerbanner data={cmsData}/>
-      
-       
+
+        <Footerbanner data={cmsData} />
       </main>
 
       {/* <NewsletterModal /> */}
