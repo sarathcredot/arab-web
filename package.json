@@ -3,9 +3,9 @@
   "version": "2.1.0",
   "private": true,
   "scripts": {
-    "dev": "set NODE_OPTIONS=--openssl-legacy-provider && next",
-    "build": "set NODE_OPTIONS=--openssl-legacy-provider && next build & next export",
-    "prod-build": "set NODE_OPTIONS=--openssl-legacy-provider && next build",
+    "dev": "export NODE_OPTIONS=--openssl-legacy-provider && next",
+    "build": "export NODE_OPTIONS=--openssl-legacy-provider && next build & next export",
+    "prod-build": "export NODE_OPTIONS=--openssl-legacy-provider && next build",
     "start": "next start",
     "prod-start": "next start --port 3003"
 
