@@ -20,92 +20,139 @@ import GardenCollection from "../components/partials/home/garden-collection";
 import SelectedCollection from "../components/partials/home/selected-collection";
 import RecentCollection from "../components/partials/home/recent-collection";
 import TopBrand from "../components/partials/home/top-brand";
-import Footerbanner from "../components/partials/home/footerbanner";
-import AppleProducts from "../components/partials/home/apple-products"
-import MainMenu from "../components/common/partials/main-menu"
+import FooterBannerSection from "../components/partials/home/footerbanner";
+import AppleProducts from "../components/partials/home/apple-products";
+import MainMenu from "../components/common/partials/main-menu";
 import { useQuery, gql, useMutation } from "@apollo/react-hooks";
+import { useEffect, useState } from "react";
 
-export const CMS=gql`query GetAllCmsRecords($input: CmsRecordsFilter) {
-  getAllCmsRecords(input: $input) {
-    records {
-      _id
-      images {
-        fileType
-        fileURL
-        originalName
+export const CMS = gql`
+  query getCmsRecord($input: cmsRecordFilter!) {
+    getCmsRecord(input: $input) {
+      record {
+        _id
+        images {
+          fileType
+          fileURL
+          originalName
+        }
+        sectionName
+        pageName
       }
-      sectionName
-      pageName
     }
   }
-}`
+`;
 
 function Home() {
-  const { data, loading, error } = useQuery(CMS,{variables:{input:{pageName:"Home"}}})
-  console.log(data);
-  //   variables: { productsCount: 15 },
-  // });
-  // const bestSelling = data && data?.specialProducts?.bestSelling;
-  // const electronic = data && data?.electronic?.data;
-  // const giftAndGadgets = data && data?.giftAndGadgets?.data;
-  // const latest = data && data?.specialProducts?.latest;
-  // const topRated = data && data?.specialProducts?.topRated;
+  const [sectionOneDatastate, setSectionOneDataState] = useState({});
+  const [sectionTwoDatastate, setSectionTwoDataStae] = useState({});
+  const [sectionThreeDatastate, setSectionThreeDataState] = useState({});
+  const [sectionFourDatastate, setSectionFourDataState] = useState({});
+  const [sectionFiveDatastate, setSectionFiveDataState] = useState({});
 
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
-  
+  const {
+    data: sectionOneData,
+    loading,
+    error,
+  } = useQuery(CMS, {
+    variables: { input: { pageName: "Home", sectionName: "SECTION-1" } },
+  });
+
+  const {
+    data: sectionTwoData,
+    loading: loading2,
+    error: error2,
+  } = useQuery(CMS, {
+    variables: { input: { pageName: "Home", sectionName: "SECTION-2" } },
+  });
+
+  const {
+    data: sectionThreeData,
+    loading: loading3,
+    error: error3,
+  } = useQuery(CMS, {
+    variables: { input: { pageName: "Home", sectionName: "SECTION-3" } },
+  });
+
+  const {
+    data: sectionFourData,
+    loading: loading4,
+    error: error4,
+  } = useQuery(CMS, {
+    variables: { input: { pageName: "Home", sectionName: "SECTION-4" } },
+  });
+
+  const {
+    data: sectionFiveData,
+    loading: loading5,
+    error: error5,
+  } = useQuery(CMS, {
+    variables: { input: { pageName: "Home", sectionName: "SECTION-5" } },
+  });
+
+  useEffect(() => {
+    if (sectionOneData) {
+      setSectionOneDataState(sectionOneData?.getCmsRecord?.record);
+    }
+    if (sectionTwoData) {
+      setSectionTwoDataStae(sectionTwoData?.getCmsRecord?.record);
+    }
+    if (sectionThreeData) {
+      setSectionThreeDataState(sectionThreeData?.getCmsRecord?.record);
+    }
+    if (sectionFourData) {
+      setSectionFourDataState(sectionFourData?.getCmsRecord?.record);
+    }
+    if (sectionFiveData) {
+      setSectionFiveDataState(sectionFiveData?.getCmsRecord?.record);
+    }
+  }, [sectionOneData, sectionTwoData, sectionThreeData, sectionFourData, sectionFiveData]);
 
   return (
     <>
       <main className="home">
-        <div style={{position:"relative"}}>
-
-      <div className="header-bottom d-flex"  
-      style={{zIndex:"99",position:"absolute",width:"100%" ,
-     }}
-      >
-          <div className="container"style={{marginBottom:"-15px"}}>
-            <div >
-
-            <MainMenu />
+        <div style={{ position: "relative" }}>
+          <div
+            className="header-bottom d-flex"
+            style={{ zIndex: "99", position: "absolute", width: "100%" }}
+          >
+            <div className="container" style={{ marginBottom: "-15px" }}>
+              <div>
+                <MainMenu />
+              </div>
             </div>
           </div>
+          <div
+            className="homebannerpadding"
+            // style={{paddingTop:"20px", backgroundColor:"white"}}
+            // className="bg-gray"
+          >
+            {!loading && <HomeSection className="pb-5" data={sectionOneDatastate} />}
+          </div>
         </div>
-        <div className="homebannerpadding"
-        // style={{paddingTop:"20px", backgroundColor:"white"}}
-        // className="bg-gray"
-        >
-          <HomeSection className="pb-5" data={data}/>
-        </div>
+        <div className={`container skeleton-body skel-shop-products pt-5 ${false ? "" : "loaded"}`}>
+          {!loading2 && !loading3 && (
+            <BannerSection
+              sectionTwoData={sectionTwoDatastate}
+              sectionThreeData={sectionThreeDatastate}
+            />
+          )}
 
-        </div>
-        <div
-          className={`container skeleton-body skel-shop-products pt-5 ${
-            false ? "" : "loaded"
-          }`}
-        >
-          <BannerSection  data={data}/>
-
-          <DealSection 
+          <DealSection
           // products={bestSelling
           // }
-           />
+          />
         </div>
-        <TopBrand data={data}/>
+        {!loading4 && <BrandSection sectionFourData={sectionFourDatastate} />}
 
-        <div
-          className={`bg-gray skeleton-body skel-shop-products ${
-            false ? "" : "loaded"
-          }`}
-        >
-          <ElectronicCollection  />
+        <div className={`bg-gray skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
+          <ElectronicCollection />
 
           {/* <RecentCollection bestSelling={bestSelling} /> */}
         </div>
         {/* <CategoryFilterSection /> */}
-  {/* <AppleProducts products={bestSelling}/> */}
-        <Footerbanner data={data}/>
+        {/* <AppleProducts products={bestSelling}/> */}
+        {!loading5 && <FooterBannerSection data={sectionFiveDatastate} />}
       </main>
 
       {/* <NewsletterModal /> */}

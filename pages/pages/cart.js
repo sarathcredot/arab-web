@@ -399,7 +399,7 @@ try {
                   </ALink>
                 </div>
               </div>
-            </div>
+            </div> 
           </div>
         )}
       </div>

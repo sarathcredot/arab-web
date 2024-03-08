@@ -1,4 +1,4 @@
-import React ,{useState,useEffect} from "react";
+import React, { useState, useEffect } from "react";
 import Reveal from "react-awesome-reveal";
 import { Tab, Tabs, TabList, TabPanel } from "react-tabs";
 
@@ -11,11 +11,11 @@ import OwlCarousel from "react-owl-carousel2";
 import { fadeIn } from "../../../utils/data/keyframes";
 import { productSlider } from "../../../utils/data/slider";
 import { useQuery } from "@apollo/react-hooks";
-import { gql, useMutation,useLazyQuery } from "@apollo/client";
-import { MdKeyboardArrowLeft,MdKeyboardArrowRight } from "react-icons/md";
+import { gql, useMutation, useLazyQuery } from "@apollo/client";
+import { MdKeyboardArrowLeft, MdKeyboardArrowRight } from "react-icons/md";
 
 
-export const TOP_BRANDS=gql`query GetAllTopBrandRecords($input: BrandRecordsFilter) {
+export const TOP_BRANDS = gql`query GetAllTopBrandRecords($input: BrandRecordsFilter) {
   getAllTopBrandRecords(input: $input) {
     maxRecords
     message
@@ -29,17 +29,15 @@ export const TOP_BRANDS=gql`query GetAllTopBrandRecords($input: BrandRecordsFilt
       }
     }
   }
-}`
+}`;
 
-function TopBrand(props) {
-  console.log(props);
-  const section4Data = props?.data?.getAllCmsRecords?.records.find(record => record.sectionName === 'SECTION-4');
-  console.log(section4Data);
-  const { data, loading, error } = useQuery(TOP_BRANDS)
+function TopBrand({ sectionFourData }) {
+  console.log(sectionFourData);
+  const { data, loading, error } = useQuery(TOP_BRANDS);
   console.log(data);
   const options = {
     items: 7, // Number of items to show
-   // Space between items
+    // Space between items
     loop: true, // Enable loop
     // autoplay: true, // Autoplay the slider
     autoplayTimeout: 3000,
@@ -48,8 +46,8 @@ function TopBrand(props) {
     responsive: {
       0: {
         items: 4,
-        loop:true ,
-        autoplay:true// Number of items to show on small screens
+        loop: true,
+        autoplay: true// Number of items to show on small screens
       },
       768: {
         items: 5, // Number of items to show on medium screens
@@ -61,41 +59,41 @@ function TopBrand(props) {
     nav: false,
   };
 
-  
+
 
   const [startIndex, setStartIndex] = useState(0);
-  const [brandsPerPage, setBrandsPerPage] = useState(window.innerWidth<700?4:7); 
+  const [brandsPerPage, setBrandsPerPage] = useState(window.innerWidth < 700 ? 4 : 7);
   // const brandsPerPage = 7;
   const totalBrands = data?.getAllTopBrandRecords?.records.length || 0;
-console.log(totalBrands);
+  console.log(totalBrands);
   const handleNext = () => {
     if (startIndex + brandsPerPage >= totalBrands) {
       setStartIndex(0); // If reaching the end, loop back to the beginning
     } else {
       setStartIndex(startIndex + 1);
     }
- 
+
   };
 
   const handlePrev = () => {
-    if(window.innerWidth > 700 ){
-if( totalBrands >7){
+    if (window.innerWidth > 700) {
+      if (totalBrands > 7) {
 
-  if (startIndex === 0) {
-    setStartIndex(totalBrands - brandsPerPage); // If at the beginning, loop to the end
-  } else {
-    setStartIndex(startIndex - 1);
-  }
-}
+        if (startIndex === 0) {
+          setStartIndex(totalBrands - brandsPerPage); // If at the beginning, loop to the end
+        } else {
+          setStartIndex(startIndex - 1);
+        }
+      }
     }
-    else{
+    else {
       if (startIndex === 0) {
         setStartIndex(totalBrands - brandsPerPage); // If at the beginning, loop to the end
       } else {
         setStartIndex(startIndex - 1);
       }
     }
-   
+
   };
 
   useEffect(() => {
@@ -121,13 +119,13 @@ if( totalBrands >7){
     <>
       <div className="container custom-brand-title" >
         <div>
-          <h4 className="mb-4 mt-4"style={{borderBottom:"1px solid #EEE",paddingBottom:"20px"}}>Top Brands</h4>
+          <h4 className="mb-4 mt-4" style={{ borderBottom: "1px solid #EEE", paddingBottom: "20px" }}>Top Brands</h4>
         </div>
-        </div>
-        <div className="mb-5 mt-5 custom-brandouter-container" 
-        // style={{display:"flex",alignItems:"center",padding:"0 60px"}}
-        >
-        <div className="custom-top-prevbutton"onClick={handlePrev}><MdKeyboardArrowLeft style={{color:"black",fontSize:"20px"}}/></div>
+      </div>
+      <div className="mb-5 mt-5 custom-brandouter-container"
+      // style={{display:"flex",alignItems:"center",padding:"0 60px"}}
+      >
+        <div className="custom-top-prevbutton" onClick={handlePrev}><MdKeyboardArrowLeft style={{ color: "black", fontSize: "20px" }} /></div>
         <div className="custom-topbrandcontainer container">
           {/* <OwlCarousel options={options} autoplay> 
            {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
@@ -141,18 +139,18 @@ if( totalBrands >7){
             ))} 
            </OwlCarousel> */}
           {data && data?.getAllTopBrandRecords?.records
-          .slice(startIndex, startIndex + brandsPerPage)
-          .map((brand, index) => (
-            <div key={index} className="item  custom-brand">
-              {brand.logo && (
-                <img
-                  src={brand.logo.fileURL}
-                  alt={`Brand ${startIndex + index + 1}`}
+            .slice(startIndex, startIndex + brandsPerPage)
+            .map((brand, index) => (
+              <div key={index} className="item  custom-brand">
+                {brand.logo && (
+                  <img
+                    src={brand.logo.fileURL}
+                    alt={`Brand ${startIndex + index + 1}`}
                   // style={{ width: "128px", height: "128px" }}
-                />
-              )}
-            </div>
-          ))}
+                  />
+                )}
+              </div>
+            ))}
           {/* {data && data?.getAllTopBrandRecords?.records.map((brand, index) => (
               <div key={index} className=" item mb-4 custom-brand" >
                 {brand.logo && (<img
@@ -164,11 +162,11 @@ if( totalBrands >7){
             ))} */}
         </div>
 
-      {/* </div> */}
-      <div className="custom-top-prevbutton"onClick={handleNext}><MdKeyboardArrowRight style={{color:"black",fontSize:"20px"}}/></div>
+        {/* </div> */}
+        <div className="custom-top-prevbutton" onClick={handleNext}><MdKeyboardArrowRight style={{ color: "black", fontSize: "20px" }} /></div>
       </div>
       <div className="custom-topbrand-img mt-9">
-        <img src={section4Data?.images[0]?.fileURL} />
+        <img src={sectionFourData?.images[0]?.fileURL} />
       </div>
     </>
   );
