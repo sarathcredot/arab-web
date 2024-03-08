@@ -34,7 +34,7 @@ function HomeSection({ offer, data }) {
             return (
               (
                 <div key={imgIndex}>
-                  <img src={item.fileURL} alt="Image" style={{ height: "100%", height: "350px", objectFit: "fill" }} />
+                  <img src={item.fileURL} alt="Image" style={{ height: "100%", height: "550px", objectFit: "fill" }} />
                 </div>
               )
             );
