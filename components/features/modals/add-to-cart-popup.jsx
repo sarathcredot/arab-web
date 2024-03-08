@@ -3,11 +3,13 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Import Custom Component
 import ALink from "../../common/ALink";
+import { useRouter } from "next/router";
 
 function CartPopup(props) {
   const { product } = props;
+  const router = useRouter();
 
-  console.log(product)
+  console.log(product);
 
   return (
     <div className="minipopup-area">
@@ -19,9 +21,8 @@ function CartPopup(props) {
                 alt="product"
                 src={
                   product?.product?.images
-                    ? `${
-                        product?.product?.images[0]?.fileURL
-                      }`
+                    ? `${product?.product?.images[0]?.fileURL
+                    }`
                     : ""
                 }
                 threshold={500}
@@ -79,9 +80,9 @@ function CartPopup(props) {
           <ALink href="/pages/cart" className="btn viewcart">
             View Cart
           </ALink>
-          <ALink href="/pages/checkout" className="btn btn-dark checkout">
+          <div href="/pages/checkout" className="btn btn-dark checkout" onClick={() => router.push("/pages/checkout")}>
             Checkout
-          </ALink>
+          </div>
         </div>
         <button className="mfp-close"></button>
       </div>

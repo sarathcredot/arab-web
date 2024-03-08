@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useRouter } from "next/router";
 import { connect } from "react-redux";
 
 import ALink from "../../components/common/ALink";
@@ -54,6 +55,7 @@ const REMOVE_CART = gql`
 `;
 
 function Cart(props) {
+  const router = useRouter();
   const [cartList, setCartList] = useState([]);
   const [cartCharges, setCartCharges] = useState({ grandTotal: 0, subTotal: 0, deliveryCharge: 0 });
   const [updateCartQuantity] = useMutation(PUT_CART);
@@ -405,10 +407,16 @@ function Cart(props) {
                 </table>
 
                 <div className="checkout-methods">
-                  <ALink href="checkout" className="btn btn-block btn-dark hoverbtn">
+                  <div
+                    href="checkout"
+                    className="btn btn-block btn-dark hoverbtn"
+                    onClick={() => {
+                      router.push("/pages/checkout");
+                    }}
+                  >
                     Proceed to Checkout
                     {/* <i className="fa fa-arrow-right"></i> */}
-                  </ALink>
+                  </div>
                 </div>
               </div>
             </div>

@@ -143,7 +143,10 @@ function Home() {
           // }
           />
         </div>
-        {!loading4 && <BrandSection sectionFourData={sectionFourDatastate} />}
+
+        <div className={`container skeleton-body skel-shop-products pt-5 `}>
+          {!loading4 && <BrandSection sectionFourData={sectionFourDatastate} />}
+        </div>
 
         <div className={`bg-gray skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
           <ElectronicCollection />

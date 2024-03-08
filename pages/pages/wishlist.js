@@ -93,6 +93,7 @@ function Wishlist(props) {
     refetch: wishListRefetch,
   } = useQuery(GET_WISH_LIST, {
     skip: !token,
+    fetchPolicy: "network-only",
   });
 
   useEffect(()=>{

@@ -298,12 +298,13 @@ function CartMenu(props) {
                 >
                   View Cart
                 </ALink>
-                <ALink
+                <div
                   href="/pages/checkout"
                   className="btn btn-dark btn-block text-white hoverbtn"
+                  onClick={() => router.push("/pages/checkout")}
                 >
                   Checkout
-                </ALink>
+                </div>
               </div>
             </>
           ) : (
