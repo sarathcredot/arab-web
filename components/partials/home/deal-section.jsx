@@ -28,7 +28,6 @@ const GET_PRODUCTS=gql `query GetProducts($input: ProductFilters) {
         originalName
         fileType
       }
-      material
       mrp
       offerPrice
       price

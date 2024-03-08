@@ -33,7 +33,6 @@ const GET_PRODUCTS = gql`
           originalName
           fileType
         }
-        material
         mrp
         offerPrice
         price

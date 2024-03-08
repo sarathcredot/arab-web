@@ -31,7 +31,6 @@ const GET_PRODUCT = gql`
         description
         productInfo
         productShortInfo
-        material
         images {
           fileType
           fileURL

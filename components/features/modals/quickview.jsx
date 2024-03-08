@@ -46,7 +46,6 @@ const GET_PRODUCT = gql `query GetProduct($input: ProductId!) {
         description
         productInfo
         productShortInfo
-        material
         images {
           fileType
           fileURL

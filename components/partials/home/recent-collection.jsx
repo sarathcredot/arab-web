@@ -38,7 +38,6 @@ function RecentCollection(props) {
           originalName
           fileType
         }
-        material
         mrp
         offerPrice
         price
