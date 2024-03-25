@@ -76,6 +76,18 @@ function Login({ mutate }) {
     }
 
   }
+
+
+  const BULK_ADD_TO_CART = gql`
+  mutation BulkAddToCart($input: BulkAddToCartInput!) {
+  bulkAddToCart(input: $input) {
+    message
+  }
+}`
+
+  const [BulkAddToCart] = useMutation(BULK_ADD_TO_CART);
+
+
   const handleVerifyOTP = async (event) => {
     event.preventDefault()
     try {
@@ -91,7 +103,24 @@ function Login({ mutate }) {
         localStorage.setItem("arabtoken", response?.data?.userVerifyOtp?.token)
 
         localStorage.setItem("userId", response?.data?.userVerifyOtp?.userId)
-        router.push("/")
+        try {
+          const cartItems = JSON.parse(localStorage.getItem("cart"));
+          if (cartItems.length > 0) {
+            const result = await BulkAddToCart({
+              variables: {
+                "input": {
+                  products: cartItems.map((item) => ({
+                    productId: item.productId,
+                    quantity: item.quantity
+                  }))
+                }
+              }
+            });
+          }
+          localStorage.removeItem("cart");
+        } catch (error) {
+          console.log(error);
+        }
 
         const historyUrl = localStorage.getItem("historyUrl")
         if (historyUrl) {
