@@ -61,6 +61,8 @@ function Cart(props) {
   const [updateCartQuantity] = useMutation(PUT_CART);
   const [removeFromCart] = useMutation(REMOVE_CART);
   const token = localStorage.getItem("arabtoken");
+  const [localCart, setLocalCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+
   const {
     data: cartData,
     loading: cartLoading,
@@ -68,12 +70,14 @@ function Cart(props) {
     refetch: cartRefetch,
   } = useQuery(GET_CART, { skip: !token });
 
+  // For authenticated users
   useEffect(() => {
     if (token) {
       if (cartError) {
         console.error("Error fetching cart data:", cartError);
       } else if (cartData) {
-        setCartList(cartData.getCart.products || []);
+        const cartProducts = cartData.getCart.products || [];
+        setCartList(cartProducts);
         setCartCharges({
           grandTotal: cartData.getCart.grandTotal,
           subTotal: cartData.getCart.subTotal,
@@ -81,68 +85,106 @@ function Cart(props) {
         });
       }
       cartRefetch();
-    } else {
-      const localCart = JSON.parse(localStorage.getItem("cart"));
-      if (localCart && localCart.length > 0) {
-        setCartList(localCart);
-        const subTotal = localCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        setCartCharges({
-          ...cartCharges,
-          subTotal: subTotal,
-        });
-      }
     }
-  }, [cartData]);
+  }, [token, cartData, cartError, cartRefetch]);
+
+
+  useEffect(() => {
+    if (!token && localCart.length > 0) {
+      setCartList(localCart);
+      const subTotal = localCart.reduce((acc, item) => acc + item.sellingPrice * item.quantity, 0);
+      setCartCharges((prevCharges) => ({
+        ...prevCharges,
+        subTotal: subTotal,
+      }));
+    }
+  }, [token, localCart]);
+
+
 
   const removeCart = async (id) => {
     try {
-      // props.removeFromCart(item);
-      const response = await removeFromCart({
-        variables: {
-          input: {
-            productId: id,
+      if (token) {
+
+        const response = await removeFromCart({
+          variables: {
+            input: {
+              productId: id,
+            },
           },
-        },
-      });
+        });
 
-      cartRefetch();
+        cartRefetch();
 
-      toast.success("successfully removed product");
+        toast.success("Successfully removed product");
+      }
 
-      console.log(response);
+      if (!token) {
+        const storedCartItems = localStorage.getItem('cart');
+
+        if (storedCartItems !== null) {
+          const currentCartItems = JSON.parse(storedCartItems);
+          const updatedCartItems = currentCartItems.filter((item) => item.productId !== id);
+
+          localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+
+          const subTotal = updatedCartItems.reduce((acc, item) => acc + item.sellingPrice * item.quantity, 0);
+
+          setCartList(updatedCartItems);
+          setCartCharges((prevCharges) => ({
+            ...prevCharges,
+            subTotal: subTotal,
+          }));
+        }
+      }
     } catch (error) {
       console.log(error);
     }
   };
+
 
   const onChangeQty = async (id, qty) => {
-    // qty.preventDefault();
-    try {
-      console.log(id, qty);
-      const response = await updateCartQuantity({
-        variables: {
-          input: {
-            productId: id,
-            quantity: qty,
+    if (token) {
+      try {
+        const response = await updateCartQuantity({
+          variables: {
+            input: {
+              productId: id,
+              quantity: qty,
+            },
           },
-        },
-      });
-      console.log(response);
-      if (response) {
-        return cartRefetch();
+        });
+
+        if (response) {
+          cartRefetch();
+        }
+      } catch (error) {
+        console.log(error);
       }
-      console.log(response);
-    } catch (error) {
-      console.log(error);
+    } else {
+      const storedCartItems = localStorage.getItem('cart');
+
+      if (storedCartItems !== null) {
+        const currentCartItems = JSON.parse(storedCartItems);
+        const updatedCartItems = currentCartItems.map((item) => {
+          if (item.productId === id) {
+            return { ...item, quantity: qty };
+          } else {
+            return item;
+          }
+        });
+
+        localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+        const subTotal = updatedCartItems.reduce((acc, item) => acc + item.sellingPrice * item.quantity, 0);
+        setCartList(updatedCartItems);
+        setCartCharges((prevCharges) => ({
+          ...prevCharges,
+          subTotal: subTotal,
+        }));
+      }
     }
-    // setCartList( cartList.map( ( item, index ) => {
-    //     return index === id ? { ...item, qty: qty } : item
-    // } ) );
   };
 
-  function updateCart() {
-    props.updateCart(cartList);
-  }
 
   return (
     <main className="main">
@@ -259,7 +301,7 @@ function Cart(props) {
                             <ALink href={`/product/default/${item?.productId}`}>{item.name}</ALink>
                           </h5>
                         </td>
-                        <td>OMR {item.price.toFixed(2)}</td>
+                        <td>OMR {item.sellingPrice.toFixed(2)}</td>
                         <td>
                           <Qty
                             value={item?.quantity}
@@ -269,7 +311,7 @@ function Cart(props) {
                         </td>
                         <td className="text-right">
                           <span className="subtotal-price">
-                            OMR {(parseInt(item.price) * parseInt(item.quantity)).toFixed(2)}
+                            OMR {(parseInt(item.sellingPrice) * parseInt(item.quantity)).toFixed(2)}
                           </span>
                         </td>
                       </tr>
@@ -411,11 +453,14 @@ function Cart(props) {
                     href="checkout"
                     className="btn btn-block btn-dark hoverbtn"
                     onClick={() => {
-                      router.push("/pages/checkout");
+                      if (token) {
+                        router.push("/pages/checkout");
+                      } else {
+                        router.push('/pages/login?origin=cart');
+                      }
                     }}
                   >
                     Proceed to Checkout
-                    {/* <i className="fa fa-arrow-right"></i> */}
                   </div>
                 </div>
               </div>

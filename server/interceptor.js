@@ -18,47 +18,47 @@ export const requestInterceptor = new ApolloLink(
 
 // Response Interceptor
 export const responseInterceptor = new ApolloLink(
-    (operation, forward) => {
-      return new Observable((observer) => {
-        const handleNext = (result) => {
-         
-          console.log('GraphQL Result:', result?.errors);
-          if (result.errors && result.errors.some((error) => error.extensions?.code === "UNAUTHORIZED")) {
-            console.log("Redirecting to login page", result);
-            localStorage.removeItem("arabtoken");
-            window.location.href="/pages/login";
-          } else {
-            observer.next(result);
-          }
-        };
-  
-        const handleComplete = () => {
-          observer.complete();
-        };
-  
-        const handleError = (error) => {
-          console.error('GraphQL Error:', error);
-          observer.error(error);
-        };
-  
-        // Check if forward is a function before calling it
-        if (typeof forward === 'function') {
-          const subscription = forward(operation).subscribe({
-            next: handleNext,
-            error: handleError,
-            complete: handleComplete,
-          });
-  
-          return () => {
-            subscription.unsubscribe();
-          };
+  (operation, forward) => {
+    return new Observable((observer) => {
+      const handleNext = (result) => {
+
+        console.log('GraphQL Result:', result?.errors);
+        if (result.errors && result.errors.some((error) => error.extensions?.code === "UNAUTHORIZED")) {
+          console.log("Redirecting to login page", result);
+          // localStorage.removeItem("arabtoken");
+          // window.location.href="/pages/login";
         } else {
-          // If forward is not a function, just complete the observer
-          handleComplete();
+          observer.next(result);
         }
-      });
-    }
-  );
+      };
+
+      const handleComplete = () => {
+        observer.complete();
+      };
+
+      const handleError = (error) => {
+        console.error('GraphQL Error:', error);
+        observer.error(error);
+      };
+
+      // Check if forward is a function before calling it
+      if (typeof forward === 'function') {
+        const subscription = forward(operation).subscribe({
+          next: handleNext,
+          error: handleError,
+          complete: handleComplete,
+        });
+
+        return () => {
+          subscription.unsubscribe();
+        };
+      } else {
+        // If forward is not a function, just complete the observer
+        handleComplete();
+      }
+    });
+  }
+);
 // export const responseInterceptor = new ApolloLink(
 //   (operation, forward) => {
 //     return new Observable((observer) => {
@@ -92,7 +92,7 @@ export const responseInterceptor = new ApolloLink(
 // );
 
 const getAuthToken = () => {
-  const historyUrl=window.location.href
+  const historyUrl = window.location.href
   // localStorage.setItem("historyUrl",historyUrl );
   return localStorage.getItem("arabtoken") || null;
 };
