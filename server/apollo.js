@@ -5,7 +5,6 @@ import { requestInterceptor, responseInterceptor, authLink } from './interceptor
 
 const API_URI = process.env.NEXT_PUBLIC_SERVER_URL;
 
-console.log(API_URI)
 const httpLink = new HttpLink({ uri: API_URI });
 
 
