@@ -12,8 +12,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { getCartTotal } from "../../../utils";
 import withApollo from "../../../server/apollo";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { EventEmitter } from "fbemitter";
-// import eventEmmitter from "../../../server/eventEmmitter";
 const GET_CART = gql`
   query GetCart {
   getCart {
