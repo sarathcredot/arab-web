@@ -39,7 +39,7 @@ const GET_CART = gql`
     }
   }
 `;
-export const GET_ADDRESSES=gql`query GetUserShippingAddresses {
+export const GET_ADDRESSES = gql`query GetUserShippingAddresses {
   getUserShippingAddresses {
     address {
       _id
@@ -60,44 +60,44 @@ export const GET_ADDRESSES=gql`query GetUserShippingAddresses {
   }
 }`
 
-export const REMOVE_ADDRESS=gql`mutation RemoveUserShippingAddress($input: UserRemoveShippingAddressInput!) {
+export const REMOVE_ADDRESS = gql`mutation RemoveUserShippingAddress($input: UserRemoveShippingAddressInput!) {
   removeUserShippingAddress(input: $input) {
     _id
     message
   }
 }`
 
-export const PLACE_ORDER=gql`mutation CreateUserOrder($input: CreateUserOrderInput!) {
+export const PLACE_ORDER = gql`mutation CreateUserOrder($input: CreateUserOrderInput!) {
   createUserOrder(input: $input) {
     orderId
   }
 }`
 
 function CheckOut() {
-  const defaultOption = countryOptions[0]; 
+  const defaultOption = countryOptions[0];
   const [cartList, setCartList] = useState();
-  const [isShipping,setIsshipping]=useState(false)
-  const [isEdit,setIsedit]=useState(false)
+  const [isShipping, setIsshipping] = useState(false)
+  const [isEdit, setIsedit] = useState(false)
   const [defaultAddressId, setDefaultAddressId] = useState('');
   const [selectedAddressId, setSelectedAddressId] = useState(null);
-  const { data, loading, error,refetch } = useQuery(GET_ADDRESSES);
-  const [RemoveUserShippingAddress]=useMutation(REMOVE_ADDRESS);
-  const [CreateUserOrder]=useMutation(PLACE_ORDER)
-  const router=useRouter()
+  const { data, loading, error, refetch } = useQuery(GET_ADDRESSES);
+  const [RemoveUserShippingAddress] = useMutation(REMOVE_ADDRESS);
+  const [CreateUserOrder] = useMutation(PLACE_ORDER)
+  const router = useRouter()
   console.log(data);
   const customStyles = {
-    control: (provided,state) => ({
+    control: (provided, state) => ({
       ...provided,
-    borderRight: 'none',
+      borderRight: 'none',
       boxShadow: 'none',
-      borderRadius:'0',
-      height:"100%",
+      borderRadius: '0',
+      height: "100%",
       outline: 'none',
-     
+
       boxShadow: state.isFocused ? 'none' : provided.boxShadow, // Preserve boxShadow when not focused
       '&:selected': {
         border: 'none',
-        
+
       },
     }),
     menu: (provided) => ({
@@ -105,13 +105,13 @@ function CheckOut() {
       width: '150px',
       // background:"red" // Adjust the width as needed
     }),
-    option: (provided,state) => ({
+    option: (provided, state) => ({
       ...provided,
       whiteSpace: 'nowrap',
       background: state.isSelected ? '#EFEFEF' : 'transparent',
-      color:'black',
-      background: 'transparent', 
-       // Prevent text wrapping
+      color: 'black',
+      background: 'transparent',
+      // Prevent text wrapping
     }),
     indicatorSeparator: () => ({
       display: 'none',
@@ -131,16 +131,16 @@ function CheckOut() {
   }
 `;
   const [toggler, setToggler] = useState(false);
-  const token =localStorage.getItem("arabtoken")
- 
+  const token = localStorage.getItem("arabtoken")
 
-console.log(defaultAddressId);
+
+  console.log(defaultAddressId);
   const {
     data: cartData,
     loading: cartLoading,
     error: cartError,
     refetch: cartRefetch
-  } = useQuery(GET_CART,{skip:!token});
+  } = useQuery(GET_CART, { skip: !token });
 
   useEffect(() => {
     if (data && data.getUserShippingAddresses && data.getUserShippingAddresses.address.length > 0) {
@@ -153,7 +153,7 @@ console.log(defaultAddressId);
     }
   }, [data]);
 
-console.log(cartData);
+  console.log(cartData);
   useEffect(() => {
     if (cartError) {
       console.error("Error fetching cart data:", cartError);
@@ -164,42 +164,46 @@ console.log(cartData);
   }, [cartData]);
   const handleCloseShipping = () => {
     console.log("click");
-      setIsshipping(false);
-      refetch();
-    };
-    const handleRemove=async(id)=>{
-      console.log(id);
-     const response=await RemoveUserShippingAddress({variables:{input:{
-       _id:id
-     }}})
-     console.log(response);
-     refetch();
-    }
-
-    const handleAddressSelection = (addressId) => {
-      setDefaultAddressId(addressId);
-      
-    };
-
-    const handlePlaceOrder=async()=>{
-      console.log("click");
-      try{
-
-        const response=await CreateUserOrder({variables:{input:{grandTotal:cartData?.getCart?.grandTotal,paymentMode:"COD",shippingAddressId:defaultAddressId}}})
-        console.log(response);
-        // toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
-        // router.push("/pages/success")
-        router.push({
-          pathname: '/pages/success',
-          query: { orderId: response?.data?.createUserOrder?.orderId },
-        });
-        
-      }catch(error){
-        // toast.error(<div style={{padding:"10px"}}>{error.message}</div>)
-        router.push("/pages/failed")
+    setIsshipping(false);
+    refetch();
+  };
+  const handleRemove = async (id) => {
+    console.log(id);
+    const response = await RemoveUserShippingAddress({
+      variables: {
+        input: {
+          _id: id
+        }
       }
+    })
+    console.log(response);
+    refetch();
+  }
 
+  const handleAddressSelection = (addressId) => {
+    setDefaultAddressId(addressId);
+
+  };
+
+  const handlePlaceOrder = async () => {
+    console.log("click");
+    try {
+
+      const response = await CreateUserOrder({ variables: { input: { grandTotal: cartData?.getCart?.grandTotal, paymentMode: "COD", shippingAddressId: defaultAddressId } } })
+      console.log(response);
+      // toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
+      // router.push("/pages/success")
+      router.push({
+        pathname: '/pages/success',
+        query: { orderId: response?.data?.createUserOrder?.orderId },
+      });
+
+    } catch (error) {
+      // toast.error(<div style={{padding:"10px"}}>{error.message}</div>)
+      router.push("/pages/failed")
     }
+
+  }
   return (
     <>
       <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
@@ -214,27 +218,27 @@ console.log(cartData);
         </li>
       </ul>
       <main className="main main-test">
-      {isShipping ? (<><Shipping isEdit={isEdit} addressId={selectedAddressId} onClose={handleCloseShipping}/></>):
-        <div className="container checkout-container">
-          {cartList?.length === 0 ? (
-            <div className="cart-empty-page text-center">
-              <p className="noproduct-msg mb-2">
-                Checkout is not available while your cart is empty.
-              </p>
-              <i className="icon-bag-2"></i>
-              <p>No products added to the cart</p>
-              <ALink
-                href="/shop"
-                className="btn btn-dark btn-add-cart product-type-simple btn-shop font1"
-              >
-                return to shop
-              </ALink>
-            </div> 
-           ) : ( 
-            <>
+        {isShipping ? (<><Shipping isEdit={isEdit} addressId={selectedAddressId} onClose={handleCloseShipping} isShipping={isShipping} onIsShipping={setIsshipping} /></>) :
+          <div className="container checkout-container">
+            {cartList?.length === 0 ? (
+              <div className="cart-empty-page text-center">
+                <p className="noproduct-msg mb-2">
+                  Checkout is not available while your cart is empty.
+                </p>
+                <i className="icon-bag-2"></i>
+                <p>No products added to the cart</p>
+                <ALink
+                  href="/shop"
+                  className="btn btn-dark btn-add-cart product-type-simple btn-shop font1"
+                >
+                  return to shop
+                </ALink>
+              </div>
+            ) : (
+              <>
 
-            {/* discount coupon */}
-              {/* <div className="checkout-discount">
+                {/* discount coupon */}
+                {/* <div className="checkout-discount">
                 <SlideToggle
                   duration={200}
                   collapsed
@@ -338,46 +342,46 @@ console.log(cartData);
                   )}
                 </SlideToggle>
               </div> */}
-              <div className="row" style={{ marginTop: "62px" }}>
-                
-                <div className="col-lg-7">
-                <div >
-                  <h2 className="step-title">Select a shipping address</h2>
-                  <div className="shipingBox"
-                  // style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}
-                  >
-                  {data && data?.getUserShippingAddresses?.address.length>0 ? data?.getUserShippingAddresses?.address.map((address,index)=>{
-                  return(
-                    <>
-                  <div key={index} style={{display:"flex",lineHeight:"19px",alignItems:"baseline",gap:"20px",border:"1px solid #dfdfdf",margin:"15px 0",padding:"10px",borderRadius:"4px"}}>
-                 <div>
-                  <div className="custom-control custom-radio d-flex">
-                  <input type="radio" className="custom-control-input" id={`shipaddress${index}`}   value={address._id}   checked={defaultAddressId === address._id}  onChange={() => handleAddressSelection(address._id)} />
+                <div className="row" style={{ marginTop: "62px" }}>
 
-                   
-                    <label className="custom-control-label" style={{paddingLeft:"10px",maxWidth:"575px"}} htmlFor={`shipaddress${index}`} >
-                    
-                      {address?.firstname},
-                    
-                    &nbsp;{address?.houseNumber}, {address?.streetName}, &nbsp;{address?.postCode},{address?.city}, {address?.country}</label>
-                    </div>
-                    <div style={{display:"flex",color:"black"}}>
-                      <button style={{cursor:"pointer",background:"none",border:"none",color: "black"}} onClick={()=>{setIsshipping(true);setIsedit(true);setSelectedAddressId(address?._id)}}>Edit</button>
-                      {data && data?.getUserShippingAddresses?.address.length>1 &&<button style={{cursor:"pointer",background:"none",border:"none",color:"#E30613"}} onClick={()=>handleRemove(address?._id)}>Remove</button>}
-                    </div>
-                    </div>
-                    </div>
-                  
-                    </>
-                    )
+                  <div className="col-lg-7">
+                    <div >
+                      <h2 className="step-title">Select a shipping address</h2>
+                      <div className="shipingBox"
+                      // style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}
+                      >
+                        {data && data?.getUserShippingAddresses?.address.length > 0 ? data?.getUserShippingAddresses?.address.map((address, index) => {
+                          return (
+                            <>
+                              <div key={index} style={{ display: "flex", lineHeight: "19px", alignItems: "baseline", gap: "20px", border: "1px solid #dfdfdf", margin: "15px 0", padding: "10px", borderRadius: "4px" }}>
+                                <div>
+                                  <div className="custom-control custom-radio d-flex">
+                                    <input type="radio" className="custom-control-input" id={`shipaddress${index}`} value={address._id} checked={defaultAddressId === address._id} onChange={() => handleAddressSelection(address._id)} />
 
-                }):""}
 
-                <div style={{display:"flex",gap:"15px",alignItems:"center",cursor:"pointer"}} onClick={()=>{setIsshipping(true)}}><IoAddCircleOutline style={{fontSize:"20px"}} /><p className="addaddressbtn" style={{margin:0}}> Add Address </p></div>
-                </div>
-                </div>
+                                    <label className="custom-control-label" style={{ paddingLeft: "10px", maxWidth: "575px" }} htmlFor={`shipaddress${index}`} >
 
-                  {/* <ul className="checkout-steps">
+                                      {address?.firstname},
+
+                                      &nbsp;{address?.houseNumber}, {address?.streetName}, &nbsp;{address?.postCode},{address?.city}, {address?.country}</label>
+                                  </div>
+                                  <div style={{ display: "flex", color: "black" }}>
+                                    <button style={{ cursor: "pointer", background: "none", border: "none", color: "black" }} onClick={() => { setIsshipping(true); setIsedit(true); setSelectedAddressId(address?._id) }}>Edit</button>
+                                    {data && data?.getUserShippingAddresses?.address.length > 1 && <button style={{ cursor: "pointer", background: "none", border: "none", color: "#E30613" }} onClick={() => handleRemove(address?._id)}>Remove</button>}
+                                  </div>
+                                </div>
+                              </div>
+
+                            </>
+                          )
+
+                        }) : ""}
+
+                        <div style={{ display: "flex", gap: "15px", alignItems: "center", cursor: "pointer" }} onClick={() => { setIsshipping(true) }}><IoAddCircleOutline style={{ fontSize: "20px" }} /><p className="addaddressbtn" style={{ margin: 0 }}> Add Address </p></div>
+                      </div>
+                    </div>
+
+                    {/* <ul className="checkout-steps">
                     <li>
                       <h2 className="step-title">Billing details</h2>
 
@@ -770,58 +774,58 @@ console.log(cartData);
                       </form>
                     </li>
                   </ul> */}
-                </div>
-                <div className="col-lg-5">
-                  <div className="order-box">
-                    <div className="order-summary">
-                      <h3>YOUR ORDER</h3>
+                  </div>
+                  <div className="col-lg-5">
+                    <div className="order-box">
+                      <div className="order-summary">
+                        <h3>YOUR ORDER</h3>
 
-                      <table className="table table-mini-cart">
-                        <thead>
-                          <tr>
-                            <th
-                              colSpan="2"
-                              style={{ fontSize: "1.4rem", fontWeight: "600" }}
-                            >
-                              Product
-                            </th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          {cartList?.map((item, index) => (
-                            <tr key={"checks" + index}>
-                              <td className="product-col">
-                                <h2 className="product-title">
-                                  {item?.name + " × " + item?.quantity}
-                                </h2>
+                        <table className="table table-mini-cart">
+                          <thead>
+                            <tr>
+                              <th
+                                colSpan="2"
+                                style={{ fontSize: "1.4rem", fontWeight: "600" }}
+                              >
+                                Product
+                              </th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {cartList?.map((item, index) => (
+                              <tr key={"checks" + index}>
+                                <td className="product-col">
+                                  <h2 className="product-title">
+                                    {item?.name + " × " + item?.quantity}
+                                  </h2>
+                                </td>
+
+                                <td className="price-col">
+                                  <span>OMR {item?.price * item?.quantity}</span>
+                                </td>
+                              </tr>
+                            ))}
+                          </tbody>
+                          <tfoot>
+                            <tr className="cart-subtotal">
+                              <td>
+                                <h4>Shipping Charge</h4>
                               </td>
 
                               <td className="price-col">
-                                <span>OMR {item?.price * item?.quantity}</span>
+                                <span>OMR {cartData?.getCart?.deliveryCharge}</span>
                               </td>
                             </tr>
-                          ))}
-                        </tbody>
-                        <tfoot>
-                        <tr className="cart-subtotal">
-                            <td>
-                              <h4>Shipping Charge</h4>
-                            </td>
+                            <tr className="cart-subtotal">
+                              <td>
+                                <h4>Subtotal</h4>
+                              </td>
 
-                            <td className="price-col">
-                              <span>OMR {cartData?.getCart?.deliveryCharge}</span>
-                            </td>
-                          </tr>
-                          <tr className="cart-subtotal">
-                            <td>
-                              <h4>Subtotal</h4>
-                            </td>
-
-                            <td className="price-col">
-                              <span>OMR {cartData?.getCart?.subTotal}</span>
-                            </td>
-                          </tr>
-                          {/* <tr className="order-shipping">
+                              <td className="price-col">
+                                <span>OMR {cartData?.getCart?.subTotal}</span>
+                              </td>
+                            </tr>
+                            {/* <tr className="order-shipping">
                             <td className="text-left" colSpan="2">
                               <h4 className="m-b-sm">Shipping</h4>
                               <div className="form-group form-group-custom-control">
@@ -853,52 +857,52 @@ console.log(cartData);
                             </td>
                           </tr> */}
 
-                          <tr className="order-total">
-                            <td>
-                              <h4>Total</h4>
-                            </td>
-                            <td>
-                              <b className="total-price">
-                                <span>OMR{cartData?.getCart?.grandTotal}</span>
-                              </b>
-                            </td>
-                          </tr>
-                        </tfoot>
-                      </table>
+                            <tr className="order-total">
+                              <td>
+                                <h4>Total</h4>
+                              </td>
+                              <td>
+                                <b className="total-price">
+                                  <span>OMR{cartData?.getCart?.grandTotal}</span>
+                                </b>
+                              </td>
+                            </tr>
+                          </tfoot>
+                        </table>
 
-                      <div className="payment-methods">
-                        <h4 className="">Payment methods</h4>
-                        <div className="info-box with-icon p-0">
-                        <div className="custom-control custom-radio d-flex">
-                                  <input
-                                    type="radio"
-                                    className="custom-control-input"
-                                    name="radio"
-                                    defaultChecked
-                                  />
-                                  <label className="custom-control-label">
-                                    Cash on Delivery
-                                  </label>
-                                </div>
+                        <div className="payment-methods">
+                          <h4 className="">Payment methods</h4>
+                          <div className="info-box with-icon p-0">
+                            <div className="custom-control custom-radio d-flex">
+                              <input
+                                type="radio"
+                                className="custom-control-input"
+                                name="radio"
+                                defaultChecked
+                              />
+                              <label className="custom-control-label">
+                                Cash on Delivery
+                              </label>
+                            </div>
+                          </div>
                         </div>
-                      </div>
 
-                      <button
-                        type="submit"
-                        value="Place Order"
-                        name="form-control"
-                        className="btn btn-dark btn-place-order hoverbtn" onClick={handlePlaceOrder}
-                      >
-                        Place order
-                      </button>
+                        <button
+                          type="submit"
+                          value="Place Order"
+                          name="form-control"
+                          className="btn btn-dark btn-place-order hoverbtn" onClick={handlePlaceOrder}
+                        >
+                          Place order
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            </>
-          )}
-        </div>
-}
+              </>
+            )}
+          </div>
+        }
       </main>
     </>
   );
@@ -911,4 +915,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default withApollo({ ssr: typeof window === "undefined" })( connect(mapStateToProps)(CheckOut));
+export default withApollo({ ssr: typeof window === "undefined" })(connect(mapStateToProps)(CheckOut));

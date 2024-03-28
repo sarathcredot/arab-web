@@ -347,13 +347,16 @@ function CartMenu({ props }) {
                 >
                   View Cart
                 </ALink>
-                <div
-                  href="/pages/checkout"
-                  className="btn btn-dark btn-block text-white hoverbtn"
-                  onClick={() => router.push("/pages/checkout")}
-                >
-                  Checkout
-                </div>
+                {
+                  localStorage.getItem("arabtoken") &&
+                  <div
+                    href="/pages/checkout"
+                    className="btn btn-dark btn-block text-white hoverbtn"
+                    onClick={() => router.push("/pages/checkout")}
+                  >
+                    Checkout
+                  </div>
+                }
               </div>
             </>
           ) : (

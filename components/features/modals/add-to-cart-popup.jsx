@@ -80,9 +80,12 @@ function CartPopup(props) {
           <ALink href="/pages/cart" className="btn viewcart">
             View Cart
           </ALink>
-          <div href="/pages/checkout" className="btn btn-dark checkout" onClick={() => router.push("/pages/checkout")}>
-            Checkout
-          </div>
+          {
+            localStorage.getItem("arabtoken") &&
+            <div href="/pages/checkout" className="btn btn-dark checkout" onClick={() => router.push("/pages/checkout")}>
+              Checkout
+            </div>
+          }
         </div>
         <button className="mfp-close"></button>
       </div>
