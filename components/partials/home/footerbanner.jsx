@@ -13,33 +13,20 @@ import { HomeSlider } from "../../../utils/data/slider";
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
 function FooterBannerSection({ data }) {
-  console.log(data);
+
   const options = {
     items: 1, // Number of items to show
     // margin: 50, // Space between items
     loop: true, // Enable loop
-    autoplay: true, // Autoplay the slider
+    autoplay: false, // Autoplay the slider
     autoplayTimeout: 3000,
     // Autoplay interval (3 seconds in this example)
     dots: true,
-    // responsive: {
-    //   0: {
-    //     items: 1, // Number of items to show on small screens
-    //   },
-    //   768: {
-    //     items: 5, // Number of items to show on medium screens
-    //   },
-    //   992: {
-    //     items: 7, // Number of items to show on large screens
-    //   },
-    // },
-    // nav: true,
   };
   return (
     <div className="mt-4">
       <OwlCarousel adClass="home-slider mb-2" options={options}>
         {data?.images?.map((item, imgIndex) => {
-          console.log(item);
           return (
             <div key={imgIndex} style={{ maxHeight: "550px" }} className="bannerheight">
               <img src={item.fileURL} alt="Image" style={{ height: "100%", maxHeight: "550px", objectFit: "cover" }} />

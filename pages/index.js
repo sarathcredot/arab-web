@@ -124,8 +124,8 @@ function Home() {
           </div>
           <div
             className="homebannerpadding"
-            // style={{paddingTop:"20px", backgroundColor:"white"}}
-            // className="bg-gray"
+          // style={{paddingTop:"20px", backgroundColor:"white"}}
+          // className="bg-gray"
           >
             {!loading && <HomeSection className="pb-5" data={sectionOneDatastate} />}
           </div>
@@ -145,8 +145,10 @@ function Home() {
         </div>
 
         <div className={`container skeleton-body skel-shop-products pt-5 `}>
-          {!loading4 && <BrandSection sectionFourData={sectionFourDatastate} />}
+          {!loading4 && <BrandSection />}
         </div>
+
+        <FooterBannerSection data={sectionFourDatastate} />
 
         <div className={`bg-gray skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
           <ElectronicCollection />
