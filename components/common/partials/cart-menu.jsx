@@ -25,7 +25,7 @@ const GET_CART = gql`
       color
       size
       price
-      image
+      image 
       sellingPrice
       mrp
     }
