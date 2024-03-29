@@ -12,8 +12,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { getCartTotal } from "../../../utils";
 import withApollo from "../../../server/apollo";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { EventEmitter } from "fbemitter";
-// import eventEmmitter from "../../../server/eventEmmitter";
 const GET_CART = gql`
   query GetCart {
   getCart {
@@ -27,7 +25,7 @@ const GET_CART = gql`
       color
       size
       price
-      image
+      image 
       sellingPrice
       mrp
     }
@@ -349,13 +347,16 @@ function CartMenu({ props }) {
                 >
                   View Cart
                 </ALink>
-                <div
-                  href="/pages/checkout"
-                  className="btn btn-dark btn-block text-white hoverbtn"
-                  onClick={() => router.push("/pages/checkout")}
-                >
-                  Checkout
-                </div>
+                {
+                  localStorage.getItem("arabtoken") &&
+                  <div
+                    href="/pages/checkout"
+                    className="btn btn-dark btn-block text-white hoverbtn"
+                    onClick={() => router.push("/pages/checkout")}
+                  >
+                    Checkout
+                  </div>
+                }
               </div>
             </>
           ) : (

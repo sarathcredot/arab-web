@@ -11,7 +11,10 @@ import { actions as ModalAction } from "../../../store/modal";
 // Import Custom Component
 import ALink from "../../common/ALink";
 import ProductCountdown from "../product-countdown";
-
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { toast } from "react-toastify";
+import AddToCartPopup from "../modals/add-to-cart-popup";
+useQuery
 function ProductFour(props) {
   const router = useRouter();
   console.log("props", props);
@@ -55,10 +58,108 @@ function ProductFour(props) {
     }
   }
 
-  function onAddCartClick(e) {
-    e.preventDefault();
-    props.addToCart(product);
+  const GET_CART = gql`
+  query GetCart {
+    getCart {
+      products {
+        _id
+        productId
+        quantity
+        name
+        shortDescription
+        stock
+        color
+        size
+        price
+        image
+        sellingPrice
+        mrp
+      }
+      grandTotal
+      subTotal
+      deliveryCharge
+    }
   }
+`;
+
+  const { data: cartData, loading: cartLoading, error: cartError, refetch: cartRefetch, } = useQuery(GET_CART);
+
+
+  const POST_CART = gql`
+  mutation AddToCart($input: addToCartInput!) {
+    addToCart(input: $input) {
+      message
+    }
+  }
+`;
+
+  const [addToCart] = useMutation(POST_CART);
+
+  const onAddCartClick = async (e) => {
+    e.preventDefault();
+    console.log(product)
+    if (localStorage.getItem("arabtoken")) {
+      try {
+        if (
+          product.stock > 0 &&
+          !e.currentTarget.classList.contains("disabled")
+        ) {
+          const response = await addToCart({
+            variables: {
+              input: {
+                productId: product._id,
+                quantity: 1,
+              },
+            },
+          });
+
+          if (response) {
+            cartRefetch();
+            return toast(<AddToCartPopup product={{ product }} />);
+          }
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const localCart = JSON.parse(localStorage.getItem("cart"));
+      if (localCart) {
+        const productIndex = localCart.findIndex((item) => item.productId === product._id);
+        if (productIndex > -1) {
+          localCart[productIndex].quantity += 1;
+        } else {
+          localCart.push({
+            productId: product._id, quantity: 1,
+            name: product.productName,
+            shortDescription: product.shortDescription,
+            stock: product.stock,
+            color: product.color,
+            size: product.size,
+            price: product.price,
+            image: product.images[0] && product.images[0].fileURL,
+            sellingPrice: product.offerPrice,
+            mrp: product.price,
+          });
+        }
+        localStorage.setItem("cart", JSON.stringify(localCart));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([{
+          productId: product._id, quantity: 1,
+          name: product.productName,
+          shortDescription: product.shortDescription,
+          stock: product.stock,
+          color: product.color,
+          size: product.size,
+          price: product.price,
+          image: product.images[0] && product.images[0].fileURL,
+          sellingPrice: product.offerPrice,
+          mrp: product.price,
+        }]));
+      }
+    }
+    return toast(<AddToCartPopup product={{ product }} />);
+  };
 
   function onQuickViewClick(e) {
     e.preventDefault();
@@ -194,7 +295,7 @@ function ProductFour(props) {
           )}
         </div> */}
 
-        {/* <div className="product-action">
+        <div className="product-action">
           {product?.variants?.length > 0 ? (
             <ALink
               href={`/product/default/${product?.slug}`}
@@ -214,7 +315,7 @@ function ProductFour(props) {
             </a>
           )}
 
-        </div> */}
+        </div>
       </div>
     </div>
   );

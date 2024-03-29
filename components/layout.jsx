@@ -66,7 +66,7 @@ function Layout({ children, hideQuickView, hideVideo }) {
       </div>
 
       <MobileMenu />
-      <StickyNavbar />
+      {/* <StickyNavbar /> */}
 
       <a
         id="scroll-top"

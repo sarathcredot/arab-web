@@ -10,48 +10,60 @@ import ProductsGrid from "../../components/partials/products-collection/product-
 import { IoMdHome } from "react-icons/io";
 // import { GET_PRODUCTS } from "../../server/queries";
 import withApollo from "../../server/apollo";
-// import { useSearchParams } from 'next/navigation'
+// import { useRouter } from 'next/router'
 
 const GET_PRODUCTS = gql`
   query GetProducts($input: ProductFilters) {
-    getProducts(input: $input) {
-      maxRecords
-      records {
-        _id
-        attributes {
-          attributeValue
-          attributeName
-        }
-        brandId
-        brandName
-        categoryId
-        categoryIdPath
-        categoryNamePath
-        description
-        images {
-          fileURL
-          originalName
-          fileType
-        }
-        mrp
-        offerPrice
-        price
-        productCode
-        productInfo
-        productName
-        productShortInfo
-        rating
-        sellingPrice
-        shortDescription
-        skuId
-        status
-        stock
-        tags
-        vendorId
-        isBlocked
+  getProducts(input: $input) {
+    maxRecords
+    records {
+      _id
+      vendorId
+      brandId
+      brandName
+      productName
+      shortDescription
+      skuId
+      description
+      productInfo
+      productShortInfo
+      images {
+        fileType
+        fileURL
+        mimeType
+        originalName
       }
+      rating
+      sellingPrice
+      price
+      mrp
+      tags
+      productCode
+      categoryId
+      categoryNamePath
+      categoryIdPath
+      isBlocked
+      stock
+      status
+      offerPrice
+      attributes {
+        attributeId
+        attributeName
+        attributeValueId
+        attributeValue
+        attributeDescription
+      }
+      productDetailImages {
+        fileType
+        fileURL
+        mimeType
+        originalName
+      }
+      warehouseSkuId
     }
+    
   }
+}
 `;
 
 function Shop() {
@@ -68,36 +80,35 @@ function Shop() {
     sort_order,
     discount,
     bestSeller,
+    search,
     ...filteredAttributes
   } = rest;
   const categoryValues = category ? category.split(",").map((id) => id.trim()) : [];
   const brandValues = brands ? brands.split(",") : [];
-  console.log(discount);
   const attributes = Object.entries(filteredAttributes).map(([id, values]) => ({
     id,
     values: values.split(","),
   }));
-  console.log(bestSeller);
   const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
-  console.log(data);
+
   const [perPage, setPerPage] = useState(12);
 
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
   const products = data && data?.getProducts?.records;
   const totalPage = data
     ? parseInt(data?.getProducts?.maxRecords / perPage) +
-      (data?.getProducts?.maxRecords % perPage ? 1 : 0)
+    (data?.getProducts?.maxRecords % perPage ? 1 : 0)
     : 0;
 
   const attributesWithNonEmptyValues = attributes.filter((attribute) =>
     attribute.values.some((value) => value !== "")
   );
 
-  console.log(attributesWithNonEmptyValues);
   useEffect(() => {
     getProducts({
       variables: {
         input: {
+          query: search,
           size: perPage,
           page: parseInt(page ?? 0),
           categories: categoryValues ? categoryValues : [],

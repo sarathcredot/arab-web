@@ -13,7 +13,7 @@ import withApollo from "../../server/apollo";
 import AddToCartPopup from "../../components/features/modals/add-to-cart-popup";
 
 import { toast } from "react-toastify";
-const GET_WISH_LIST=gql `query Products {
+const GET_WISH_LIST = gql`query Products {
   getWishListProducts {
     products {
       image
@@ -69,12 +69,12 @@ const REMOVE_WISHLIST = gql`mutation RemoveFromWishList($input: RemoveFromWishLi
 
 
 function Wishlist(props) {
-  const { wishlist,  removeFromWishlist, showQuickView } = props;
+  const { wishlist, removeFromWishlist, showQuickView } = props;
   const [flag, setFlag] = useState(0);
-  const [wishlistDatas, setWishlistDatas]=useState([]);
+  const [wishlistDatas, setWishlistDatas] = useState([]);
 
   const [addToCart] = useMutation(POST_CART);
-  const [removeFromWishList]=useMutation(REMOVE_WISHLIST)
+  const [removeFromWishList] = useMutation(REMOVE_WISHLIST)
   const token = localStorage.getItem("arabtoken");
 
   const {
@@ -96,13 +96,13 @@ function Wishlist(props) {
     fetchPolicy: "network-only",
   });
 
-  useEffect(()=>{
-      if(wishListError){
-        console.log(wishListError)
-      }else if(wishlistDatas){
-        setWishlistDatas(wishListData?.getWishListProducts.products || [])
-      }
-  },[wishListData])
+  useEffect(() => {
+    if (wishListError) {
+      console.log(wishListError)
+    } else if (wishlistDatas) {
+      setWishlistDatas(wishListData?.getWishListProducts.products || [])
+    }
+  }, [wishListData])
 
 
   const onMoveFromToWishlit = (e, item) => {
@@ -112,55 +112,39 @@ function Wishlist(props) {
     removeFromWishlist(item);
   };
 
-  const removeProduct =  async(e, item) => {
+  const removeProduct = async (e, item) => {
     try {
-      if(item){
+      if (item) {
         const response = await removeFromWishList({
           variables: {
             input: {
               productId: item.productId,
-             
+
             },
           },
         });
-        if(response){
+        if (response) {
           wishListRefetch()
           return toast.success("Successfully product removed to cart");
         }
       }
     } catch (error) {
       console.log(error)
-      
+
     }
   };
 
   const onQuickViewClick = (e, product) => {
     e.preventDefault();
-      showQuickView(product.productId);
+    showQuickView(product.productId);
   };
 
-
-
-
-
-
- 
-  const onAddCartClick = async (e,product) => {
-    e.preventDefault();
-
-
-   
-
-   
-
-
-
+  const onAddCartClick = async (e, product) => {
+    e.preventDefault()
     try {
-    
-
       if (
         product
-        
+
       ) {
         const response = await addToCart({
           variables: {
@@ -171,16 +155,16 @@ function Wishlist(props) {
           },
         });
 
-        console.log(response,"resp")
+        console.log(response, "resp")
 
         if (response) {
-          
+
           cartRefetch();
           wishListRefetch()
           return toast.success("Successfully product added to cart");
         }
       }
-      
+
     } catch (error) {
       console.log(error);
     }
@@ -211,10 +195,14 @@ function Wishlist(props) {
           {flag === 1 ? <p>Product successfully removed.</p> : ""}
           {flag === 2 ? <p>Product added to cart successfully.</p> : ""}
         </div>
-        {/* <div className="wishlist-title">
-                    <h2>My wishlist on Porto Shop 36</h2>
-                </div> */}
-        {wishlistDatas?.length === 0 ? (
+        {
+          wishListLoading && (
+            <div>
+              loading...
+            </div>
+          )
+        }
+        {!wishListLoading && wishlistDatas?.length === 0 ? (
           <div className="wishlist-table-container">
             <div className="table table-wishlist mb-0">
               <div className="wishlist-empty-page text-center">
@@ -229,103 +217,110 @@ function Wishlist(props) {
               </div>
             </div>
           </div>
-        ) : (
-          <div className="wishlist-table-container">
-            <table className="table table-wishlist mb-0">
-              <thead>
-                <tr>
-                  <th className="thumbnail-col">Product</th>
-                  <th className="product-col"></th>
-                  <th className="price-col">Price</th>
-                  <th className="status-col">Stock Status</th>
-                  <th className="action-col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {wishlistDatas?.map((item, index) => (
-                  <tr key={"wishlist-item" + index} className="product-row"style={{borderBottom: "1px solid #e7e7e7"}}>
-                    <td className="media-with-lazy">
-                      <figure className="product-image-container">
-                        <ALink
-                          href={`/product/default/${item?.productId}`}
-                          className="product-image"
-                        >
-                          <LazyLoadImage
-                            alt="product"
-                            src={
-                             
-                              item.image
-                            }
-                            threshold={500}
-                            width="80"
-                            height="80"
-                          />
-                        </ALink>
-                        <a
-                          
-                          className="btn-remove icon-cancel"
-                          title="Remove Product"
-                          onClick={(e) => removeProduct(e, item)}
-                        ></a>
-                      </figure>
-                    </td>
-                    <td>
-                      <h5 className="product-title">
-                        <ALink href={`/product/default/${item.productId}`}>
-                          {item?.productName}
-                        </ALink>
-                      </h5>
-                    </td>
-                    <td style={{ color: "black" }}>
-                      <div className="price-box">
-                        
-                          <span className="product-price" style={{color:"#000"}}>
-                            {"OMR " + item?.sellingPrice}
+        ) : ""}
+
+        {
+
+          !wishListLoading && wishlistDatas.length ?
+            (
+              <div className="wishlist-table-container">
+                <table className="table table-wishlist mb-0">
+                  <thead>
+                    <tr>
+                      <th className="thumbnail-col">Product</th>
+                      <th className="product-col"></th>
+                      <th className="price-col">Price</th>
+                      <th className="status-col">Stock Status</th>
+                      <th className="action-col">Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {wishlistDatas?.map((item, index) => (
+                      <tr key={"wishlist-item" + index} className="product-row" style={{ borderBottom: "1px solid #e7e7e7" }}>
+                        <td className="media-with-lazy">
+                          <figure className="product-image-container">
+                            <ALink
+                              href={`/product/default/${item?.productId}`}
+                              className="product-image"
+                            >
+                              <LazyLoadImage
+                                alt="product"
+                                src={
+
+                                  item.image
+                                }
+                                threshold={500}
+                                width="80"
+                                height="80"
+                              />
+                            </ALink>
+                            <a
+
+                              className="btn-remove icon-cancel"
+                              title="Remove Product"
+                              onClick={(e) => removeProduct(e, item)}
+                            ></a>
+                          </figure>
+                        </td>
+                        <td>
+                          <h5 className="product-title">
+                            <ALink href={`/product/default/${item.productId}`}>
+                              {item?.productName}
+                            </ALink>
+                          </h5>
+                        </td>
+                        <td style={{ color: "black" }}>
+                          <div className="price-box">
+
+                            <span className="product-price" style={{ color: "#000" }}>
+                              {"OMR " + item?.sellingPrice}
+                            </span>
+
+                          </div>
+                        </td>
+                        <td>
+                          <span className="stock-status">
+                            {item.stock <= 0 ? "Out of stock" : "In stock"}
                           </span>
-                       
-                      </div>
-                    </td>
-                    <td>
-                      <span className="stock-status">
-                      {item.stock <= 0 ? "Out of stock" : "In stock"}
-                      </span>
-                    </td>
-                    <td className="action">
-                      <a
-                        href="ajax/product-quick-view"
-                        className="btn btn-quickview mt-1 mt-md-0"
-                        title="Quick View"
-                        onClick={(e) => {
-                          onQuickViewClick(e, item);
-                        }}
-                        style={{ border: "1px solid" }}
-                      >
-                        Quick View
-                      </a>
-                      {item?.variants?.length > 0 ? (
-                        <ALink
-                          className="btn btn-dark btn-add-cart product-type-simple btn-shop"
-                          href={`/product/default/${item.slug}`}
-                        >
-                          select options
-                        </ALink>
-                      ) : (
-                        <button
-                          className="btn btn-dark btn-add-cart product-type-simple btn-shop hoverbtn"
-                          onClick={(e) => {
-                            onAddCartClick(e, item);
-                          }}
-                        >
-                          ADD TO CART
-                        </button>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
+                        </td>
+                        <td className="action">
+                          <a
+                            href="ajax/product-quick-view"
+                            className="btn btn-quickview mt-1 mt-md-0"
+                            title="Quick View"
+                            onClick={(e) => {
+                              onQuickViewClick(e, item);
+                            }}
+                            style={{ border: "1px solid" }}
+                          >
+                            Quick View
+                          </a>
+                          {item?.variants?.length > 0 ? (
+                            <ALink
+                              className="btn btn-dark btn-add-cart product-type-simple btn-shop"
+                              href={`/product/default/${item.slug}`}
+                            >
+                              select options
+                            </ALink>
+                          ) : (
+                            <button
+                              className="btn btn-dark btn-add-cart product-type-simple btn-shop hoverbtn"
+                              onClick={(e) => {
+                                onAddCartClick(e, item);
+                              }}
+                            >
+                              ADD TO CART
+                            </button>
+                          )}
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            ) : ""
+        }
+
       </div>
     </main>
   );
@@ -337,7 +332,7 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default withApollo({ ssr: typeof window === "undefined" })( connect(mapStateToProps, {
+export default withApollo({ ssr: typeof window === "undefined" })(connect(mapStateToProps, {
   ...WishlistAction,
   ...CartAction,
   ...ModalAction,
