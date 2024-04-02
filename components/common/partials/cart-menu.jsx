@@ -12,8 +12,6 @@ import { AiOutlineClose } from "react-icons/ai";
 import { getCartTotal } from "../../../utils";
 import withApollo from "../../../server/apollo";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
-import { EventEmitter } from "fbemitter";
-// import eventEmmitter from "../../../server/eventEmmitter";
 const GET_CART = gql`
   query GetCart {
   getCart {
@@ -27,7 +25,7 @@ const GET_CART = gql`
       color
       size
       price
-      image
+      image 
       sellingPrice
       mrp
     }
@@ -46,12 +44,23 @@ const REMOVE_CART = gql`
   }
 `;
 
-function CartMenu(props) {
+function CartMenu({ props }) {
   // const { cartItems } = props;
-  const [cartItems, setCartItems] = useState();
+  const [cartItems, setCartItems] = useState([]);
   const router = useRouter();
+  const [toggle, setToggle] = useState(false);
 
-  const isLocalCart = localStorage.getItem("cart");
+  const [localCart, setLocalCart] = useState([]);
+
+  useEffect(() => {
+    if (!token) {
+      const storedLocalCart = localStorage.getItem("cart");
+      if (storedLocalCart) {
+        setLocalCart(JSON.parse(storedLocalCart));
+      }
+    }
+  }, [token, toggle]);
+
 
   useEffect(() => {
     router.events.on("routeChangeStart", cartClose);
@@ -63,8 +72,10 @@ function CartMenu(props) {
 
 
 
+
   function toggleCart(e) {
     e.preventDefault();
+    setToggle(!toggle)
     document.querySelector("body").classList.toggle("cart-opened");
   }
 
@@ -90,22 +101,36 @@ function CartMenu(props) {
 
   const [removeFromCart] = useMutation(REMOVE_CART);
   const token = localStorage.getItem("arabtoken");
+
   const removeCart = async (id) => {
     try {
-      // props.removeFromCart(item);
-      const response = await removeFromCart({
-        variables: {
-          input: {
-            productId: id,
+      if (token) {
+
+        const response = await removeFromCart({
+          variables: {
+            input: {
+              productId: id,
+            },
           },
-        },
-      });
+        });
 
-      cartRefetch();
+        cartRefetch();
 
-      toast.success("successfully removed product");
+        toast.success("Successfully removed product");
+      }
 
-      console.log(response);
+      if (!token) {
+        const storedCartItems = localStorage.getItem('cart');
+
+        if (storedCartItems !== null) {
+          const currentCartItems = JSON.parse(storedCartItems);
+          const updatedCartItems = currentCartItems.filter((item) => item.productId !== id);
+
+          localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+          setCartItems(updatedCartItems);
+        }
+      }
+
     } catch (error) {
       console.log(error);
     }
@@ -136,12 +161,36 @@ function CartMenu(props) {
       }
       cartRefetch();
     } else {
-      const localCart = JSON.parse(localStorage.getItem("cart"));
       if (localCart && localCart.length > 0) {
         setCartItems(localCart);
       }
     }
-  }, [cartData, token, isLocalCart]);
+  }, [token, cartData, cartError, cartRefetch, localCart, toggle]);
+
+  const [cartCount, setCartCount] = useState(0);
+
+  useEffect(() => {
+    const count = localStorage.getItem('cart');
+    if (count) {
+      setCartCount(parseInt(count));
+    }
+  }, []);
+
+  useEffect(() => {
+    const handleStorageChange = () => {
+      const count = localStorage.getItem('cart');
+      if (count) {
+        setCartCount(parseInt(count.length));
+      }
+    };
+
+    window.addEventListener('storage', handleStorageChange);
+
+    return () => {
+      window.removeEventListener('storage', handleStorageChange);
+    };
+  }, []);
+
 
   return (
     <div className="dropdown cart-dropdown">
@@ -229,7 +278,7 @@ function CartMenu(props) {
 
                       <span className="cart-product-info">
                         <span className="cart-product-qty">{cart.quantity}</span> ×
-                        OMR {cart.price.toFixed(2)}
+                        OMR {cart.sellingPrice.toFixed(2)}
                       </span>
                     </div>
 
@@ -298,13 +347,16 @@ function CartMenu(props) {
                 >
                   View Cart
                 </ALink>
-                <div
-                  href="/pages/checkout"
-                  className="btn btn-dark btn-block text-white hoverbtn"
-                  onClick={() => router.push("/pages/checkout")}
-                >
-                  Checkout
-                </div>
+                {
+                  localStorage.getItem("arabtoken") &&
+                  <div
+                    href="/pages/checkout"
+                    className="btn btn-dark btn-block text-white hoverbtn"
+                    onClick={() => router.push("/pages/checkout")}
+                  >
+                    Checkout
+                  </div>
+                }
               </div>
             </>
           ) : (

@@ -11,7 +11,10 @@ import { actions as ModalAction } from "../../../store/modal";
 // Import Custom Component
 import ALink from "../../common/ALink";
 import ProductCountdown from "../product-countdown";
-
+import { gql, useMutation, useQuery } from "@apollo/client";
+import { toast } from "react-toastify";
+import AddToCartPopup from "../modals/add-to-cart-popup";
+useQuery
 function ProductFour(props) {
   const router = useRouter();
   console.log("props", props);
@@ -255,7 +258,7 @@ function ProductFour(props) {
           )}
         </div> */}
 
-        {/* <div className="product-action">
+        <div className="product-action">
           {product?.variants?.length > 0 ? (
             <ALink
               href={`/product/default/${product?.slug}`}
@@ -275,7 +278,7 @@ function ProductFour(props) {
             </a>
           )}
 
-        </div> */}
+        </div>
       </div>
     </div>
   );

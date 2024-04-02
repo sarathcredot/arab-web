@@ -1,19 +1,12 @@
 import React from "react";
-import Reveal from "react-awesome-reveal";
-import { LazyLoadImage } from "react-lazy-load-image-component";
 
 // Import Custom Component
-import ALink from "../../common/ALink";
 import OwlCarousel from "../../features/owl-carousel";
 
 // Import Settings 
-import { HomeSlider } from "../../../utils/data/slider";
-import MainMenu from "../../../components/common/partials/main-menu";
 // Import Keyframes
-import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
 function HomeSection({ offer, data }) {
-  console.log(data);
   const options = {
     items: 1, // Number of items to show
     // margin: 50, // Space between items
@@ -30,11 +23,10 @@ function HomeSection({ offer, data }) {
       {!offer ? <OwlCarousel adClass="home-slider nav-circle mb-2 " options={options}>
         {
           data?.images?.map((item, imgIndex) => {
-            console.log(item);
             return (
               (
                 <div key={imgIndex}>
-                  <img src={item.fileURL} alt="Image" style={{ height: "100%", height: "550px", objectFit: "fill" }} />
+                  <img src={item.fileURL} alt="Image" style={{ height: "100%", height: "auto", objectFit: "fill" }} />
                 </div>
               )
             );

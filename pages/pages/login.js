@@ -17,6 +17,7 @@ export const LOGIN = gql`
       _id
     }
   }
+}
 `;
 
 export const OTP_VERIFY = gql`
@@ -65,9 +66,6 @@ function Login({ mutate }) {
       console.log("error", error);
     }
   };
- const handleResentotp=async()=>{
-  console.log("click");
-  try{
 
   const handleResentotp = async () => {
     try {
@@ -201,12 +199,12 @@ function Login({ mutate }) {
                           fontWeight: "400",
                         }}
                       >
-                       Secure Your Account, Shop With Confidence.
+                        Secure Your Account, Shop With Confidence.
                       </p>
                     </div>
                   </div>
 
-                  <form  style={{ marginTop: "70px" }}>
+                  <form style={{ marginTop: "70px" }}>
                     <div className="mt-3">
                       <OTPInput
                         value={otp}
@@ -287,7 +285,7 @@ function Login({ mutate }) {
                         className=""
                         style={{
                           marginTop: "20px",
-                          
+
                           fontSize: "12px",
                           color: "#777777",
                           fontWeight: "400",
@@ -352,7 +350,7 @@ function Login({ mutate }) {
                     </div> */}
 
                     {/* <div className="mt-3 buttonwrapper"> */}
-                      {/* <div
+                    {/* <div
                         class="google-btn googlebtn"
                        
                       >
@@ -415,7 +413,7 @@ function Login({ mutate }) {
                     </button>
                   </form>
                 </div>
-                <div className="col-md-6" style={{paddingRight:"0"}}>
+                <div className="col-md-6" style={{ paddingRight: "0" }}>
                   <div>
                     <img class="google-icon" src="images\brands\loginBanner.svg" />
                   </div>

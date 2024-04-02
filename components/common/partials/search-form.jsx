@@ -119,9 +119,6 @@ function SearchForm(props) {
     setCat(e.target.value);
   }
 
-  // function onSearchChange(e) {
-  //   setSearch(e.target.value);
-  // }
 
   function onSubmitSearchForm(e) {
     e.preventDefault();
@@ -229,9 +226,9 @@ function SearchForm(props) {
             type="submit"
           >
             <svg xmlns="http://www.w3.org/2000/svg" width="17" height="16" viewBox="0 0 17 16" fill="none">
-<path d="M8.18551 14C11.5138 14 14.2118 11.1645 14.2118 7.66668C14.2118 4.16887 11.5138 1.33334 8.18551 1.33334C4.85726 1.33334 2.15918 4.16887 2.15918 7.66668C2.15918 11.1645 4.85726 14 8.18551 14Z" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-<path d="M14.8463 14.6667L13.5776 13.3333" stroke="white" stroke-linecap="round" stroke-linejoin="round"/>
-</svg>
+              <path d="M8.18551 14C11.5138 14 14.2118 11.1645 14.2118 7.66668C14.2118 4.16887 11.5138 1.33334 8.18551 1.33334C4.85726 1.33334 2.15918 4.16887 2.15918 7.66668C2.15918 11.1645 4.85726 14 8.18551 14Z" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M14.8463 14.6667L13.5776 13.3333" stroke="white" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
           </button>
 
           <div className="live-search-list bg-white">
@@ -242,7 +239,7 @@ function SearchForm(props) {
                   href={`/product/default/${product}`}
                   className="autocomplete-suggestion"
                   key={`search-result-${index}`}
-                  style={{  borderBottom: '0px' }}
+                  style={{ borderBottom: '0px' }}
                 >
                   <LazyLoadImage
                     src={product.image}
@@ -256,27 +253,6 @@ function SearchForm(props) {
                       matchEmphasize(product.suggestion)
                     )}
                   ></div>
-                  {/* <span className="search-price">
-                    {product?.price[0] == product?.price[1] ? (
-                      <span className="product-price">
-                        {"$" + product?.price[0].toFixed(2)}
-                      </span>
-                    ) : product.variants.length > 0 ? (
-                      <span className="product-price">
-                        {"$" + product?.price[0].toFixed(2)} &ndash;{" "}
-                        {"$" + product?.price[1].toFixed(2)}
-                      </span>
-                    ) : (
-                      <>
-                        <span className="old-price">
-                          {"$" + product?.price[1].toFixed(2)}
-                        </span>
-                        <span className="product-price">
-                          {"$" + product?.price[0].toFixed(2)}
-                        </span>
-                      </>
-                    )}
-                  </span> */}
                 </ALink>
               ))}
           </div>

@@ -61,6 +61,8 @@ function Cart(props) {
   const [updateCartQuantity] = useMutation(PUT_CART);
   const [removeFromCart] = useMutation(REMOVE_CART);
   const token = localStorage.getItem("arabtoken");
+  const [localCart, setLocalCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+
   const {
     data: cartData,
     loading: cartLoading,
@@ -68,12 +70,14 @@ function Cart(props) {
     refetch: cartRefetch,
   } = useQuery(GET_CART, { skip: !token });
 
+  // For authenticated users
   useEffect(() => {
     if (token) {
       if (cartError) {
         console.error("Error fetching cart data:", cartError);
       } else if (cartData) {
-        setCartList(cartData.getCart.products || []);
+        const cartProducts = cartData.getCart.products || [];
+        setCartList(cartProducts);
         setCartCharges({
           grandTotal: cartData.getCart.grandTotal,
           subTotal: cartData.getCart.subTotal,
@@ -81,16 +85,6 @@ function Cart(props) {
         });
       }
       cartRefetch();
-    } else {
-      const localCart = JSON.parse(localStorage.getItem("cart"));
-      if (localCart && localCart.length > 0) {
-        setCartList(localCart);
-        const subTotal = localCart.reduce((acc, item) => acc + item.price * item.quantity, 0);
-        setCartCharges({
-          ...cartCharges,
-          subTotal: subTotal,
-        });
-      }
     }
   }, [token, cartData, cartError, cartRefetch]);
 
@@ -114,12 +108,12 @@ function Cart(props) {
               productId: id,
             },
           },
-        },
-      });
+        });
 
-      cartRefetch();
+        cartRefetch();
 
-      toast.success("successfully removed product");
+        toast.success("Successfully removed product");
+      }
 
       if (!token) {
         const storedCartItems = localStorage.getItem("cart");
@@ -147,15 +141,16 @@ function Cart(props) {
     }
   };
 
+
   const onChangeQty = async (id, qty) => {
-    // qty.preventDefault();
-    try {
-      console.log(id, qty);
-      const response = await updateCartQuantity({
-        variables: {
-          input: {
-            productId: id,
-            quantity: qty,
+    if (token) {
+      try {
+        const response = await updateCartQuantity({
+          variables: {
+            input: {
+              productId: id,
+              quantity: qty,
+            },
           },
         });
 
@@ -189,13 +184,7 @@ function Cart(props) {
           subTotal: subTotal,
         }));
       }
-      console.log(response);
-    } catch (error) {
-      console.log(error);
     }
-    // setCartList( cartList.map( ( item, index ) => {
-    //     return index === id ? { ...item, qty: qty } : item
-    // } ) );
   };
 
   return (
@@ -313,7 +302,7 @@ function Cart(props) {
                             <ALink href={`/product/default/${item?.productId}`}>{item.name}</ALink>
                           </h5>
                         </td>
-                        <td>OMR {item.price.toFixed(2)}</td>
+                        <td>OMR {item.sellingPrice.toFixed(2)}</td>
                         <td>
                           <Qty
                             value={item?.quantity}
@@ -323,7 +312,7 @@ function Cart(props) {
                         </td>
                         <td className="text-right">
                           <span className="subtotal-price">
-                            OMR {(parseInt(item.price) * parseInt(item.quantity)).toFixed(2)}
+                            OMR {(parseInt(item.sellingPrice) * parseInt(item.quantity)).toFixed(2)}
                           </span>
                         </td>
                       </tr>
@@ -473,7 +462,6 @@ function Cart(props) {
                     }}
                   >
                     Proceed to Checkout
-                    {/* <i className="fa fa-arrow-right"></i> */}
                   </div>
                 </div>
               </div>
