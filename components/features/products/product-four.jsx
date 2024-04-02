@@ -57,8 +57,69 @@ function ProductFour(props) {
 
   function onAddCartClick(e) {
     e.preventDefault();
-    props.addToCart(product);
-  }
+    console.log(product)
+    if (localStorage.getItem("arabtoken")) {
+      try {
+        if (
+          product.stock > 0 &&
+          !e.currentTarget.classList.contains("disabled")
+        ) {
+          const response =  addToCart({
+            variables: {
+              input: {
+                productId: product._id,
+                quantity: 1,
+              },
+            },
+          });
+
+          if (response) {
+            cartRefetch();
+            return toast(<AddToCartPopup product={{ product }} />);
+          }
+        }
+
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const localCart = JSON.parse(localStorage.getItem("cart"));
+      if (localCart) {
+        const productIndex = localCart.findIndex((item) => item.productId === product._id);
+        if (productIndex > -1) {
+          localCart[productIndex].quantity += 1;
+        } else {
+          localCart.push({
+            productId: product._id, quantity: 1,
+            name: product.productName,
+            shortDescription: product.shortDescription,
+            stock: product.stock,
+            color: product.color,
+            size: product.size,
+            price: product.price,
+            image: product.images[0] && product.images[0].fileURL,
+            sellingPrice: product.sellingPrice,
+            mrp: product.mrp,
+          });
+        }
+        localStorage.setItem("cart", JSON.stringify(localCart));
+      } else {
+        localStorage.setItem("cart", JSON.stringify([{
+          productId: product._id, quantity: 1,
+          name: product.productName,
+          shortDescription: product.shortDescription,
+          stock: product.stock,
+          color: product.color,
+          size: product.size,
+          price: product.price,
+          image: product.images[0] && product.images[0].fileURL,
+          sellingPrice: product.sellingPrice,
+          mrp: product.mrp,
+        }]));
+      }
+    }
+    return toast(<AddToCartPopup product={{ product }} />);
+  };
 
   function onQuickViewClick(e) {
     e.preventDefault();
@@ -169,7 +230,7 @@ function ProductFour(props) {
             className="old-price"
             style={{ marginLeft: "25px", color: "#777777", fontWeight: "600" }}
           >
-            {+product?.mrp?.toFixed(2)}
+            {product?.mrp?.toFixed(2)}
           </span>
         </div>
         {/* <div className="price-box">

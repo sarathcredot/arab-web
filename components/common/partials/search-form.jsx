@@ -8,41 +8,63 @@ import ALink from "../ALink";
 
 // Import Apollo Server and Query
 import { GET_PRODUCTS } from "../../../server/queries";
-import withApollo from "../../../server/apollo";
+import withApollo from "../../../server/apollo.js";
+import { gql, useMutation } from "@apollo/client";
+import { useQuery } from "@apollo/react-hooks";
+import { set } from "react-hook-form";
+
+
+
+const GET_PRODUCTS_AUTOCOMPLETE = gql`
+  query GetProductsAutoComplete($input: GetProductsAutoCompleteInput!) {
+    getProductsAutoComplete(input: $input) {
+      suggestions {
+        suggestion
+        image
+        categoryId
+      }
+    }
+  }
+`;
+
+const dummyOptions = [
+  {
+    suggestion: "Product 1",
+    image: "/assets/images/products/product-1.jpg",
+    categoryId: 1,
+  },
+  {
+    suggestion: "Product 2",
+    image: "/assets/images/products/product-2.jpg",
+    categoryId: 2,
+  }
+];
 
 function SearchForm(props) {
   const router = useRouter();
   const [cat, setCat] = useState("");
   const [search, setSearch] = useState("");
-  const [searchProducts, { data }] = useLazyQuery(GET_PRODUCTS);
-  const [timer, setTimer] = useState(null);
   const [options, setOptions] = useState([]);
+
+  const [getProductsAutoComplete, { data }] = useLazyQuery(GET_PRODUCTS_AUTOCOMPLETE);
+
+
 
 
   useEffect(() => {
     document.querySelector("body").addEventListener("click", onBodyClick);
-
     return () => {
       document.querySelector("body").removeEventListener("click", onBodyClick);
     };
   }, []);
+
+
 
   useEffect(() => {
     setSearch("");
     setCat("");
   }, [router.query.slug]);
 
-  useEffect(() => {
-    if (search.length > 2) {
-      if (timer) clearTimeout(timer);
-      let timerId = setTimeout(() => {
-        searchProducts({ variables: { search: search, category: cat } });
-        setTimer(null);
-      }, 500);
-
-      setTimer(timerId);
-    }
-  }, [search, cat]);
 
   useEffect(() => {
     document.querySelector(".header-search.show-results") &&
@@ -116,17 +138,30 @@ function SearchForm(props) {
   const onSearchChange = (e) => {
     const searchText = e.target.value;
     setSearch(searchText);
-    
-    const suggestions = ['Apple', 'Banana', 'Cherry', 'Date', 'Fig']
-      .filter(option => option.toLowerCase().includes(searchText.toLowerCase()));
-    setOptions(suggestions);
+    if (searchText.length > 2) {
+      getProductsAutoComplete({
+        variables: {
+          input: {
+            query: searchText,
+          },
+        },
+      });
+      setOptions(dummyOptions);
+    } else {
+      setOptions([]);
+    }
   };
 
-  const handleOptionClick = (option) => {
-    setSearch(option);
-    setOptions([]); // Clear options when an option is selected
-  };
 
+
+  useEffect(() => {
+    // if (data && data.getProductsAutoComplete && data.getProductsAutoComplete.suggestions) {
+    //   setOptions(data.getProductsAutoComplete.suggestions);
+    // }
+    setOptions(dummyOptions);
+  }, [data]);
+
+  console.log("options", options);
 
   return (
     <div className="header-icon header-search header-search-inline header-search-category w-lg-max text-right mb-0 d-sm-block d-none">
@@ -152,15 +187,9 @@ function SearchForm(props) {
             onChange={(e) => onSearchChange(e)}
           />
 
-{/* {options.length > 0 && (
-        <ul className="search-options">
-          {options.map((option, index) => (
-            <li key={index} onClick={() => handleOptionClick(option)}>
-              {option}
-            </li>
-          ))}
-        </ul>
-      )} */}
+
+
+
           {/* <div className="select-custom">
             <select
               id={`${props.type === 1 ? "cat1" : "cat"}`}
@@ -206,8 +235,8 @@ function SearchForm(props) {
           </button>
 
           <div className="live-search-list bg-white">
-            {options.length > 2 &&
-              
+            {options.length > 0 && search.length > 2 &&
+
               options.map((product, index) => (
                 <ALink
                   href={`/product/default/${product}`}
@@ -216,15 +245,15 @@ function SearchForm(props) {
                   style={{  borderBottom: '0px' }}
                 >
                   <LazyLoadImage
-                    src="images/iphone.svg"
+                    src={product.image}
                     width={40}
                     height={40}
-                    alt="product"
+                    alt=""
                   />
                   <div
                     className="search-name"
                     dangerouslySetInnerHTML={removeXSSAttacks(
-                      matchEmphasize(product)
+                      matchEmphasize(product.suggestion)
                     )}
                   ></div>
                   {/* <span className="search-price">

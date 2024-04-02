@@ -328,12 +328,14 @@ function ProductDetailOne(props) {
 
   function isInWishlist() {
 
-
-
     // Check if the product exists in the wishlist
     return wishlistDatas;
   }
+
   function onWishlistClick(e) {
+    if (!token) {
+      router.push("/pages/login");
+    }
     e.preventDefault();
     if (!isInWishlist()) {
       let target = e.currentTarget;
@@ -406,8 +408,8 @@ function ProductDetailOne(props) {
             size: selectedAttributes.size,
             price: product.price,
             image: product.images[0] && product.images[0].fileURL,
-            sellingPrice: product.offerPrice,
-            mrp: product.price,
+            sellingPrice: product.sellingPrice,
+            mrp: product.mrp,
           });
         }
         localStorage.setItem("cart", JSON.stringify(localCart));
@@ -421,8 +423,8 @@ function ProductDetailOne(props) {
           size: selectedAttributes.size,
           price: product.price,
           image: product.images[0] && product.images[0].fileURL,
-          sellingPrice: product.offerPrice,
-          mrp: product.price,
+          sellingPrice: product.sellingPrice,
+          mrp: product.mrp,
         }]));
       }
     }
@@ -892,7 +894,7 @@ function ProductDetailOne(props) {
                             value.attributeName.toLowerCase() !==
                             "size" &&
                             value.attributeName.toLowerCase() !== "color" &&
-                            value.attributeName.toLowerCase() !== "colour" 
+                            value.attributeName.toLowerCase() !== "colour"
                         )
                         .map((item) => item.attributeName.toLowerCase())
                     )
@@ -1052,7 +1054,7 @@ function ProductDetailOne(props) {
 
                   <div className="product-action">
                     <Qty
-                      max={product?.stock}
+                      max={product?.stock > 10 ? 10 : product?.stock}
                       value={qty}
                       onChangeQty={changeQty}
                     />

@@ -18,37 +18,48 @@ const GET_PRODUCTS = gql`
       maxRecords
       records {
         _id
-        attributes {
-          attributeValue
-          attributeName
-        }
+        vendorId
         brandId
         brandName
-        categoryId
-        categoryIdPath
-        categoryNamePath
-        description
-        images {
-          fileURL
-          originalName
-          fileType
-        }
-        mrp
-        offerPrice
-        price
-        productCode
-        productInfo
         productName
-        productShortInfo
-        rating
-        sellingPrice
         shortDescription
         skuId
-        status
-        stock
+        description
+        productInfo
+        productShortInfo
+        images {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
+        rating
+        sellingPrice
+        price
+        mrp
         tags
-        vendorId
+        productCode
+        categoryId
+        categoryNamePath
+        categoryIdPath
         isBlocked
+        stock
+        status
+        offerPrice
+        attributes {
+          attributeId
+          attributeName
+          attributeValueId
+          attributeValue
+          attributeDescription
+        }
+        productDetailImages {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
+        warehouseSkuId
       }
     }
   }
@@ -188,14 +199,13 @@ function Shop() {
                       </ALink>{" "}
                       / {query.search}
                     </>
-                  ) : (
-                    <span>
-                      {data &&
-                        data?.getProducts?.records.map((item, index) => (
-                          <React.Fragment key={index}>{item?.categoryNamePath}</React.Fragment>
-                        ))}
-                    </span>
-                  )}
+                  ) : // <span>
+                  //   {data &&
+                  //     data?.getProducts?.records.map((item, index) => (
+                  //       <React.Fragment key={index}>{item?.categoryNamePath}</React.Fragment>
+                  //     ))}
+                  // </span>
+                  null}
                 </li>
               </>
             ) : query.search ? (

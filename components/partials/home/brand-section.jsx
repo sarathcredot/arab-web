@@ -33,7 +33,7 @@ function BrandSection() {
         <div className="brands-section mt-2 mb-3">
             <Reveal keyframes={fadeIn} delay={200} duration={500} triggerOnce>
                 <div className="headding">
-                    <h4 className="section-title text-transform-none">Featured Brands</h4>
+                    <h4 className="section-title text-transform-none">Top Brands</h4>
                 </div>
 
                 <OwlCarousel adClass="brands-slider bg-white nav-circle images-center" options={brandSlider}>

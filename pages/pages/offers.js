@@ -121,14 +121,19 @@ function offers() {
   console.log(cmsData);
 
   const filteredImages = cmsData?.getAllCmsRecords?.records.find(
+    (record) => record.pageName === "Offer" && record.sectionName === "SECTION-2"
+  );
+
+  const filteredImages2 = cmsData?.getAllCmsRecords?.records.find(
     (record) => record.pageName === "Offer" && record.sectionName === "SECTION-3"
   );
 
-  if (filteredImages?.length === 0) {
-    return null;
-  }
+
+
 
   const firstImage = filteredImages?.images[0];
+
+  
 
   console.log(filteredImages);
 
@@ -494,7 +499,7 @@ function offers() {
           <RecentCollection bestSelling={bestSelling} />
         </div>
 
-        <Footerbanner data={cmsData} />
+        <Footerbanner data={filteredImages2} />
       </main>
 
       {/* <NewsletterModal /> */}

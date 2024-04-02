@@ -92,15 +92,27 @@ function Cart(props) {
         });
       }
     }
-  }, [cartData]);
+  }, [token, cartData, cartError, cartRefetch]);
+
+  useEffect(() => {
+    if (!token && localCart.length > 0) {
+      setCartList(localCart);
+      const subTotal = localCart.reduce((acc, item) => acc + item.sellingPrice * item.quantity, 0);
+      setCartCharges((prevCharges) => ({
+        ...prevCharges,
+        subTotal: subTotal,
+      }));
+    }
+  }, [token, localCart]);
 
   const removeCart = async (id) => {
     try {
-      // props.removeFromCart(item);
-      const response = await removeFromCart({
-        variables: {
-          input: {
-            productId: id,
+      if (token) {
+        const response = await removeFromCart({
+          variables: {
+            input: {
+              productId: id,
+            },
           },
         },
       });
@@ -109,7 +121,27 @@ function Cart(props) {
 
       toast.success("successfully removed product");
 
-      console.log(response);
+      if (!token) {
+        const storedCartItems = localStorage.getItem("cart");
+
+        if (storedCartItems !== null) {
+          const currentCartItems = JSON.parse(storedCartItems);
+          const updatedCartItems = currentCartItems.filter((item) => item.productId !== id);
+
+          localStorage.setItem("cart", JSON.stringify(updatedCartItems));
+
+          const subTotal = updatedCartItems.reduce(
+            (acc, item) => acc + item.sellingPrice * item.quantity,
+            0
+          );
+
+          setCartList(updatedCartItems);
+          setCartCharges((prevCharges) => ({
+            ...prevCharges,
+            subTotal: subTotal,
+          }));
+        }
+      }
     } catch (error) {
       console.log(error);
     }
@@ -125,11 +157,37 @@ function Cart(props) {
             productId: id,
             quantity: qty,
           },
-        },
-      });
-      console.log(response);
-      if (response) {
-        return cartRefetch();
+        });
+
+        if (response) {
+          cartRefetch();
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      const storedCartItems = localStorage.getItem("cart");
+
+      if (storedCartItems !== null) {
+        const currentCartItems = JSON.parse(storedCartItems);
+        const updatedCartItems = currentCartItems.map((item) => {
+          if (item.productId === id) {
+            return { ...item, quantity: qty };
+          } else {
+            return item;
+          }
+        });
+
+        localStorage.setItem("cart", JSON.stringify(updatedCartItems));
+        const subTotal = updatedCartItems.reduce(
+          (acc, item) => acc + item.sellingPrice * item.quantity,
+          0
+        );
+        setCartList(updatedCartItems);
+        setCartCharges((prevCharges) => ({
+          ...prevCharges,
+          subTotal: subTotal,
+        }));
       }
       console.log(response);
     } catch (error) {
@@ -139,10 +197,6 @@ function Cart(props) {
     //     return index === id ? { ...item, qty: qty } : item
     // } ) );
   };
-
-  function updateCart() {
-    props.updateCart(cartList);
-  }
 
   return (
     <main className="main">
@@ -332,7 +386,7 @@ function Cart(props) {
                     )}
                     <tr>
                       <td>Subtotal</td>
-                      <td style={{ color: "black" }}>OMR {cartCharges.subTotal}</td>
+                      <td style={{ color: "black" }}>OMR {cartCharges.subTotal?.toFixed(2)}</td>
                     </tr>
 
                     {/* 
@@ -411,7 +465,11 @@ function Cart(props) {
                     href="checkout"
                     className="btn btn-block btn-dark hoverbtn"
                     onClick={() => {
-                      router.push("/pages/checkout");
+                      if (token) {
+                        router.push("/pages/checkout");
+                      } else {
+                        router.push("/pages/login?origin=cart");
+                      }
                     }}
                   >
                     Proceed to Checkout

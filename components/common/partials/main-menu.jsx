@@ -13,7 +13,7 @@ import ProductThree from "../../features/products/product-three";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 // Import Utils
 import { mainMenu } from "../../../utils/data/menu";
-import { gql, useMutation,useLazyQuery } from "@apollo/client";
+import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import { usePathname, useRouter, useSearchParams } from 'next/router';
 export const LEVEL_CATEGORY = gql`
   query Query {
@@ -42,7 +42,7 @@ export const LEVEL2_CATEGORY = gql`
   }
 `;
 
-export const BRAND_LISTING=gql`query GetBrandDetailsWithCategory($input: BrandsDetailsWithCategoryIdInput!) {
+export const BRAND_LISTING = gql`query GetBrandDetailsWithCategory($input: BrandsDetailsWithCategoryIdInput!) {
   getBrandDetailsWithCategory(input: $input) {
     message
     records {
@@ -57,8 +57,8 @@ export const BRAND_LISTING=gql`query GetBrandDetailsWithCategory($input: BrandsD
       priority
     }
   }
-}`
-export const VARIENT=gql`query GetVariants($input: VariantsInput!) {
+}`;
+export const VARIENT = gql`query GetVariants($input: VariantsInput!) {
   getVariants(input: $input) {
     variants {
       _id
@@ -70,13 +70,13 @@ export const VARIENT=gql`query GetVariants($input: VariantsInput!) {
       colorCode
     }
   }
-}`
+}`;
 
 function MainMenu({ router }) {
   const { data, loading, error } = useQuery(LEVEL_CATEGORY);
   console.log(data);
-  const { data:varientData } = useQuery(VARIENT, {
-    variables: { input:{_id:"65b76b1448ffd4fbf7782e19"} },
+  const { data: varientData } = useQuery(VARIENT, {
+    variables: { input: { _id: "65b76b1448ffd4fbf7782e19" } },
   });
   console.log(varientData);
   const [parentcategory, setParentcategory] = useState({
@@ -92,7 +92,7 @@ function MainMenu({ router }) {
   const [activeItem4, setActiveItem4] = useState("");
   const [activeItem5, setActiveItem5] = useState("");
   const [catlevel2, setCatlevel2] = useState("");
-  const [selectedcategory,setSelectedCategory]=useState("")
+  const [selectedcategory, setSelectedCategory] = useState("");
   const pathname = router.pathname;
   // const router = useRouter();
   // const { data, loading, error } = useQuery(GET_HOME_DATA, {
@@ -128,11 +128,11 @@ function MainMenu({ router }) {
     setParentcategory((e) => ({ ...e, [element]: "" }));
   };
 
-  const [lev2catid,setLev2id]=useState("")
+  const [lev2catid, setLev2id] = useState("");
 
-  const [catLevel2, { loading:level2loading, error:level2error, data:level2Data }] = useLazyQuery(LEVEL2_CATEGORY);
-  const [catLevel3, { loading:level3loading, error:level3error, data:level3Data }] = useLazyQuery(LEVEL2_CATEGORY);
-  const [brandlist,{loading:brandloading,error:branderror,data:brandData} ]=useLazyQuery(BRAND_LISTING)
+  const [catLevel2, { loading: level2loading, error: level2error, data: level2Data }] = useLazyQuery(LEVEL2_CATEGORY);
+  const [catLevel3, { loading: level3loading, error: level3error, data: level3Data }] = useLazyQuery(LEVEL2_CATEGORY);
+  const [brandlist, { loading: brandloading, error: branderror, data: brandData }] = useLazyQuery(BRAND_LISTING);
   // const { data: level2Data } = useQuery(LEVEL2_CATEGORY, {
   //   variables: { input: { parent: "659fdb096566dd2049354755" } },
   // });
@@ -142,9 +142,9 @@ function MainMenu({ router }) {
   const handleLevel2category = async (id) => {
     console.log(id);
     try {
-      catLevel2({ variables: { input:{parent: id} } })
+      catLevel2({ variables: { input: { parent: id } } });
       console.log(level2Data);
-    } 
+    }
     catch (error) {
       console.error(error);
     }
@@ -152,39 +152,42 @@ function MainMenu({ router }) {
   const handleLevel3category = async (id) => {
     console.log(id);
     try {
-      catLevel3({ variables: { input:{parent: id} } })
+      catLevel3({ variables: { input: { parent: id } } });
       console.log(level3Data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const handleBrandList=async(id)=>{
+  const handleBrandList = async (id) => {
     console.log(id);
-    try{
-      brandlist({variables:{input:{categoryId:id}}})
+    try {
+      brandlist({ variables: { input: { categoryId: id } } });
     }
-catch(error)
-{
-  console.error(error);
-}  }
+    catch (error) {
+      console.error(error);
+    }
+  };
   console.log(catlevel2);
-  // const mainNav = data?.getActiveCategoryTree?.records;
   const mainNav = (data?.getActiveCategoryTree?.records || []).slice(0, 10);
 
-  const child1 = level2Data?.getActiveChildCategories?.records
-  
-  const child2 =level3Data?.getActiveChildCategories?.records
-  
+  const child1 = level2Data?.getActiveChildCategories?.records;
+
+  const child2 = level3Data?.getActiveChildCategories?.records;
+
+  console.log(child1, 'child1');
+  console.log(child2, 'child2');
+  console.log(child2?.length, 'child2 length');
+
   const varient = [
     { key: "ddr1", label: "DDR 1" },
     { key: "ddr2", label: "DDR 2" },
     { key: "ddr3", label: "DDR 3" },
     { key: "ddr4", label: "DDR 4" },
   ];
-  const brand = brandData?.getBrandDetailsWithCategory?.records
+  const brand = brandData?.getBrandDetailsWithCategory?.records;
 
-  
+
   console.log(child2);
   return (
     <>
@@ -192,15 +195,14 @@ catch(error)
         className={`w-100 skeleton-body skel-shop-products ${
           // !loading ? "loaded" : ""
           false ? "loaded" : ""
-        }`}
+          }`}
       >
         <ul className="custom__menu w-100" >
           {mainNav?.map((item) => (
             <li
               key={item._id}
-              className={`custom__menu__item px-2 ${
-                item._id === parentcategory.cat1 ? "activate" : ""
-              }`}
+              className={`custom__menu__item px-2 ${item._id === parentcategory.cat1 ? "activate" : ""
+                }`}
               onClick={() => {
                 handleLevel2category(item?._id);
                 // setCatlevel2(item?._id)
@@ -216,7 +218,7 @@ catch(error)
               <span className="custom__menu__item-image">
                 <img src={item.categoryImage?.fileURL} alt={item.categoryName} />
               </span>
-              <p className="custom__menu__item-label">{item.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}</p>
+              <p className="custom__menu__item-label">{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
             </li>
           ))}
         </ul>
@@ -243,7 +245,7 @@ catch(error)
                   <img src={item.categoryImage?.fileURL} alt={item.categoryName} />
                 </span>
               </div>
-              <p>{item.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}</p>
+              <p>{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
             </li>
           ))}
         </ul>
@@ -254,20 +256,18 @@ catch(error)
 
         {parentcategory?.cat1 ? (
           <ul
-            className={`custom__menufirstchild w-100 ${
-              parentcategory.cat2 ? "active_container_hidden" : ""
-            }`}
+            className={`custom__menufirstchild w-100 ${parentcategory.cat2 ? "active_container_hidden" : ""
+              }`}
           >
             {child1?.map((item) => (
               <li
                 key={item._id}
-                className={`custom__menufirstchild__item px-2 ${
-                  item._id === parentcategory.cat2 ? "customactive" : ""
-                }`}
+                className={`custom__menufirstchild__item px-2 ${item._id === parentcategory.cat2 ? "customactive" : ""
+                  }`}
                 onClick={() => {
                   console.log("click");
                   handleLevel3category(item?._id);
-                  setSelectedCategory(item?._id)
+                  setSelectedCategory(item?._id);
                   setParentcategory((e) => ({
                     ...e,
                     cat2: item._id,
@@ -278,36 +278,36 @@ catch(error)
                 }}
               >
                 <p className="custom__menufirstchild__item-label">
-                  {item.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}
+                  {item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}
                 </p>
               </li>
             ))}
+            {
+              !!!child1?.length && <p className="custom__menufirstchild__item px-2">No Sub Category</p>
+            }
           </ul>
         ) : null}
         {parentcategory?.cat2 ? (
-         (child2?.length>0 && <>
+          (<>
             <p
-              className={`customheading ${
-                parentcategory.cat3 ? "active_container_hidden" : ""
-              }`}
+              className={`customheading ${parentcategory.cat3 ? "active_container_hidden" : ""
+                }`}
             >
               SELECT SUB CATEGORY
             </p>
             <ul
-              className={`custom__menusecondchild w-100 ${
-                parentcategory?.cat3 ? "active_container_hidden" : ""
-              }`}
+              className={`custom__menusecondchild w-100 ${parentcategory?.cat3 ? "active_container_hidden" : ""
+                }`}
             >
               {child2?.map((item) => (
                 <li
                   key={item._id}
-                  className={`custom__menusecondchild__item px-4 ${
-                    item._id === parentcategory.cat3 ? "customactive" : ""
-                  }`}
+                  className={`custom__menusecondchild__item px-4 ${item._id === parentcategory.cat3 ? "customactive" : ""
+                    }`}
                   onClick={() => {
                     console.log("click");
-                    setSelectedCategory(item?._id)
-handleBrandList(item?._id)
+                    setSelectedCategory(item?._id);
+                    handleBrandList(item?._id);
                     setParentcategory((e) => ({
                       ...e,
                       cat3: item._id,
@@ -317,51 +317,15 @@ handleBrandList(item?._id)
                   }}
                 >
                   <p className="custom__menusecondchild__item-label">
-                    
-                    {item?.categoryName.charAt(0).toUpperCase()+ item.categoryName.slice(1)}
+
+                    {item?.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}
                   </p>
                 </li>
               ))}
+              {!!!child2?.length && <p className="custom__menufirstchild__item px-2">No Sub Category</p>}
             </ul>
           </>)
         ) : null}
-        {/* {parentcategory?.cat3 ? (
-          <>
-            <p
-              className={`pb-4 customheading ${
-                parentcategory.cat4 ? "active_container_hidden" : ""
-              }`}
-            >
-              SELECT VARIENT
-            </p>
-            <ul
-              className={`custom__menusecondchild w-100 ${
-                parentcategory.cat4 ? "active_container_hidden" : ""
-              }`}
-            >
-              {varient.map((item) => (
-                <li
-                  key={item.key}
-                  className={`custom__menusecondchild__item px-4 ${
-                    item.key === parentcategory.cat4 ? "customactive" : ""
-                  }`}
-                  onClick={() => {
-                    console.log("click");
-                    setParentcategory((e) => ({
-                      ...e,
-                      cat4: item.key,
-                      cat5: "",
-                    }));
-                  }}
-                >
-                  <p className="custom__menusecondchild__item-label">
-                    {item.label}
-                  </p>
-                </li>
-              ))}
-            </ul>
-          </>
-        ) : null} */}
         {parentcategory?.cat3 ? (
           <>
             <p className="pb-4 customheading">SELECT BRAND</p>
@@ -369,13 +333,11 @@ handleBrandList(item?._id)
               {brand?.map((item) => (
                 <li
                   key={item._id}
-                  className={`custom__menulastchild__item px-4 ${
-                    item._id === parentcategory.cat4 ? "customactive" : ""
-                  }`}
-                  onClick={() =>
-{
-                    setParentcategory((e) => ({ ...e, cat4: item._id }))
-router.push(`/shop?cat_id=${selectedcategory}&brands=${item?._id}`)
+                  className={`custom__menulastchild__item px-4 ${item._id === parentcategory.cat4 ? "customactive" : ""
+                    }`}
+                  onClick={() => {
+                    setParentcategory((e) => ({ ...e, cat4: item._id }));
+                    router.push(`/shop?cat_id=${selectedcategory}&brands=${item?._id}`);
                   }}
                 >
                   <span className="custom__menulastchild__item-image">
@@ -386,6 +348,7 @@ router.push(`/shop?cat_id=${selectedcategory}&brands=${item?._id}`)
                   </p>
                 </li>
               ))}
+              {!!!brand?.length && <p className="custom__menufirstchild__item px-2">No Brand Available</p>}
             </ul>
           </>
         ) : null}

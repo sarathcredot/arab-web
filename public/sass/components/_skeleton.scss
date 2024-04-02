@@ -351,8 +351,11 @@
         }
 
         .product-slider-container{
+            padding-bottom: 20px;
+            padding-top: 20px;
             .owl-item{
-                height: 111px;
+                height: 110px;
+                gap: 30px;
             }
         }
 
