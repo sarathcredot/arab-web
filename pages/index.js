@@ -124,8 +124,8 @@ function Home() {
           </div>
           <div
             className="homebannerpadding"
-          // style={{paddingTop:"20px", backgroundColor:"white"}}
-          // className="bg-gray"
+            // style={{paddingTop:"20px", backgroundColor:"white"}}
+            // className="bg-gray"
           >
             {!loading && <HomeSection className="pb-5" data={sectionOneDatastate} />}
           </div>

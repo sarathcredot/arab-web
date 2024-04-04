@@ -16,25 +16,29 @@ import ALink from "../../../common/ALink";
 import { shopColors, shopBrands } from "../../../../utils/data/shop";
 
 const GET_ATTRIBUTE = gql`
-  query Query($input: AttributesDetailsWithCategoryIdInput!) {
-    getAttributesDetailsByCategory(input: $input) {
-      message
-      record {
+query GetAttributesDetailsByCategory($input: AttributesDetailsWithCategoryIdInput!) {
+  getAttributesDetailsByCategory(input: $input) {
+    message
+    record {
+      _id
+      categoryName
+      attributes {
         _id
-        categoryName
-        attributes {
+        attributeType
+        name
+        description
+        attributeValues {
           _id
-          attributeType
-          attributeValues {
-            value
-            _id
-          }
-          name
-          description
+          value
+          colorCode
+          priority
+          isBlocked
         }
+        isBlocked
       }
     }
   }
+}
 `;
 
 export const BRAND_LISTING = gql`
@@ -946,7 +950,7 @@ function ShopSidebarOne(props) {
                                           </div>
                                         </ALink>
 
-                                      )
+                                      );
 
                                     })}
 

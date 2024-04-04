@@ -130,7 +130,7 @@ function Cart(props) {
           );
 
           setCartList(updatedCartItems);
-          setCartCharges((prevCharges) => ({
+          setCartCharges((prevCharges) => ({ 
             ...prevCharges,
             subTotal: subTotal,
           }));
@@ -140,7 +140,6 @@ function Cart(props) {
       console.log(error);
     }
   };
-
 
   const onChangeQty = async (id, qty) => {
     if (token) {
