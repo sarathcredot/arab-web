@@ -245,8 +245,12 @@ function Header({ adClass = "", wishlist }) {
                 style={{ background: "rgba(249, 249, 249, 1)", padding: "11px" }}
               >
                 <ALink href="#">
-                  {/* <img src="/images/british.svg"style={{width:"25px",height:"25px"}}></img> */}
-                  English
+                  <img src="/images/icon/language.svg" style={{ width: "15px", height: "15px" }}></img>
+                  <span style={{
+                    padding: "0px 5px",
+                    borderLeft: "1px solid #EBEBEB",
+                  }}> English</span>
+
                 </ALink>
                 {/* <div className="header-menu">
                   <ul>

@@ -27,18 +27,7 @@ const GET_PRODUCTS_AUTOCOMPLETE = gql`
   }
 `;
 
-const dummyOptions = [
-  {
-    suggestion: "Product 1",
-    image: "/assets/images/products/product-1.jpg",
-    categoryId: 1,
-  },
-  {
-    suggestion: "Product 2",
-    image: "/assets/images/products/product-2.jpg",
-    categoryId: 2,
-  }
-];
+
 
 function SearchForm(props) {
   const router = useRouter();
@@ -133,6 +122,7 @@ function SearchForm(props) {
 
 
   const onSearchChange = (e) => {
+    console.log("e", e.target.value);
     const searchText = e.target.value;
     setSearch(searchText);
     if (searchText.length > 2) {
@@ -143,7 +133,6 @@ function SearchForm(props) {
           },
         },
       });
-      setOptions(dummyOptions);
     } else {
       setOptions([]);
     }
@@ -152,10 +141,9 @@ function SearchForm(props) {
 
 
   useEffect(() => {
-    // if (data && data.getProductsAutoComplete && data.getProductsAutoComplete.suggestions) {
-    //   setOptions(data.getProductsAutoComplete.suggestions);
-    // }
-    setOptions(dummyOptions);
+    if (data && data.getProductsAutoComplete && data.getProductsAutoComplete.suggestions) {
+      setOptions(data.getProductsAutoComplete.suggestions);
+    }
   }, [data]);
 
   console.log("options", options);

@@ -327,8 +327,6 @@ function ProductDetailOne(props) {
 
 
   function isInWishlist() {
-
-    // Check if the product exists in the wishlist
     return wishlistDatas;
   }
 

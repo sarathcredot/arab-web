@@ -61,37 +61,8 @@ const GET_PRODUCTS = gql`
         }
         warehouseSkuId
       }
-      rating
-      sellingPrice
-      price
-      mrp
-      tags
-      productCode
-      categoryId
-      categoryNamePath
-      categoryIdPath
-      isBlocked
-      stock
-      status
-      offerPrice
-      attributes {
-        attributeId
-        attributeName
-        attributeValueId
-        attributeValue
-        attributeDescription
-      }
-      productDetailImages {
-        fileType
-        fileURL
-        mimeType
-        originalName
-      }
-      warehouseSkuId
     }
-    
   }
-}
 `;
 
 function Shop() {
@@ -125,7 +96,7 @@ function Shop() {
   const products = data && data?.getProducts?.records;
   const totalPage = data
     ? parseInt(data?.getProducts?.maxRecords / perPage) +
-    (data?.getProducts?.maxRecords % perPage ? 1 : 0)
+      (data?.getProducts?.maxRecords % perPage ? 1 : 0)
     : 0;
 
   const attributesWithNonEmptyValues = attributes.filter((attribute) =>
