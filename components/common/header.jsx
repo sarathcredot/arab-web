@@ -204,7 +204,7 @@ function Header({ adClass = "", wishlist }) {
 
                 <span>OFFERZONE</span>
               </div>
-              <div className="custom-countryhide">
+              <div className="header-dropdown-hide">
                 <div
                   className="header-dropdown mr-auto mr-sm-3 mr-md-2 d-sm-none d-md-flex"
                   style={{ background: "rgba(249, 249, 249, 1)" }}
@@ -240,19 +240,20 @@ function Header({ adClass = "", wishlist }) {
                 </div>
               </div>
 
-              <div
-                className="header-dropdown mr-auto mr-sm-3 mr-md-0 d-sm-none d-md-flex"
-                style={{ background: "rgba(249, 249, 249, 1)", padding: "11px" }}
-              >
-                <ALink href="#">
-                  <img src="/images/icon/language.svg" style={{ width: "15px", height: "15px" }}></img>
-                  <span style={{
-                    padding: "0px 5px",
-                    borderLeft: "1px solid #EBEBEB",
-                  }}> English</span>
+              <div className="header-dropdown-hide">
+                <div
+                  className="header-dropdown mr-auto mr-sm-3 mr-md-0 d-sm-none d-md-flex"
+                  style={{ background: "rgba(249, 249, 249, 1)", padding: "11px" }}
+                >
+                  <ALink href="#">
+                    <img src="/images/icon/language.svg" style={{ width: "15px", height: "15px" }}></img>
+                    <span style={{
+                      padding: "0px 5px",
+                      borderLeft: "1px solid #EBEBEB",
+                    }}> English</span>
 
-                </ALink>
-                {/* <div className="header-menu">
+                  </ALink>
+                  {/* <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#" >
@@ -272,8 +273,8 @@ function Header({ adClass = "", wishlist }) {
                     
                   </ul>
                 </div> */}
+                </div>
               </div>
-
 
 
 

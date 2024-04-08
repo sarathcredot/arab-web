@@ -240,7 +240,7 @@ function MainMenu({ router }) {
                 }));
               }}
             >
-              <div className="custom__mobilemenu__item-circle">
+              <div className="custom__mobilemenu__item-circl">
                 <span className="custom__mobilemenu__item-image">
                   <img src={item.categoryImage?.fileURL} alt={item.categoryName} />
                 </span>

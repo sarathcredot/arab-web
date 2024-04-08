@@ -17,7 +17,6 @@ export const LOGIN = gql`
       _id
     }
   }
-}
 `;
 
 export const OTP_VERIFY = gql`
@@ -316,7 +315,7 @@ function Login({ mutate }) {
                           className="form-input form-wide"
                           value={mobileNumber}
                           onChange={(e) => setMobileNumber(e.target.value)}
-                          style={{ outline: "none", paddingLeft: "80px " }}
+                          style={{ outline: "none", paddingLeft: "80px" }}
                         />
                       </div>
                     </div>
