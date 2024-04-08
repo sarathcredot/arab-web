@@ -132,7 +132,7 @@ function CartMenu({ props }) {
       }
 
     } catch (error) {
-      // console.log(error);
+      console.log(error);
     }
   };
 
@@ -155,7 +155,7 @@ function CartMenu({ props }) {
   useEffect(() => {
     if (token) {
       if (cartError) {
-        console.error("Error fetching cart data:", cartError);
+        //console.error("Error fetching cart data:", cartError);
       } else if (cartData) {
         setCartItems(cartData.getCart.products || []);
       }

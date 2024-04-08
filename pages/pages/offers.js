@@ -111,7 +111,7 @@ function offers() {
   // if (error) {
   //   return <div>{error.message}</div>;
   // }
-  // console.log(bestSelling)
+  // //console.log(bestSelling)
 
   const { data: cmsOfferDataSection1 } = useQuery(CMS_ONE, {
     variables: { input: { pageName: "Offer", sectionName: "SECTION-1" } },

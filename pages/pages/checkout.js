@@ -151,7 +151,7 @@ function CheckOut() {
 
   useEffect(() => {
     if (cartError) {
-      console.error("Error fetching cart data:", cartError);
+      //console.error("Error fetching cart data:", cartError);
     } else if (cartData) {
       setCartList(cartData.getCart.products || []);
     }
@@ -288,7 +288,7 @@ function CheckOut() {
                               }}
                               onClick={() => {
                                 onToggle();
-                                console.log(toggle);
+                                //console.log(toggle);
                               }}
                             >
                               {toggler ? (

@@ -139,7 +139,7 @@ function Orders(props) {
 
   useEffect(() => {
     if (error) {
-      console.error("Error fetching orders:", error);
+      //console.error("Error fetching orders:", error);
     } else if (data) {
       setOrders(data.getUserOrderProducts.records || []);
     }
@@ -158,7 +158,7 @@ function Orders(props) {
       refetch();
       toast.success(<div style={{ padding: "10px" }}>Your order has been canceled.</div>);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -173,7 +173,7 @@ function Orders(props) {
       });
 
       const url = invoice.data.getUserIvoiceSignedUrl.url;
-      // console.log("invoice", url);
+      // //console.log("invoice", url);
       // const link = document.createElement('a');
       // link.href = url;
       // link.setAttribute('download', 'invoice.pdf');

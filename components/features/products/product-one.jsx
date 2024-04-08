@@ -100,7 +100,7 @@ function ProductOne(props) {
         router.push("/pages/cart");
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
