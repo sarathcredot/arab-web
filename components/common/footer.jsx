@@ -98,7 +98,9 @@ function Footer() {
                     </form>
                 </div> */}
 
-          <div className="footer-top">
+          <div className="footer-top" style={{
+            padding: "60px 0",
+          }}>
             <div className="row">
               <div className="col-md-6 col-lg-3">
                 <div className="widget">

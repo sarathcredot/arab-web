@@ -227,7 +227,8 @@ function MainMenu({ router }) {
         <ul className="custom__mobilemenu w-100">
           {mainNav?.map((item) => (
             <li
-              className="custom__mobilemenu__item"
+              className={`custom__mobile__item px-2 ${item._id === parentcategory.cat1 ? "activate" : ""
+                }`}
               onClick={() => {
                 console.log("click");
                 handleLevel2category(item?._id);
@@ -242,7 +243,11 @@ function MainMenu({ router }) {
             >
               <div className="custom__mobilemenu__item-circl">
                 <span className="custom__mobilemenu__item-image">
-                  <img src={item.categoryImage?.fileURL} alt={item.categoryName} />
+                  <img src={item.categoryImage?.fileURL} alt={item.categoryName} style={{
+                    width: "50px",
+                    height: "50px",
+                  }}
+                  />
                 </span>
               </div>
               <p>{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
