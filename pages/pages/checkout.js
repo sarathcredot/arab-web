@@ -84,7 +84,6 @@ function CheckOut() {
   const [RemoveUserShippingAddress] = useMutation(REMOVE_ADDRESS);
   const [CreateUserOrder] = useMutation(PLACE_ORDER)
   const router = useRouter()
-  console.log(data);
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
@@ -134,7 +133,6 @@ function CheckOut() {
   const token = localStorage.getItem("arabtoken")
 
 
-  console.log(defaultAddressId);
   const {
     data: cartData,
     loading: cartLoading,
@@ -144,16 +142,13 @@ function CheckOut() {
 
   useEffect(() => {
     if (data && data.getUserShippingAddresses && data.getUserShippingAddresses.address.length > 0) {
-      console.log("vbn");
       const defaultAddress = data.getUserShippingAddresses.address.find(address => address.isDefault);
-      console.log(defaultAddress);
       if (defaultAddress) {
         setDefaultAddressId(defaultAddress._id);
       }
     }
   }, [data]);
 
-  console.log(cartData);
   useEffect(() => {
     if (cartError) {
       console.error("Error fetching cart data:", cartError);
@@ -163,12 +158,10 @@ function CheckOut() {
     cartRefetch()
   }, [cartData]);
   const handleCloseShipping = () => {
-    console.log("click");
     setIsshipping(false);
     refetch();
   };
   const handleRemove = async (id) => {
-    console.log(id);
     const response = await RemoveUserShippingAddress({
       variables: {
         input: {
@@ -176,7 +169,6 @@ function CheckOut() {
         }
       }
     })
-    console.log(response);
     refetch();
   }
 
@@ -186,11 +178,9 @@ function CheckOut() {
   };
 
   const handlePlaceOrder = async () => {
-    console.log("click");
     try {
 
       const response = await CreateUserOrder({ variables: { input: { grandTotal: cartData?.getCart?.grandTotal, paymentMode: "COD", shippingAddressId: defaultAddressId } } })
-      console.log(response);
       // toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
       // router.push("/pages/success")
       router.push({

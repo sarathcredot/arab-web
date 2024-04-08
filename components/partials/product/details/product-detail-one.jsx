@@ -319,7 +319,6 @@ function ProductDetailOne(props) {
     if (error) {
       console.log(wishListError.message);
     } else if (data) {
-      console.log(data, "wishList");
       setWishlistDatas(data?.getWishListProductStatus.isExist);
     }
     refetch();
@@ -460,7 +459,6 @@ function ProductDetailOne(props) {
     e.preventDefault();
     // setAttrs({})
     setSelectedAttributes({});
-    console.log(attributeType);
     const productId = attributeType; // Replace with your dynamic value
     router.push({
       pathname: "/product/default/[...slug]",
@@ -488,7 +486,6 @@ function ProductDetailOne(props) {
     // const value = "red";
     const attrbutsvalue = product?.attributes?.map(attribute => attribute.attributeValue); // Assuming `attrbutsvalue` is the property you want to compare
     const matchedElements = attrbutsvalue?.some(element => element === passvalue);
-    console.log(matchedElements);
     return matchedElements;
 
   }

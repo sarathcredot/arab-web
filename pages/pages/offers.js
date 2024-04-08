@@ -118,7 +118,6 @@ function offers() {
   });
 
   const { data: cmsData } = useQuery(CMS);
-  console.log(cmsData);
 
   const filteredImages = cmsData?.getAllCmsRecords?.records.find(
     (record) => record.pageName === "Offer" && record.sectionName === "SECTION-2"
@@ -135,7 +134,6 @@ function offers() {
 
   
 
-  console.log(filteredImages);
 
   useEffect(() => {
     if (cmsOfferDataSection1) {
@@ -143,7 +141,6 @@ function offers() {
     }
   }, [cmsOfferDataSection1]);
 
-  console.log(cmsOfferData);
 
   return (
     <>

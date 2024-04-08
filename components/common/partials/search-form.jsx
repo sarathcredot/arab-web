@@ -122,7 +122,6 @@ function SearchForm(props) {
 
 
   const onSearchChange = (e) => {
-    console.log("e", e.target.value);
     const searchText = e.target.value;
     setSearch(searchText);
     if (searchText.length > 2) {
@@ -146,7 +145,6 @@ function SearchForm(props) {
     }
   }, [data]);
 
-  console.log("options", options);
 
   return (
     <div className="header-icon header-search header-search-inline header-search-category w-lg-max text-right mb-0 d-sm-block d-none">
@@ -223,11 +221,25 @@ function SearchForm(props) {
             {options.length > 0 && search.length > 2 &&
 
               options.map((product, index) => (
-                <ALink
-                  href={`/product/default/${product}`}
+                <div
+                  // href={`/shop?page=0&category=${product.categoryId}`}
                   className="autocomplete-suggestion"
                   key={`search-result-${index}`}
-                  style={{ borderBottom: '0px' }}
+                  style={{ borderBottom: '0px', cursor: "pointer" }}
+
+                  // use onCLick instead of href and setSearch null 
+                  onClick={() => {
+                    setSearch("");
+                    setOptions([]);
+                    router.push({
+                      pathname: "/shop",
+                      query: {
+                        search: product.suggestion,
+                        category: product.categoryId,
+                      },
+                    });
+                  }}
+
                 >
                   <LazyLoadImage
                     src={product.image}
@@ -241,7 +253,7 @@ function SearchForm(props) {
                       matchEmphasize(product.suggestion)
                     )}
                   ></div>
-                </ALink>
+                </div>
               ))}
           </div>
         </div>

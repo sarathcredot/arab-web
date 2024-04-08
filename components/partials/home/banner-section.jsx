@@ -4,8 +4,8 @@ import { fadeInUpShorter } from "../../../utils/data/keyframes";
 import { useRouter } from "next/router";
 
 function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
-  console.log(sectionTwoData);
-  console.log(sectionThreeData);
+  // console.log(sectionTwoData);
+  // console.log(sectionThreeData);
   return (
     // <Reveal keyframes={fadeInUpShorter} delay={200} duration={1000} triggerOnce>
     <div className="banner-section">

@@ -31,7 +31,6 @@ function accountdetails() {
   const id = localStorage?.getItem("userId");
   const [userdetail, { loading: userloading, error: usererror, data: userData, refetch }] =
     useLazyQuery(USER_DETAIL);
-  console.log(userData);
   const {
     register,
     handleSubmit,
@@ -50,10 +49,8 @@ function accountdetails() {
     },
   });
   useEffect(() => {
-    console.log("click");
     userdetail({ variables: { input: { _id: id } } });
     // setValue("firstName",userData?.getUserRecord?.record?.firstName)
-    console.log(userData);
   }, [id]);
 
   useEffect(() => {
@@ -69,7 +66,6 @@ function accountdetails() {
   const [UpdateUserProfile] = useMutation(ACCOUNT_DETAIL);
   const onSubmit = async (values) => {
     values._id = id;
-    console.log(values);
     // e.preventDefault();
     try {
       // if (!mobileNumber.trim()) {
@@ -77,7 +73,6 @@ function accountdetails() {
       //   return;
       // }
 
-      console.log(id);
       const response = await UpdateUserProfile({
         variables: {
           input: {
@@ -88,7 +83,6 @@ function accountdetails() {
           },
         },
       });
-      console.log(response);
       if (response) {
         toast.success(response?.data?.updateUserProfile?.message);
         reset();

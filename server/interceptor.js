@@ -22,7 +22,6 @@ export const responseInterceptor = new ApolloLink(
     return new Observable((observer) => {
       const handleNext = (result) => {
 
-        console.log('GraphQL Result:', result?.errors);
         if (result.errors && result.errors.some((error) => error.extensions?.code === "UNAUTHORIZED")) {
           console.log("Redirecting to login page", result);
           // localStorage.removeItem("arabtoken");

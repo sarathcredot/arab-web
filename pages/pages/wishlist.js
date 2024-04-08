@@ -155,7 +155,6 @@ function Wishlist(props) {
           },
         });
 
-        console.log(response, "resp")
 
         if (response) {
 

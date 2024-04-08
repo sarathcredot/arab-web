@@ -67,7 +67,6 @@ query GetProducts($input: ProductFilters) {
 
 function ElectronicCollection() {
   const { data, loading, error } = useQuery(GET_PRODUCTS, { variables: { input: { bestSeller: true } } })
-  console.log(data);
   const products = data?.getProducts?.records
   //   const { data, loading, error } = useQuery(GET_HOME_DATA, {
   //     variables: { productsCount: 15 },

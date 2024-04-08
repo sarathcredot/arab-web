@@ -71,7 +71,6 @@ function Login({ mutate }) {
       const response = await UserResendLoginOtp({
         variables: { input: { mobileNumber: `+968 ${mobileNumber}` } },
       });
-      console.log(response);
       if (response) {
         toast.success(<div style={{ padding: "10px" }}>otp sent successfully</div>);
       }
@@ -99,7 +98,6 @@ function Login({ mutate }) {
         return;
       }
       const response = await UserVerifyOtp({ variables: { input: { code: otp, _id: otpId } } });
-      console.log(response);
 
       if (response) {
         localStorage.setItem("arabtoken", response?.data?.userVerifyOtp?.token);

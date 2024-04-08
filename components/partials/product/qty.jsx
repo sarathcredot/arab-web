@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react';
 function Qty ( { max = Infinity, onChangeQty, value = 1 } ) {
     const [ count, setCount ] = useState( value );
 
-    console.log(count)
 
     // useEffect( () => {
     //     value !== count && setCount( value );

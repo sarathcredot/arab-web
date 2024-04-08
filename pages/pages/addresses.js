@@ -55,8 +55,6 @@ function addresses() {
   const [isShippingOpen, setIsShippingOpen] = useState(false);
   const [RemoveUserShippingAddress]=useMutation(REMOVE_ADDRESS)
   const [UpdateUserShippingAddressAsDefault]=useMutation(DEFAULT_ADDRESS)
-  console.log(data);
-  console.log(data?.getUserShippingAddresses?.address?.isDefault);
 useEffect(()=>{
   refetch();
 },[])
@@ -65,21 +63,17 @@ const handleOpenShipping = () => {
 };
 
 const handleCloseShipping = () => {
-console.log("click");
   setIsshipping(false);
   refetch();
 };
    const handleRemove=async(id)=>{
-     console.log(id);
     const response=await RemoveUserShippingAddress({variables:{input:{
       _id:id
     }}})
-    console.log(response);
     refetch();
    }
    const handleDefault=async(id)=>{
     const response=await UpdateUserShippingAddressAsDefault({variables:{input:{addressId:id}}})
-    console.log(response);
     refetch();
     toast.success(response?.data?.updateUserShippingAddressAsDefault?.message)
    }

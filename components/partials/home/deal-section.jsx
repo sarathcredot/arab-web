@@ -62,9 +62,7 @@ function DealSection() {
     })
   }, [])
 
-  console.log(data);
   const products = data?.getProducts?.records
-  console.log(products);
   return (
     <section className="deal-products-section">
 

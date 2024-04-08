@@ -32,7 +32,6 @@ function ProductOne(props) {
  
 
   function isSale() {
-    console.log(product);
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +

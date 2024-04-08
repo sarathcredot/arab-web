@@ -145,7 +145,6 @@ function Orders(props) {
     }
   }, [data, error]);
 
-  console.log(orders, "gggggggggggggggggggggggg");
 
   const orderCancel = async (id) => {
     try {
@@ -156,7 +155,6 @@ function Orders(props) {
           },
         },
       });
-      console.log(response.message);
       refetch();
       toast.success(<div style={{ padding: "10px" }}>Your order has been canceled.</div>);
     } catch (error) {

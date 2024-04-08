@@ -40,7 +40,6 @@ function Addresses({ isEdit, addressId, onClose, isShipping, onIsShipping }) {
     const router = useRouter()
 
     const { data: getAddress, loading: getAddressLoading, error: getAddressError } = useQuery(GET_ADDRESSES, { variables: { input: { _id: addressId } } })
-    console.log(getAddress);
     const {
         register,
         handleSubmit,
@@ -86,7 +85,6 @@ function Addresses({ isEdit, addressId, onClose, isShipping, onIsShipping }) {
     const [EditUserShippingAddress] = useMutation(UPDATE_SHIPPING);
 
     const onSubmit = async (values) => {
-        console.log(values);
         event.preventDefault();
         try {
 
@@ -109,7 +107,6 @@ function Addresses({ isEdit, addressId, onClose, isShipping, onIsShipping }) {
             }
         } catch (error) {
             toast(<div style={{ padding: "10px" }}>{error.message}</div>)
-            console.log("error", error);
         }
 
     }

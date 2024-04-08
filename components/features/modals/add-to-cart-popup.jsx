@@ -9,7 +9,6 @@ function CartPopup(props) {
   const { product } = props;
   const router = useRouter();
 
-  console.log(product);
 
   return (
     <div className="minipopup-area">

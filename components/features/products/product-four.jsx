@@ -17,7 +17,6 @@ import AddToCartPopup from "../modals/add-to-cart-popup";
 useQuery
 function ProductFour(props) {
   const router = useRouter();
-  console.log("props", props);
   const { adClass = "", link = "default", product } = props;
 
   function isSale() {
@@ -60,7 +59,6 @@ function ProductFour(props) {
 
   function onAddCartClick(e) {
     e.preventDefault();
-    console.log(product)
     if (localStorage.getItem("arabtoken")) {
       try {
         if (
