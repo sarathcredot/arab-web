@@ -85,10 +85,9 @@ function ElectronicCollection() {
           delay={100}
           duration={1000}
           triggerOnce
-        // style={{ marginTop: "30px" }}
         >
           <div
-            className="heading shop-list d-flex align-items-center justify-content-between flex-wrap bg-gray mb-0 pl-0 pr-0 pt-5"
+            className="heading shop-list d-flex align-items-center justify-content-between flex-wrap  mb-0 pl-0 pr-0 pt-5"
             style={{ borderBottom: "1px solid ", borderColor: "#EEEEEE" }}
           >
             <h4 className="section-title text-transform-none mb-0 mr-0 pt-5 pb-5 mt-5">
@@ -100,7 +99,7 @@ function ElectronicCollection() {
           </div>
 
           <OwlCarousel
-            adClass="products-slider carousel-with-bg nav-blackcircle pb-0"
+            adClass="products-slider best-selling-slider nav-blackcircle pb-0"
             options={{
               ...productSlider,
               responsive: {

@@ -794,6 +794,17 @@ color: black;
 .custom__menu__item.activate{
 	border-bottom: 5px solid red;
 }
+
+.custom__mobile__item{
+	cursor: pointer;
+}
+
+.custom__mobile__item.activate{
+	color : red;
+
+}
+
+
 .customactive {
 	background-color: black;
 	color: white;

@@ -16,25 +16,29 @@ import ALink from "../../../common/ALink";
 import { shopColors, shopBrands } from "../../../../utils/data/shop";
 
 const GET_ATTRIBUTE = gql`
-  query Query($input: AttributesDetailsWithCategoryIdInput!) {
-    getAttributesDetailsByCategory(input: $input) {
-      message
-      record {
+query GetAttributesDetailsByCategory($input: AttributesDetailsWithCategoryIdInput!) {
+  getAttributesDetailsByCategory(input: $input) {
+    message
+    record {
+      _id
+      categoryName
+      attributes {
         _id
-        categoryName
-        attributes {
+        attributeType
+        name
+        description
+        attributeValues {
           _id
-          attributeType
-          attributeValues {
-            value
-            _id
-          }
-          name
-          description
+          value
+          colorCode
+          priority
+          isBlocked
         }
+        isBlocked
       }
     }
   }
+}
 `;
 
 export const BRAND_LISTING = gql`
@@ -294,7 +298,7 @@ function ShopSidebarOne(props) {
         }}
       >
         <StickyBox className="sidebar-wrapper" offsetTop={0}>
-          <div className="widget" style={{ padding: "0" }}>
+          <div className="widget-brand" style={{ padding: "0" }}>
             {loading ? (
               <div className="skel-widget"></div>
             ) : (
@@ -306,7 +310,6 @@ function ShopSidebarOne(props) {
                       style={{
                         borderBottom: "1px solid",
                         borderColor: "#DDDDDD",
-                        width: "298px",
                         marginLeft: "0px",
                         paddingBottom: "20px",
                       }}
@@ -325,11 +328,11 @@ function ShopSidebarOne(props) {
                       </a>
                     </h3>
                     <div
-                      className="overflow-hidden"
+                      className="overflow-hidden widget"
                       ref={setCollapsibleElement}
                     >
-                      <div className="widget-body pb-4 m-4">
-                        <ul>
+                      <div className="widget-body pb-0">
+                        <ul className="cat-list">
                           {data &&
                             data?.getActiveChildCategories?.records.length > 0 ? (
                             data?.getActiveChildCategories?.records?.map(
@@ -675,7 +678,7 @@ function ShopSidebarOne(props) {
                         </a>
                       </h3>
                     </div>
-                    <div ref={setCollapsibleElement}>
+                    <div  className="overflow-hidden" ref={setCollapsibleElement}>
                       <div
                         className="widget-body pb-2"
                         style={{ padding: "20px" }}
@@ -788,14 +791,11 @@ function ShopSidebarOne(props) {
                                 className="overflow-hidden widget"
                                 ref={setCollapsibleElement}
                               >
-                                <div className="widget-body pb-4">
+                                <div style={{ padding: "10px" }}>
                                   <ul
                                     className="config-swatch-list"
                                     style={{
-                                      width: "359px",
-                                      height: "48px",
                                       gap: "2px",
-                                      padding: "20px",
                                     }}
                                   >
                                     {attri?.attributeValues.map(
@@ -827,7 +827,7 @@ function ShopSidebarOne(props) {
                                               },
                                             }}
                                             style={{
-                                              backgroundColor: item?.value,
+                                              backgroundColor: item?.colorCode,
                                               borderRadius: "50%",
                                               border: "1px solid black"
                                             }}
@@ -867,7 +867,7 @@ function ShopSidebarOne(props) {
                                   style={{
                                     // borderBottom: "1px solid",
                                     // borderColor: "#DDDDDD",
-                                    width: "298px",
+                                    // width: "298px",
                                     marginLeft: "0px",
                                     // paddingBottom: "20px",
                                   }}
@@ -946,7 +946,7 @@ function ShopSidebarOne(props) {
                                           </div>
                                         </ALink>
 
-                                      )
+                                      );
 
                                     })}
 

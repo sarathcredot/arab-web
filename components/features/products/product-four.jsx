@@ -58,44 +58,7 @@ function ProductFour(props) {
     }
   }
 
-  const GET_CART = gql`
-  query GetCart {
-    getCart {
-      products {
-        _id
-        productId
-        quantity
-        name
-        shortDescription
-        stock
-        color
-        size
-        price
-        image
-        sellingPrice
-        mrp
-      }
-      grandTotal
-      subTotal
-      deliveryCharge
-    }
-  }
-`;
-
-  const { data: cartData, loading: cartLoading, error: cartError, refetch: cartRefetch, } = useQuery(GET_CART);
-
-
-  const POST_CART = gql`
-  mutation AddToCart($input: addToCartInput!) {
-    addToCart(input: $input) {
-      message
-    }
-  }
-`;
-
-  const [addToCart] = useMutation(POST_CART);
-
-  const onAddCartClick = async (e) => {
+  function onAddCartClick(e) {
     e.preventDefault();
     console.log(product)
     if (localStorage.getItem("arabtoken")) {
@@ -104,7 +67,7 @@ function ProductFour(props) {
           product.stock > 0 &&
           !e.currentTarget.classList.contains("disabled")
         ) {
-          const response = await addToCart({
+          const response =  addToCart({
             variables: {
               input: {
                 productId: product._id,
@@ -138,8 +101,8 @@ function ProductFour(props) {
             size: product.size,
             price: product.price,
             image: product.images[0] && product.images[0].fileURL,
-            sellingPrice: product.offerPrice,
-            mrp: product.price,
+            sellingPrice: product.sellingPrice,
+            mrp: product.mrp,
           });
         }
         localStorage.setItem("cart", JSON.stringify(localCart));
@@ -153,8 +116,8 @@ function ProductFour(props) {
           size: product.size,
           price: product.price,
           image: product.images[0] && product.images[0].fileURL,
-          sellingPrice: product.offerPrice,
-          mrp: product.price,
+          sellingPrice: product.sellingPrice,
+          mrp: product.mrp,
         }]));
       }
     }
@@ -270,7 +233,7 @@ function ProductFour(props) {
             className="old-price"
             style={{ marginLeft: "25px", color: "#777777", fontWeight: "600" }}
           >
-            {+product?.mrp?.toFixed(2)}
+            {product?.mrp?.toFixed(2)}
           </span>
         </div>
         {/* <div className="price-box">

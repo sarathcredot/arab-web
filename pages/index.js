@@ -150,8 +150,8 @@ function Home() {
 
         <FooterBannerSection data={sectionFourDatastate} />
 
-        <div className={`bg-gray skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
-          <ElectronicCollection />
+        <div className={` skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
+          <ElectronicCollection /> 
 
           {/* <RecentCollection bestSelling={bestSelling} /> */}
         </div>

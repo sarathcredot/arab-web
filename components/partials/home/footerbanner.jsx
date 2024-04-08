@@ -14,6 +14,7 @@ import { fadeInUpShorter } from "../../../utils/data/keyframes";
 
 function FooterBannerSection({ data }) {
 
+  console.log("data", data);
   const options = {
     items: 1, // Number of items to show
     // margin: 50, // Space between items

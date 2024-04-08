@@ -36,7 +36,7 @@ export default function ProductMediaOne(props) {
             document.querySelector(`${parent} .prod-thumbnail .owl-dot.active`) && document.querySelector(`${parent} .prod-thumbnail .owl-dot.active`) && document.querySelector(`${parent} .prod-thumbnail .owl-dot.active`).classList.remove('active');
             document.querySelector(`${parent} .prod-thumbnail .owl-dot`).classList.add('active');
         }
-    }, [product])
+    }, [product]);
 
     function isSale() {
         return product?.price[0] !== product?.price[1] && product.variants.length === 0 ?
@@ -110,8 +110,8 @@ export default function ProductMediaOne(props) {
                             <OwlCarousel adClass="prod-thumbnail owl-theme owl-dots" options={prodThumbSlider} >
                                 {
                                     product.images.map((item, index) => (
-                                        <div style={{ paddingTop: "20px" }} className="owl-dot media-with-lazy" key={`owl-dot-${index}`} onClick={(e) => changeMediaIndex(index, e)}  >
-                                            <figure className="mb-0" >
+                                        <div className="owl-dot media-with-lazy" key={`owl-dot-${index}`} onClick={(e) => changeMediaIndex(index, e)}  >
+                                            <figure className="mb-0" style={{ paddingTop: "0px" }}>
                                                 <LazyLoadImage src={item.fileURL}
                                                     alt="Thumbnail"
                                                     width="100%"
@@ -143,5 +143,5 @@ export default function ProductMediaOne(props) {
                 </>
             }
         </div>
-    )
+    );
 }

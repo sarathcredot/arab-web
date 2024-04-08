@@ -14,56 +14,55 @@ import withApollo from "../../server/apollo";
 
 const GET_PRODUCTS = gql`
   query GetProducts($input: ProductFilters) {
-  getProducts(input: $input) {
-    maxRecords
-    records {
-      _id
-      vendorId
-      brandId
-      brandName
-      productName
-      shortDescription
-      skuId
-      description
-      productInfo
-      productShortInfo
-      images {
-        fileType
-        fileURL
-        mimeType
-        originalName
+    getProducts(input: $input) {
+      maxRecords
+      records {
+        _id
+        vendorId
+        brandId
+        brandName
+        productName
+        shortDescription
+        skuId
+        description
+        productInfo
+        productShortInfo
+        images {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
+        rating
+        sellingPrice
+        price
+        mrp
+        tags
+        productCode
+        categoryId
+        categoryNamePath
+        categoryIdPath
+        isBlocked
+        stock
+        status
+        offerPrice
+        attributes {
+          attributeId
+          attributeName
+          attributeValueId
+          attributeValue
+          attributeDescription
+        }
+        productDetailImages {
+          fileType
+          fileURL
+          mimeType
+          originalName
+        }
+        warehouseSkuId
       }
-      rating
-      sellingPrice
-      price
-      mrp
-      tags
-      productCode
-      categoryId
-      categoryNamePath
-      categoryIdPath
-      isBlocked
-      stock
-      status
-      offerPrice
-      attributes {
-        attributeId
-        attributeName
-        attributeValueId
-        attributeValue
-        attributeDescription
-      }
-      productDetailImages {
-        fileType
-        fileURL
-        mimeType
-        originalName
-      }
-      warehouseSkuId
     }
-    
   }
-}
 `;
 
 function Shop() {
@@ -97,7 +96,7 @@ function Shop() {
   const products = data && data?.getProducts?.records;
   const totalPage = data
     ? parseInt(data?.getProducts?.maxRecords / perPage) +
-    (data?.getProducts?.maxRecords % perPage ? 1 : 0)
+      (data?.getProducts?.maxRecords % perPage ? 1 : 0)
     : 0;
 
   const attributesWithNonEmptyValues = attributes.filter((attribute) =>
@@ -199,14 +198,13 @@ function Shop() {
                       </ALink>{" "}
                       / {query.search}
                     </>
-                  ) : (
-                    <span>
-                      {data &&
-                        data?.getProducts?.records.map((item, index) => (
-                          <React.Fragment key={index}>{item?.categoryNamePath}</React.Fragment>
-                        ))}
-                    </span>
-                  )}
+                  ) : // <span>
+                  //   {data &&
+                  //     data?.getProducts?.records.map((item, index) => (
+                  //       <React.Fragment key={index}>{item?.categoryNamePath}</React.Fragment>
+                  //     ))}
+                  // </span>
+                  null}
                 </li>
               </>
             ) : query.search ? (

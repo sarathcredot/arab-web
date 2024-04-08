@@ -374,16 +374,34 @@ function Orders(props) {
                           </button>
                         </td>
                       ) : (
-                        <td className="action">
-                          <button
-                            className="btn btn-quickview mt-1 mt-md-0"
-                            title="Quick View"
-                            style={{ border: "1px solid", display: "none" }}
-                            disabled
-                          >
-                            Cancel
-                          </button>
-                        </td>
+                        <>
+                          {!item?.invoice ? (
+                            <td className="action">
+                              <button
+                                className="btn btn-quickview mt-1 mt-md-0"
+                                title="Quick View"
+                                style={{ border: "1px solid", display: "none" }}
+                                disabled
+                              >
+                                Cancel
+                              </button>
+                            </td>
+                          ) : (
+                            <td className="action">
+                              <button
+                                className="btn btn-dark btn-add-cart product-type-simple btn-shop"
+                                title="Quick View"
+                                style={{ border: "1px solid" }}
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  handleDownload(item._id);
+                                }}
+                              >
+                                Download Invoice
+                              </button>
+                            </td>
+                          )}
+                        </>
                       )
 
                       // <>
@@ -399,22 +417,6 @@ function Orders(props) {
                       //   </td>
                       // </>
                     }
-
-                    {item?.invoice && (
-                      <td className="action">
-                        <button
-                          className="btn btn-dark btn-add-cart product-type-simple btn-shop"
-                          title="Quick View"
-                          style={{ border: "1px solid" }}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            handleDownload(item._id);
-                          }}
-                        >
-                          Download Invoice
-                        </button>
-                      </td>
-                    )}
                   </tr>
                 ))}
               </tbody>

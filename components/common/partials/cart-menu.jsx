@@ -201,7 +201,7 @@ function CartMenu({ props }) {
         onClick={toggleCart}
       >
         <div className={styles.circle}>
-          <BsFillHandbagFill style={{ fontSize: "20px" }} />
+          <img src="/images/icon/cart.svg" alt="cart" />
         </div>
         {/* <i className="icon-cart-thick"></i> */}
         <span className="cart-count badge-circle">

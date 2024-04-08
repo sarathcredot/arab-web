@@ -88,7 +88,6 @@ function Cart(props) {
     }
   }, [token, cartData, cartError, cartRefetch]);
 
-
   useEffect(() => {
     if (!token && localCart.length > 0) {
       setCartList(localCart);
@@ -100,12 +99,9 @@ function Cart(props) {
     }
   }, [token, localCart]);
 
-
-
   const removeCart = async (id) => {
     try {
       if (token) {
-
         const response = await removeFromCart({
           variables: {
             input: {
@@ -120,18 +116,21 @@ function Cart(props) {
       }
 
       if (!token) {
-        const storedCartItems = localStorage.getItem('cart');
+        const storedCartItems = localStorage.getItem("cart");
 
         if (storedCartItems !== null) {
           const currentCartItems = JSON.parse(storedCartItems);
           const updatedCartItems = currentCartItems.filter((item) => item.productId !== id);
 
-          localStorage.setItem('cart', JSON.stringify(updatedCartItems));
+          localStorage.setItem("cart", JSON.stringify(updatedCartItems));
 
-          const subTotal = updatedCartItems.reduce((acc, item) => acc + item.sellingPrice * item.quantity, 0);
+          const subTotal = updatedCartItems.reduce(
+            (acc, item) => acc + item.sellingPrice * item.quantity,
+            0
+          );
 
           setCartList(updatedCartItems);
-          setCartCharges((prevCharges) => ({
+          setCartCharges((prevCharges) => ({ 
             ...prevCharges,
             subTotal: subTotal,
           }));
@@ -141,7 +140,6 @@ function Cart(props) {
       console.log(error);
     }
   };
-
 
   const onChangeQty = async (id, qty) => {
     if (token) {
@@ -162,7 +160,7 @@ function Cart(props) {
         console.log(error);
       }
     } else {
-      const storedCartItems = localStorage.getItem('cart');
+      const storedCartItems = localStorage.getItem("cart");
 
       if (storedCartItems !== null) {
         const currentCartItems = JSON.parse(storedCartItems);
@@ -174,8 +172,11 @@ function Cart(props) {
           }
         });
 
-        localStorage.setItem('cart', JSON.stringify(updatedCartItems));
-        const subTotal = updatedCartItems.reduce((acc, item) => acc + item.sellingPrice * item.quantity, 0);
+        localStorage.setItem("cart", JSON.stringify(updatedCartItems));
+        const subTotal = updatedCartItems.reduce(
+          (acc, item) => acc + item.sellingPrice * item.quantity,
+          0
+        );
         setCartList(updatedCartItems);
         setCartCharges((prevCharges) => ({
           ...prevCharges,
@@ -184,7 +185,6 @@ function Cart(props) {
       }
     }
   };
-
 
   return (
     <main className="main">
@@ -374,7 +374,7 @@ function Cart(props) {
                     )}
                     <tr>
                       <td>Subtotal</td>
-                      <td style={{ color: "black" }}>OMR {cartCharges.subTotal}</td>
+                      <td style={{ color: "black" }}>OMR {cartCharges.subTotal?.toFixed(2)}</td>
                     </tr>
 
                     {/* 
@@ -456,7 +456,7 @@ function Cart(props) {
                       if (token) {
                         router.push("/pages/checkout");
                       } else {
-                        router.push('/pages/login?origin=cart');
+                        router.push("/pages/login?origin=cart");
                       }
                     }}
                   >
