@@ -351,7 +351,9 @@ function ProductDetailOne(props) {
               productId: product._id,
             }
           }
-        }).then((res) => { refetch(), wishListRefetch(); }).catch((err) => { //console.log(err, "err"); });
+        }).then((res) => { refetch(), wishListRefetch(); }).catch((err) => {
+          console.log(err, "err");
+        });
       }, 1000);
     } else {
       router.push("/pages/wishlist");
