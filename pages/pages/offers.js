@@ -19,6 +19,7 @@ import BrandSection from "../../components/partials/home/brand-section";
 import { gql, useQuery } from "@apollo/client";
 import MainMenu from "../../components/common/partials/main-menu";
 import Footerbanner from "../../components/partials/home/footerbanner";
+import { Helmet } from "react-helmet";
 
 const GET_PRODUCTS = gql`
   query GetProducts($input: ProductFilters) {
@@ -144,6 +145,9 @@ function offers() {
 
   return (
     <>
+    <Helmet>
+        <title>Offers | Arab Deals</title>
+    </Helmet>
       <main className="home" style={{ marginTop: "-20" }}>
         <div className="header-bottom d-flex">
           <div className="container">

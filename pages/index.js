@@ -25,6 +25,7 @@ import AppleProducts from "../components/partials/home/apple-products";
 import MainMenu from "../components/common/partials/main-menu";
 import { useQuery, gql, useMutation } from "@apollo/react-hooks";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 
 export const CMS = gql`
   query getCmsRecord($input: cmsRecordFilter!) {
@@ -110,6 +111,9 @@ function Home() {
 
   return (
     <>
+      <Helmet>
+        <title>Home | Arab Deals</title>
+      </Helmet>
       <main className="home">
         <div style={{ position: "relative" }}>
           <div
@@ -124,8 +128,8 @@ function Home() {
           </div>
           <div
             className="homebannerpadding"
-          // style={{paddingTop:"20px", backgroundColor:"white"}}
-          // className="bg-gray"
+            // style={{paddingTop:"20px", backgroundColor:"white"}}
+            // className="bg-gray"
           >
             {!loading && <HomeSection className="pb-5" data={sectionOneDatastate} />}
           </div>
@@ -151,7 +155,7 @@ function Home() {
         <FooterBannerSection data={sectionFourDatastate} />
 
         <div className={` skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
-          <ElectronicCollection /> 
+          <ElectronicCollection />
 
           {/* <RecentCollection bestSelling={bestSelling} /> */}
         </div>

@@ -5,6 +5,7 @@ import { useRouter } from 'next/router';
 import { IoMdHome } from "react-icons/io";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import withApollo from "../../server/apollo"
+import { Helmet } from 'react-helmet';
 export const USER_DETAIL=gql`query GetUserRecord($input: userInput!) {
   getUserRecord(input: $input) {
     message
@@ -31,6 +32,9 @@ function Account() {
   },[id])
   return (
     <div>
+      <Helmet>
+        <title>Account | Arab Deals</title>
+      </Helmet>
       <main className="main main-test">
         {/* ... Breadcrumb and Checkout Progress Bar ... */}
         <nav aria-label="breadcrumb" className="breadcrumb-nav">

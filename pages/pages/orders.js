@@ -11,6 +11,7 @@ import { IoMdHome } from "react-icons/io";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import withApollo from "../../server/apollo";
 import dayjs from "dayjs";
+import { Helmet } from "react-helmet";
 
 const GET_ORDERS = gql`
   query GetUserOrderProducts($input: GetUserOrderProductsInput!) {
@@ -145,7 +146,6 @@ function Orders(props) {
     }
   }, [data, error]);
 
-
   const orderCancel = async (id) => {
     try {
       const response = await cancelUserOrderProduct({
@@ -187,34 +187,38 @@ function Orders(props) {
   };
 
   return (
-    <main className="main">
-      <div className="container">
-        <nav aria-label="breadcrumb" className="breadcrumb-nav">
-          <div className="container">
-            <ol className="breadcrumb">
-              <li className="breadcrumb-item">
-                <ALink href="/">
-                  <IoMdHome style={{ fontSize: "16px" }} />
-                  {/* <i className="icon-home" ></i> */}
-                </ALink>
-              </li>
-              <li className="breadcrumb-item active" aria-current="page">
-                <ALink href="/pages/account">My account</ALink>
-              </li>
+    <>
+      <Helmet>
+        <title>Orders | Arab Deals</title>
+      </Helmet>
+      <main className="main">
+        <div className="container">
+          <nav aria-label="breadcrumb" className="breadcrumb-nav">
+            <div className="container">
+              <ol className="breadcrumb">
+                <li className="breadcrumb-item">
+                  <ALink href="/">
+                    <IoMdHome style={{ fontSize: "16px" }} />
+                    {/* <i className="icon-home" ></i> */}
+                  </ALink>
+                </li>
+                <li className="breadcrumb-item active" aria-current="page">
+                  <ALink href="/pages/account">My account</ALink>
+                </li>
 
-              <li className="breadcrumb-item active" aria-current="page">
-                <ALink className="activeitem" href="/pages/orders">
-                  Orders
-                </ALink>
-              </li>
-            </ol>
-          </div>
-        </nav>
-      </div>
-      {/* <div className="page-header"> */}
+                <li className="breadcrumb-item active" aria-current="page">
+                  <ALink className="activeitem" href="/pages/orders">
+                    Orders
+                  </ALink>
+                </li>
+              </ol>
+            </div>
+          </nav>
+        </div>
+        {/* <div className="page-header"> */}
 
-      {/* <div className="container d-flex flex-column align-items-center"> */}
-      {/* <nav aria-label="breadcrumb" className="breadcrumb-nav">
+        {/* <div className="container d-flex flex-column align-items-center"> */}
+        {/* <nav aria-label="breadcrumb" className="breadcrumb-nav">
                         <div className="container">
                             <ol className="breadcrumb">
                                 <li className="breadcrumb-item"><ALink href="/">Home</ALink></li>
@@ -225,10 +229,10 @@ function Orders(props) {
                         </div>
                     </nav> */}
 
-      {/* <h1>orders</h1>
-       */}
+        {/* <h1>orders</h1>
+         */}
 
-      {/* <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+        {/* <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
           <li className="">
               <ALink href="/pages/account">My Account</ALink>
             </li>
@@ -240,85 +244,85 @@ function Orders(props) {
         </div>
       </div> */}
 
-      <div className=" d-flex flex-column align-items-center">
-        <ul
-          className="checkout-progress-bar d-flex justify-content-center flex-wrap"
-          style={{ backgroundColor: "#F9F9F9", width: "100%" }}
-        >
-          <li className="">
-            <ALink href="/pages/account">My Account</ALink>
-          </li>
-          <li className="active">
-            <ALink href="/pages/orders">Orders</ALink>
-          </li>
-        </ul>
-      </div>
-
-      <div
-        className="container"
-        style={{
-          marginTop: "2rem",
-          borderBottom: "1px solid",
-          borderColor: "#E2E2E2",
-        }}
-      >
-        <h4>Orders</h4>
-      </div>
-      <div className="container" style={{}}>
-        <div className="success-alert">
-          {flag === 1 ? <p>Product successfully removed.</p> : ""}
-          {flag === 2 ? <p>Product added to cart successfully.</p> : ""}
+        <div className=" d-flex flex-column align-items-center">
+          <ul
+            className="checkout-progress-bar d-flex justify-content-center flex-wrap"
+            style={{ backgroundColor: "#F9F9F9", width: "100%" }}
+          >
+            <li className="">
+              <ALink href="/pages/account">My Account</ALink>
+            </li>
+            <li className="active">
+              <ALink href="/pages/orders">Orders</ALink>
+            </li>
+          </ul>
         </div>
-        {/* <div className="wishlist-title">
+
+        <div
+          className="container"
+          style={{
+            marginTop: "2rem",
+            borderBottom: "1px solid",
+            borderColor: "#E2E2E2",
+          }}
+        >
+          <h4>Orders</h4>
+        </div>
+        <div className="container" style={{}}>
+          <div className="success-alert">
+            {flag === 1 ? <p>Product successfully removed.</p> : ""}
+            {flag === 2 ? <p>Product added to cart successfully.</p> : ""}
+          </div>
+          {/* <div className="wishlist-title">
                     <h2>My wishlist on Porto Shop 36</h2>
                 </div> */}
-        {orders.length === 0 ? (
-          <div className="wishlist-table-container">
-            <div className="table table-wishlist mb-0">
-              <div className="wishlist-empty-page text-center">
-                <i class="fa fa-shopping-bag" aria-hidden="true"></i>
-                <p>No products Ordered</p>
-                <ALink
-                  href="/shop"
-                  className="btn btn-dark btn-add-cart product-type-simple btn-shop font1 w-auto"
-                >
-                  go shop{" "}
-                </ALink>
+          {orders.length === 0 ? (
+            <div className="wishlist-table-container">
+              <div className="table table-wishlist mb-0">
+                <div className="wishlist-empty-page text-center">
+                  <i class="fa fa-shopping-bag" aria-hidden="true"></i>
+                  <p>No products Ordered</p>
+                  <ALink
+                    href="/shop"
+                    className="btn btn-dark btn-add-cart product-type-simple btn-shop font1 w-auto"
+                  >
+                    go shop{" "}
+                  </ALink>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="wishlist-table-container">
-            <table className="table table-wishlist mb-0">
-              <thead>
-                <tr>
-                  <th className="thumbnail-col">Product</th>
-                  <th className="status-col"></th>
-                  <th className="status-col">Order Id</th>
-                  <th className="status-col">Date</th>
-                  <th className="status-col">Status</th>
-                  <th className="price-col">Total Price</th>
-                  <th className="action-col">Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {orders.map((item, index) => (
-                  <tr key={"wishlist-item" + index} className="product-row">
-                    <td className="media-with-lazy">
-                      <figure className="product-image-container">
-                        <ALink
-                          href={`/product/default/${item.productId}`}
-                          className="product-image"
-                        >
-                          <LazyLoadImage
-                            alt="product"
-                            src={item.image.fileURL}
-                            threshold={500}
-                            width="80"
-                            height="80"
-                          />
-                        </ALink>
-                        {/* <a
+          ) : (
+            <div className="wishlist-table-container">
+              <table className="table table-wishlist mb-0">
+                <thead>
+                  <tr>
+                    <th className="thumbnail-col">Product</th>
+                    <th className="status-col"></th>
+                    <th className="status-col">Order Id</th>
+                    <th className="status-col">Date</th>
+                    <th className="status-col">Status</th>
+                    <th className="price-col">Total Price</th>
+                    <th className="action-col">Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {orders.map((item, index) => (
+                    <tr key={"wishlist-item" + index} className="product-row">
+                      <td className="media-with-lazy">
+                        <figure className="product-image-container">
+                          <ALink
+                            href={`/product/default/${item.productId}`}
+                            className="product-image"
+                          >
+                            <LazyLoadImage
+                              alt="product"
+                              src={item.image.fileURL}
+                              threshold={500}
+                              width="80"
+                              height="80"
+                            />
+                          </ALink>
+                          {/* <a
                           href="#"
                           className="btn-remove icon-cancel"
                           title="Remove Product"
@@ -328,101 +332,104 @@ function Orders(props) {
                             orderCancel(item._id)
                           }}
                         ></a> */}
-                      </figure>
-                    </td>
-                    <td>
-                      <h5 className="product-title">
-                        <ALink href={`/product/default/${item.productId}`}>
-                          {item.productName}
-                        </ALink>
-                      </h5>
-                    </td>
-                    <td style={{ color: "black" }}>{item.orderId}</td>
-                    <td style={{ color: "black" }}>{dayjs(item.orderDate).format("YYYY/MM/DD")}</td>
-                    <td style={{ color: getStatusColor(item?.shippingStatus) }}>
-                      {item?.shippingStatus}
-                    </td>
+                        </figure>
+                      </td>
+                      <td>
+                        <h5 className="product-title">
+                          <ALink href={`/product/default/${item.productId}`}>
+                            {item.productName}
+                          </ALink>
+                        </h5>
+                      </td>
+                      <td style={{ color: "black" }}>{item.orderId}</td>
+                      <td style={{ color: "black" }}>
+                        {dayjs(item.orderDate).format("YYYY/MM/DD")}
+                      </td>
+                      <td style={{ color: getStatusColor(item?.shippingStatus) }}>
+                        {item?.shippingStatus}
+                      </td>
 
-                    <td style={{ color: "black" }}>
-                      <div className="price-box">
-                        <>
-                          {/* <span className="old-price">{'OMR ' + item.price[ 1 ].toFixed( 2 ) }</span> */}
-                          <span className="product-price">
-                            {"OMR " + item.sellingPrice + item?.shippingCharge}
-                          </span>
-                        </>
-                      </div>
-                    </td>
+                      <td style={{ color: "black" }}>
+                        <div className="price-box">
+                          <>
+                            {/* <span className="old-price">{'OMR ' + item.price[ 1 ].toFixed( 2 ) }</span> */}
+                            <span className="product-price">
+                              {"OMR " + item.sellingPrice + item?.shippingCharge}
+                            </span>
+                          </>
+                        </div>
+                      </td>
 
-                    {
-                      item?.shippingStatus !== "DELIVERED" &&
-                      item?.shippingStatus !== "SHIPPED" &&
-                      item?.shippingStatus !== "CANCELED" ? (
-                        <td className="action">
-                          <button
-                            className="btn btn-quickview mt-1 mt-md-0"
-                            title="Quick View"
-                            style={{ border: "1px solid" }}
-                            onClick={(e) => {
-                              e.preventDefault();
-                              orderCancel(item._id);
-                            }}
-                          >
-                            Cancel
-                          </button>
-                        </td>
-                      ) : (
-                        <>
-                          {!item?.invoice ? (
-                            <td className="action">
-                              <button
-                                className="btn btn-quickview mt-1 mt-md-0"
-                                title="Quick View"
-                                style={{ border: "1px solid", display: "none" }}
-                                disabled
-                              >
-                                Cancel
-                              </button>
-                            </td>
-                          ) : (
-                            <td className="action">
-                              <button
-                                className="btn btn-dark btn-add-cart product-type-simple btn-shop"
-                                title="Quick View"
-                                style={{ border: "1px solid" }}
-                                onClick={(e) => {
-                                  e.preventDefault();
-                                  handleDownload(item._id);
-                                }}
-                              >
-                                Download Invoice
-                              </button>
-                            </td>
-                          )}
-                        </>
-                      )
+                      {
+                        item?.shippingStatus !== "DELIVERED" &&
+                        item?.shippingStatus !== "SHIPPED" &&
+                        item?.shippingStatus !== "CANCELED" ? (
+                          <td className="action">
+                            <button
+                              className="btn btn-quickview mt-1 mt-md-0"
+                              title="Quick View"
+                              style={{ border: "1px solid" }}
+                              onClick={(e) => {
+                                e.preventDefault();
+                                orderCancel(item._id);
+                              }}
+                            >
+                              Cancel
+                            </button>
+                          </td>
+                        ) : (
+                          <>
+                            {!item?.invoice ? (
+                              <td className="action">
+                                <button
+                                  className="btn btn-quickview mt-1 mt-md-0"
+                                  title="Quick View"
+                                  style={{ border: "1px solid", display: "none" }}
+                                  disabled
+                                >
+                                  Cancel
+                                </button>
+                              </td>
+                            ) : (
+                              <td className="action">
+                                <button
+                                  className="btn btn-dark btn-add-cart product-type-simple btn-shop"
+                                  title="Quick View"
+                                  style={{ border: "1px solid" }}
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    handleDownload(item._id);
+                                  }}
+                                >
+                                  Download Invoice
+                                </button>
+                              </td>
+                            )}
+                          </>
+                        )
 
-                      // <>
-                      //   <td>
-                      //     <a
-                      //       href={`/product/default/${item.productId}`}
-                      //       className="btn btn-quickview mt-1 mt-md-0"
-                      //       title="Quick View"
-                      //       style={{ border: "1px solid" }}
-                      //     >
-                      //       view
-                      //     </a>
-                      //   </td>
-                      // </>
-                    }
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-        )}
-      </div>
-    </main>
+                        // <>
+                        //   <td>
+                        //     <a
+                        //       href={`/product/default/${item.productId}`}
+                        //       className="btn btn-quickview mt-1 mt-md-0"
+                        //       title="Quick View"
+                        //       style={{ border: "1px solid" }}
+                        //     >
+                        //       view
+                        //     </a>
+                        //   </td>
+                        // </>
+                      }
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+          )}
+        </div>
+      </main>
+    </>
   );
 }
 

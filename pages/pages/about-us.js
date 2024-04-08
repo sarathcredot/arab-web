@@ -11,7 +11,11 @@ export default function AboutUs () {
     }, [] )
 
     return (
-        <main className="main about">
+        <>
+        <Helmet>
+            <title>About Us | Arab Deals</title>
+        </Helmet>
+           <main className="main about">
             <div className="page-header page-header-bg text-left"
                 style={ { background: `50%/cover #D4E1EA url(images/page-header-bg.jpg)` } }>
                 <div className="container">
@@ -209,5 +213,7 @@ export default function AboutUs () {
                 </div>
             </div>
         </main>
+        </>
+     
     )
 }

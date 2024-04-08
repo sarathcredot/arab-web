@@ -13,6 +13,7 @@ import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 
 import withApollo from "../../server/apollo";
 import { toast } from "react-toastify";
+import { Helmet } from "react-helmet";
 
 const GET_CART = gql`
   query GetCart {
@@ -130,7 +131,7 @@ function Cart(props) {
           );
 
           setCartList(updatedCartItems);
-          setCartCharges((prevCharges) => ({ 
+          setCartCharges((prevCharges) => ({
             ...prevCharges,
             subTotal: subTotal,
           }));
@@ -187,139 +188,146 @@ function Cart(props) {
   };
 
   return (
-    <main className="main">
-      <nav aria-label="breadcrumb" className="breadcrumb-nav">
-        <div className="container">
-          <ol className="breadcrumb">
-            <li className="breadcrumb-item">
-              <ALink href="/">
-                <IoMdHome style={{ fontSize: "16px" }} />
-                {/* <i className="icon-home"></i> */}
-              </ALink>
-            </li>
-
-            <li className="breadcrumb-item active" aria-current="page">
-              <ALink className="activeitem" href="/pages/cart">
-                Shoping cart
-              </ALink>
-            </li>
-          </ol>
-        </div>
-      </nav>
-      <div className=" d-flex flex-column align-items-center">
-        {/* <h1>orders</h1>*/}
-
-        <ul
-          className="checkout-progress-bar d-flex justify-content-center flex-wrap"
-          style={{ backgroundColor: "#F9F9F9", width: "100%" }}
-        >
-          <li className="active">
-            <ALink href="/pages/cart">Shoping cart</ALink>
-          </li>
-          <li className="">
-            <ALink href="/pages/checkout">checkout</ALink>
-          </li>
-          <li className="">
-            <ALink href="/pages/checkout">Order Complete</ALink>
-          </li>
-        </ul>
-      </div>
-      <div className="container" style={{ marginTop: "70px" }}>
-        {cartList?.length === 0 ? (
-          <div className="cart-table-container">
-            <div className="table table-cart">
-              <div className="cart-empty-page text-center">
-                <i className="icon-bag-2"></i>
-                <p>No products added to the cart</p>
-                <ALink
-                  href="/shop"
-                  className="btn btn-dark btn-add-cart product-type-simple btn-shop font1"
-                >
-                  return to shop
+    <>
+      <Helmet>
+        <title>Cart | Arab Deals</title>
+      </Helmet>
+      <main className="main">
+        <nav aria-label="breadcrumb" className="breadcrumb-nav">
+          <div className="container">
+            <ol className="breadcrumb">
+              <li className="breadcrumb-item">
+                <ALink href="/">
+                  <IoMdHome style={{ fontSize: "16px" }} />
+                  {/* <i className="icon-home"></i> */}
                 </ALink>
+              </li>
+
+              <li className="breadcrumb-item active" aria-current="page">
+                <ALink className="activeitem" href="/pages/cart">
+                  Shopping cart
+                </ALink>
+              </li>
+            </ol>
+          </div>
+        </nav>
+        <div className=" d-flex flex-column align-items-center">
+          {/* <h1>orders</h1>*/}
+
+          <ul
+            className="checkout-progress-bar d-flex justify-content-center flex-wrap"
+            style={{ backgroundColor: "#F9F9F9", width: "100%" }}
+          >
+            <li className="active">
+              <ALink href="/pages/cart">Shopping cart</ALink>
+            </li>
+            <li className="">
+              <ALink href="/pages/checkout">checkout</ALink>
+            </li>
+            <li className="">
+              <ALink href="/pages/checkout">Order Complete</ALink>
+            </li>
+          </ul>
+        </div>
+        <div className="container" style={{ marginTop: "70px" }}>
+          {cartList?.length === 0 ? (
+            <div className="cart-table-container">
+              <div className="table table-cart">
+                <div className="cart-empty-page text-center">
+                  <i className="icon-bag-2"></i>
+                  <p>No products added to the cart</p>
+                  <ALink
+                    href="/shop"
+                    className="btn btn-dark btn-add-cart product-type-simple btn-shop font1"
+                  >
+                    return to shop
+                  </ALink>
+                </div>
               </div>
             </div>
-          </div>
-        ) : (
-          <div className="row">
-            <div className="col-lg-8">
-              <div className="cart-table-container">
-                <table className="table table-cart">
-                  <thead>
-                    <tr>
-                      <th className="thumbnail-col">Product</th>
-                      <th className="product-col pl-0"></th>
-                      {/* <th className="price-col"></th> */}
-                      <th className="price-col">Price</th>
-                      <th className="qty-col">Quantity</th>
-                      <th className="text-right">Subtotal</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {cartList?.map((item, index) => (
-                      <tr
-                        key={"cart-item" + index}
-                        className="product-row"
-                        style={{ color: "black" }}
-                      >
-                        <td className="pl-0">
-                          <figure className="product-image-container">
-                            <ALink
-                              href={`/product/default/${item.productId}`}
-                              className="product-image"
-                            >
-                              <img src={item?.image} alt="product" />
-                            </ALink>
-                            <div
-                              title="Remove Product"
-                              style={{
-                                width: "20px",
-                                height: "20px",
-                                position: "absolute",
-                                top: "-7px",
-                                display: "flex",
-                                justifyContent: "center",
-                                alignItems: "center",
-                                right: "-5px",
-                                borderRadius: "50%",
-                                // background: "white",
-                                filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))",
-                              }}
-                              className="hoverinto"
-                              onClick={(e) => {
-                                e.preventDefault();
-                                removeCart(item.productId, index);
-                              }}
-                            >
-                              <AiOutlineClose style={{ fontSize: "10px" }} />
-                            </div>
-                            {/* <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }></a> */}
-                          </figure>
-                        </td>
-                        <td className="product-col">
-                          <h5 className="product-title">
-                            <ALink href={`/product/default/${item?.productId}`}>{item.name}</ALink>
-                          </h5>
-                        </td>
-                        <td>OMR {item.sellingPrice.toFixed(2)}</td>
-                        <td>
-                          <Qty
-                            value={item?.quantity}
-                            max={10}
-                            onChangeQty={(qty) => onChangeQty(item?.productId, qty)}
-                          />
-                        </td>
-                        <td className="text-right">
-                          <span className="subtotal-price">
-                            OMR {(parseInt(item.sellingPrice) * parseInt(item.quantity)).toFixed(2)}
-                          </span>
-                        </td>
+          ) : (
+            <div className="row">
+              <div className="col-lg-8">
+                <div className="cart-table-container">
+                  <table className="table table-cart">
+                    <thead>
+                      <tr>
+                        <th className="thumbnail-col">Product</th>
+                        <th className="product-col pl-0"></th>
+                        {/* <th className="price-col"></th> */}
+                        <th className="price-col">Price</th>
+                        <th className="qty-col">Quantity</th>
+                        <th className="text-right">Subtotal</th>
                       </tr>
-                    ))}
-                  </tbody>
+                    </thead>
+                    <tbody>
+                      {cartList?.map((item, index) => (
+                        <tr
+                          key={"cart-item" + index}
+                          className="product-row"
+                          style={{ color: "black" }}
+                        >
+                          <td className="pl-0">
+                            <figure className="product-image-container">
+                              <ALink
+                                href={`/product/default/${item.productId}`}
+                                className="product-image"
+                              >
+                                <img src={item?.image} alt="product" />
+                              </ALink>
+                              <div
+                                title="Remove Product"
+                                style={{
+                                  width: "20px",
+                                  height: "20px",
+                                  position: "absolute",
+                                  top: "-7px",
+                                  display: "flex",
+                                  justifyContent: "center",
+                                  alignItems: "center",
+                                  right: "-5px",
+                                  borderRadius: "50%",
+                                  // background: "white",
+                                  filter: "drop-shadow(1px 1px 6px rgba(0, 0, 0, 0.11))",
+                                }}
+                                className="hoverinto"
+                                onClick={(e) => {
+                                  e.preventDefault();
+                                  removeCart(item.productId, index);
+                                }}
+                              >
+                                <AiOutlineClose style={{ fontSize: "10px" }} />
+                              </div>
+                              {/* <a href="#" className="btn-remove icon-cancel" title="Remove Product" onClick={ ( e ) => { e.preventDefault(); removeFromCart( item, index ); } }></a> */}
+                            </figure>
+                          </td>
+                          <td className="product-col">
+                            <h5 className="product-title">
+                              <ALink href={`/product/default/${item?.productId}`}>
+                                {item.name}
+                              </ALink>
+                            </h5>
+                          </td>
+                          <td>OMR {item.sellingPrice.toFixed(2)}</td>
+                          <td>
+                            <Qty
+                              value={item?.quantity}
+                              max={10}
+                              onChangeQty={(qty) => onChangeQty(item?.productId, qty)}
+                            />
+                          </td>
+                          <td className="text-right">
+                            <span className="subtotal-price">
+                              OMR{" "}
+                              {(parseInt(item.sellingPrice) * parseInt(item.quantity)).toFixed(2)}
+                            </span>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
 
-                  <tfoot>
-                    {/* <tr>
+                    <tfoot>
+                      {/* <tr>
                       <td colSpan="5" className="clearfix pl-0">
                         <div className="float-left">
                           <div className="cart-discount">
@@ -355,29 +363,29 @@ function Cart(props) {
                                                     </div>
                       </td>
                     </tr> */}
-                  </tfoot>
-                </table>
+                    </tfoot>
+                  </table>
+                </div>
               </div>
-            </div>
 
-            <div className="col-lg-4">
-              <div className="cart-summary">
-                <h3>Cart Totals</h3>
+              <div className="col-lg-4">
+                <div className="cart-summary">
+                  <h3>Cart Totals</h3>
 
-                <table className="table table-totals">
-                  <tbody>
-                    {token && (
+                  <table className="table table-totals">
+                    <tbody>
+                      {token && (
+                        <tr>
+                          <td>Shipping Charge</td>
+                          <td style={{ color: "black" }}>OMR {cartCharges.deliveryCharge}</td>
+                        </tr>
+                      )}
                       <tr>
-                        <td>Shipping Charge</td>
-                        <td style={{ color: "black" }}>OMR {cartCharges.deliveryCharge}</td>
+                        <td>Subtotal</td>
+                        <td style={{ color: "black" }}>OMR {cartCharges.subTotal?.toFixed(2)}</td>
                       </tr>
-                    )}
-                    <tr>
-                      <td>Subtotal</td>
-                      <td style={{ color: "black" }}>OMR {cartCharges.subTotal?.toFixed(2)}</td>
-                    </tr>
 
-                    {/* 
+                      {/* 
                                             <tr>
                                                 <td colSpan="2" className="text-left">
                                                     <h4>Shipping</h4>
@@ -436,41 +444,42 @@ function Cart(props) {
                                                     </form>
                                                 </td>
                                             </tr> */}
-                  </tbody>
+                    </tbody>
 
-                  <tfoot>
-                    {token && (
-                      <tr>
-                        <td>Total</td>
-                        <td>OMR {cartCharges.grandTotal}</td>
-                      </tr>
-                    )}
-                  </tfoot>
-                </table>
+                    <tfoot>
+                      {token && (
+                        <tr>
+                          <td>Total</td>
+                          <td>OMR {cartCharges.grandTotal}</td>
+                        </tr>
+                      )}
+                    </tfoot>
+                  </table>
 
-                <div className="checkout-methods">
-                  <div
-                    href="checkout"
-                    className="btn btn-block btn-dark hoverbtn"
-                    onClick={() => {
-                      if (token) {
-                        router.push("/pages/checkout");
-                      } else {
-                        router.push("/pages/login?origin=cart");
-                      }
-                    }}
-                  >
-                    Proceed to Checkout
+                  <div className="checkout-methods">
+                    <div
+                      href="checkout"
+                      className="btn btn-block btn-dark hoverbtn"
+                      onClick={() => {
+                        if (token) {
+                          router.push("/pages/checkout");
+                        } else {
+                          router.push("/pages/login?origin=cart");
+                        }
+                      }}
+                    >
+                      Proceed to Checkout
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
 
-      <div className="mb-6"></div>
-    </main>
+        <div className="mb-6"></div>
+      </main>
+    </>
   );
 }
 
