@@ -74,11 +74,11 @@ export const VARIENT = gql`query GetVariants($input: VariantsInput!) {
 
 function MainMenu({ router }) {
   const { data, loading, error } = useQuery(LEVEL_CATEGORY);
-  console.log(data);
+  //console.log(data);
   const { data: varientData } = useQuery(VARIENT, {
     variables: { input: { _id: "65b76b1448ffd4fbf7782e19" } },
   });
-  console.log(varientData);
+  //console.log(varientData);
   const [parentcategory, setParentcategory] = useState({
     cat1: "",
     cat2: "",
@@ -117,14 +117,14 @@ function MainMenu({ router }) {
 
   const movebackward = () => {
     const array = Object.entries(parentcategory);
-    console.log(array);
+    //console.log(array);
 
     let index = array?.findIndex((item) => item[1] === "");
     if (index === -1) {
       index = array.length;
     }
     const element = array[index - 1][0];
-    console.log(element);
+    //console.log(element);
     setParentcategory((e) => ({ ...e, [element]: "" }));
   };
 
@@ -136,48 +136,48 @@ function MainMenu({ router }) {
   // const { data: level2Data } = useQuery(LEVEL2_CATEGORY, {
   //   variables: { input: { parent: "659fdb096566dd2049354755" } },
   // });
-  console.log(level2Data);
-  console.log(level3Data);
-  console.log(brandData);
+  //console.log(level2Data);
+  //console.log(level3Data);
+  //console.log(brandData);
   const handleLevel2category = async (id) => {
-    console.log(id);
+    //console.log(id);
     try {
       catLevel2({ variables: { input: { parent: id } } });
-      console.log(level2Data);
+      //console.log(level2Data);
     }
     catch (error) {
-      console.error(error);
+      //console.error(error);
     }
   };
   const handleLevel3category = async (id) => {
-    console.log(id);
+    //console.log(id);
     try {
       catLevel3({ variables: { input: { parent: id } } });
-      console.log(level3Data);
+      //console.log(level3Data);
     } catch (error) {
-      console.error(error);
+      //console.error(error);
     }
   };
 
   const handleBrandList = async (id) => {
-    console.log(id);
+    //console.log(id);
     try {
       brandlist({ variables: { input: { categoryId: id } } });
     }
     catch (error) {
-      console.error(error);
+      //console.error(error);
     }
   };
-  console.log(catlevel2);
+  //console.log(catlevel2);
   const mainNav = (data?.getActiveCategoryTree?.records || []).slice(0, 10);
 
   const child1 = level2Data?.getActiveChildCategories?.records;
 
   const child2 = level3Data?.getActiveChildCategories?.records;
 
-  console.log(child1, 'child1');
-  console.log(child2, 'child2');
-  console.log(child2?.length, 'child2 length');
+  //console.log(child1, 'child1');
+  //console.log(child2, 'child2');
+  //console.log(child2?.length, 'child2 length');
 
   const varient = [
     { key: "ddr1", label: "DDR 1" },
@@ -188,7 +188,7 @@ function MainMenu({ router }) {
   const brand = brandData?.getBrandDetailsWithCategory?.records;
 
 
-  console.log(child2);
+  //console.log(child2);
   return (
     <>
       <nav
@@ -230,7 +230,7 @@ function MainMenu({ router }) {
               className={`custom__mobile__item px-2 ${item._id === parentcategory.cat1 ? "activate" : ""
                 }`}
               onClick={() => {
-                console.log("click");
+                //console.log("click");
                 handleLevel2category(item?._id);
                 setParentcategory((e) => ({
                   cat1: item._id,
@@ -270,7 +270,7 @@ function MainMenu({ router }) {
                 className={`custom__menufirstchild__item px-2 ${item._id === parentcategory.cat2 ? "customactive" : ""
                   }`}
                 onClick={() => {
-                  console.log("click");
+                  //console.log("click");
                   handleLevel3category(item?._id);
                   setSelectedCategory(item?._id);
                   setParentcategory((e) => ({
@@ -310,7 +310,7 @@ function MainMenu({ router }) {
                   className={`custom__menusecondchild__item px-4 ${item._id === parentcategory.cat3 ? "customactive" : ""
                     }`}
                   onClick={() => {
-                    console.log("click");
+                    //console.log("click");
                     setSelectedCategory(item?._id);
                     handleBrandList(item?._id);
                     setParentcategory((e) => ({

@@ -4,11 +4,11 @@ import React from 'react';
 import ALink from '../common/ALink';
 
 function Pagination ( { totalPage } ) {
-    console.log(totalPage);
+    //console.log(totalPage);
     const query = useRouter().query;
     const page = query.page ? parseInt( query.page ) : 0;
     let indexsToShow = [];
-console.log(page);
+//console.log(page);
     for ( let i = 0; i < Math.min( totalPage, 3 ); i++ ) {
         if ( page < 4 || page > totalPage - 3 ) {
             if ( page < 4 ) {

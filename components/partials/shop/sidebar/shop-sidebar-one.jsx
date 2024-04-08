@@ -86,23 +86,23 @@ function ShopSidebarOne(props) {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [sortOrder, setSortOrder] = useState('Price Low-High');
   const [selectedAttributeValues, setSelectedAttributeValues] = useState([]);
-  console.log(query);
+  //console.log(query);
   const { data, loading, error } = useQuery(GET_SHOP_SIDEBAR_DATA, {
     variables: { input: { parent: catId } },
   });
 
-  console.log(data);
+  //console.log(data);
   //maxprice value getting
   const {
     data: maxPriceData,
     loading: priceLoading,
     priceError,
   } = useQuery(MAX_PRICE, { variables: { input: { categories: [catId] } } });
-  console.log(maxPriceData);
+  //console.log(maxPriceData);
   const maxpricevalue = maxPriceData?.getProductsMaxPrice?.maxPrice
     ? maxPriceData?.getProductsMaxPrice?.maxPrice
     : 1000;
-  console.log(data);
+  //console.log(data);
   const {
     data: attributeData,
     loading: attributeLoading,
@@ -125,7 +125,7 @@ function ShopSidebarOne(props) {
   //   let stack = [],
   //     result = [];
   //   result = cats.reduce((acc, cur) => {
-  //     console.log(acc);
+  //     //console.log(acc);
   //     if (!cur.parent) {
   //       let newNode = {
   //         key: cur._id,
@@ -184,10 +184,10 @@ function ShopSidebarOne(props) {
 
   useEffect(() => {
     // Extract brand ID from the URL
-    console.log("click");
+    //console.log("click");
     const brandId = props.brand;
-    console.log(brandId);
-    console.log(brandData);
+    //console.log(brandId);
+    //console.log(brandData);
     // Check the brand corresponding to the brand ID in the URL
     if (brandId && brandData?.getBrandDetailsWithCategory?.records) {
       const brandName = brandData.getBrandDetailsWithCategory.records.find(
@@ -195,14 +195,14 @@ function ShopSidebarOne(props) {
       )?.brandName;
 
       if (brandName) {
-        console.log("click");
+        //console.log("click");
         setSelectedBrands([brandName]);
       }
     }
   }, [brandData]);
 
   const handleBrandCheckboxChange = (brandName) => {
-    console.log(selectedBrands);
+    //console.log(selectedBrands);
     // Toggle the selected state of the brand
     if (selectedBrands.includes(brandName)) {
       setSelectedBrands(selectedBrands.filter((brand) => brand !== brandName));
@@ -212,7 +212,7 @@ function ShopSidebarOne(props) {
   };
 
   function filterByCategory(selected) {
-    console.log(selected);
+    //console.log(selected);
     router.push(
       router.pathname.replace("[grid]", query.grid) +
       "?category=" +
@@ -249,7 +249,7 @@ function ShopSidebarOne(props) {
   }
 
   function handleSortOrderChange(e) {
-    console.log(e);
+    //console.log(e);
     const selectedSortOrder = e.target.value;
     setSortOrder(selectedSortOrder);
     const searchParams = router.query;
@@ -261,7 +261,7 @@ function ShopSidebarOne(props) {
   }
 
   function filterByDiscount(selectedDiscount) {
-    console.log(selectedDiscount);
+    //console.log(selectedDiscount);
     const query = router.query;
     router.push({
       pathname: router.pathname,
@@ -735,7 +735,7 @@ function ShopSidebarOne(props) {
             .length > 0 &&
             attributeData?.getAttributesDetailsByCategory?.record?.attributes?.map(
               (attri, index) => {
-                console.log(attri);
+                //console.log(attri);
 
                 let attributeComponent;
 

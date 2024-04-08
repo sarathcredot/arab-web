@@ -139,13 +139,13 @@ function Orders(props) {
 
   useEffect(() => {
     if (error) {
-      console.error("Error fetching orders:", error);
+      //console.error("Error fetching orders:", error);
     } else if (data) {
       setOrders(data.getUserOrderProducts.records || []);
     }
   }, [data, error]);
 
-  console.log(orders, "gggggggggggggggggggggggg");
+  //console.log(orders, "gggggggggggggggggggggggg");
 
   const orderCancel = async (id) => {
     try {
@@ -156,11 +156,11 @@ function Orders(props) {
           },
         },
       });
-      console.log(response.message);
+      //console.log(response.message);
       refetch();
       toast.success(<div style={{ padding: "10px" }}>Your order has been canceled.</div>);
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -175,7 +175,7 @@ function Orders(props) {
       });
 
       const url = invoice.data.getUserIvoiceSignedUrl.url;
-      // console.log("invoice", url);
+      // //console.log("invoice", url);
       // const link = document.createElement('a');
       // link.href = url;
       // link.setAttribute('download', 'invoice.pdf');

@@ -122,7 +122,7 @@ function SearchForm(props) {
 
 
   const onSearchChange = (e) => {
-    console.log("e", e.target.value);
+    //console.log("e", e.target.value);
     const searchText = e.target.value;
     setSearch(searchText);
     if (searchText.length > 2) {
@@ -146,7 +146,7 @@ function SearchForm(props) {
     }
   }, [data]);
 
-  console.log("options", options);
+  //console.log("options", options);
 
   return (
     <div className="header-icon header-search header-search-inline header-search-category w-lg-max text-right mb-0 d-sm-block d-none">

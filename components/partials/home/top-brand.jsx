@@ -32,9 +32,9 @@ export const TOP_BRANDS = gql`query GetAllTopBrandRecords($input: BrandRecordsFi
 }`;
 
 function TopBrand({ sectionFourData }) {
-  console.log(sectionFourData);
+  //console.log(sectionFourData);
   const { data, loading, error } = useQuery(TOP_BRANDS);
-  console.log(data);
+  //console.log(data);
   const options = {
     items: 7, // Number of items to show
     // Space between items
@@ -65,7 +65,7 @@ function TopBrand({ sectionFourData }) {
   const [brandsPerPage, setBrandsPerPage] = useState(window.innerWidth < 700 ? 4 : 7);
   // const brandsPerPage = 7;
   const totalBrands = data?.getAllTopBrandRecords?.records.length || 0;
-  console.log(totalBrands);
+  //console.log(totalBrands);
   const handleNext = () => {
     if (startIndex + brandsPerPage >= totalBrands) {
       setStartIndex(0); // If reaching the end, loop back to the beginning
@@ -99,7 +99,7 @@ function TopBrand({ sectionFourData }) {
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth < 700) {
-        console.log("700");
+        //console.log("700");
         setBrandsPerPage(4); // If screen width is less than 700, set to 4
       } else {
         setBrandsPerPage(7); // Otherwise, set to default 7

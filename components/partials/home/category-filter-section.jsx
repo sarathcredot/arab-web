@@ -20,8 +20,8 @@ function CategoryFilterSection() {
   const {data,loading,error}=useQuery(GET_PRODUCTS, {variables:{input:{size:10,page:0}}})
   // const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
   const products = data && data?.getProducts?.records;
-console.log(data);
-console.log(error)
+//console.log(data);
+//console.log(error)
   // useEffect(() => {
     
     // getProducts({

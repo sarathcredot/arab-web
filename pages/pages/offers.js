@@ -111,14 +111,14 @@ function offers() {
   // if (error) {
   //   return <div>{error.message}</div>;
   // }
-  // console.log(bestSelling)
+  // //console.log(bestSelling)
 
   const { data: cmsOfferDataSection1 } = useQuery(CMS_ONE, {
     variables: { input: { pageName: "Offer", sectionName: "SECTION-1" } },
   });
 
   const { data: cmsData } = useQuery(CMS);
-  console.log(cmsData);
+  //console.log(cmsData);
 
   const filteredImages = cmsData?.getAllCmsRecords?.records.find(
     (record) => record.pageName === "Offer" && record.sectionName === "SECTION-2"
@@ -135,7 +135,7 @@ function offers() {
 
   
 
-  console.log(filteredImages);
+  //console.log(filteredImages);
 
   useEffect(() => {
     if (cmsOfferDataSection1) {
@@ -143,7 +143,7 @@ function offers() {
     }
   }, [cmsOfferDataSection1]);
 
-  console.log(cmsOfferData);
+  //console.log(cmsOfferData);
 
   return (
     <>

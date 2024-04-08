@@ -1,7 +1,7 @@
 import React from 'react'
 import ProductOne from "../../features/products/product-one";
 export default function appleproducts({ products }) {
-    console.log(products);
+    //console.log(products);
   return (
     <div className='custom-mobOnlyapple'>
     <div className='custom-apple-title'>

@@ -37,9 +37,9 @@ function Header({ adClass = "", wishlist }) {
 
   const router = useRouter();
   const handleLog = () => {
-    console.log("click");
+    //console.log("click");
     if (localStorage.getItem("arabtoken")) {
-      console.log("ccc");
+      //console.log("ccc");
       router.push("/pages/account");
     }
     else {
@@ -153,7 +153,7 @@ function Header({ adClass = "", wishlist }) {
   // </div>
 
   const handleLogout = () => {
-    console.log("click");
+    //console.log("click");
     localStorage.clear();
     router.push('/pages/login');
   };

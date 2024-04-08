@@ -74,7 +74,7 @@ function Cart(props) {
   useEffect(() => {
     if (token) {
       if (cartError) {
-        console.error("Error fetching cart data:", cartError);
+        //console.error("Error fetching cart data:", cartError);
       } else if (cartData) {
         const cartProducts = cartData.getCart.products || [];
         setCartList(cartProducts);
@@ -137,7 +137,7 @@ function Cart(props) {
         }
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 
@@ -157,7 +157,7 @@ function Cart(props) {
           cartRefetch();
         }
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     } else {
       const storedCartItems = localStorage.getItem("cart");

@@ -56,7 +56,7 @@ function Addresses() {
       useMutation(ACCOUNT_DETAIL);
 
       const onSubmit = async (values) => {
-        console.log(values);
+        //console.log(values);
         event.preventDefault();
         try {
           // if (!mobileNumber.trim()) {
@@ -65,14 +65,14 @@ function Addresses() {
           // }
     const Id="65bb85834825212140ac3aed"
         const response= await updateUserProfile({ variables: { input: {_id:Id.toString(),...values } } });
-          console.log(response);
+          //console.log(response);
           if(response){
             window.alert(response?.data?.updateUserProfile?.message)
             reset()
           }
           SetIsOtp(true);
         } catch (error) {
-          console.log("error", error);
+          //console.log("error", error);
         }
     
       }

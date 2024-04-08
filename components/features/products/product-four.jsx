@@ -17,7 +17,7 @@ import AddToCartPopup from "../modals/add-to-cart-popup";
 useQuery
 function ProductFour(props) {
   const router = useRouter();
-  console.log("props", props);
+  //console.log("props", props);
   const { adClass = "", link = "default", product } = props;
 
   function isSale() {
@@ -60,7 +60,7 @@ function ProductFour(props) {
 
   function onAddCartClick(e) {
     e.preventDefault();
-    console.log(product)
+    //console.log(product)
     if (localStorage.getItem("arabtoken")) {
       try {
         if (
@@ -83,7 +83,7 @@ function ProductFour(props) {
         }
 
       } catch (error) {
-        console.log(error);
+        //console.log(error);
       }
     } else {
       const localCart = JSON.parse(localStorage.getItem("cart"));

@@ -32,7 +32,7 @@ function ProductOne(props) {
  
 
   function isSale() {
-    console.log(product);
+    //console.log(product);
     return product.price[0] !== product.price[1] &&
       product.variants.length === 0
       ? "-" +
@@ -101,7 +101,7 @@ function ProductOne(props) {
         router.push("/pages/cart");
       }
     } catch (error) {
-      console.log(error);
+      //console.log(error);
     }
   };
 

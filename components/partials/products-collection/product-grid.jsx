@@ -3,7 +3,7 @@ import ProductOne from '../../features/products/product-one';
 
 export default function ProductsGrid ( props ) {
     const { products = [], gridClass = "col-6 col-sm-4 col-lg-3 custom-shopproduct", loading, perPage, addClass = '' } = props;
-console.log(products);
+//console.log(products);
     return (
         <>
             <div className="custom-divide-line">

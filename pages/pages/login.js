@@ -62,7 +62,7 @@ function Login({ mutate }) {
       toast.success(<div style={{ padding: "10px" }}>otp sent successfully</div>);
       SetIsOtp(true);
     } catch (error) {
-      console.log("error", error);
+      //console.log("error", error);
     }
   };
 
@@ -71,13 +71,13 @@ function Login({ mutate }) {
       const response = await UserResendLoginOtp({
         variables: { input: { mobileNumber: `+968 ${mobileNumber}` } },
       });
-      console.log(response);
+      //console.log(response);
       if (response) {
         toast.success(<div style={{ padding: "10px" }}>otp sent successfully</div>);
       }
     } catch (error) {
       toast.error(<div style={{ padding: "10px" }}>{error?.message}</div>);
-      console.log("error", error);
+      //console.log("error", error);
     }
   };
 
@@ -99,7 +99,7 @@ function Login({ mutate }) {
         return;
       }
       const response = await UserVerifyOtp({ variables: { input: { code: otp, _id: otpId } } });
-      console.log(response);
+      //console.log(response);
 
       if (response) {
         localStorage.setItem("arabtoken", response?.data?.userVerifyOtp?.token);
@@ -121,7 +121,7 @@ function Login({ mutate }) {
           }
           localStorage.removeItem("cart");
         } catch (error) {
-          console.log(error);
+          //console.log(error);
         }
 
         const historyUrl = localStorage.getItem("historyUrl");
@@ -132,7 +132,7 @@ function Login({ mutate }) {
         }
       }
     } catch (error) {
-      console.log("error", error);
+      //console.log("error", error);
     }
   };
   return (
