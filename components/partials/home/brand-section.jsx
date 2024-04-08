@@ -1,8 +1,7 @@
 import React from 'react';
 import Reveal from 'react-awesome-reveal';
 import { LazyLoadImage } from 'react-lazy-load-image-component';
-import { gql, useMutation, useQuery } from "@apollo/client";
-
+import { gql, useQuery } from "@apollo/client";
 
 // Import Cusom Component
 import OwlCarousel from '../../features/owl-carousel';
@@ -22,10 +21,11 @@ const GET_ALL_BRANDS = gql`query GetAllTopBrandRecords($input: BrandRecordsFilte
             fileType
             fileURL
             mimeType
-            originalName        }
+            originalName
+        }
       }
     }
-  }`;
+}`;
 
 function BrandSection() {
     const { data: brndData } = useQuery(GET_ALL_BRANDS);
@@ -36,25 +36,22 @@ function BrandSection() {
                     <h4 className="section-title text-transform-none">Top Brands</h4>
                 </div>
 
-                <OwlCarousel adClass="brands-slider bg-white nav-circle images-center" options={brandSlider}>
-
-                    {
-                        brndData && brndData.getAllTopBrandRecords.records.map((brand, index) => (
-                            <figure key={index}>
-                                <LazyLoadImage
-                                    alt={brand.brandName}
-                                    src={brand.logo.fileURL}
-                                    width="100%"
-                                    height={50}
-                                    threshold={500}
-                                    effect="black and white"
-                                />
-                            </figure>
-                        ))
-                    }
-
-
+                <OwlCarousel adClass="brands-slider bg-white nav-circle images-center owl-height" options={brandSlider} >
+                    {brndData && brndData.getAllTopBrandRecords.records.map((brand, index) => (
+                        <figure key={index} className="circular-image" style={{ margin: '0 10px' }}>
+                            <LazyLoadImage
+                                alt={brand.brandName}
+                                src={brand.logo.fileURL}
+                                width="100%"
+                                height="auto"
+                                threshold={500}
+                                effect="black and white"
+                                className="rounded-circle"
+                            />
+                        </figure>
+                    ))}
                 </OwlCarousel >
+
             </Reveal>
         </div>
     );

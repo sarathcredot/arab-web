@@ -640,7 +640,7 @@ function Footer() {
             </div>
           </div>
 
-          <div className="footer-bottom d-sm-flex align-items-center justify-content-left" style={{ background: "#F4F4F4" }}>
+          <div className="footer-bottom d-sm-flex align-items-center justify-content-center" style={{ background: "#F4F4F4" }}>
             <span className="footer-copyright">
               Arab Deals © 2024. All Rights Reserved
             </span>

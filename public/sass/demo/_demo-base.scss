@@ -949,7 +949,7 @@
 }
 
 .customdeal-border{
-    border: 1px solid rgba(185, 185, 185, 1);
+    border: 1px solid #B9B9B9;
     border-right:none;
     
 }
@@ -1137,7 +1137,8 @@ body {
 // Product Default
 .product-default:not(.product-widget) {
     margin: 0;
-    background-color: #fff;
+    // background-color: #fff;
+    border: 1px solid #f1f1f1;
     
     figure {
         margin: 0;
