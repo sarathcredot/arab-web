@@ -64,7 +64,7 @@ function Account() {
               <ALink href="/pages/account">My Account</ALink>
             </li>
             <li className="active">
-              <ALink href="/pages/account">DashBord</ALink>
+              <ALink href="/pages/account">Dashboard</ALink>
             </li>
           </ul>
         </div>
