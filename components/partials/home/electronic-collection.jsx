@@ -85,7 +85,6 @@ function ElectronicCollection() {
           delay={100}
           duration={1000}
           triggerOnce
-        // style={{ marginTop: "30px" }}
         >
           <div
             className="heading shop-list d-flex align-items-center justify-content-between flex-wrap  mb-0 pl-0 pr-0 pt-5"
