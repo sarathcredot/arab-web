@@ -81,7 +81,7 @@ function ProductFour(props) {
         }
 
       } catch (error) {
-        //console.log(error);
+        console.log(error);
       }
     } else {
       const localCart = JSON.parse(localStorage.getItem("cart"));

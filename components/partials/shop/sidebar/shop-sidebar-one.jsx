@@ -121,7 +121,7 @@ function ShopSidebarOne(props) {
   //   let stack = [],
   //     result = [];
   //   result = cats.reduce((acc, cur) => {
-  //     //console.log(acc);
+  //     console.log(acc);
   //     if (!cur.parent) {
   //       let newNode = {
   //         key: cur._id,

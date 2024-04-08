@@ -23,7 +23,7 @@ export const responseInterceptor = new ApolloLink(
       const handleNext = (result) => {
 
         if (result.errors && result.errors.some((error) => error.extensions?.code === "UNAUTHORIZED")) {
-          //console.log("Redirecting to login page", result);
+          console.log("Redirecting to login page", result);
           // localStorage.removeItem("arabtoken");
           // window.location.href="/pages/login";
         } else {
@@ -36,7 +36,7 @@ export const responseInterceptor = new ApolloLink(
       };
 
       const handleError = (error) => {
-        //console.error('GraphQL Error:', error);
+        console.error('GraphQL Error:', error);
         observer.error(error);
       };
 
@@ -63,10 +63,10 @@ export const responseInterceptor = new ApolloLink(
 //     return new Observable((observer) => {
 //       const subscription = forward(operation).subscribe({
 //         next: (result) => {
-//           //console.log('GraphQL Result:', result?.errors);
+//           console.log('GraphQL Result:', result?.errors);
 //           // Check if there are errors in the result
 //           if (result.errors && result.errors.some((error) => error.extensions?.code === "UNAUTHORIZED")) {
-//             //console.log("Redirecting to login page");
+//             console.log("Redirecting to login page");
 //             localStorage.removeItem("arabtoken");
 //             window.location.href="/login";
 //           } else {
@@ -75,7 +75,7 @@ export const responseInterceptor = new ApolloLink(
 //         },
 //         error: (error) => {
 //           // Handle errors globally
-//           //console.error('GraphQL Error:', error);
+//           console.error('GraphQL Error:', error);
 //           observer.error(error);
 //         },
 //         complete: () => {
