@@ -98,7 +98,7 @@ function Wishlist(props) {
 
   useEffect(() => {
     if (wishListError) {
-      //console.log(wishListError)
+      console.log(wishListError)
     } else if (wishlistDatas) {
       setWishlistDatas(wishListData?.getWishListProducts.products || [])
     }
@@ -129,7 +129,7 @@ function Wishlist(props) {
         }
       }
     } catch (error) {
-      //console.log(error)
+      console.log(error)
 
     }
   };
@@ -165,7 +165,7 @@ function Wishlist(props) {
       }
 
     } catch (error) {
-      //console.log(error);
+      console.log(error);
     }
   };
 

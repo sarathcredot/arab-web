@@ -142,7 +142,7 @@ function ProductDetailOne(props) {
 
 
 
-  // //console.log("dfgfff",variData);
+  // console.log("dfgfff",variData);
 
   const getUniqueVariants = (data) => {
     const uniqueVariants = [];
@@ -163,7 +163,7 @@ function ProductDetailOne(props) {
 
   useEffect(() => {
     if (variantError) {
-      //console.error("Error fetching variant data:", variantError);
+      console.error("Error fetching variant data:", variantError);
     } else {
       //   if product.attributes having same attributeId and attributeValueId  in variData?.getVariants.variants , then add a create a new array with all the elements  of variData?.getVariants.variants  with a flag isAvailable
       const attributes = product?.attributes;
@@ -317,7 +317,7 @@ function ProductDetailOne(props) {
   });
   useEffect(() => {
     if (error) {
-      //console.log(wishListError.message);
+      console.log(wishListError.message);
     } else if (data) {
       setWishlistDatas(data?.getWishListProductStatus.isExist);
     }
@@ -350,9 +350,7 @@ function ProductDetailOne(props) {
               productId: product._id,
             }
           }
-        }).then((res) => { refetch(), wishListRefetch(); }).catch((err) => {
-          console.log(err, "err");
-        });
+        }).then((res) => { refetch(), wishListRefetch(); }).catch((err) => { console.log(err, "err"); });
       }, 1000);
     } else {
       router.push("/pages/wishlist");
@@ -389,7 +387,7 @@ function ProductDetailOne(props) {
         }
 
       } catch (error) {
-        //console.log(error);
+        console.log(error);
       }
     } else {
       const localCart = JSON.parse(localStorage.getItem("cart"));

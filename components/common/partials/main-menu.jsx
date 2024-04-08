@@ -146,7 +146,7 @@ function MainMenu({ router }) {
       // console.log(level2Data);
     }
     catch (error) {
-      //console.error(error);
+      console.error(error);
     }
   };
   const handleLevel3category = async (id) => {

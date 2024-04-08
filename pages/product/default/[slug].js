@@ -105,7 +105,7 @@ function ProductDefault() {
     }
   }, [productData]);
 
-  // //console.log(product,"productdfghjklvbnm," )
+  // console.log(product,"productdfghjklvbnm," )
 
   return (
     <main className="main">
