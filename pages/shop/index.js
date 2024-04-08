@@ -193,9 +193,9 @@ function Shop() {
                   {query.search ? (
                     <>
                       Search -{" "}
-                      <ALink href={{ query: { category: query.category } }} scroll={false}>
+                      {/* <ALink href={{ query: { category: query.category } }} scroll={false}>
                         {query.category}
-                      </ALink>{" "}
+                      </ALink>{" "} */}
                       / {query.search}
                     </>
                   ) : // <span>
