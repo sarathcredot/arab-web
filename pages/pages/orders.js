@@ -393,7 +393,7 @@ function Orders(props) {
                             ) : (
                               <td className="action">
                                 <button
-                                  className="btn btn-dark btn-add-cart product-type-simple btn-shop"
+                                  className="btn btn-dark "
                                   title="Quick View"
                                   style={{ border: "1px solid" }}
                                   onClick={(e) => {
@@ -401,7 +401,18 @@ function Orders(props) {
                                     handleDownload(item._id);
                                   }}
                                 >
-                                  Download Invoice
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    width="1em"
+                                    height="1em"
+                                    viewBox="0 0 24 24"
+                                    style={{
+                                      marginRight: "5px",
+                                    }}
+                                  >
+                                    <path fill="white" d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z" />
+                                  </svg>
+                                  Invoice
                                 </button>
                               </td>
                             )}

@@ -157,38 +157,7 @@ function Shop() {
                     shop
                   </ALink>
                 </li>
-                {/* {data &&
-                  data?.getProducts?.records.map((item, index) => (
-                    <li
-                      className="breadcrumb-item"
-                      key={`category-family-${index}`}
-                    >
-                      <ALink
-                        href={{ query: { category: item.slug } }}
-                        scroll={false}
-                      >
-                      {item?.categoryNamePath}  
-                      </ALink>
-                    </li>
-                  ))}
-                <li className="breadcrumb-item active">
-                  {query.search ? (
-                    <>
-                      Search -{" "}
-                      <ALink
-                        href={{ query: { category: query.category } }}
-                        scroll={false}
-                      >
-                        {query.category}
-                      </ALink>{" "}
-                      / {query.search}
-                    </>
-                  ) : 
-                 
-                    query.category
-                  
-                  }
-                </li> */}
+
                 <li className="breadcrumb-item  ">
                   {query.search ? (
                     <>

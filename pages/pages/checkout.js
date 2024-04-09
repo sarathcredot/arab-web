@@ -8,17 +8,18 @@ import { useEffect, useState } from "react";
 import Select from "react-select";
 import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import withApollo from "../../server/apollo";
-import Shipping from "../../components/features/adresses/Shippingaddress"
+import Shipping from "../../components/features/adresses/Shippingaddress";
 import { IoAddCircleOutline } from "react-icons/io5";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useRouter } from "next/router";
+import { Helmet } from "react-helmet";
+
 const countryOptions = [
   { value: "uae", label: "+971", flag: "/images/uae.svg" },
   { value: "india", label: "+91", flag: "/images/ind.svg" },
   { value: "oman", label: "+98", flag: "/images/omn.png" },
   { value: "saudi", label: "+966", flag: "/images/sar.png" },
 ];
-
 
 const GET_CART = gql`
   query GetCart {
@@ -29,7 +30,7 @@ const GET_CART = gql`
         quantity
         name
         stock
-      
+
         price
         image
       }
@@ -39,84 +40,90 @@ const GET_CART = gql`
     }
   }
 `;
-export const GET_ADDRESSES = gql`query GetUserShippingAddresses {
-  getUserShippingAddresses {
-    address {
-      _id
-      apartment
-      city
-    
-      country
-      email
-      firstname
-      houseNumber
-      mobile
-      postCode
-      streetName
-      suite
-      unit
-      isDefault
+export const GET_ADDRESSES = gql`
+  query GetUserShippingAddresses {
+    getUserShippingAddresses {
+      address {
+        _id
+        apartment
+        city
+
+        country
+        email
+        firstname
+        houseNumber
+        mobile
+        postCode
+        streetName
+        suite
+        unit
+        isDefault
+      }
     }
   }
-}`
+`;
 
-export const REMOVE_ADDRESS = gql`mutation RemoveUserShippingAddress($input: UserRemoveShippingAddressInput!) {
-  removeUserShippingAddress(input: $input) {
-    _id
-    message
+export const REMOVE_ADDRESS = gql`
+  mutation RemoveUserShippingAddress($input: UserRemoveShippingAddressInput!) {
+    removeUserShippingAddress(input: $input) {
+      _id
+      message
+    }
   }
-}`
+`;
 
-export const PLACE_ORDER = gql`mutation CreateUserOrder($input: CreateUserOrderInput!) {
-  createUserOrder(input: $input) {
-    orderId
+export const PLACE_ORDER = gql`
+  mutation CreateUserOrder($input: CreateUserOrderInput!) {
+    createUserOrder(input: $input) {
+      orderId
+    }
   }
-}`
+`;
 
 function CheckOut() {
+  const arabtoken = localStorage.getItem("arabtoken");
   const defaultOption = countryOptions[0];
   const [cartList, setCartList] = useState();
-  const [isShipping, setIsshipping] = useState(false)
-  const [isEdit, setIsedit] = useState(false)
-  const [defaultAddressId, setDefaultAddressId] = useState('');
+  const [isShipping, setIsshipping] = useState(false);
+  const [isEdit, setIsedit] = useState(false);
+  const [defaultAddressId, setDefaultAddressId] = useState("");
   const [selectedAddressId, setSelectedAddressId] = useState(null);
   const { data, loading, error, refetch } = useQuery(GET_ADDRESSES);
   const [RemoveUserShippingAddress] = useMutation(REMOVE_ADDRESS);
-  const [CreateUserOrder] = useMutation(PLACE_ORDER)
-  const router = useRouter()
+  const [CreateUserOrder] = useMutation(PLACE_ORDER);
+  const router = useRouter();
   const customStyles = {
     control: (provided, state) => ({
       ...provided,
-      borderRight: 'none',
-      boxShadow: 'none',
-      borderRadius: '0',
+      borderRight: "none",
+      boxShadow: "none",
+      borderRadius: "0",
       height: "100%",
-      outline: 'none',
+      outline: "none",
 
-      boxShadow: state.isFocused ? 'none' : provided.boxShadow, // Preserve boxShadow when not focused
-      '&:selected': {
-        border: 'none',
-
+      boxShadow: state.isFocused ? "none" : provided.boxShadow, // Preserve boxShadow when not focused
+      "&:selected": {
+        border: "none",
       },
     }),
     menu: (provided) => ({
       ...provided,
-      width: '150px',
+      width: "150px",
       // background:"red" // Adjust the width as needed
     }),
     option: (provided, state) => ({
       ...provided,
-      whiteSpace: 'nowrap',
-      background: state.isSelected ? '#EFEFEF' : 'transparent',
-      color: 'black',
-      background: 'transparent',
+      whiteSpace: "nowrap",
+      background: state.isSelected ? "#EFEFEF" : "transparent",
+      color: "black",
+      background: "transparent",
       // Prevent text wrapping
     }),
     indicatorSeparator: () => ({
-      display: 'none',
+      display: "none",
     }),
     dropdownIndicator: () => ({
-      display: 'none',
+      display: "none",
     }),
   };
 
@@ -130,19 +137,20 @@ function CheckOut() {
   }
 `;
   const [toggler, setToggler] = useState(false);
-  const token = localStorage.getItem("arabtoken")
-
+  const token = localStorage.getItem("arabtoken");
 
   const {
     data: cartData,
     loading: cartLoading,
     error: cartError,
-    refetch: cartRefetch
+    refetch: cartRefetch,
   } = useQuery(GET_CART, { skip: !token });
 
   useEffect(() => {
     if (data && data.getUserShippingAddresses && data.getUserShippingAddresses.address.length > 0) {
-      const defaultAddress = data.getUserShippingAddresses.address.find(address => address.isDefault);
+      const defaultAddress = data.getUserShippingAddresses.address.find(
+        (address) => address.isDefault
+      );
       if (defaultAddress) {
         setDefaultAddressId(defaultAddress._id);
       }
@@ -155,7 +163,7 @@ function CheckOut() {
     } else if (cartData) {
       setCartList(cartData.getCart.products || []);
     }
-    cartRefetch()
+    cartRefetch();
   }, [cartData]);
   const handleCloseShipping = () => {
     setIsshipping(false);
@@ -165,37 +173,50 @@ function CheckOut() {
     const response = await RemoveUserShippingAddress({
       variables: {
         input: {
-          _id: id
-        }
-      }
-    })
+          _id: id,
+        },
+      },
+    });
     refetch();
-  }
+  };
 
   const handleAddressSelection = (addressId) => {
     setDefaultAddressId(addressId);
-
   };
 
   const handlePlaceOrder = async () => {
     try {
-
-      const response = await CreateUserOrder({ variables: { input: { grandTotal: cartData?.getCart?.grandTotal, paymentMode: "COD", shippingAddressId: defaultAddressId } } })
+      const response = await CreateUserOrder({
+        variables: {
+          input: {
+            grandTotal: cartData?.getCart?.grandTotal,
+            paymentMode: "COD",
+            shippingAddressId: defaultAddressId,
+          },
+        },
+      });
       // toast.success(<div style={{padding:"10px"}}>Order Placed</div>)
       // router.push("/pages/success")
       router.push({
-        pathname: '/pages/success',
+        pathname: "/pages/success",
         query: { orderId: response?.data?.createUserOrder?.orderId },
       });
-
     } catch (error) {
       // toast.error(<div style={{padding:"10px"}}>{error.message}</div>)
-      router.push("/pages/failed")
+      router.push("/pages/failed");
     }
+  };
 
-  }
+  useEffect(() => {
+    if (!arabtoken) {
+      router.push("/pages/login");
+    }
+  }, []);
   return (
     <>
+      <Helmet>
+        <title>Checkout | Arab Deals</title>
+      </Helmet>
       <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
         <li>
           <ALink href="/pages/cart">Shopping Cart</ALink>
@@ -208,7 +229,17 @@ function CheckOut() {
         </li>
       </ul>
       <main className="main main-test">
-        {isShipping ? (<><Shipping isEdit={isEdit} addressId={selectedAddressId} onClose={handleCloseShipping} isShipping={isShipping} onIsShipping={setIsshipping} /></>) :
+        {isShipping ? (
+          <>
+            <Shipping
+              isEdit={isEdit}
+              addressId={selectedAddressId}
+              onClose={handleCloseShipping}
+              isShipping={isShipping}
+              onIsShipping={setIsshipping}
+            />
+          </>
+        ) : (
           <div className="container checkout-container">
             {cartList?.length === 0 ? (
               <div className="cart-empty-page text-center">
@@ -226,7 +257,6 @@ function CheckOut() {
               </div>
             ) : (
               <>
-
                 {/* discount coupon */}
                 {/* <div className="checkout-discount">
                 <SlideToggle
@@ -333,41 +363,106 @@ function CheckOut() {
                 </SlideToggle>
               </div> */}
                 <div className="row" style={{ marginTop: "62px" }}>
-
                   <div className="col-lg-7">
-                    <div >
+                    <div>
                       <h2 className="step-title">Select a shipping address</h2>
-                      <div className="shipingBox"
-                      // style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}
+                      <div
+                        className="shipingBox"
+                        // style={{border:"1px solid #dfdfdf",borderRadius:"4px",padding:"10px"}}
                       >
-                        {data && data?.getUserShippingAddresses?.address.length > 0 ? data?.getUserShippingAddresses?.address.map((address, index) => {
-                          return (
-                            <>
-                              <div key={index} style={{ display: "flex", lineHeight: "19px", alignItems: "baseline", gap: "20px", border: "1px solid #dfdfdf", margin: "15px 0", padding: "10px", borderRadius: "4px" }}>
-                                <div>
-                                  <div className="custom-control custom-radio d-flex">
-                                    <input type="radio" className="custom-control-input" id={`shipaddress${index}`} value={address._id} checked={defaultAddressId === address._id} onChange={() => handleAddressSelection(address._id)} />
+                        {data && data?.getUserShippingAddresses?.address.length > 0
+                          ? data?.getUserShippingAddresses?.address.map((address, index) => {
+                              return (
+                                <>
+                                  <div
+                                    key={index}
+                                    style={{
+                                      display: "flex",
+                                      lineHeight: "19px",
+                                      alignItems: "baseline",
+                                      gap: "20px",
+                                      border: "1px solid #dfdfdf",
+                                      margin: "15px 0",
+                                      padding: "10px",
+                                      borderRadius: "4px",
+                                    }}
+                                  >
+                                    <div>
+                                      <div className="custom-control custom-radio d-flex">
+                                        <input
+                                          type="radio"
+                                          className="custom-control-input"
+                                          id={`shipaddress${index}`}
+                                          value={address._id}
+                                          checked={defaultAddressId === address._id}
+                                          onChange={() => handleAddressSelection(address._id)}
+                                        />
 
-
-                                    <label className="custom-control-label" style={{ paddingLeft: "10px", maxWidth: "575px" }} htmlFor={`shipaddress${index}`} >
-
-                                      {address?.firstname},
-
-                                      &nbsp;{address?.houseNumber}, {address?.streetName}, &nbsp;{address?.postCode},{address?.city}, {address?.country}</label>
+                                        <label
+                                          className="custom-control-label"
+                                          style={{ paddingLeft: "10px", maxWidth: "575px" }}
+                                          htmlFor={`shipaddress${index}`}
+                                        >
+                                          {address?.firstname}, &nbsp;{address?.houseNumber},{" "}
+                                          {address?.streetName}, &nbsp;{address?.postCode},
+                                          {address?.city}, {address?.country}
+                                        </label>
+                                      </div>
+                                      <div style={{ display: "flex", color: "black" }}>
+                                        <button
+                                          style={{
+                                            cursor: "pointer",
+                                            background: "none",
+                                            border: "none",
+                                            color: "black",
+                                          }}
+                                          onClick={() => {
+                                            setIsshipping(true);
+                                            setIsedit(true);
+                                            setSelectedAddressId(address?._id);
+                                          }}
+                                        >
+                                          Edit
+                                        </button>
+                                        {data &&
+                                          data?.getUserShippingAddresses?.address.length > 1 && (
+                                            <button
+                                              style={{
+                                                cursor: "pointer",
+                                                background: "none",
+                                                border: "none",
+                                                color: "#E30613",
+                                              }}
+                                              onClick={() => handleRemove(address?._id)}
+                                            >
+                                              Remove
+                                            </button>
+                                          )}
+                                      </div>
+                                    </div>
                                   </div>
-                                  <div style={{ display: "flex", color: "black" }}>
-                                    <button style={{ cursor: "pointer", background: "none", border: "none", color: "black" }} onClick={() => { setIsshipping(true); setIsedit(true); setSelectedAddressId(address?._id) }}>Edit</button>
-                                    {data && data?.getUserShippingAddresses?.address.length > 1 && <button style={{ cursor: "pointer", background: "none", border: "none", color: "#E30613" }} onClick={() => handleRemove(address?._id)}>Remove</button>}
-                                  </div>
-                                </div>
-                              </div>
+                                </>
+                              );
+                            })
+                          : ""}
 
-                            </>
-                          )
-
-                        }) : ""}
-
-                        <div style={{ display: "flex", gap: "15px", alignItems: "center", cursor: "pointer" }} onClick={() => { setIsshipping(true) }}><IoAddCircleOutline style={{ fontSize: "20px" }} /><p className="addaddressbtn" style={{ margin: 0 }}> Add Address </p></div>
+                        <div
+                          style={{
+                            display: "flex",
+                            gap: "15px",
+                            alignItems: "center",
+                            cursor: "pointer",
+                          }}
+                          onClick={() => {
+                            setIsshipping(true);
+                          }}
+                        >
+                          <IoAddCircleOutline style={{ fontSize: "20px" }} />
+                          <p className="addaddressbtn" style={{ margin: 0 }}>
+                            {" "}
+                            Add Address{" "}
+                          </p>
+                        </div>
                       </div>
                     </div>
 
@@ -773,10 +868,7 @@ function CheckOut() {
                         <table className="table table-mini-cart">
                           <thead>
                             <tr>
-                              <th
-                                colSpan="2"
-                                style={{ fontSize: "1.4rem", fontWeight: "600" }}
-                              >
+                              <th colSpan="2" style={{ fontSize: "1.4rem", fontWeight: "600" }}>
                                 Product
                               </th>
                             </tr>
@@ -870,9 +962,7 @@ function CheckOut() {
                                 name="radio"
                                 defaultChecked
                               />
-                              <label className="custom-control-label">
-                                Cash on Delivery
-                              </label>
+                              <label className="custom-control-label">Cash on Delivery</label>
                             </div>
                           </div>
                         </div>
@@ -881,7 +971,8 @@ function CheckOut() {
                           type="submit"
                           value="Place Order"
                           name="form-control"
-                          className="btn btn-dark btn-place-order hoverbtn" onClick={handlePlaceOrder}
+                          className="btn btn-dark btn-place-order hoverbtn"
+                          onClick={handlePlaceOrder}
                         >
                           Place order
                         </button>
@@ -892,7 +983,7 @@ function CheckOut() {
               </>
             )}
           </div>
-        }
+        )}
       </main>
     </>
   );
@@ -904,5 +995,6 @@ const mapStateToProps = (state) => {
   };
 };
 
-
-export default withApollo({ ssr: typeof window === "undefined" })(connect(mapStateToProps)(CheckOut));
+export default withApollo({ ssr: typeof window === "undefined" })(
+  connect(mapStateToProps)(CheckOut)
+);
