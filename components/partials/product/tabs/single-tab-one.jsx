@@ -48,12 +48,19 @@ export default function SingleTabOne(props) {
                     <TabPanel className="tab-pane fade">
 
                         <p style={{
+                            marginBottom: "9px",
+                            letterSpacing: 0,
+                            listStyleType: "disc",
+                            color: "#000",
                             fontFamily: "Poppins",
-                            fontWeight: "400px",
-                            fontSize: "14px",
-                            lineHeight: "26px",
+                            fontSize: "1.4rem",
+                            fontStyle: "normal",
                             fontWeight: "400",
-                        }}>{product?.description}</p>
+                            lineHeight: "2.375rem",
+                        }}>
+                            {product?.description}
+                        </p>
+
                         <div className="container" style={{ marginTop: "79px" }} >
 
                             {product && product?.productDetailImages?.map((image, index) => (
@@ -292,7 +299,7 @@ export default function SingleTabOne(props) {
                             </div>
                         </div>
                     </TabPanel> */}
-                </Tabs>
+                </Tabs >
             }
         </>
     );

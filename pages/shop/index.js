@@ -233,7 +233,7 @@ function Shop() {
               </>
             ) : (
               <li className="breadcrumb-item active" aria-current="page">
-                <ALink className="activeitem" href="/pages/shope">
+                <ALink className="activeitem" href="/shop">
                   Shop
                 </ALink>
               </li>
@@ -306,7 +306,7 @@ function Shop() {
             </div>
           </div>
 
-          <ShopSidebarOne />
+          <ShopSidebarOne category={category} />
         </div>
       </div>
 

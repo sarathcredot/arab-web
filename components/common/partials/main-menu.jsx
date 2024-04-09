@@ -235,16 +235,18 @@ function MainMenu({ router }) {
                 }));
               }}
             >
-              <div className="custom__mobilemenu__item-circl">
+              <div className="custom__mobilemenu__item-circle">
                 <span className="custom__mobilemenu__item-image">
                   <img src={item.categoryImage?.fileURL} alt={item.categoryName} style={{
-                    width: "50px",
-                    height: "50px",
+                    width: "30px",
+                    height: "30px",
                   }}
                   />
                 </span>
               </div>
-              <p>{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
+              <p
+                style={{ textAlign: "center", }}
+              >{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
             </li>
           ))}
         </ul>
