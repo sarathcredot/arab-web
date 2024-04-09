@@ -322,16 +322,6 @@ function Orders(props) {
                               height="80"
                             />
                           </ALink>
-                          {/* <a
-                          href="#"
-                          className="btn-remove icon-cancel"
-                          title="Remove Product"
-                          // onClick={(e) => removeProduct(e, item)}
-                          onClick={(e) => {
-                            e.preventDefault();
-                            orderCancel(item._id)
-                          }}
-                        ></a> */}
                         </figure>
                       </td>
                       <td>

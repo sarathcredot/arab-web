@@ -116,50 +116,7 @@ function ShopSidebarOne(props) {
 
   const [priceRange, setRange] = useState({ min: 0, max: 1000 });
 
-  //   let cats = data?.getActiveChildCategories?.records || [];
-
-  //   let stack = [],
-  //     result = [];
-  //   result = cats.reduce((acc, cur) => {
-  //     console.log(acc);
-  //     if (!cur.parent) {
-  //       let newNode = {
-  //         key: cur._id,
-  //         title: <TreeNode name={cur.categoryName} count={cur.count} />,
-  //         children: [],
-  //       };
-  //       acc.push(newNode);
-  //       stack.push({
-  //         name: cur.categoryName,
-  //         children: newNode.children,
-  //       });
-  //     }
-  //     return acc;
-  //    },
-  //   []);
-
-  //   let temp, children, childNode;
-
-  //   while (stack.length) {
-  //     temp = stack[stack.length - 1];
-  //     stack.pop();
-  //     children = cats.filter((item) => item.parent === temp.name);
-  //     children.forEach((child) => {
-  //       childNode = {
-  //         key: child.slug,
-  //         title: <TreeNode name={child.name} count={child.count} />,
-  //         children: [],
-  //       };
-  //       temp.children.push(childNode);
-  //       stack.push({
-  //         name: child.name,
-  //         children: childNode.children,
-  //       });
-  //     });
-  //   }
-
-  //   return result;
-  // }, [data]);
+ 
 
   useEffect(() => {
     return () => {

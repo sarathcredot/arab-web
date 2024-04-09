@@ -167,13 +167,7 @@ function Shop() {
                       </ALink>{" "} */}
                       {query.search}
                     </>
-                  ) : // <span>
-                  //   {data &&
-                  //     data?.getProducts?.records.map((item, index) => (
-                  //       <React.Fragment key={index}>{item?.categoryNamePath}</React.Fragment>
-                  //     ))}
-                  // </span>
-                  null}
+                  ) : null}
                 </li>
               </>
             ) : query.search ? (
