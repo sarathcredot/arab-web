@@ -157,30 +157,6 @@ function Shop() {
                     shop
                   </ALink>
                 </li>
-
-                <li className="breadcrumb-item  ">
-                  {query.search ? (
-                    <>
-                      Search -{" "}
-                      {/* <ALink href={{ query: { category: query.category } }} scroll={false}>
-                        {query.category}
-                      </ALink>{" "} */}
-                      {query.search}
-                    </>
-                  ) : null}
-                </li>
-              </>
-            ) : query.search ? (
-              <>
-                <li className="breadcrumb-item">
-                  <ALink href={{ pathname: router.pathname, query: {} }} scroll={false}>
-                    shop
-                  </ALink>
-                </li>
-                <li
-                  className="breadcrumb-item active"
-                  aria-current="page"
-                >{`Search - ${query.search}`}</li>
               </>
             ) : query.tag ? (
               <>

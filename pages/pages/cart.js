@@ -63,6 +63,7 @@ function Cart(props) {
   const [removeFromCart] = useMutation(REMOVE_CART);
   const token = localStorage.getItem("arabtoken");
   const [localCart, setLocalCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     data: cartData,
@@ -145,6 +146,7 @@ function Cart(props) {
   const onChangeQty = async (id, qty) => {
     if (token) {
       try {
+        setIsLoading(true);
         const response = await updateCartQuantity({
           variables: {
             input: {
@@ -157,8 +159,11 @@ function Cart(props) {
         if (response) {
           cartRefetch();
         }
+
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     } else {
       const storedCartItems = localStorage.getItem("cart");
@@ -311,8 +316,9 @@ function Cart(props) {
                           <td>OMR {item.sellingPrice.toFixed(2)}</td>
                           <td>
                             <Qty
+                              disabled={isLoading}
                               value={item?.quantity}
-                              max={10}
+                              max={item?.stock || 10}
                               onChangeQty={(qty) => onChangeQty(item?.productId, qty)}
                             />
                           </td>
@@ -326,44 +332,7 @@ function Cart(props) {
                       ))}
                     </tbody>
 
-                    <tfoot>
-                      {/* <tr>
-                      <td colSpan="5" className="clearfix pl-0">
-                        <div className="float-left">
-                          <div className="cart-discount">
-                            <form action="#">
-                              <div className="input-group">
-                                <input
-                                  type="text"
-                                  className="form-control form-control-sm"
-                                  placeholder="Coupon Code"
-                                  required
-                                />
-                                <div className="input-group-append">
-                                  <button
-                                    className="btn btn-sm"
-                                    type="submit"
-                                    style={{
-                                      backgroundColor: "black",
-                                      color: "white",
-                                    }}
-                                  >
-                                    Apply Coupon
-                                  </button>
-                                </div>
-                              </div>
-                            </form>
-                          </div>
-                        </div>
-
-                        <div className="float-right">
-                                                        <button type="submit" className="btn btn-shop btn-update-cart" style={{border:"1px solid"}} onClick={ updateCart }>
-                                                            Update Cart
-                                                        </button>
-                                                    </div>
-                      </td>
-                    </tr> */}
-                    </tfoot>
+                    <tfoot></tfoot>
                   </table>
                 </div>
               </div>
@@ -384,66 +353,6 @@ function Cart(props) {
                         <td>Subtotal</td>
                         <td style={{ color: "black" }}>OMR {cartCharges.subTotal?.toFixed(2)}</td>
                       </tr>
-
-                      {/* 
-                                            <tr>
-                                                <td colSpan="2" className="text-left">
-                                                    <h4>Shipping</h4>
-
-                                                    <div className="form-group form-group-custom-control">
-                                                        <div className="custom-control custom-radio">
-                                                            <input type="radio" className="custom-control-input" name="radio"
-                                                                defaultChecked />
-                                                            <label className="custom-control-label">Local pickup</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <div className="form-group form-group-custom-control mb-0">
-                                                        <div className="custom-control custom-radio mb-0">
-                                                            <input type="radio" name="radio" className="custom-control-input" />
-                                                            <label className="custom-control-label">Flat rate</label>
-                                                        </div>
-                                                    </div>
-
-                                                    <form action="#">
-                                                        <div className="form-group form-group-sm">
-                                                            <label>Shipping to <strong>NY.</strong></label>
-                                                            <div className="select-custom">
-                                                                <select className="form-control form-control-sm">
-                                                                    <option value="USA">United States (US)</option>
-                                                                    <option value="Turkey">Turkey</option>
-                                                                    <option value="China">China</option>
-                                                                    <option value="Germany">Germany</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="form-group form-group-sm">
-                                                            <div className="select-custom">
-                                                                <select className="form-control form-control-sm">
-                                                                    <option value="NY">New York</option>
-                                                                    <option value="CA">California</option>
-                                                                    <option value="TX">Texas</option>
-                                                                </select>
-                                                            </div>
-                                                        </div>
-
-                                                        <div className="form-group form-group-sm">
-                                                            <input type="text" className="form-control form-control-sm"
-                                                                placeholder="Town / City" required />
-                                                        </div>
-
-                                                        <div className="form-group form-group-sm">
-                                                            <input type="text" className="form-control form-control-sm"
-                                                                placeholder="ZIP" required />
-                                                        </div>
-
-                                                        <button type="submit" className="btn btn-shop btn-update-total">
-                                                            Update Totals
-                                                    </button>
-                                                    </form>
-                                                </td>
-                                            </tr> */}
                     </tbody>
 
                     <tfoot>
@@ -464,7 +373,7 @@ function Cart(props) {
                         if (token) {
                           router.push("/pages/checkout");
                         } else {
-                          router.push("/pages/login?origin=cart");
+                          router.push("/pages/login?origin=pages-cart");
                         }
                       }}
                     >

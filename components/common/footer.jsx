@@ -111,7 +111,7 @@ function Footer() {
                         <ALink href="#">Privacy& Policy</ALink>
                       </li>
                       <li>
-                        <ALink href="/page/orders">Orders</ALink>
+                        <ALink href={token ? "/pages/orders" : "#"}>Orders</ALink>
                       </li>
                       <li>
                         <ALink href="#">Become a seller</ALink>

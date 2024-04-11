@@ -16,29 +16,29 @@ import ALink from "../../../common/ALink";
 import { shopColors, shopBrands } from "../../../../utils/data/shop";
 
 const GET_ATTRIBUTE = gql`
-query GetAttributesDetailsByCategory($input: AttributesDetailsWithCategoryIdInput!) {
-  getAttributesDetailsByCategory(input: $input) {
-    message
-    record {
-      _id
-      categoryName
-      attributes {
+  query GetAttributesDetailsByCategory($input: AttributesDetailsWithCategoryIdInput!) {
+    getAttributesDetailsByCategory(input: $input) {
+      message
+      record {
         _id
-        attributeType
-        name
-        description
-        attributeValues {
+        categoryName
+        attributes {
           _id
-          value
-          colorCode
-          priority
+          attributeType
+          name
+          description
+          attributeValues {
+            _id
+            value
+            colorCode
+            priority
+            isBlocked
+          }
           isBlocked
         }
-        isBlocked
       }
     }
   }
-}
 `;
 
 export const BRAND_LISTING = gql`
@@ -84,7 +84,7 @@ function ShopSidebarOne(props) {
   const catId = query?.cat_id;
   const brand = query?.brand;
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [sortOrder, setSortOrder] = useState('Price Low-High');
+  const [sortOrder, setSortOrder] = useState("Price Low-High");
   const [selectedAttributeValues, setSelectedAttributeValues] = useState([]);
   const { data, loading, error } = useQuery(GET_SHOP_SIDEBAR_DATA, {
     variables: { input: { parent: catId } },
@@ -115,8 +115,6 @@ function ShopSidebarOne(props) {
   });
 
   const [priceRange, setRange] = useState({ min: 0, max: 1000 });
-
- 
 
   useEffect(() => {
     return () => {
@@ -162,8 +160,8 @@ function ShopSidebarOne(props) {
   function filterByCategory(selected) {
     router.push(
       router.pathname.replace("[grid]", query.grid) +
-      "?category=" +
-      (selected.length ? selected[0] : "")
+        "?category=" +
+        (selected.length ? selected[0] : "")
     );
   }
 
@@ -201,7 +199,7 @@ function ShopSidebarOne(props) {
     const searchParams = router.query;
     const newSearchParams = {
       ...searchParams,
-      sort_order: selectedSortOrder
+      sort_order: selectedSortOrder,
     };
     router.replace({ pathname: router.pathname, query: newSearchParams });
   }
@@ -232,56 +230,48 @@ function ShopSidebarOne(props) {
       <div className="sidebar-overlay" onClick={closeSidebar}></div>
 
       <aside
-        className={`sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${!loading ? "loaded" : ""
-          } ${props.display === "none" ? "d-lg-none" : ""} ${props.right ? "" : "order-lg-first"
-          }`}
+        className={`sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${
+          !loading ? "loaded" : ""
+        } ${props.display === "none" ? "d-lg-none" : ""} ${props.right ? "" : "order-lg-first"}`}
         style={{
-          paddingLeft: "0",
-          paddingRight: "0",
           maxHeight: "976px",
           overflow: "scroll",
         }}
       >
         <StickyBox className="sidebar-wrapper" offsetTop={0}>
-          <div className="widget-brand" style={{ padding: "0" }}>
-            {loading ? (
-              <div className="skel-widget"></div>
-            ) : (
-              <SlideToggle>
-                {({ onToggle, setCollapsibleElement, toggleState }) => (
-                  <>
-                    <h3
-                      className="widget-title"
-                      style={{
-                        borderBottom: "1px solid",
-                        borderColor: "#DDDDDD",
-                        marginLeft: "0px",
-                        paddingBottom: "20px",
-                      }}
-                    >
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault(), onToggle();
+          {!catId && (
+            <div className="widget-brand" style={{ padding: "0" }}>
+              {loading ? (
+                <div className="skel-widget"></div>
+              ) : (
+                <SlideToggle>
+                  {({ onToggle, setCollapsibleElement, toggleState }) => (
+                    <>
+                      <h3
+                        className="widget-title"
+                        style={{
+                          borderBottom: "1px solid",
+                          borderColor: "#DDDDDD",
+                          marginLeft: "0px",
+                          paddingBottom: "20px",
                         }}
-                        className={
-                          toggleState === "COLLAPSED" ? "collapsed" : ""
-                        }
-                        style={{ marginLeft: "20px", marginTop: "20px" }}
                       >
-                        Categories
-                      </a>
-                    </h3>
-                    <div
-                      className="overflow-hidden widget"
-                      ref={setCollapsibleElement}
-                    >
-                      <div className="widget-body pb-0">
-                        <ul className="cat-list">
-                          {data &&
-                            data?.getActiveChildCategories?.records.length > 0 ? (
-                            data?.getActiveChildCategories?.records?.map(
-                              (category, index) => (
+                        <a
+                          href="#"
+                          onClick={(e) => {
+                            e.preventDefault(), onToggle();
+                          }}
+                          className={toggleState === "COLLAPSED" ? "collapsed" : ""}
+                          style={{ marginLeft: "20px", marginTop: "20px" }}
+                        >
+                          Categories
+                        </a>
+                      </h3>
+                      <div className="overflow-hidden widget" ref={setCollapsibleElement}>
+                        <div className="widget-body pb-0">
+                          <ul className="cat-list">
+                            {data && data?.getActiveChildCategories?.records.length > 0 ? (
+                              data?.getActiveChildCategories?.records?.map((category, index) => (
                                 <li key={`category-${index}`}>
                                   <ALink
                                     className="custom-categorylabels"
@@ -289,18 +279,12 @@ function ShopSidebarOne(props) {
                                       query: {
                                         ...query,
                                         page: 0,
-                                        category: getUrlForAttrs(
-                                          "category",
-                                          category._id
-                                        ),
+                                        category: getUrlForAttrs("category", category._id),
                                       },
                                     }}
                                     scroll={false}
                                     style={
-                                      containsAttrInUrl(
-                                        "category",
-                                        category?._id
-                                      )
+                                      containsAttrInUrl("category", category?._id)
                                         ? { color: "red" }
                                         : {}
                                     }
@@ -308,25 +292,27 @@ function ShopSidebarOne(props) {
                                     {category?.categoryName}
                                   </ALink>
                                 </li>
-                              )
-                            )
-                          ) : (
-                            <li>No categories</li>
-                          )}
-                        </ul>
+                              ))
+                            ) : (
+                              <li>No categories</li>
+                            )}
+                          </ul>
+                        </div>
                       </div>
-                    </div>
-                  </>
-                )}
-              </SlideToggle>
-            )}
-          </div>
+                    </>
+                  )}
+                </SlideToggle>
+              )}
+            </div>
+          )}
 
-          {(query.category || query.page ||
-            query.sizes ||
-            query.colors ||
-            query.min_price ||
-            query.max_price) || query.discount ? (
+          {query.category ||
+          query.page ||
+          query.sizes ||
+          query.colors ||
+          query.min_price ||
+          query.max_price ||
+          query.discount ? (
             <div className="widget" style={{ padding: "2rem" }}>
               <ALink
                 href={{ query: { cat_id: query.cat_id } }}
@@ -337,26 +323,29 @@ function ShopSidebarOne(props) {
                 Reset All Filters
               </ALink>
             </div>
-          ) : ""}
+          ) : (
+            ""
+          )}
           {/* )} */}
-          {brandData &&
-            brandData?.getBrandDetailsWithCategory?.records.length >
-            0 && <div className=" widget-brand">
+          {brandData && brandData?.getBrandDetailsWithCategory?.records.length > 0 && (
+            <div className=" widget-brand">
               {loading ? (
                 <div className="skel-widget"></div>
               ) : (
                 <SlideToggle>
                   {({ onToggle, setCollapsibleElement, toggleState }) => (
                     <>
-                      {brandData &&
-                        brandData?.getBrandDetailsWithCategory?.records.length >
-                        0 ? (
-                        <div style={{ borderBottom: "1px solid #B9B9B9", borderTop: "1px solid #B9B9B9", padding: "2rem" }}>
+                      {brandData && brandData?.getBrandDetailsWithCategory?.records.length > 0 ? (
+                        <div
+                          style={{
+                            borderBottom: "1px solid #B9B9B9",
+                            borderTop: "1px solid #B9B9B9",
+                            padding: "2rem",
+                          }}
+                        >
                           <h3 className="widget-title">
                             <a
-                              className={
-                                toggleState === "COLLAPSED" ? "collapsed" : ""
-                              }
+                              className={toggleState === "COLLAPSED" ? "collapsed" : ""}
                               href="#"
                               onClick={(e) => {
                                 e.preventDefault(), onToggle();
@@ -364,62 +353,48 @@ function ShopSidebarOne(props) {
                             >
                               Brand
                             </a>
-                          </h3></div>
+                          </h3>
+                        </div>
                       ) : (
                         ""
                       )}
-                      <div
-                        className="overflow-hidden widget"
-                        ref={setCollapsibleElement}
-                      >
+                      <div className="overflow-hidden widget" ref={setCollapsibleElement}>
                         <div className="widget-body pb-0">
                           <ul className="cat-list">
-                            {brandData?.getBrandDetailsWithCategory?.records?.map(
-                              (item, index) => (
-                                <li
-
+                            {brandData?.getBrandDetailsWithCategory?.records?.map((item, index) => (
+                              <li>
+                                <ALink
+                                  href={{
+                                    query: {
+                                      ...query,
+                                      page: 0,
+                                      brands: getUrlForAttrs("brands", item._id),
+                                    },
+                                  }}
+                                  key={`brands-${index}`}
+                                  scroll={false}
                                 >
-                                  <ALink
-                                    href={{
-                                      query: {
-                                        ...query,
-                                        page: 0,
-                                        brands: getUrlForAttrs(
-                                          "brands",
-                                          item._id
-                                        ),
-                                      },
-                                    }}
-                                    key={`brands-${index}`}
-
-
-                                    scroll={false}
-
-                                  >
-                                    <label htmlFor={item.brandName} style={
-                                      containsAttrInUrl(
-                                        "brands",
-                                        item._id
-                                      )
+                                  <label
+                                    htmlFor={item.brandName}
+                                    style={
+                                      containsAttrInUrl("brands", item._id)
                                         ? { color: "red", fontWeight: "500" }
                                         : { color: "inherit", fontWeight: "500" }
-                                    }>
-                                      <input
-                                        id={item.brandName}
-                                        type="checkbox"
-                                        checked={query?.brands?.includes(item._id)}
-                                        onChange={() =>
-                                          handleBrandCheckboxChange(item.brandName)
-                                        }
-                                        style={{ marginRight: "5px" }}
-                                      />
+                                    }
+                                  >
+                                    <input
+                                      id={item.brandName}
+                                      type="checkbox"
+                                      checked={query?.brands?.includes(item._id)}
+                                      onChange={() => handleBrandCheckboxChange(item.brandName)}
+                                      style={{ marginRight: "5px" }}
+                                    />
 
-                                      {item.brandName}
-                                    </label>
-                                  </ALink>
-                                </li>
-                              )
-                            )}
+                                    {item.brandName}
+                                  </label>
+                                </ALink>
+                              </li>
+                            ))}
                           </ul>
                         </div>
                       </div>
@@ -427,8 +402,8 @@ function ShopSidebarOne(props) {
                   )}
                 </SlideToggle>
               )}
-            </div>}
-
+            </div>
+          )}
 
           {/* sort */}
           <div className=" widget-brand">
@@ -438,12 +413,16 @@ function ShopSidebarOne(props) {
               <SlideToggle>
                 {({ onToggle, setCollapsibleElement, toggleState }) => (
                   <>
-                    <div style={{ borderBottom: "1px solid #B9B9B9", borderTop: "1px solid #B9B9B9", padding: "2rem" }}>
+                    <div
+                      style={{
+                        borderBottom: "1px solid #B9B9B9",
+                        borderTop: "1px solid #B9B9B9",
+                        padding: "2rem",
+                      }}
+                    >
                       <h3 className="widget-title">
                         <a
-                          className={
-                            toggleState === "COLLAPSED" ? "collapsed" : ""
-                          }
+                          className={toggleState === "COLLAPSED" ? "collapsed" : ""}
                           href="#"
                           onClick={(e) => {
                             e.preventDefault(), onToggle();
@@ -460,42 +439,63 @@ function ShopSidebarOne(props) {
                     >
                       <div className="widget-body pb-0">
                         <ul className="cat-list">
-
                           <li>
-                            <input type="radio" id="none" name="fav_language" value="none" onChange={handleSortOrderChange} />
-                            <label for="none"
+                            <input
+                              type="radio"
+                              id="none"
+                              name="fav_language"
+                              value="none"
+                              onChange={handleSortOrderChange}
+                            />
+                            <label
+                              for="none"
                               style={{
-                                color: query.sort_order === 'none' ? "red" : "inherit",
-                                fontWeight: "500"
+                                color: query.sort_order === "none" ? "red" : "inherit",
+                                fontWeight: "500",
                               }}
-                            > &nbsp;None</label>
-
-
-
+                            >
+                              {" "}
+                              &nbsp;None
+                            </label>
                           </li>
                           <li>
-                            <input type="radio" id="lowToHigh" name="fav_language" value="lowToHigh" onChange={handleSortOrderChange} />
-                            <label for="lowToHigh"
+                            <input
+                              type="radio"
+                              id="lowToHigh"
+                              name="fav_language"
+                              value="lowToHigh"
+                              onChange={handleSortOrderChange}
+                            />
+                            <label
+                              for="lowToHigh"
                               style={{
-                                color: query.sort_order === 'lowToHigh' ? "red" : "inherit",
-                                fontWeight: "500"
+                                color: query.sort_order === "lowToHigh" ? "red" : "inherit",
+                                fontWeight: "500",
                               }}
-                            > &nbsp;Price Low- High</label>
-
-
-
+                            >
+                              {" "}
+                              &nbsp;Price Low- High
+                            </label>
                           </li>
                           <li>
-                            <input type="radio" id="highToLow" name="fav_language" value="highToLow" onChange={handleSortOrderChange} />
-                            <label for="highToLow"
+                            <input
+                              type="radio"
+                              id="highToLow"
+                              name="fav_language"
+                              value="highToLow"
+                              onChange={handleSortOrderChange}
+                            />
+                            <label
+                              for="highToLow"
                               style={{
-                                color: query.sort_order === 'highToLow' ? "red" : "inherit",
-                                fontWeight: "500"
+                                color: query.sort_order === "highToLow" ? "red" : "inherit",
+                                fontWeight: "500",
                               }}
-                            > &nbsp;Price High-Low</label>
-
+                            >
+                              {" "}
+                              &nbsp;Price High-Low
+                            </label>
                           </li>
-
                         </ul>
                       </div>
                     </div>
@@ -513,12 +513,16 @@ function ShopSidebarOne(props) {
               <SlideToggle>
                 {({ onToggle, setCollapsibleElement, toggleState }) => (
                   <>
-                    <div style={{ borderBottom: "1px solid #B9B9B9", borderTop: "1px solid #B9B9B9", padding: "2rem" }}>
+                    <div
+                      style={{
+                        borderBottom: "1px solid #B9B9B9",
+                        borderTop: "1px solid #B9B9B9",
+                        padding: "2rem",
+                      }}
+                    >
                       <h3 className="widget-title ">
                         <a
-                          className={
-                            toggleState === "COLLAPSED" ? "collapsed" : ""
-                          }
+                          className={toggleState === "COLLAPSED" ? "collapsed" : ""}
                           href="#"
                           onClick={(e) => {
                             e.preventDefault(), onToggle();
@@ -535,46 +539,51 @@ function ShopSidebarOne(props) {
                     >
                       <div className="widget-body pb-0">
                         <ul className="cat-list">
-
                           <li>
-                            <label onClick={() => filterByDiscount('10')}
+                            <label
+                              onClick={() => filterByDiscount("10")}
                               style={{
-                                color: query.discount === '10' ? "red" : "inherit", // Apply red color if selected, otherwise use default color
-                                fontWeight: "500"
+                                color: query.discount === "10" ? "red" : "inherit", // Apply red color if selected, otherwise use default color
+                                fontWeight: "500",
                               }}
                             >
-                              10% off or more</label>
-
-
-
+                              10% off or more
+                            </label>
                           </li>
                           <li>
-                            <label onClick={() => filterByDiscount('25%')}
+                            <label
+                              onClick={() => filterByDiscount("25%")}
                               style={{
-                                color: query.discount === '25' ? "red" : "inherit",
-                                fontWeight: "500"
+                                color: query.discount === "25" ? "red" : "inherit",
+                                fontWeight: "500",
                               }}
-                            >25% off or more</label>
-
+                            >
+                              25% off or more
+                            </label>
                           </li>
                           <li>
-                            <label onClick={() => filterByDiscount('50')}
+                            <label
+                              onClick={() => filterByDiscount("50")}
                               style={{
-                                color: query.discount === '50' ? "red" : "inherit",
-                                fontWeight: "500"
-                              }}> 50% off or more</label>
-
-                          </li>
-                          <li>
-                            <label onClick={() => filterByDiscount('75')}
-                              style={{
-                                color: query.discount === '75' ? "red" : "inherit",
-                                fontWeight: "500"
+                                color: query.discount === "50" ? "red" : "inherit",
+                                fontWeight: "500",
                               }}
-                            >75% off or more</label>
-
+                            >
+                              {" "}
+                              50% off or more
+                            </label>
                           </li>
-
+                          <li>
+                            <label
+                              onClick={() => filterByDiscount("75")}
+                              style={{
+                                color: query.discount === "75" ? "red" : "inherit",
+                                fontWeight: "500",
+                              }}
+                            >
+                              75% off or more
+                            </label>
+                          </li>
                         </ul>
                       </div>
                     </div>
@@ -584,20 +593,20 @@ function ShopSidebarOne(props) {
             )}
           </div>
 
-
-
-
-          <div
-            className=" widget-price overflow-hidden"
-            style={{ padding: "0" }}
-          >
+          <div className=" widget-price overflow-hidden" style={{ padding: "0" }}>
             {loading ? (
               <div className="skel-widget"></div>
             ) : (
               <SlideToggle>
                 {({ onToggle, setCollapsibleElement, toggleState }) => (
                   <>
-                    <div style={{ borderBottom: "1px solid #B9B9B9", borderTop: "1px solid #B9B9B9", padding: "2rem" }}>
+                    <div
+                      style={{
+                        borderBottom: "1px solid #B9B9B9",
+                        borderTop: "1px solid #B9B9B9",
+                        padding: "2rem",
+                      }}
+                    >
                       <h3
                         className="widget-title"
                         style={{
@@ -609,25 +618,20 @@ function ShopSidebarOne(props) {
                         }}
                       >
                         <a
-                          className={
-                            toggleState === "COLLAPSED" ? "collapsed" : ""
-                          }
+                          className={toggleState === "COLLAPSED" ? "collapsed" : ""}
                           href="#"
                           role="button"
                           onClick={(e) => {
                             e.preventDefault(), onToggle();
                           }}
-                        // style={{ marginLeft: "20px", marginTop: "20px" }}
+                          // style={{ marginLeft: "20px", marginTop: "20px" }}
                         >
                           Price
                         </a>
                       </h3>
                     </div>
-                    <div  className="overflow-hidden" ref={setCollapsibleElement}>
-                      <div
-                        className="widget-body pb-2"
-                        style={{ padding: "20px" }}
-                      >
+                    <div className="overflow-hidden" ref={setCollapsibleElement}>
+                      <div className="widget-body pb-2" style={{ padding: "20px" }}>
                         <form action="#">
                           <div className="price-slider-wrapper">
                             <InputRange
@@ -676,31 +680,28 @@ function ShopSidebarOne(props) {
           </div>
 
           {/* conditional */}
-          {attributeData?.getAttributesDetailsByCategory?.record.attributes
-            .length > 0 &&
+          {attributeData?.getAttributesDetailsByCategory?.record.attributes.length > 0 &&
             attributeData?.getAttributesDetailsByCategory?.record?.attributes?.map(
               (attri, index) => {
-
                 let attributeComponent;
 
                 // Check attribute type and render the appropriate component
                 if (attri.attributeType === "COLOR") {
                   attributeComponent = (
-                    <div
-                      className=" widget-color"
-                      style={{ padding: "0" }}
-                    >
+                    <div className=" widget-color" style={{ padding: "0" }}>
                       {loading ? (
                         <div className="skel-widget"></div>
                       ) : (
                         <SlideToggle>
-                          {({
-                            onToggle,
-                            setCollapsibleElement,
-                            toggleState,
-                          }) => (
+                          {({ onToggle, setCollapsibleElement, toggleState }) => (
                             <>
-                              <div style={{ borderBottom: "1px solid #B9B9B9", borderTop: "1px solid #B9B9B9", padding: "2rem" }}>
+                              <div
+                                style={{
+                                  borderBottom: "1px solid #B9B9B9",
+                                  borderTop: "1px solid #B9B9B9",
+                                  padding: "2rem",
+                                }}
+                              >
                                 <h3
                                   className="widget-title"
                                   style={{
@@ -712,29 +713,22 @@ function ShopSidebarOne(props) {
                                   }}
                                 >
                                   <a
-                                    className={
-                                      toggleState === "COLLAPSED"
-                                        ? "collapsed"
-                                        : ""
-                                    }
+                                    className={toggleState === "COLLAPSED" ? "collapsed" : ""}
                                     href="#"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       onToggle();
                                     }}
-                                  // style={{
-                                  //   marginLeft: "20px",
-                                  //   marginTop: "20px",
-                                  // }}
+                                    // style={{
+                                    //   marginLeft: "20px",
+                                    //   marginTop: "20px",
+                                    // }}
                                   >
                                     {attri?.description}
                                   </a>
                                 </h3>
                               </div>
-                              <div
-                                className="overflow-hidden widget"
-                                ref={setCollapsibleElement}
-                              >
+                              <div className="overflow-hidden widget" ref={setCollapsibleElement}>
                                 <div style={{ padding: "10px" }}>
                                   <ul
                                     className="config-swatch-list"
@@ -742,44 +736,34 @@ function ShopSidebarOne(props) {
                                       gap: "2px",
                                     }}
                                   >
-                                    {attri?.attributeValues.map(
-                                      (item, index) => (
-                                        <li
-                                          className={
-                                            containsAttrInUrl(
-                                              [attri?._id],
-                                              item?._id
-                                            )
-                                              ? "active"
-                                              : ""
-                                          }
-                                          key={`${attri?._id}-${index}`}
-                                          style={{
-                                            width: "38px",
-                                            height: "38px",
+                                    {attri?.attributeValues.map((item, index) => (
+                                      <li
+                                        className={
+                                          containsAttrInUrl([attri?._id], item?._id) ? "active" : ""
+                                        }
+                                        key={`${attri?._id}-${index}`}
+                                        style={{
+                                          width: "38px",
+                                          height: "38px",
+                                        }}
+                                      >
+                                        <ALink
+                                          href={{
+                                            query: {
+                                              ...query,
+                                              page: 0,
+                                              [attri?._id]: getUrlForAttrs(attri?._id, item._id),
+                                            },
                                           }}
-                                        >
-                                          <ALink
-                                            href={{
-                                              query: {
-                                                ...query,
-                                                page: 0,
-                                                [attri?._id]: getUrlForAttrs(
-                                                  attri?._id,
-                                                  item._id
-                                                ),
-                                              },
-                                            }}
-                                            style={{
-                                              backgroundColor: item?.colorCode,
-                                              borderRadius: "50%",
-                                              border: "1px solid black"
-                                            }}
-                                            scroll={false}
-                                          ></ALink>
-                                        </li>
-                                      )
-                                    )}
+                                          style={{
+                                            backgroundColor: item?.colorCode,
+                                            borderRadius: "50%",
+                                            border: "1px solid black",
+                                          }}
+                                          scroll={false}
+                                        ></ALink>
+                                      </li>
+                                    ))}
                                   </ul>
                                 </div>
                               </div>
@@ -791,21 +775,20 @@ function ShopSidebarOne(props) {
                   );
                 } else {
                   attributeComponent = (
-                    <div
-                      className=" widget-normal"
-                      style={{ padding: "0" }}
-                    >
+                    <div className=" widget-normal" style={{ padding: "0" }}>
                       {loading ? (
                         <div className="skel-widget"></div>
                       ) : (
                         <SlideToggle>
-                          {({
-                            onToggle,
-                            setCollapsibleElement,
-                            toggleState,
-                          }) => (
+                          {({ onToggle, setCollapsibleElement, toggleState }) => (
                             <>
-                              <div style={{ borderBottom: "1px solid #B9B9B9", borderTop: "1px solid #B9B9B9", padding: "2rem" }}>
+                              <div
+                                style={{
+                                  borderBottom: "1px solid #B9B9B9",
+                                  borderTop: "1px solid #B9B9B9",
+                                  padding: "2rem",
+                                }}
+                              >
                                 <h3
                                   className="widget-title"
                                   style={{
@@ -817,29 +800,22 @@ function ShopSidebarOne(props) {
                                   }}
                                 >
                                   <a
-                                    className={
-                                      toggleState === "COLLAPSED"
-                                        ? "collapsed"
-                                        : ""
-                                    }
+                                    className={toggleState === "COLLAPSED" ? "collapsed" : ""}
                                     href="#"
                                     onClick={(e) => {
                                       e.preventDefault();
                                       onToggle();
                                     }}
-                                  // style={{
-                                  //   marginLeft: "20px",
-                                  //   marginTop: "20px",
-                                  // }}
+                                    // style={{
+                                    //   marginLeft: "20px",
+                                    //   marginTop: "20px",
+                                    // }}
                                   >
                                     {attri?.description}
                                   </a>
                                 </h3>
                               </div>
-                              <div
-                                className="overflow-hidden widget"
-                                ref={setCollapsibleElement}
-                              >
+                              <div className="overflow-hidden widget" ref={setCollapsibleElement}>
                                 {/* design */}
                                 <div style={{ padding: "10px" }}>
                                   <div
@@ -849,54 +825,45 @@ function ShopSidebarOne(props) {
                                       maxWidth: "286px",
                                     }}
                                   >
-                                    {attri?.attributeValues.length > 0 && attri?.attributeValues?.map((attriValues, index) => {
-                                      const attriId = attri?._id;
-                                      const selectedIds =
-                                        query[attriId]?.split(",") || [];
-                                      const isActive = selectedIds.includes(
-                                        attriValues._id
-                                      );
-                                      return (
-                                        <ALink
-                                          className="custom-categorylabels"
-                                          href={{
-                                            query: {
-                                              ...query,
-                                              page: 0,
-                                              [attri?._id]: getUrlForAttrs(
-                                                attri?._id,
-                                                attriValues._id
-                                              ),
-                                            },
-                                          }}
-                                          key={`${attri?._id}-${index}`}
-                                          scroll={false}
-                                          style={
-                                            containsAttrInUrl(
-                                              attri?._id,
-                                              attriValues._id
-                                            )
-                                              ? { color: "red" }
-                                              : {}
-                                          }
-                                        >
-                                          <div
-                                            style={{
-                                              border: "1px solid rgb(220, 220, 220)",
-                                              padding: "10px",
+                                    {attri?.attributeValues.length > 0 &&
+                                      attri?.attributeValues?.map((attriValues, index) => {
+                                        const attriId = attri?._id;
+                                        const selectedIds = query[attriId]?.split(",") || [];
+                                        const isActive = selectedIds.includes(attriValues._id);
+                                        return (
+                                          <ALink
+                                            className="custom-categorylabels"
+                                            href={{
+                                              query: {
+                                                ...query,
+                                                page: 0,
+                                                [attri?._id]: getUrlForAttrs(
+                                                  attri?._id,
+                                                  attriValues._id
+                                                ),
+                                              },
                                             }}
+                                            key={`${attri?._id}-${index}`}
+                                            scroll={false}
+                                            style={
+                                              containsAttrInUrl(attri?._id, attriValues._id)
+                                                ? { color: "red" }
+                                                : {}
+                                            }
                                           >
-                                            {attriValues.value}
-                                          </div>
-                                        </ALink>
-
-                                      );
-
-                                    })}
-
+                                            <div
+                                              style={{
+                                                border: "1px solid rgb(220, 220, 220)",
+                                                padding: "10px",
+                                              }}
+                                            >
+                                              {attriValues.value}
+                                            </div>
+                                          </ALink>
+                                        );
+                                      })}
                                   </div>
                                 </div>
-
                               </div>
                             </>
                           )}
@@ -915,6 +882,4 @@ function ShopSidebarOne(props) {
   );
 }
 
-export default withApollo({ ssr: typeof window === "undefined" })(
-  ShopSidebarOne
-);
+export default withApollo({ ssr: typeof window === "undefined" })(ShopSidebarOne);

@@ -10,7 +10,7 @@ import OwlCarousel from "../../features/owl-carousel";
 import { fadeIn } from "../../../utils/data/keyframes";
 import { productSlider } from "../../../utils/data/slider";
 import GardenCollection from "./garden-collection";
-import BestSelling from "./recent-collection"
+import BestSelling from "./recent-collection";
 import { useQuery, gql } from "@apollo/react-hooks";
 import { GET_HOME_DATA } from "../../../server/queries";
 const GET_PRODUCTS = gql`
@@ -63,11 +63,11 @@ query GetProducts($input: ProductFilters) {
       warehouseSkuId
     }
   }
-}`
+}`;
 
 function ElectronicCollection() {
-  const { data, loading, error } = useQuery(GET_PRODUCTS, { variables: { input: { bestSeller: true } } })
-  const products = data?.getProducts?.records
+  const { data, loading, error } = useQuery(GET_PRODUCTS, { variables: { input: { bestSeller: true } } });
+  const products = data?.getProducts?.records;
   //   const { data, loading, error } = useQuery(GET_HOME_DATA, {
   //     variables: { productsCount: 15 },
   //   });
@@ -86,15 +86,18 @@ function ElectronicCollection() {
           triggerOnce
         >
           <div
-            className="heading shop-list d-flex align-items-center justify-content-between flex-wrap  mb-0 pl-0 pr-0 pt-5"
+            className="heading shop-list   mb-0 pl-0 pr-0 "
             style={{ borderBottom: "1px solid ", borderColor: "#EEEEEE" }}
           >
-            <h4 className="section-title text-transform-none mb-0 mr-0 pt-5 pb-5 mt-5">
-              Best Selling
-            </h4>
-            <ALink href="/shop?bestSeller=true" className="pt-5 pb-5 mt-4" style={{ color: "black", fontWeight: "600" }}>
-              View All Products
-            </ALink>
+            <div className="pt-5 pb-5 mt-5 d-flex align-items-center justify-content-between flex-wrap">
+              <h4 className="section-title text-transform-none mb-0 mr-0 ">
+                Best Selling
+              </h4>
+              <ALink href="/shop?bestSeller=true" style={{ color: "black", fontWeight: "600" }}>
+                View All Products
+              </ALink>
+            </div>
+
           </div>
 
           <OwlCarousel

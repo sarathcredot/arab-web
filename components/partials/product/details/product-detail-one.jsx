@@ -500,7 +500,7 @@ function ProductDetailOne(props) {
 
   return (
     <>
-      <div className={`skel-pro skel-detail ${adClass}`}></div>
+      <div className={`skel-pro  skel-detail ${adClass}`}></div>
       {product && (
         <div className={`product-single-details ${adClass}`}>
           <p
@@ -803,7 +803,7 @@ function ProductDetailOne(props) {
                       </label>
                     </>
                   ) : null}
-                  <div className=" d-flex " style={{ gap: "4px" }}>
+                  <div className=" d-flex " style={{ gap: "4px", marginBottom: "1rem" }}>
                     {variantData
                       ?.filter(
                         (value) =>
@@ -876,265 +876,265 @@ function ProductDetailOne(props) {
                       ))}
                   </div>
                 </div>
-              ) : (
-                ""
-              )}
-              {variantData?.length > 0 ? (
-                <div className="product-single-filter">
-                  {Array.from(
-                    new Set(
-                      variantData
-                        ?.filter(
-                          (value) =>
-                            value.attributeName.toLowerCase() !==
-                            "size" &&
-                            value.attributeName.toLowerCase() !== "color" &&
-                            value.attributeName.toLowerCase() !== "colour"
-                        )
-                        .map((item) => item.attributeName.toLowerCase())
+          ) : (
+            ""
+          )}
+          {variantData?.length > 0 ? (
+            <div className="product-single-filter">
+              {Array.from(
+                new Set(
+                  variantData
+                    ?.filter(
+                      (value) =>
+                        value.attributeName.toLowerCase() !==
+                        "size" &&
+                        value.attributeName.toLowerCase() !== "color" &&
+                        value.attributeName.toLowerCase() !== "colour"
                     )
-                  ).map((uniqueAttributeName, index) => (
-                    <div key={`attribute-group-${index}`}>
-                      <label
-                        style={{
-                          color: "#000",
-                          fontWeight: "500",
-                        }}
-                      >
-                        {uniqueAttributeName} &nbsp;
-                      </label>
-                      <ul className="config-size-list " style={{ marginTop: "5px" }}>
-                        {variantData
-                          ?.filter(
-                            (item) =>
-                              item.attributeName.toLowerCase() ===
-                              uniqueAttributeName
+                    .map((item) => item.attributeName.toLowerCase())
+                )
+              ).map((uniqueAttributeName, index) => (
+                <div key={`attribute-group-${index}`} style={{ marginBottom: "1rem" }}>
+                  <label
+                    style={{
+                      color: "#000",
+                      fontWeight: "500",
+                    }}
+                  >
+                    {uniqueAttributeName} &nbsp;
+                  </label>
+                  <ul className="config-size-list " style={{ marginTop: "5px" }}>
+                    {variantData
+                      ?.filter(
+                        (item) =>
+                          item.attributeName.toLowerCase() ===
+                          uniqueAttributeName
+                      )
+                      .map((item, subIndex) => (
+                        <li
+                          key={`filter-size-${subIndex}`}
+                          className={`${Object.values(selectedAttributes).includes(
+                            item?.attributeValue
                           )
-                          .map((item, subIndex) => (
-                            <li
-                              key={`filter-size-${subIndex}`}
-                              className={`${Object.values(selectedAttributes).includes(
-                                item?.attributeValue
-                              )
-                                ? "active"
-                                : ""
-                                } ${!isDisabled(
+                            ? "active"
+                            : ""
+                            } ${!isDisabled(
 
-                                  item?.attributeValue
-                                )
-                                  ? "strikethrough"
-                                  : ""
-                                }`}
+                              item?.attributeValue
+                            )
+                              ? "strikethrough"
+                              : ""
+                            }`}
+                        >
+                          {item?.thumb ? (
+                            <a
+                              href="#"
+                              className="filter-thumb p-0"
+                              onClick={(e) =>
+                                selectAttribute(item?.productId, e)
+                              }
                             >
-                              {item?.thumb ? (
-                                <a
-                                  href="#"
-                                  className="filter-thumb p-0"
-                                  onClick={(e) =>
-                                    selectAttribute(item?.productId, e)
-                                  }
-                                >
-                                  <LazyLoadImage
-                                    src={
-                                      process.env.NEXT_PUBLIC_ASSET_URI +
-                                      item?.thumb?.url
-                                    }
-                                    alt="product thumb"
-                                    width={item.thumb.width}
-                                    height={item.thumb.height}
-                                  />
-                                </a>
-                              ) : (
-                                <a
-                                  href="#"
-                                  className="d-flex align-items-center justify-content-center"
-                                  onClick={(e) =>
-                                    selectAttribute(item?.productId, e)
-                                  }
-                                  style={{
-                                    fontWeight: "600",
-                                    fontSize: "12px",
-                                    lineHeight: "15px",
-                                    // color: "#292D32",
-                                    marginRight: "5px",
-                                    // color:`${  isDisabled(item.attributeDescription, item.attributeValue)? "blue":"black"}`
-                                  }}
-                                >
-                                  {item?.attributeValue}
-                                </a>
-                              )}
-                            </li>
-                          ))}
-                      </ul>
-                    </div>
-                  ))}
+                              <LazyLoadImage
+                                src={
+                                  process.env.NEXT_PUBLIC_ASSET_URI +
+                                  item?.thumb?.url
+                                }
+                                alt="product thumb"
+                                width={item.thumb.width}
+                                height={item.thumb.height}
+                              />
+                            </a>
+                          ) : (
+                            <a
+                              href="#"
+                              className="d-flex align-items-center justify-content-center"
+                              onClick={(e) =>
+                                selectAttribute(item?.productId, e)
+                              }
+                              style={{
+                                fontWeight: "600",
+                                fontSize: "12px",
+                                lineHeight: "15px",
+                                // color: "#292D32",
+                                marginRight: "5px",
+                                // color:`${  isDisabled(item.attributeDescription, item.attributeValue)? "blue":"black"}`
+                              }}
+                            >
+                              {item?.attributeValue}
+                            </a>
+                          )}
+                        </li>
+                      ))}
+                  </ul>
                 </div>
-              ) : (
-                ""
-              )}
-
-              {
-                // <SlideToggle collapsed={true}>
-                //   {({ onToggle, setCollapsibleElement, toggleState }) => (
-                //     <>
-                //       <button
-                //         className={`d-none variation-toggle ${toggleState?.toLowerCase()}`}
-                //         onClick={onToggle}
-                //       ></button>
-                //       <div
-                //         className="product-single-filter m-0"
-                //         ref={setCollapsibleElement}
-                //       >
-                //         <label></label>
-                //         <a
-                //           className="font1 text-uppercase clear-btn"
-                //           href="#"
-                //           onClick={clearVariation}
-                //         >
-                //           Clear
-                //         </a>
-                //       </div>
-                //     </>
-                //   )}
-                // </SlideToggle>
-              }
+              ))}
             </div>
           ) : (
             ""
           )}
 
-          {isSticky && (
-            <div className="sticky-wrapper">
-              <div className="sticky-header desktop-sticky sticky-cart d-none d-lg-block">
-                <div className="container">
-                  <div className="sticky-img mr-4 media-with-lazy">
-                    <figure className="mb-0">
-                      <LazyLoadImage
-                        src={
-                          process.env.NEXT_PUBLIC_ASSET_URI +
-                          product.product.url
-                        }
-                        width="100%"
-                        height="auto"
-                        alt="Thumbnail"
-                      />
-                    </figure>
-                  </div>
-                  <div className="sticky-detail">
-                    <div className="sticky-product-name">
-                      <h2 className="product-title w-100 ls-0">
-                        {product.productName}
-                      </h2>
-                    </div>
-                    <div className="ratings-container">
-                      <div className="product-ratings">
-                        <span
-                          className="ratings"
-                          style={{ width: `${20 * product.rating}%` }}
-                        ></span>
-                        <span className="tooltiptext tooltip-top">
-                          {product?.rating?.toFixed(2)}
-                        </span>
-                      </div>
-
-                      <ALink href="#" className="rating-link">
-                        ({" "}
-                        {product.reviews > 0
-                          ? `${product.reviews} Reviews`
-                          : "There are no reviews yet."}{" "}
-                        )
-                      </ALink>
-                    </div>
-                  </div>
-
-                  <div className="product-action">
-                    <Qty
-                      max={product?.stock > 10 ? 10 : product?.stock}
-                      value={qty}
-                      onChangeQty={changeQty}
-                    />
-
-                    <a
-                      href="#"
-                      className={`btn btn-dark add-cart mr-2 ${product.stock < 0
-                        ? "disabled"
-                        : ""
-                        }`}
-                      title="Add To Cart"
-                      onClick={onAddCartClick}
-                    >
-                      Add to Cart
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+          {
+            // <SlideToggle collapsed={true}>
+            //   {({ onToggle, setCollapsibleElement, toggleState }) => (
+            //     <>
+            //       <button
+            //         className={`d-none variation-toggle ${toggleState?.toLowerCase()}`}
+            //         onClick={onToggle}
+            //       ></button>
+            //       <div
+            //         className="product-single-filter m-0"
+            //         ref={setCollapsibleElement}
+            //       >
+            //         <label></label>
+            //         <a
+            //           className="font1 text-uppercase clear-btn"
+            //           href="#"
+            //           onClick={clearVariation}
+            //         >
+            //           Clear
+            //         </a>
+            //       </div>
+            //     </>
+            //   )}
+            // </SlideToggle>
+          }
+        </div>
+      ) : (
+      ""
           )}
 
-          <div className="product-action">
-            {product?.variantData?.length ? (
-              <SlideToggle collapsed={true}>
-                {({ onToggle, setCollapsibleElement, toggleState }) => (
-                  <>
-                    <button
-                      className={`d-none price-toggle ${toggleState?.toLowerCase()}`}
-                      onClick={onToggle}
-                    ></button>
-                    <div
-                      className="price-box product-filtered-price m-0"
-                      ref={setCollapsibleElement}
-                    >
-                      {variant &&
-                        variant.id >= 0 &&
-                        (variant.price ? (
-                          variant.sale_price ? (
-                            <>
-                              <del className="old-price">
-                                <span>${variant.price.toFixed(2)}</span>
-                              </del>
-                              <span className="product-price">
-                                ${variant && variant.sale_price.toFixed(2)}
-                              </span>
-                            </>
-                          ) : (
-                            <span className="product-price">
-                              ${variant && variant.price.toFixed(2)}
-                            </span>
-                          )
-                        ) : (
-                          <span className="product-stock pb-3 d-block">
-                            {product.is_out_of_stock
-                              ? "Out of Stock"
-                              : `${product.stock} in stock`}
-                          </span>
-                        ))}
-                    </div>
-                  </>
-                )}
-              </SlideToggle>
-            ) : (
-              ""
-            )}
+      {isSticky && (
+        <div className="sticky-wrapper">
+          <div className="sticky-header desktop-sticky sticky-cart d-none d-lg-block">
+            <div className="container">
+              <div className="sticky-img mr-4 media-with-lazy">
+                <figure className="mb-0">
+                  <LazyLoadImage
+                    src={
+                      process.env.NEXT_PUBLIC_ASSET_URI +
+                      product.product.url
+                    }
+                    width="100%"
+                    height="auto"
+                    alt="Thumbnail"
+                  />
+                </figure>
+              </div>
+              <div className="sticky-detail">
+                <div className="sticky-product-name">
+                  <h2 className="product-title w-100 ls-0">
+                    {product.productName}
+                  </h2>
+                </div>
+                <div className="ratings-container">
+                  <div className="product-ratings">
+                    <span
+                      className="ratings"
+                      style={{ width: `${20 * product.rating}%` }}
+                    ></span>
+                    <span className="tooltiptext tooltip-top">
+                      {product?.rating?.toFixed(2)}
+                    </span>
+                  </div>
 
-            <Qty max={10} value={qty} onChangeQty={changeQty} />
+                  <ALink href="#" className="rating-link">
+                    ({" "}
+                    {product.reviews > 0
+                      ? `${product.reviews} Reviews`
+                      : "There are no reviews yet."}{" "}
+                    )
+                  </ALink>
+                </div>
+              </div>
 
-            <a
-              href="#"
-              className={`btn btn-dark add-cart shopping-cart mr-2 custom-detail-cart ${product.stock < 0 ? "disabled" : ""
-                }`}
-              title="Add To Cart"
-              onClick={onAddCartClick}
-            >
-              {product?.stock > 0 ? "Add To Cart" : "Out of Stock"}
-            </a>
+              <div className="product-action">
+                <Qty
+                  max={product?.stock > 10 ? 10 : product?.stock}
+                  value={qty}
+                  onChangeQty={changeQty}
+                />
+
+                <a
+                  href="#"
+                  className={`btn btn-dark add-cart mr-2 ${product.stock < 0
+                    ? "disabled"
+                    : ""
+                    }`}
+                  title="Add To Cart"
+                  onClick={onAddCartClick}
+                >
+                  Add to Cart
+                </a>
+              </div>
+            </div>
           </div>
+        </div>
+      )}
 
-          <hr className="divider mb-0 mt-0" />
+      <div className="product-action">
+        {product?.variantData?.length ? (
+          <SlideToggle collapsed={true}>
+            {({ onToggle, setCollapsibleElement, toggleState }) => (
+              <>
+                <button
+                  className={`d-none price-toggle ${toggleState?.toLowerCase()}`}
+                  onClick={onToggle}
+                ></button>
+                <div
+                  className="price-box product-filtered-price m-0"
+                  ref={setCollapsibleElement}
+                >
+                  {variant &&
+                    variant.id >= 0 &&
+                    (variant.price ? (
+                      variant.sale_price ? (
+                        <>
+                          <del className="old-price">
+                            <span>${variant.price.toFixed(2)}</span>
+                          </del>
+                          <span className="product-price">
+                            ${variant && variant.sale_price.toFixed(2)}
+                          </span>
+                        </>
+                      ) : (
+                        <span className="product-price">
+                          ${variant && variant.price.toFixed(2)}
+                        </span>
+                      )
+                    ) : (
+                      <span className="product-stock pb-3 d-block">
+                        {product.is_out_of_stock
+                          ? "Out of Stock"
+                          : `${product.stock} in stock`}
+                      </span>
+                    ))}
+                </div>
+              </>
+            )}
+          </SlideToggle>
+        ) : (
+          ""
+        )}
 
-          <div className="product-single-share mb-3">
-            <label className="sr-only">Share:</label>
+        <Qty max={10} value={qty} onChangeQty={changeQty} />
 
-            {/* <div className="social-icons mr-2">
+        <a
+          href="#"
+          className={`btn btn-dark add-cart shopping-cart mr-2 custom-detail-cart ${product.stock < 0 ? "disabled" : ""
+            }`}
+          title="Add To Cart"
+          onClick={onAddCartClick}
+        >
+          {product?.stock > 0 ? "Add To Cart" : "Out of Stock"}
+        </a>
+      </div>
+
+      <hr className="divider mb-0 mt-0" />
+
+      <div className="product-single-share mb-3">
+        <label className="sr-only">Share:</label>
+
+        {/* <div className="social-icons mr-2">
                             <ALink href="#" className="social-icon social-facebook icon-facebook"
                                 title="Facebook"></ALink>
                             <ALink href="#" className="social-icon social-twitter icon-twitter"
@@ -1145,33 +1145,33 @@ function ProductDetailOne(props) {
                                 title="Mail"></ALink>
                         </div> */}
 
-            <a
-              href="#"
-              className={`btn-icon-wish add-wishlist ${isInWishlist() ? "added-wishlist" : ""
-                }`}
-              onClick={onWishlistClick}
-              title={`${isInWishlist() ? "Go to Wishlist" : "Add to Wishlist"}`}
-            >
-              <i className="icon-wishlist-2"></i>
-              <span
-                style={{
-                  marginLeft: "10px",
-                  fontFamily: "Poppins",
-                  fontWeight: "14px",
-                  lineHeight: "34px",
-                }}
-              >
-                {isInWishlist() ? "Go to Wishlist" : "Add to Wishlist"}
-              </span>
-            </a>
+        <a
+          href="#"
+          className={`btn-icon-wish add-wishlist ${isInWishlist() ? "added-wishlist" : ""
+            }`}
+          onClick={onWishlistClick}
+          title={`${isInWishlist() ? "Go to Wishlist" : "Add to Wishlist"}`}
+        >
+          <i className="icon-wishlist-2"></i>
+          <span
+            style={{
+              marginLeft: "10px",
+              fontFamily: "Poppins",
+              fontWeight: "14px",
+              lineHeight: "34px",
+            }}
+          >
+            {isInWishlist() ? "Go to Wishlist" : "Add to Wishlist"}
+          </span>
+        </a>
 
-            {/* <a
+        {/* <a
               href="#"
               className="btn-icon-wish add-wishlist"
               onClick={onWishlistClick}
               title={`${isInWishlist() ? "Go to Wishlist" : "Add to Wishlist"}`}
             > */}
-            {/* <div
+        {/* <div
                 style={{
                   width: "38px",
                   height: "38px",
@@ -1207,7 +1207,7 @@ function ProductDetailOne(props) {
                 </svg>
               </div> */}
 
-            {/* <span
+        {/* <span
                 style={{
                   marginLeft: "10px",
                   fontFamily: "Poppins",
@@ -1218,9 +1218,10 @@ function ProductDetailOne(props) {
                 share this
               </span>
             </a> */}
-          </div>
-        </div>
-      )}
+      </div>
+    </div >
+      )
+}
     </>
   );
 }

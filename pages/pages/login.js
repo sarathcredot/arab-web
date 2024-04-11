@@ -38,13 +38,15 @@ export const RESENT_OTP = gql`
   }
 `;
 function Login({ mutate }) {
+  const router = useRouter();
+  const { origin } = router.query; 
+  const formatedOrigin = origin ? origin?.replace("-", "/") : null;
   const [isOtp, SetIsOtp] = useState(false);
   const [mobileNumber, setMobileNumber] = useState("");
   const [error, setError] = useState("");
   const [otperror, setOtperror] = useState("");
   const [otp, setOtp] = useState("");
   const [otpId, setOtpTd] = useState("");
-  const router = useRouter();
   const [userLoginOtp] = useMutation(LOGIN);
   const [UserVerifyOtp] = useMutation(OTP_VERIFY);
   const [UserResendLoginOtp] = useMutation(RESENT_OTP);
@@ -122,6 +124,9 @@ function Login({ mutate }) {
         } catch (error) {
           console.log(error);
         }
+        if (formatedOrigin) {
+          return router.push(`/${formatedOrigin}`);
+        }
 
         const historyUrl = localStorage.getItem("historyUrl");
         if (historyUrl) {
@@ -159,7 +164,7 @@ function Login({ mutate }) {
               <MainMenu />
             </div>
           </div>
-          <div className="container custom_login_space">
+          <div className="container custom_login_space ">
             <nav
               aria-label="breadcrumb"
               className="breadcrumb-nav mb-0"
@@ -170,13 +175,12 @@ function Login({ mutate }) {
                   <li className="breadcrumb-item">
                     <ALink href="/">
                       <IoMdHome style={{ fontSize: "16px" }} />
-                      {/* <i className="icon-home" ></i> */}
                     </ALink>
                   </li>
 
                   <li className="breadcrumb-item active" aria-current="page">
                     <ALink className="activeitem" href="/pages/orders">
-                      Login
+                      Login/ Register
                     </ALink>
                   </li>
                 </ol>
@@ -267,7 +271,7 @@ function Login({ mutate }) {
                               className="btn-text"
                               onClick={handleResentotp}
                             >
-                              Resent
+                              Resend
                             </span>
                           </p>
                         </div>

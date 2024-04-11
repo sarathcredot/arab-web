@@ -1,6 +1,8 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { connect } from "react-redux";
+import { toast } from "react-toastify";
+
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { GoPlus } from "react-icons/go";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -8,6 +10,8 @@ import { AiOutlinePlus } from "react-icons/ai";
 import { actions as WishlistAction } from "../../../store/wishlist";
 import cart, { actions as CartAction } from "../../../store/cart";
 import { actions as ModalAction } from "../../../store/modal";
+import AddToCartPopup from "../modals/add-to-cart-popup";
+
 
 // Import Custom Component
 import ALink from "../../common/ALink";
@@ -28,34 +32,20 @@ function ProductOne(props) {
 
   const [addToCart] = useMutation(POST_CART);
 
-
- 
-
   function isSale() {
-    return product.price[0] !== product.price[1] &&
-      product.variants.length === 0
-      ? "-" +
-          (
-            (100 * (product.price[1] - product.price[0])) /
-            product.price[1]
-          ).toFixed(0) +
-          "%"
+    return product.price[0] !== product.price[1] && product.variants.length === 0
+      ? "-" + ((100 * (product.price[1] - product.price[0])) / product.price[1]).toFixed(0) + "%"
       : product?.variants?.find((variant) => variant?.sale_price)
       ? "Sale"
       : false;
   }
 
   function isInWishlist() {
-    return (
-      product &&
-      props.wishlist.findIndex((item) => item.slug === product.slug) > -1
-    );
+    return product && props.wishlist.findIndex((item) => item.slug === product.slug) > -1;
   }
 
   function isInCart() {
-    return (
-      product && props.cart.findIndex((item) => item.slug === cart.slug) > -1
-    );
+    return product && props.cart.findIndex((item) => item.slug === cart.slug) > -1;
   }
 
   function onWishlistClick(e) {
@@ -80,29 +70,73 @@ function ProductOne(props) {
   //   props.addToCart(product);
   // }
 
-  const onAddCartClick = async (e, value) => {
+  function onAddCartClick(e) {
     e.preventDefault();
+    if (localStorage.getItem("arabtoken")) {
+      try {
+        if (product.stock > 0 && !e.currentTarget.classList.contains("disabled")) {
+          const response = addToCart({
+            variables: {
+              input: {
+                productId: product._id,
+                quantity: 1,
+              },
+            },
+          });
 
-    const token = localStorage.getItem("token");
-  
-
-    try {
-      const response = await addToCart({
-        variables: {
-          input: {
-            productId: value._id,
-            quantity: 1,
-          },
-        },
-      });
-
-      if (response) {
-        router.push("/pages/cart");
+          if (response) {
+            cartRefetch();
+            return toast(<AddToCartPopup product={{ product }} />);
+          }
+        }
+      } catch (error) {
+        console.log(error);
       }
-    } catch (error) {
-      console.log(error);
+    } else {
+      const localCart = JSON.parse(localStorage.getItem("cart"));
+      if (localCart) {
+        const productIndex = localCart.findIndex((item) => item.productId === product._id);
+        if (productIndex > -1) {
+          localCart[productIndex].quantity += 1;
+        } else {
+          localCart.push({
+            productId: product._id,
+            quantity: 1,
+            name: product.productName,
+            shortDescription: product.shortDescription,
+            stock: product.stock,
+            color: product.color,
+            size: product.size,
+            price: product.price,
+            image: product.images[0] && product.images[0].fileURL,
+            sellingPrice: product.sellingPrice,
+            mrp: product.mrp,
+          });
+        }
+        localStorage.setItem("cart", JSON.stringify(localCart));
+      } else {
+        localStorage.setItem(
+          "cart",
+          JSON.stringify([
+            {
+              productId: product._id,
+              quantity: 1,
+              name: product.productName,
+              shortDescription: product.shortDescription,
+              stock: product.stock,
+              color: product.color,
+              size: product.size,
+              price: product.price,
+              image: product.images[0] && product.images[0].fileURL,
+              sellingPrice: product.sellingPrice,
+              mrp: product.mrp,
+            },
+          ])
+        );
+      }
     }
-  };
+    return toast(<AddToCartPopup product={{ product }} />);
+  }
 
   function onQuickViewClick(e) {
     e.preventDefault();
@@ -136,17 +170,9 @@ function ProductOne(props) {
         </ALink>
 
         <div className="label-group">
-          {product.is_hot ? (
-            <div className="product-label label-hot">HOT</div>
-          ) : (
-            ""
-          )}
+          {product.is_hot ? <div className="product-label label-hot">HOT</div> : ""}
 
-          {isSale() ? (
-            <div className="product-label label-sale">{isSale()}</div>
-          ) : (
-            ""
-          )}
+          {isSale() ? <div className="product-label label-sale">{isSale()}</div> : ""}
         </div>
       </figure>
 
@@ -169,10 +195,7 @@ function ProductOne(props) {
             justifyContent: "center",
           }}
         >
-          <div
-            className="category-list"
-            style={{ width: "50%", fontWeight: 600 }}
-          >
+          <div className="category-list" style={{ width: "50%", fontWeight: 600 }}>
             {/* {product?.categoryNamePath
               ? product.categories.map((item, index) => (
                   <React.Fragment key={item.slug + "-" + index}> */}
@@ -197,10 +220,7 @@ function ProductOne(props) {
 
           {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
           <div style={{ width: "50%", display: "flex", justifyContent: "end" }}>
-            <div
-              className="custom-addcart"
-              onClick={(e) => onAddCartClick(e, product)}
-            >
+            <div className="custom-addcart" onClick={(e) => onAddCartClick(e, product)} style={{ cursor: "pointer" }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -225,7 +245,6 @@ function ProductOne(props) {
               </svg>
             </div>
           </div>
-          
         </div>
 
         <h3 className="product-title">
@@ -236,8 +255,6 @@ function ProductOne(props) {
             {product.productName}
           </ALink>
         </h3>
-
-       
 
         <div className="price-box">
           <span style={{ fontFamily: "Plus Jakarta Sans" }}>OMR</span>
@@ -253,10 +270,7 @@ function ProductOne(props) {
           >
             {product?.sellingPrice.toFixed(2)}
           </span>
-          <span
-            className="old-price"
-            style={{ marginLeft: "14px", color: "#777777" }}
-          >
+          <span className="old-price" style={{ marginLeft: "14px", color: "#777777" }}>
             {product?.mrp?.toFixed(2)}
           </span>
         </div>

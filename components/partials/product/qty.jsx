@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
-function Qty ( { max = Infinity, onChangeQty, value = 1 } ) {
-    const [ count, setCount ] = useState( value );
+function Qty({ max = Infinity, onChangeQty, value = 1, disabled = false }) {
+    const [count, setCount] = useState(value);
 
 
     // useEffect( () => {
@@ -31,13 +31,15 @@ function Qty ( { max = Infinity, onChangeQty, value = 1 } ) {
     }, [value]);
 
     function increase() {
+        if(disabled) return;
         const newCount = Math.min(max, count + 1);
         setCount(newCount);
         onChangeQty(newCount);
     }
 
     function decrease() {
-        const newCount = Math.max(1, count - 1);
+        if(disabled) return;
+        const newCount = Math.max(1, count - 1); 
         setCount(newCount);
         onChangeQty(newCount);
     }
@@ -46,15 +48,15 @@ function Qty ( { max = Infinity, onChangeQty, value = 1 } ) {
         <div className="product-single-qty">
             <div className="input-group bootstrap-touchspin bootstrap-touchspin-injected">
                 <span className="input-group-btn input-group-prepend">
-                    <button className="btn btn-outline btn-down-icon bootstrap-touchspin-down" onClick={ decrease } type="button" disabled={count === 1}></button>
+                    <button className="btn btn-outline btn-down-icon bootstrap-touchspin-down" onClick={decrease} type="button" disabled={count === 1}></button>
                 </span>
-                <input className="horizontal-quantity form-control" type="number" min="1" max={ max } value={ count }  style={{fontFamily:"Jakarta sans-serif;",fontWeight:"600"}}/>
+                <input className="horizontal-quantity form-control" type="number" min="1" max={max} value={count} style={{ fontFamily: "Jakarta sans-serif;", fontWeight: "600" }} />
                 <span className="input-group-btn input-group-append">
-                    <button className="btn btn-outline btn-up-icon bootstrap-touchspin-up" onClick={ increase } type="button" disabled={count === max}></button>
+                    <button className="btn btn-outline btn-up-icon bootstrap-touchspin-up" onClick={increase} type="button" disabled={count === max}></button>
                 </span>
             </div>
         </div>
-    )
+    );
 }
 
 export default Qty;

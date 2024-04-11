@@ -75,7 +75,7 @@ function CartMenu({ props }) {
 
   function toggleCart(e) {
     e.preventDefault();
-    setToggle(!toggle)
+    setToggle(!toggle);
     document.querySelector("body").classList.toggle("cart-opened");
   }
 
@@ -204,9 +204,9 @@ function CartMenu({ props }) {
           <img src="/images/icon/cart.svg" alt="cart" />
         </div>
         {/* <i className="icon-cart-thick"></i> */}
-        <span className="cart-count badge-circle">
+        {cartItems?.length > 0 && <span className="cart-count badge-circle">
           {cartItems && cartItems?.length}
-        </span>
+        </span>}
       </a>
 
       <div className="cart-overlay" onClick={cartClose}></div>
@@ -364,7 +364,7 @@ function CartMenu({ props }) {
           )}
         </div>
       </div>
-    </div>
+    </div >
   );
 }
 

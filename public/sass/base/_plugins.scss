@@ -247,3 +247,23 @@ img.slide-bg {
 .ril__imageNext {
     transition: transform .35s;
 }
+
+
+/* Custom CSS */
+/* Define styles for smaller screens */
+@media screen and (max-width: 768px) {
+  .brands-slide {
+    width: 80%; /* Adjust the width as per your requirement */
+    height: auto; /* Maintain aspect ratio */
+  }
+}
+
+/* Default styles for larger screens */
+.brands-slide {
+  margin: 0 10px;
+  height: 250px;
+  justify-content: center;
+  display: flex;
+  align-items: center;
+}
+

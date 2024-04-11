@@ -945,7 +945,7 @@ function CheckOut() {
                               </td>
                               <td>
                                 <b className="total-price">
-                                  <span>OMR{cartData?.getCart?.grandTotal}</span>
+                                  <span>OMR {cartData?.getCart?.grandTotal}</span>
                                 </b>
                               </td>
                             </tr>

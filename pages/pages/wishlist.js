@@ -14,6 +14,7 @@ import AddToCartPopup from "../../components/features/modals/add-to-cart-popup";
 
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
+import { useRouter } from "next/router";
 const GET_WISH_LIST = gql`
   query Products {
     getWishListProducts {
@@ -69,6 +70,7 @@ const REMOVE_WISHLIST = gql`
 `;
 
 function Wishlist(props) {
+  const router = useRouter();
   const { wishlist, removeFromWishlist, showQuickView } = props;
   const [flag, setFlag] = useState(0);
   const [wishlistDatas, setWishlistDatas] = useState([]);
@@ -268,7 +270,7 @@ function Wishlist(props) {
                         </span>
                       </td>
                       <td className="action">
-                        <a
+                        {/* <a
                           href="ajax/product-quick-view"
                           className="btn btn-quickview mt-1 mt-md-0"
                           title="Quick View"
@@ -278,6 +280,15 @@ function Wishlist(props) {
                           style={{ border: "1px solid" }}
                         >
                           Quick View
+                        </a> */}
+                        <a
+                          href="#"
+                          className="btn btn-quickview mt-1 mt-md-0"
+                          title="View"
+                          style={{ border: "1px solid" }}
+                          onClick={(e) => router.push(`/product/default/${item.productId}`)}
+                        >
+                          View
                         </a>
                         {item?.variants?.length > 0 ? (
                           <ALink

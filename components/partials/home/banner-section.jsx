@@ -23,7 +23,7 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
         </>
       ) : ( */}
       <>
-        <div className="row pb-4">
+        <div className="row ">
           <div className="col-md-8 custom-web-banner2">
             <img
               src={sectionTwoData?.images && sectionTwoData?.images[0]?.fileURL}

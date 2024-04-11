@@ -235,7 +235,7 @@ function SearchForm(props) {
                       pathname: "/shop",
                       query: {
                         search: product.suggestion,
-                        category: product.categoryId,
+                        cat_id: product.categoryId,
                       },
                     });
                   }}

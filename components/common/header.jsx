@@ -29,6 +29,8 @@ const GET_WISH_LIST = gql`query Products {
   }
 }`;
 function Header({ adClass = "", wishlist }) {
+  // get current path
+  const { pathname } = useRouter();
   function openMobileMenu(e) {
     e.preventDefault();
     document.querySelector("body").classList.toggle("mmenu-active");
@@ -167,13 +169,14 @@ function Header({ adClass = "", wishlist }) {
           <div className="container innercontainer">
             {/* <div className={styles.innercontainer}> */}
             <div className="header-left col-lg-2 w-auto pl-0">
-              <button
-                className="mobile-menu-toggler mr-2"
-                type="button"
-                onClick={openMobileMenu}
-              >
-                <i className="fa fa-bars"></i>
-              </button>
+              {pathname !== "/pages/login" &&
+                <button
+                  className="mobile-menu-toggler mr-2"
+                  type="button"
+                  onClick={openMobileMenu}
+                >
+                  <i className="fa fa-bars"></i>
+                </button>}
 
               <ALink href="/" className="logo">
                 <img
