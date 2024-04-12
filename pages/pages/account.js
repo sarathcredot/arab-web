@@ -20,16 +20,34 @@ export const USER_DETAIL = gql`
     }
   }
 `;
+
+
+const LOG_OUT_USER = gql`mutation LogoutUser {
+  logoutUser {
+    _id
+  }
+}
+`;
+
 function Account() {
   const id = localStorage?.getItem("userId");
   const token = localStorage.getItem("arabtoken");
   const [userdetail, { loading: userloading, error: usererror, data: userData, refetch }] =
     useLazyQuery(USER_DETAIL);
   const router = useRouter();
-  const handleLogout = () => {
-    localStorage.clear();
-    router.push("/");
+  
+
+
+  const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.clear(); 
+      router.push('/pages/login'); 
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
   };
+
   useEffect(() => {
     if (!token) {
       router.push("/pages/login");

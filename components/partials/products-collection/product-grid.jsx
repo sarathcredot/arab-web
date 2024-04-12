@@ -23,7 +23,7 @@ export default function ProductsGrid ( props ) {
             </div>
             {
                 !loading && products.length === 0 ?
-                    <div className="info-box with-icon"><p>No products were found matching your selection.</p></div>
+                    <div className="info-box with-icon" ><p>No products were found matching your selection.</p></div>
                     : ''
             }
         </>

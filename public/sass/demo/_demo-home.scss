@@ -217,7 +217,7 @@ hr {
         display: flex;
         align-items: center;
         justify-content: center;
-        top: 49.3%;
+        top: 50%;
         width: 56px;
         height: 56px;
         border-radius: 50%;
@@ -251,7 +251,7 @@ hr {
         display: flex;
         align-items: center;
         justify-content: center;
-        top: 49.3%;
+        top: 50%;
         width: 36px;
         height: 36px;
         border-radius: 50%;
@@ -611,8 +611,8 @@ hr {
     margin-bottom: .7rem;
     font-size: 2.2rem;
     font-weight: 600;
-    padding-bottom: 4.7rem;
-    padding-top: 4rem;
+    padding-bottom: 2rem;
+    padding-top: 3rem;
 
     i {
         margin-left: 3px;
@@ -1493,7 +1493,7 @@ hr {
 
 // 2.12) Brands Section
 .brands-section {
-    padding-top: 1.6rem;
+    padding: 1.6rem 0rem;
 
     .section-title {
         margin-bottom: 0.5rem;
@@ -1508,9 +1508,185 @@ hr {
     }
 
     figure {
-        padding: 5.6rem 0 4.6rem;
+        padding: 4rem 0rem;
+        margin : 0px 50px
+    }
+
+
+    .owl-carousel .owl-nav {
+        font-size: 1rem;
+    
+        i:before {
+            font-weight: 800;
+        }
+    
+        [class*='owl-']:not(.disabled):hover {
+             color: #f8f8f8;
+             background: #000;
+        }
+    
+        .owl-next,
+        .owl-prev {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            top: 50%;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: #f8f8f8;
+            color: #000;
+        }
+    
+        .owl-next {
+            right: -30px;
+        }
+    
+        .owl-prev {
+            left: -30px;
+        }
     }
 }
+
+// min width 0px
+@media (min-width: 0px){
+    .brands-section {
+        figure {
+            padding: 2rem 0rem;
+            margin : 0px 15px
+        }
+
+        .owl-carousel .owl-nav {
+          
+            .owl-next,
+            .owl-prev {
+                width: 20px !important;
+                height: 20px !important;
+            }
+        
+            .owl-next {
+                right: -10 !important;
+            }
+        
+            .owl-prev {
+                left: -10 !important;
+            }
+        }
+    }
+}
+
+// max-width 480px
+@media (min-width: 480px){
+    .brands-section {
+        figure {
+            padding: 2rem 0rem;
+            margin : 0px 20px
+        }
+
+        .owl-carousel .owl-nav {
+          
+            .owl-next,
+            .owl-prev {
+                width: 24px !important;
+                height: 24px !important;
+            }
+        
+            .owl-next {
+                right: -20px !important;
+            }
+        
+            .owl-prev {
+                left: -20px !important;
+            }
+        }
+    }
+}
+
+// max-width 768px
+@media (min-width: 768px){
+    .brands-section {
+        figure {
+            padding: 2rem 0rem;
+            margin : 0px 30px
+        }
+
+        .owl-carousel .owl-nav {
+          
+            .owl-next,
+            .owl-prev {
+                width: 28px !important;
+                height: 28px !important;
+            }
+        
+            .owl-next {
+                right: -10px !important;
+            }
+        
+            .owl-prev {
+                left: -10px !important;
+            }
+        }
+        
+
+        
+    }
+}
+
+// max-width 992px
+@media (min-width: 992px){
+    .brands-section {
+        figure {
+            padding: 2rem 0rem;
+            margin : 0px 25px
+        }
+
+        .owl-carousel .owl-nav {
+          
+            .owl-next,
+            .owl-prev {
+                width: 30px !important;
+                height: 30px !important;
+            }
+        
+            .owl-next {
+                right: -30px !important;
+            }
+        
+            .owl-prev {
+                left: -30px !important;
+            }
+        }
+    }
+}
+
+// max-width 1200px
+@media (min-width: 1200px){
+    .brands-section {
+        figure {
+            padding: 2rem 0rem;
+            margin : 0px 40px
+        }
+
+        .owl-carousel .owl-nav {
+          
+            .owl-next,
+            .owl-prev {
+                width: 36px !important;
+                height: 36px !important;
+            }
+        
+            .owl-next {
+                right: -30px !important;
+            }
+        
+            .owl-prev {
+                left: -30px !important;
+            }
+        }
+    }
+}
+
+
 
 // 2.13) Selected Products 
 .selected-products-section {

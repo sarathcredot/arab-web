@@ -28,6 +28,15 @@ const GET_WISH_LIST = gql`query Products {
     }
   }
 }`;
+
+
+const LOG_OUT_USER = gql`mutation LogoutUser {
+  logoutUser {
+    _id
+  }
+}
+`;
+
 function Header({ adClass = "", wishlist }) {
   // get current path
   const { pathname } = useRouter();
@@ -36,6 +45,10 @@ function Header({ adClass = "", wishlist }) {
     document.querySelector("body").classList.toggle("mmenu-active");
     e.currentTarget.classList.toggle("active");
   }
+
+  const [logout, { loading, error }] = useMutation(LOG_OUT_USER);
+
+  
 
   const router = useRouter();
   const handleLog = () => {
@@ -154,10 +167,14 @@ function Header({ adClass = "", wishlist }) {
   //   </div> */}
   // </div>
 
-  const handleLogout = () => {
-    // console.log("click");
-    localStorage.clear();
-    router.push('/pages/login');
+  const handleLogout = async () => {
+    try {
+      await logout();
+      localStorage.clear(); 
+      router.push('/pages/login'); 
+    } catch (err) {
+      console.error("Logout error:", err);
+    }
   };
 
   return (

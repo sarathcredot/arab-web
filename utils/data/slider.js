@@ -163,7 +163,7 @@ export const brandSlider = {
     navText: [ '<i class="icon-left-open-big">', '<i class="icon-right-open-big">' ],
     responsive: {
         0: {
-            items: 3,
+            items: 4
         },
         480: {
             items: 4,
@@ -171,7 +171,7 @@ export const brandSlider = {
         768: {
             items: 5
         },
-        991: {
+        992: {
             items: 6
         },
         1200: {

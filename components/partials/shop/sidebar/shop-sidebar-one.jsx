@@ -84,7 +84,7 @@ function ShopSidebarOne(props) {
   const catId = query?.cat_id;
   const brand = query?.brand;
   const [selectedBrands, setSelectedBrands] = useState([]);
-  const [sortOrder, setSortOrder] = useState("Price Low-High");
+  const [sortOrder, setSortOrder] = useState(query?.sort_order || "none");
   const [selectedAttributeValues, setSelectedAttributeValues] = useState([]);
   const { data, loading, error } = useQuery(GET_SHOP_SIDEBAR_DATA, {
     variables: { input: { parent: catId } },
@@ -445,12 +445,13 @@ function ShopSidebarOne(props) {
                               id="none"
                               name="fav_language"
                               value="none"
+                              checked={sortOrder === "none"}
                               onChange={handleSortOrderChange}
                             />
                             <label
                               for="none"
                               style={{
-                                color: query.sort_order === "none" ? "red" : "inherit",
+                                color: sortOrder === "none" ? "red" : "inherit",
                                 fontWeight: "500",
                               }}
                             >
@@ -464,12 +465,13 @@ function ShopSidebarOne(props) {
                               id="lowToHigh"
                               name="fav_language"
                               value="lowToHigh"
+                              checked={sortOrder === "lowToHigh"}
                               onChange={handleSortOrderChange}
                             />
                             <label
                               for="lowToHigh"
                               style={{
-                                color: query.sort_order === "lowToHigh" ? "red" : "inherit",
+                                color: sortOrder === "lowToHigh" ? "red" : "inherit",
                                 fontWeight: "500",
                               }}
                             >
@@ -483,12 +485,13 @@ function ShopSidebarOne(props) {
                               id="highToLow"
                               name="fav_language"
                               value="highToLow"
+                              checked={sortOrder === "highToLow"}
                               onChange={handleSortOrderChange}
                             />
                             <label
                               for="highToLow"
                               style={{
-                                color: query.sort_order === "highToLow" ? "red" : "inherit",
+                                color: sortOrder === "highToLow" ? "red" : "inherit",
                                 fontWeight: "500",
                               }}
                             >

@@ -281,15 +281,14 @@ function Wishlist(props) {
                         >
                           Quick View
                         </a> */}
-                        <a
-                          href="#"
+                        <div
                           className="btn btn-quickview mt-1 mt-md-0"
                           title="View"
                           style={{ border: "1px solid" }}
                           onClick={(e) => router.push(`/product/default/${item.productId}`)}
                         >
                           View
-                        </a>
+                        </div>
                         {item?.variants?.length > 0 ? (
                           <ALink
                             className="btn btn-dark btn-add-cart product-type-simple btn-shop"

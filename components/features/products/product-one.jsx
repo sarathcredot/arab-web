@@ -257,7 +257,7 @@ function ProductOne(props) {
         </h3>
 
         <div className="price-box">
-          <span style={{ fontFamily: "Plus Jakarta Sans" }}>OMR</span>
+          <span className="omr" style={{ fontFamily: "Plus Jakarta Sans" }}>OMR</span>
           <span
             className="product-price"
             style={{
@@ -265,12 +265,12 @@ function ProductOne(props) {
               fontWeight: "800px",
               fontSize: "16px",
               lineHeight: "15px",
-              marginLeft: "14px",
+              marginLeft: "10px",
             }}
           >
             {product?.sellingPrice.toFixed(2)}
           </span>
-          <span className="old-price" style={{ marginLeft: "14px", color: "#777777" }}>
+          <span className="old-price" style={{ marginLeft: "10px", color: "#777777" }}>
             {product?.mrp?.toFixed(2)}
           </span>
         </div>

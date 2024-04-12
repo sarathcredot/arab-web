@@ -922,7 +922,8 @@ function ProductDetailOne(props) {
 
                               item?.attributeValue
                             )
-                              ? "strikethrough"
+                              // ? "strikethrough"
+                              ? ""
                               : ""
                             }`}
                         >

@@ -30,13 +30,7 @@ export const OTP_VERIFY = gql`
   }
 `;
 
-export const RESENT_OTP = gql`
-  mutation UserResendLoginOtp($input: userResendLoginOtpInput!) {
-    userResendLoginOtp(input: $input) {
-      message
-    }
-  }
-`;
+
 function Login({ mutate }) {
   const router = useRouter();
   const { origin } = router.query; 
@@ -49,7 +43,6 @@ function Login({ mutate }) {
   const [otpId, setOtpTd] = useState("");
   const [userLoginOtp] = useMutation(LOGIN);
   const [UserVerifyOtp] = useMutation(OTP_VERIFY);
-  const [UserResendLoginOtp] = useMutation(RESENT_OTP);
 
   const handleOtpChange = async (event) => {
     event.preventDefault();
@@ -62,7 +55,7 @@ function Login({ mutate }) {
         variables: { input: { mobileNumber: `+968 ${mobileNumber}` } },
       });
       setOtpTd(response.data.userLoginOtp._id);
-      toast.success(<div style={{ padding: "10px" }}>otp sent successfully</div>);
+      toast.success(<div style={{ padding: "10px" }}>OTP sent successfully</div>);
       SetIsOtp(true);
     } catch (error) {
       console.log("error", error);
@@ -71,11 +64,11 @@ function Login({ mutate }) {
 
   const handleResentotp = async () => {
     try {
-      const response = await UserResendLoginOtp({
+      const response = await userLoginOtp({
         variables: { input: { mobileNumber: `+968 ${mobileNumber}` } },
       });
       if (response) {
-        toast.success(<div style={{ padding: "10px" }}>otp sent successfully</div>);
+        toast.success(<div style={{ padding: "10px" }}>OTP sent successfully</div>);
       }
     } catch (error) {
       toast.error(<div style={{ padding: "10px" }}>{error?.message}</div>);

@@ -886,18 +886,9 @@ function CheckOut() {
                                   <span>OMR {item?.price * item?.quantity}</span>
                                 </td>
                               </tr>
-                            ))}
+                            ))} 
                           </tbody>
                           <tfoot>
-                            <tr className="cart-subtotal">
-                              <td>
-                                <h4>Shipping Charge</h4>
-                              </td>
-
-                              <td className="price-col">
-                                <span>OMR {cartData?.getCart?.deliveryCharge}</span>
-                              </td>
-                            </tr>
                             <tr className="cart-subtotal">
                               <td>
                                 <h4>Subtotal</h4>
@@ -907,6 +898,16 @@ function CheckOut() {
                                 <span>OMR {cartData?.getCart?.subTotal}</span>
                               </td>
                             </tr>
+                            <tr className="cart-subtotal">
+                              <td>
+                                <h4>Shipping Charge</h4>
+                              </td>
+
+                              <td className="price-col">
+                                <span>OMR {cartData?.getCart?.deliveryCharge}</span>
+                              </td>
+                            </tr>
+
                             {/* <tr className="order-shipping">
                             <td className="text-left" colSpan="2">
                               <h4 className="m-b-sm">Shipping</h4>

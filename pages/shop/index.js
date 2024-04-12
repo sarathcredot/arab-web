@@ -88,7 +88,9 @@ function Shop() {
     id,
     values: values.split(","),
   }));
-  const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS);
+  const [getProducts, { data, loading, error }] = useLazyQuery(GET_PRODUCTS, {
+    fetchPolicy: "network-only",
+  });
 
   const [perPage, setPerPage] = useState(12);
 
@@ -118,8 +120,8 @@ function Shop() {
           parentCategory: query?.cat_id,
           discount: parseInt(discount),
           bestSeller: bestSeller === "true" ? true : false,
-          priceHighToLow: sort_order && sort_order === "lowToHigh" ? false : true,
-          priceLowToHigh: sort_order && sort_order === "highToLow" ? false : true,
+          priceHighToLow: sort_order && sort_order === "highToLow" ? true : false,
+          priceLowToHigh: sort_order && sort_order === "lowToHigh" ? true : false,
         },
       },
     });
