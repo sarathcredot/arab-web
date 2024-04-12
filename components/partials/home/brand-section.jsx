@@ -32,14 +32,12 @@ function BrandSection() {
     return (
         <div className="brands-section mt-2 mb-3">
             <Reveal keyframes={fadeIn} delay={200} duration={500} triggerOnce>
-                <div className="headding">
                     <h4 className="section-title text-transform-none">Top Brands</h4>
-                </div>
 
-                <OwlCarousel adClass="brands-slider bg-white nav-circle images-center owl-height" options={brandSlider} >
+                <OwlCarousel adClass="  nav-circle  " options={brandSlider} >
                     {brndData && brndData.getAllTopBrandRecords.records.map((brand, index) => (
                         <figure key={index} className="circular-image" style={{
-                            margin: '0 10px', height: "250px", justifyContent: "center", display: "flex", alignItems: "center"
+                            margin: '0 10px',  justifyContent: "center", display: "flex", alignItems: "center"
                         }}>
                             <LazyLoadImage
                                 alt={brand.brandName}
