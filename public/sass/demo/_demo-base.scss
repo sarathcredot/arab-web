@@ -110,6 +110,8 @@
 }
 
 .header-user {
+    display: flex;
+    margin: 0 1.8rem 0 2.7rem;
     i {
         transition: color .3s, border-color .3s;
     }

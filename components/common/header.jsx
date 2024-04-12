@@ -246,7 +246,7 @@ function Header({ adClass = "", wishlist }) {
               <div className="header-dropdown-hide">
                 <div
                   className="header-dropdown mr-auto mr-sm-3 mr-md-0 d-sm-none d-md-flex"
-                  style={{ background: "rgba(249, 249, 249, 1)", padding: "11px" }}
+                  style={{ background: "rgba(249, 249, 249, 1)", padding: "11px 0px" }}
                 >
                   <ALink href="#">
                     <img src="/images/icon/language.svg" style={{ width: "15px", height: "15px" }}></img>

@@ -28,6 +28,10 @@
 .flagimg{
     width: 26px;
 }
+.langimg{
+    width: 20px;
+    margin: 6px 0px;
+}
 @media only screen and (max-width: 600px){
     .offerdiv{
         display: none!important;
