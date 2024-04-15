@@ -22,6 +22,7 @@ const GET_PRODUCTS_AUTOCOMPLETE = gql`
         suggestion
         image
         categoryId
+        categoryIdPath
       }
     }
   }
@@ -115,7 +116,7 @@ function SearchForm(props) {
       pathname: "/shop",
       query: {
         search: search,
-        category: cat,
+        cat_id: cat,
       },
     });
   }
@@ -142,6 +143,9 @@ function SearchForm(props) {
   useEffect(() => {
     if (data && data.getProductsAutoComplete && data.getProductsAutoComplete.suggestions) {
       setOptions(data.getProductsAutoComplete.suggestions);
+      if (data.getProductsAutoComplete.suggestions.length > 0) {
+        setCat(data.getProductsAutoComplete.suggestions[0].categoryIdPath.split("#")[data.getProductsAutoComplete.suggestions[0].categoryIdPath.split("#").length - 3]);
+      }
     }
   }, [data]);
 

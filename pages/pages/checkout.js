@@ -377,7 +377,6 @@ function CheckOut() {
                                   <div
                                     key={index}
                                     style={{
-                                      display: "flex",
                                       lineHeight: "19px",
                                       alignItems: "baseline",
                                       gap: "20px",
@@ -408,37 +407,43 @@ function CheckOut() {
                                           {address?.city}, {address?.country}
                                         </label>
                                       </div>
-                                      <div style={{ display: "flex", color: "black" }}>
-                                        <button
-                                          style={{
-                                            cursor: "pointer",
-                                            background: "none",
-                                            border: "none",
-                                            color: "black",
-                                          }}
-                                          onClick={() => {
-                                            setIsshipping(true);
-                                            setIsedit(true);
-                                            setSelectedAddressId(address?._id);
-                                          }}
-                                        >
-                                          Edit
-                                        </button>
-                                        {data &&
-                                          data?.getUserShippingAddresses?.address.length > 1 && (
-                                            <button
-                                              style={{
-                                                cursor: "pointer",
-                                                background: "none",
-                                                border: "none",
-                                                color: "#E30613",
-                                              }}
-                                              onClick={() => handleRemove(address?._id)}
-                                            >
-                                              Remove
-                                            </button>
-                                          )}
+                                    </div>
+                                    <div
+                                      style={{
+                                        display: "flex",
+                                        color: "black",
+                                        width: "100%",
+                                        alignItems: "flex-end",
+                                        justifyContent: "flex-end",
+                                      }}
+                                    >
+                                      <div
+                                        className=" btn-address-edit"
+                                        style={{
+                                          cursor: "pointer",
+                                        }}
+                                        onClick={() => {
+                                          setIsshipping(true);
+                                          setIsedit(true);
+                                          setSelectedAddressId(address?._id);
+                                        }}
+                                      >
+                                        Edit
                                       </div>
+                                      {data &&
+                                        data?.getUserShippingAddresses?.address.length > 1 && (
+                                          <button
+                                            style={{
+                                              cursor: "pointer",
+                                              background: "none",
+                                              border: "none",
+                                              color: "#E30613",
+                                            }}
+                                            onClick={() => handleRemove(address?._id)}
+                                          >
+                                            Remove
+                                          </button>
+                                        )}
                                     </div>
                                   </div>
                                 </>
@@ -886,7 +891,7 @@ function CheckOut() {
                                   <span>OMR {item?.price * item?.quantity}</span>
                                 </td>
                               </tr>
-                            ))} 
+                            ))}
                           </tbody>
                           <tfoot>
                             <tr className="cart-subtotal">

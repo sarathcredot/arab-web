@@ -86,6 +86,7 @@ function ShopSidebarOne(props) {
   const [selectedBrands, setSelectedBrands] = useState([]);
   const [sortOrder, setSortOrder] = useState(query?.sort_order || "none");
   const [selectedAttributeValues, setSelectedAttributeValues] = useState([]);
+  const [attributes, setAttributes] = useState([]);
   const { data, loading, error } = useQuery(GET_SHOP_SIDEBAR_DATA, {
     variables: { input: { parent: catId } },
   });
@@ -160,8 +161,8 @@ function ShopSidebarOne(props) {
   function filterByCategory(selected) {
     router.push(
       router.pathname.replace("[grid]", query.grid) +
-        "?category=" +
-        (selected.length ? selected[0] : "")
+      "?category=" +
+      (selected.length ? selected[0] : "")
     );
   }
 
@@ -225,14 +226,20 @@ function ShopSidebarOne(props) {
     return <div>{error.message}</div>;
   }
 
+  useEffect(() => {
+    if (catId && attributeData?.getAttributesDetailsByCategory?.record.attributes.length > 0) {
+      setAttributes(catId && attributeData?.getAttributesDetailsByCategory?.record.attributes);
+    }
+
+  }, [catId, attributeData]);
+
   return (
     <>
       <div className="sidebar-overlay" onClick={closeSidebar}></div>
 
       <aside
-        className={`sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${
-          !loading ? "loaded" : ""
-        } ${props.display === "none" ? "d-lg-none" : ""} ${props.right ? "" : "order-lg-first"}`}
+        className={`sidebar-shop col-lg-3 pb-lg-3 mobile-sidebar skeleton-body skel-shop-products ${!loading ? "loaded" : ""
+          } ${props.display === "none" ? "d-lg-none" : ""} ${props.right ? "" : "order-lg-first"}`}
         style={{
           maxHeight: "976px",
           overflow: "scroll",
@@ -307,12 +314,12 @@ function ShopSidebarOne(props) {
           )}
 
           {query.category ||
-          query.page ||
-          query.sizes ||
-          query.colors ||
-          query.min_price ||
-          query.max_price ||
-          query.discount ? (
+            query.page ||
+            query.sizes ||
+            query.colors ||
+            query.min_price ||
+            query.max_price ||
+            query.discount ? (
             <div className="widget" style={{ padding: "2rem" }}>
               <ALink
                 href={{ query: { cat_id: query.cat_id } }}
@@ -627,7 +634,7 @@ function ShopSidebarOne(props) {
                           onClick={(e) => {
                             e.preventDefault(), onToggle();
                           }}
-                          // style={{ marginLeft: "20px", marginTop: "20px" }}
+                        // style={{ marginLeft: "20px", marginTop: "20px" }}
                         >
                           Price
                         </a>
@@ -683,8 +690,8 @@ function ShopSidebarOne(props) {
           </div>
 
           {/* conditional */}
-          {attributeData?.getAttributesDetailsByCategory?.record.attributes.length > 0 &&
-            attributeData?.getAttributesDetailsByCategory?.record?.attributes?.map(
+          {attributes.length > 0 &&
+            attributes?.map(
               (attri, index) => {
                 let attributeComponent;
 
@@ -722,10 +729,10 @@ function ShopSidebarOne(props) {
                                       e.preventDefault();
                                       onToggle();
                                     }}
-                                    // style={{
-                                    //   marginLeft: "20px",
-                                    //   marginTop: "20px",
-                                    // }}
+                                  // style={{
+                                  //   marginLeft: "20px",
+                                  //   marginTop: "20px",
+                                  // }}
                                   >
                                     {attri?.description}
                                   </a>
@@ -809,10 +816,10 @@ function ShopSidebarOne(props) {
                                       e.preventDefault();
                                       onToggle();
                                     }}
-                                    // style={{
-                                    //   marginLeft: "20px",
-                                    //   marginTop: "20px",
-                                    // }}
+                                  // style={{
+                                  //   marginLeft: "20px",
+                                  //   marginTop: "20px",
+                                  // }}
                                   >
                                     {attri?.description}
                                   </a>
