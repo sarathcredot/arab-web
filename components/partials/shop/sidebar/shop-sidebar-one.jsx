@@ -695,7 +695,6 @@ function ShopSidebarOne(props) {
               (attri, index) => {
                 let attributeComponent;
 
-                // Check attribute type and render the appropriate component
                 if (attri.attributeType === "COLOR") {
                   attributeComponent = (
                     <div className=" widget-color" style={{ padding: "0" }}>

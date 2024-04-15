@@ -419,9 +419,6 @@ function CheckOut() {
                                     >
                                       <div
                                         className=" btn-address-edit"
-                                        style={{
-                                          cursor: "pointer",
-                                        }}
                                         onClick={() => {
                                           setIsshipping(true);
                                           setIsedit(true);
