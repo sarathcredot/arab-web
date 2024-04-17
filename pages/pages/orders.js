@@ -344,7 +344,10 @@ function Orders(props) {
                           <>
                             {/* <span className="old-price">{'OMR ' + item.price[ 1 ].toFixed( 2 ) }</span> */}
                             <span className="product-price">
-                              {"OMR " + item.sellingPrice + item?.shippingCharge}
+                              OMR{" "}
+                              {parseFloat(
+                                Number(item.sellingPrice) + Number(item?.shippingCharge)
+                              ).toFixed(2)}
                             </span>
                           </>
                         </div>

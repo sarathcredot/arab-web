@@ -30,7 +30,7 @@ const GET_CART = gql`
         quantity
         name
         stock
-
+        sellingPrice
         price
         image
       }
@@ -885,7 +885,7 @@ function CheckOut() {
                                 </td>
 
                                 <td className="price-col">
-                                  <span>OMR {item?.price * item?.quantity}</span>
+                                  <span>OMR {item?.sellingPrice * item?.quantity}</span>
                                 </td>
                               </tr>
                             ))}
