@@ -48,7 +48,7 @@ function Header({ adClass = "", wishlist }) {
 
   const [logout, { loading, error }] = useMutation(LOG_OUT_USER);
 
-  
+
 
   const router = useRouter();
   const handleLog = () => {
@@ -169,9 +169,9 @@ function Header({ adClass = "", wishlist }) {
 
   const handleLogout = async () => {
     try {
+      localStorage.clear();
       await logout();
-      localStorage.clear(); 
-      router.push('/pages/login'); 
+      router.push('/pages/login');
     } catch (err) {
       console.error("Logout error:", err);
     }
@@ -300,7 +300,7 @@ function Header({ adClass = "", wishlist }) {
 
               {/* <ALink href="/pages/account" className="d-lg-block d-none"style={{borderLeft:"1px solid #EBEBEB",marginLeft: "20px"}}> */}
               {!token ?
-                <div className="header-user custom_userborder">
+                <div className="header-user custom_userborder header-icon">
                   <div className={styles.circle} onClick={handleLog} >
                     <BiSolidUser style={{ fontSize: "20px" }} />
                   </div>
@@ -311,7 +311,7 @@ function Header({ adClass = "", wishlist }) {
                 </div> */}
                 </div> :
                 <div
-                  className="header-dropdown mr-auto mr-sm-3 custom_userborder"
+                  className="header-dropdown  custom_userborder header-icon"
                 // style={{ marginLeft:"20px"}}
                 >
                   {/* <ALink href="#">

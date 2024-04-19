@@ -887,9 +887,9 @@ function ProductDetailOne(props) {
                     ?.filter(
                       (value) =>
                         value.attributeName.toLowerCase() !==
-                        "size" &&
-                        value.attributeName.toLowerCase() !== "color" &&
-                        value.attributeName.toLowerCase() !== "colour"
+                        "size" && value.attributeDescription.toLowerCase() !== "size" &&
+                        value.attributeDescription.toLowerCase() !== "color" &&
+                        value.attributeDescription.toLowerCase() !== "colour"
                     )
                     .map((item) => item.attributeName.toLowerCase())
                 )

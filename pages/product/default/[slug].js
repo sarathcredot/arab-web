@@ -139,9 +139,10 @@ function ProductDefault() {
                     </li> */}
               <li className="breadcrumb-item active" aria-current="page">
                 <ALink className="activeitem" href="">
-                  {product && product.categoryNamePath
-                    ? product.categoryNamePath.split(" ").pop()
-                    : ""}
+                  {/* {product && product.categoryNamePath
+                    ? product.categoryNamePath.split(" ").slice(0, 1)
+                    : ""} */}
+                  {product && product.brandName}
                 </ALink>
               </li>
             </ol>

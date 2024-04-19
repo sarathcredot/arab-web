@@ -107,6 +107,7 @@ function ShopSidebarOne(props) {
   } = useQuery(GET_ATTRIBUTE, {
     variables: { input: { categoryId: catId } },
   });
+
   const {
     data: brandData,
     loading: brandloading,
@@ -206,15 +207,28 @@ function ShopSidebarOne(props) {
   }
 
   function filterByDiscount(selectedDiscount) {
-    const query = router.query;
-    router.push({
-      pathname: router.pathname,
-      query: {
-        ...query,
-        discount: selectedDiscount,
-        page: 0, // Reset page to 0 when applying filters
-      },
-    });
+    console.log("selectedDiscount", selectedDiscount);
+    if (query.discount === selectedDiscount) {
+      const query = router.query;
+      delete query.discount;
+      router.push({
+        pathname: router.pathname,
+        query: {
+          ...query,
+          page: 0, // Reset page to 0 when applying filters
+        },
+      });
+    } else {
+      const query = router.query;
+      router.push({
+        pathname: router.pathname,
+        query: {
+          ...query,
+          discount: selectedDiscount,
+          page: 0, // Reset page to 0 when applying filters
+        },
+      });
+    }
   }
 
   function closeSidebar() {
@@ -334,7 +348,7 @@ function ShopSidebarOne(props) {
             ""
           )}
           {/* )} */}
-          {brandData && brandData?.getBrandDetailsWithCategory?.records.length > 0 && (
+          {brandData && catId && brandData?.getBrandDetailsWithCategory?.records.length > 0 && (
             <div className=" widget-brand">
               {loading ? (
                 <div className="skel-widget"></div>
@@ -562,7 +576,7 @@ function ShopSidebarOne(props) {
                           </li>
                           <li>
                             <label
-                              onClick={() => filterByDiscount("25%")}
+                              onClick={() => filterByDiscount("25")}
                               style={{
                                 color: query.discount === "25" ? "red" : "inherit",
                                 fontWeight: "500",

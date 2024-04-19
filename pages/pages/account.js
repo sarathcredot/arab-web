@@ -40,8 +40,8 @@ function Account() {
 
   const handleLogout = async () => {
     try {
-      await logout();
       localStorage.clear(); 
+      await logout();
       router.push('/pages/login'); 
     } catch (err) {
       console.error("Logout error:", err);
