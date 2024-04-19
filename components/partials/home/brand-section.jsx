@@ -9,6 +9,7 @@ import OwlCarousel from '../../features/owl-carousel';
 // Import Settigns
 import { brandSlider } from '../../../utils/data/slider';
 import { fadeIn } from '../../../utils/data/keyframes';
+import { useRouter } from 'next/router';
 
 const GET_ALL_BRANDS = gql`query GetAllTopBrandRecords($input: BrandRecordsFilter) {
     getAllTopBrandRecords(input: $input) {
@@ -28,6 +29,7 @@ const GET_ALL_BRANDS = gql`query GetAllTopBrandRecords($input: BrandRecordsFilte
 }`;
 
 function BrandSection() {
+    const router = useRouter();
     const { data: brndData } = useQuery(GET_ALL_BRANDS);
     return (
         <div className="brands-section mt-2 mb-3">
@@ -37,8 +39,10 @@ function BrandSection() {
                 <OwlCarousel adClass="  nav-circle  " options={brandSlider} >
                     {brndData && brndData.getAllTopBrandRecords.records.map((brand, index) => (
                         <figure key={index} className="circular-image" style={{
-                            justifyContent: "center", display: "flex", alignItems: "center"
-                        }}>
+                            justifyContent: "center", display: "flex", alignItems: "center", cursor: "pointer"
+                        }}
+                            onClick={() => router.push(`/shop?brands=${brand._id}`)}
+                        >
                             <LazyLoadImage
                                 alt={brand.brandName}
                                 src={brand.logo.fileURL}
@@ -53,7 +57,7 @@ function BrandSection() {
                 </OwlCarousel >
 
             </Reveal>
-        </div>
+        </div >
     );
 }
 
