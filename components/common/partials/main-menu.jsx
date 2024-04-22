@@ -37,6 +37,7 @@ export const LEVEL2_CATEGORY = gql`
       records {
         _id
         categoryName
+        isLeaf
       }
     }
   }
@@ -85,7 +86,12 @@ function MainMenu({ router }) {
     cat3: "",
     cat4: "",
     cat5: "",
+    cat6: "",
+    cat7: "",
   });
+  const [isLeaf, setIsLeaf] = useState(false);
+
+
   const [activeItem, setActiveItem] = useState("");
   const [activeItem2, setActiveItem2] = useState("");
   const [activeItem3, setActiveItem3] = useState("");
@@ -93,6 +99,8 @@ function MainMenu({ router }) {
   const [activeItem5, setActiveItem5] = useState("");
   const [catlevel2, setCatlevel2] = useState("");
   const [selectedcategory, setSelectedCategory] = useState("");
+  const [selectedBrand, setSelectedBrand] = useState("");
+  
   const pathname = router.pathname;
   // const router = useRouter();
   // const { data, loading, error } = useQuery(GET_HOME_DATA, {
@@ -132,13 +140,13 @@ function MainMenu({ router }) {
 
   const [catLevel2, { loading: level2loading, error: level2error, data: level2Data }] = useLazyQuery(LEVEL2_CATEGORY);
   const [catLevel3, { loading: level3loading, error: level3error, data: level3Data }] = useLazyQuery(LEVEL2_CATEGORY);
+  const [catLevel4, { loading: level4loading, error: level4error, data: level4Data }] = useLazyQuery(LEVEL2_CATEGORY);
+  const [catLevel5, { loading: level5loading, error: level5error, data: level5Data }] = useLazyQuery(LEVEL2_CATEGORY);
+  const [catLevel6, { loading: level6loading, error: level6error, data: level6Data }] = useLazyQuery(LEVEL2_CATEGORY);
+  const [catLevel7, { loading: level7loading, error: level7error, data: level7Data }] = useLazyQuery(LEVEL2_CATEGORY);
+
   const [brandlist, { loading: brandloading, error: branderror, data: brandData }] = useLazyQuery(BRAND_LISTING);
-  // const { data: level2Data } = useQuery(LEVEL2_CATEGORY, {
-  //   variables: { input: { parent: "659fdb096566dd2049354755" } },
-  // });
-  // console.log(level2Data);
-  // console.log(level3Data);
-  // console.log(brandData);
+
   const handleLevel2category = async (id) => {
     // console.log(id);
     try {
@@ -157,6 +165,42 @@ function MainMenu({ router }) {
     }
   };
 
+  const handleLevel4category = async (id) => {
+    try {
+      catLevel4({ variables: { input: { parent: id } } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleLevel5category = async (id) => {
+    try {
+      catLevel5({ variables: { input: { parent: id } } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleLevel6category = async (id) => {
+    try {
+      catLevel6({ variables: { input: { parent: id } } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  const handleLevel7category = async (id) => {
+    try {
+      catLevel7({ variables: { input: { parent: id } } });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+
+
+
+
   const handleBrandList = async (id) => {
     try {
       brandlist({ variables: { input: { categoryId: id } } });
@@ -170,6 +214,17 @@ function MainMenu({ router }) {
   const child1 = level2Data?.getActiveChildCategories?.records;
 
   const child2 = level3Data?.getActiveChildCategories?.records;
+
+  const child3 = level4Data?.getActiveChildCategories?.records;
+
+  const child4 = level5Data?.getActiveChildCategories?.records;
+
+  const child5 = level6Data?.getActiveChildCategories?.records;
+
+  const child6 = level7Data?.getActiveChildCategories?.records;
+
+
+
 
   // console.log(child1, 'child1');
   // console.log(child2, 'child2');
@@ -199,15 +254,21 @@ function MainMenu({ router }) {
               className={`custom__menu__item px-2 ${item._id === parentcategory.cat1 ? "activate" : ""
                 }`}
               onClick={() => {
-                handleLevel2category(item?._id);
-                // setCatlevel2(item?._id)
-                setParentcategory((e) => ({
-                  cat1: item._id,
-                  cat2: "",
-                  cat3: "",
-                  cat4: "",
-                  cat5: "",
-                }));
+                setSelectedCategory(item?._id);
+                setIsLeaf(item.isLeaf);
+                if (item.isLeaf) {
+                  handleBrandList(item?._id);
+                } else {
+                  handleLevel2category(item?._id);
+                  setParentcategory((e) => ({
+                    cat1: item._id,
+                    cat2: "",
+                    cat3: "",
+                    cat4: "",
+                    cat5: "",
+                  }));
+                }
+
               }}
             >
               <span className="custom__menu__item-image">
@@ -225,14 +286,20 @@ function MainMenu({ router }) {
               className={`custom__mobile__item px-2 ${item._id === parentcategory.cat1 ? "activate" : ""
                 }`}
               onClick={() => {
-                handleLevel2category(item?._id);
-                setParentcategory((e) => ({
-                  cat1: item._id,
-                  cat2: "",
-                  cat3: "",
-                  cat4: "",
-                  cat5: "",
-                }));
+                setIsLeaf(item.isLeaf);
+                setSelectedCategory(item?._id);
+                if (item.isLeaf) {
+                  handleBrandList(item?._id);
+                } else {
+                  handleLevel2category(item?._id);
+                  setParentcategory((e) => ({
+                    cat1: item._id,
+                    cat2: "",
+                    cat3: "",
+                    cat4: "",
+                    cat5: "",
+                  }));
+                }
               }}
             >
               <div className="custom__mobilemenu__item-circle">
@@ -263,18 +330,24 @@ function MainMenu({ router }) {
             {child1?.map((item) => (
               <li
                 key={item._id}
-                className={`custom__menufirstchild__item px-2 ${item._id === parentcategory.cat2 ? "customactive" : ""
+                className={`custom__menufirstchild__item px-2 ${(item._id === parentcategory.cat2 || item?._id === selectedcategory) ? "customactive" : ""
                   }`}
                 onClick={() => {
-                  handleLevel3category(item?._id);
+                  setIsLeaf(item.isLeaf);
                   setSelectedCategory(item?._id);
-                  setParentcategory((e) => ({
-                    ...e,
-                    cat2: item._id,
-                    cat3: "",
-                    cat4: "",
-                    cat5: "",
-                  }));
+                  if (item.isLeaf) {
+                    handleBrandList(item?._id);
+                  } else {
+                    handleLevel3category(item?._id);
+                    setParentcategory((e) => ({
+                      ...e,
+                      cat2: item._id,
+                      cat3: "",
+                      cat4: "",
+                      cat5: "",
+                    }));
+                  }
+
                 }}
               >
                 <p className="custom__menufirstchild__item-label">
@@ -302,17 +375,24 @@ function MainMenu({ router }) {
               {child2?.map((item) => (
                 <li
                   key={item._id}
-                  className={`custom__menusecondchild__item px-4 ${item._id === parentcategory.cat3 ? "customactive" : ""
+                  className={`custom__menusecondchild__item px-4 ${(item._id === parentcategory.cat3 || item?._id === selectedcategory) ? "customactive" : ""
                     }`}
                   onClick={() => {
                     setSelectedCategory(item?._id);
-                    handleBrandList(item?._id);
-                    setParentcategory((e) => ({
-                      ...e,
-                      cat3: item._id,
-                      cat4: "",
-                      cat5: "",
-                    }));
+                    setIsLeaf(item.isLeaf);
+                    console.log(item.isLeaf, 'isLeaf');
+                    if (item.isLeaf) {
+                      handleBrandList(item?._id);
+                    } else {
+                      handleLevel4category(item?._id);
+                      setParentcategory((e) => ({
+                        ...e,
+                        cat3: item._id,
+                        cat4: "",
+                        cat5: "",
+                      }));
+                    }
+
                   }}
                 >
                   <p className="custom__menusecondchild__item-label">
@@ -325,17 +405,187 @@ function MainMenu({ router }) {
             </ul>
           </>)
         ) : null}
-        {parentcategory?.cat3 ? (
+
+        {
+          parentcategory?.cat3 ? (
+            <>
+              <p
+                className={`customheading ${parentcategory.cat4 ? "active_container_hidden" : ""
+                  }`}
+              >
+                SELECT SUB CATEGORY
+              </p>
+              <ul
+                className={`custom__menuthirdchild w-100 ${parentcategory?.cat4 ? "active_container_hidden" : ""
+                  }`}
+              >
+                {child3?.map((item) => (
+                  <li
+                    key={item._id}
+                    className={`custom__menuthirdchild__item px-4 ${(item._id === parentcategory.cat4 || item?._id === selectedcategory)? "customactive" : ""
+                      }`}
+                    onClick={() => {
+                      setSelectedCategory(item?._id);
+                      setIsLeaf(item.isLeaf);
+                      if (item.isLeaf) {
+                        handleBrandList(item?._id);
+                      } else {
+                        handleLevel5category(item?._id);
+                        setParentcategory((e) => ({
+                          ...e,
+                          cat4: item._id,
+                          cat5: "",
+                        }));
+                      }
+
+                    }}
+                  >
+                    <p className="custom__menuthirdchild__item-label">
+                      {item?.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}
+                    </p>
+                  </li>
+                ))}
+                {!!!child3?.length && <p className="custom__menufirstchild__item px-2">No Sub Category</p>}
+              </ul>
+            </>
+          ) : null
+        }
+        {
+          parentcategory?.cat4 ? (
+            <>
+              <p
+                className={`customheading ${parentcategory.cat5 ? "active_container_hidden" : ""
+                  }`}
+              >
+                SELECT SUB CATEGORY
+              </p>
+              <ul
+                className={`custom__menufourthchild w-100 ${parentcategory?.cat5 ? "active_container_hidden" : ""
+                  }`}
+              >
+                {child4?.map((item) => (
+                  <li
+                    key={item._id}
+                    className={`custom__menufourthchild__item px-4 ${(item._id === parentcategory.cat5 || item?._id === selectedcategory) ? "customactive" : ""
+                      }`}
+                    onClick={() => {
+                      setSelectedCategory(item?._id);
+                      setIsLeaf(item.isLeaf);
+                      if (item.isLeaf) {
+                        handleBrandList(item?._id);
+                      } else {
+                        handleLevel6category(item?._id);
+                        setParentcategory((e) => ({
+                          ...e,
+                          cat5: item._id,
+                        }));
+                      }
+
+
+                    }}
+                  >
+                    <p className="custom__menufourthchild__item-label">
+                      {item?.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}
+                    </p>
+                  </li>
+                ))}
+                {!!!child4?.length && <p className="custom__menufirstchild__item px-2">No Sub Category</p>}
+              </ul>
+            </>
+          ) : null
+        }
+
+        {
+          parentcategory?.cat5 ? (
+            <>
+              <p
+                className={`customheading ${parentcategory.cat6 ? "active_container_hidden" : ""
+                  }`}
+              >
+                SELECT SUB CATEGORY
+              </p>
+              <ul
+                className={`custom__menufifthchild w-100 ${parentcategory?.cat6 ? "active_container_hidden" : ""
+                  }`}
+              >
+                {child5?.map((item) => (
+                  <li
+                    key={item._id}
+                    className={`custom__menufifthchild__item px-4 ${(item._id === parentcategory.cat6 || item?._id === selectedcategory) ? "customactive" : ""
+                      }`}
+                    onClick={() => {
+                      setSelectedCategory(item?._id);
+                      setIsLeaf(item.isLeaf);
+                      if (item.isLeaf) {
+                        handleBrandList(item?._id);
+                      } else {
+                        handleLevel7category(item?._id);
+                        setParentcategory((e) => ({
+                          ...e,
+                          cat6: item._id,
+                        }));
+                      }
+                    }}
+                  >
+                    <p className="custom__menufifthchild__item-label">
+                      {item?.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}
+                    </p>
+                  </li>
+                ))}
+                {!!!child5?.length && <p className="custom__menufirstchild__item px-2">No Sub Category</p>}
+              </ul>
+            </>
+          ) : null
+        }
+
+        {
+          parentcategory?.cat6 ? (
+            <>
+              <p
+                className={`customheading ${parentcategory.cat7 ? "active_container_hidden" : ""
+                  }`}
+              >
+                SELECT SUB CATEGORY
+              </p>
+              <ul
+                className={`custom__menusixthchild w-100 ${parentcategory?.cat7 ? "active_container_hidden" : ""
+                  }`}
+              >
+                {child6?.map((item) => (
+                  <li
+                    key={item._id}
+                    className={`custom__menusixthchild__item px-4 ${(item._id === parentcategory.cat7 || item?._id === selectedcategory)? "customactive" : ""
+                      }`}
+                    onClick={() => {
+                      setSelectedCategory(item?._id);
+                      setIsLeaf(item.isLeaf);
+                      if (item.isLeaf) {
+                        handleBrandList(item?._id);
+                      }
+                    }}
+                  >
+                    <p className="custom__menusixthchild__item-label">
+                      {item?.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}
+                    </p>
+                  </li>
+                ))}
+                {!!!child6?.length && <p className="custom__menufirstchild__item px-2">No Sub Category</p>}
+              </ul>
+            </>
+          ) : null
+        }
+
+        {isLeaf ? (
           <>
             <p className="pb-4 customheading">SELECT BRAND</p>
             <ul className="custom__menulastchild w-100">
               {brand?.map((item) => (
                 <li
                   key={item._id}
-                  className={`custom__menulastchild__item px-4 ${item._id === parentcategory.cat4 ? "customactive" : ""
+                  className={`custom__menulastchild__item px-4 ${item._id === selectedBrand ? "customactive" : ""
                     }`}
                   onClick={() => {
-                    setParentcategory((e) => ({ ...e, cat4: item._id }));
+                    setSelectedBrand(item?._id);
                     router.push(`/shop?cat_id=${selectedcategory}&brands=${item?._id}`);
                   }}
                 >

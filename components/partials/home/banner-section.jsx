@@ -4,6 +4,7 @@ import { fadeInUpShorter } from "../../../utils/data/keyframes";
 import { useRouter } from "next/router";
 
 function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
+  const router = useRouter();
   return (
     // <Reveal keyframes={fadeInUpShorter} delay={200} duration={1000} triggerOnce>
     <div className="banner-section">
@@ -25,8 +26,13 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
           <div className="col-md-8 custom-web-banner2">
             <img
               src={sectionTwoData?.images && sectionTwoData?.images[0]?.fileURL}
+              onClick={() => {
+                if (sectionTwoData?.buttons && sectionTwoData?.buttons.length > 0 && sectionTwoData?.buttons[0]?.redirectionURL) {
+                  router.push(sectionTwoData?.buttons[0]?.redirectionURL);
+                }
+              }}
               className="bannerimg"
-              style={{ width: "100%", height: "470px", objectFit: "cover" }}
+              style={{ width: "100%", height: "470px", objectFit: "cover", cursor: "pointer" }}
             />
           </div>
           <div className="col-md-8 custom-responsive-banner2">
@@ -40,7 +46,12 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
             <img
               src={sectionThreeData?.images && sectionThreeData?.images[0]?.fileURL}
               className="bannerimg"
-              style={{ width: "100%", height: "470px", objectFit: "cover" }}
+              style={{ width: "100%", height: "470px", objectFit: "cover", cursor: "pointer" }}
+              onClick={() => {
+                if (sectionThreeData?.buttons && sectionThreeData?.buttons.length > 0 && sectionThreeData?.buttons[0]?.redirectionURL) {
+                  router.push(sectionThreeData?.buttons[0]?.redirectionURL);
+                }
+              }}
             />
           </div>
           <div className="col-md-4 custom-responsive-banner3">

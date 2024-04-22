@@ -144,7 +144,7 @@ function SearchForm(props) {
     if (data && data.getProductsAutoComplete && data.getProductsAutoComplete.suggestions) {
       setOptions(data.getProductsAutoComplete.suggestions);
       if (data.getProductsAutoComplete.suggestions.length > 0) {
-        setCat(data.getProductsAutoComplete.suggestions[0].categoryIdPath.split("#")[data.getProductsAutoComplete.suggestions[0].categoryIdPath.split("#").length - 2]);
+        setCat(data.getProductsAutoComplete.suggestions[0].categoryIdPath.split("#")[data.getProductsAutoComplete.suggestions[0].categoryIdPath.split("#").length - 1]);
       }
     }
   }, [data]);

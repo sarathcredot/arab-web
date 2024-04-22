@@ -90,6 +90,10 @@ export const CMS_ONE = gql`
           fileURL
           originalName
         }
+        buttons {
+          buttonText
+          redirectionURL
+        }
         sectionName
         pageName
       }

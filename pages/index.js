@@ -37,6 +37,10 @@ export const CMS = gql`
           fileURL
           originalName
         }
+        buttons {
+          buttonText
+          redirectionURL
+        }
         sectionName
         pageName
       }

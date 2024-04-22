@@ -28,7 +28,12 @@ function FooterBannerSection({ data }) {
       <OwlCarousel adClass="home-slider mb-2" options={options}>
         {data?.images?.map((item, imgIndex) => {
           return (
-            <div key={imgIndex} style={{ maxHeight: "550px" }} className="bannerheight">
+            <div key={imgIndex} style={{ maxHeight: "550px" }} className="bannerheight" style={{ cursor: "pointer" }} onClick={() => {
+              if (data?.buttons && data?.buttons.length > 0 && data?.buttons[0]?.redirectionURL) {
+                router.push(data?.buttons[0]?.redirectionURL);
+              }
+            }}
+            >
               <img src={item.fileURL} alt="Image" style={{ height: "100%", maxHeight: "550px", objectFit: "cover" }} />
             </div>
           );
@@ -83,8 +88,8 @@ function FooterBannerSection({ data }) {
             <div className="banner-content content-right text-sm-right"></div>
           </div>
         </div> */}
-      </OwlCarousel>
-    </div>
+      </OwlCarousel >
+    </div >
   );
 }
 

@@ -2,11 +2,13 @@ import React from "react";
 
 // Import Custom Component
 import OwlCarousel from "../../features/owl-carousel";
+import { useRouter } from "next/router";
 
 // Import Settings 
 // Import Keyframes
 
 function HomeSection({ offer, data }) {
+  const router = useRouter();
   const options = {
     items: 1, // Number of items to show
     // margin: 50, // Space between items
@@ -24,11 +26,13 @@ function HomeSection({ offer, data }) {
         {
           data?.images?.map((item, imgIndex) => {
             return (
-              (
-                <div key={imgIndex}>
-                  <img src={item.fileURL} alt="Image" style={{ height: "100%", height: "auto", objectFit: "fill" }} />
-                </div>
-              )
+              <div key={imgIndex} style={{ cursor: "pointer" }} onClick={() => {
+                if (data?.buttons && data?.buttons.length > 0 && data?.buttons[0]?.redirectionURL) {
+                  router.push(data?.buttons[0]?.redirectionURL);
+                }
+              }}>
+                <img src={item.fileURL} alt="Image" style={{ height: "100%", height: "auto", objectFit: "fill" }} />
+              </div>
             );
           })
         }
