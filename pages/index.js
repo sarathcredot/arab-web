@@ -55,7 +55,6 @@ function Home() {
   const [sectionFourDatastate, setSectionFourDataState] = useState({});
   const [sectionFiveDatastate, setSectionFiveDataState] = useState({});
   const [sectionSixDatastate, setSectionSixDataState] = useState({});
-  const [sectionSevenDatastate, setSectionSevenDataState] = useState({});
 
   const {
     data: sectionOneData,
@@ -105,13 +104,6 @@ function Home() {
     variables: { input: { pageName: "Home", sectionName: "SECTION-6" } },
   });
 
-  const {
-    data: sectionSevenData,
-    loading: loading7,
-    error: error7,
-  } = useQuery(CMS, {
-    variables: { input: { pageName: "Home", sectionName: "SECTION-7" } },
-  });
 
 
   useEffect(() => {
@@ -133,9 +125,7 @@ function Home() {
     if (sectionSixData) {
       setSectionSixDataState(sectionSixData?.getCmsRecord?.record);
     }
-    if (sectionSevenData) {
-      setSectionSevenDataState(sectionSevenData?.getCmsRecord?.record);
-    }
+ 
 
   }, [
     sectionOneData,
@@ -144,7 +134,6 @@ function Home() {
     sectionFourData,
     sectionFiveData,
     sectionSixData,
-    sectionSevenData,
   ]);
 
   return (
@@ -177,7 +166,7 @@ function Home() {
             <BannerSection
               sectionTwoData={sectionTwoDatastate}
               sectionThreeData={sectionThreeDatastate}
-              sectionSevenData={sectionSevenDatastate}
+              sectionSixData={sectionSixDatastate}
               sectionFourData={sectionFourDatastate}
             />
           )}

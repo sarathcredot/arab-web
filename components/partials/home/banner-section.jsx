@@ -3,7 +3,7 @@ import Reveal from "react-awesome-reveal";
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 import { useRouter } from "next/router";
 
-function BannerSection({ offer, sectionTwoData, sectionThreeData, sectionSevenData, sectionFourData }) {
+function BannerSection({ offer, sectionTwoData, sectionThreeData, sectionFourData }) {
   const router = useRouter();
   return (
     // <Reveal keyframes={fadeInUpShorter} delay={200} duration={1000} triggerOnce>
@@ -56,12 +56,12 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData, sectionSevenDa
           </div>
           <div className="col-md-4 custom-responsive-banner3">
             <img
-              src={sectionSevenData?.images && sectionSevenData?.images[0]?.fileURL}
+              src={sectionThreeData?.images && sectionThreeData?.images[0]?.fileURL}
               className="bannerimg"
               style={{ width: "100%", objectFit: "contain", cursor: "pointer" }}
               onClick={() => {
-                if (sectionSevenData?.buttons && sectionSevenData?.buttons.length > 0 && sectionSevenData?.buttons[0]?.redirectionURL) {
-                  router.push(sectionSevenData?.buttons[0]?.redirectionURL);
+                if (sectionThreeData?.buttons && sectionThreeData?.buttons.length > 0 && sectionThreeData?.buttons[0]?.redirectionURL) {
+                  router.push(sectionThreeData?.buttons[0]?.redirectionURL);
                 }
               }}
             />
