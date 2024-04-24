@@ -754,6 +754,8 @@ main .sticky-header {
 
 		&.disabled {
 			cursor: not-allowed;
+			pointer-events: none;
+			
 
 			a {
 				pointer-events: none;
