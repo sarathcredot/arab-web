@@ -261,7 +261,7 @@ function ProductOne(props) {
           <span
             className="product-price"
             style={{
-              fontFamily: "Poppins",
+              fontFamily: "Plus Jakarta Sans",
               fontWeight: "800px",
               fontSize: "16px",
               lineHeight: "15px",

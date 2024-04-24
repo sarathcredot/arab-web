@@ -157,13 +157,13 @@ function Login({ mutate }) {
               <MainMenu />
             </div>
           </div>
-          {/* <div className="container custom_login_space ">
+          <div className="container custom_login_space ">
             <nav
               aria-label="breadcrumb"
               className="breadcrumb-nav mb-0"
               style={{ paddingBottom: "15px", borderBottom: "1px solid #F0F0F0" }}
             >
-              <div className="container">
+              {/* <div className="container">
                 <ol className="breadcrumb">
                   <li className="breadcrumb-item">
                     <ALink href="/">
@@ -177,9 +177,9 @@ function Login({ mutate }) {
                     </ALink>
                   </li>
                 </ol>
-              </div>
+              </div> */}
             </nav>
-          </div> */}
+          </div>
           <div className="row">
             <div className="col-lg-12 mx-auto custom_headlog">
               {isOtp ? (

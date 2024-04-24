@@ -54,6 +54,8 @@ function Home() {
   const [sectionThreeDatastate, setSectionThreeDataState] = useState({});
   const [sectionFourDatastate, setSectionFourDataState] = useState({});
   const [sectionFiveDatastate, setSectionFiveDataState] = useState({});
+  const [sectionSixDatastate, setSectionSixDataState] = useState({});
+  const [sectionSevenDatastate, setSectionSevenDataState] = useState({});
 
   const {
     data: sectionOneData,
@@ -95,6 +97,23 @@ function Home() {
     variables: { input: { pageName: "Home", sectionName: "SECTION-5" } },
   });
 
+  const {
+    data: sectionSixData,
+    loading: loading6,
+    error: error6,
+  } = useQuery(CMS, {
+    variables: { input: { pageName: "Home", sectionName: "SECTION-6" } },
+  });
+
+  const {
+    data: sectionSevenData,
+    loading: loading7,
+    error: error7,
+  } = useQuery(CMS, {
+    variables: { input: { pageName: "Home", sectionName: "SECTION-7" } },
+  });
+
+
   useEffect(() => {
     if (sectionOneData) {
       setSectionOneDataState(sectionOneData?.getCmsRecord?.record);
@@ -111,7 +130,22 @@ function Home() {
     if (sectionFiveData) {
       setSectionFiveDataState(sectionFiveData?.getCmsRecord?.record);
     }
-  }, [sectionOneData, sectionTwoData, sectionThreeData, sectionFourData, sectionFiveData]);
+    if (sectionSixData) {
+      setSectionSixDataState(sectionSixData?.getCmsRecord?.record);
+    }
+    if (sectionSevenData) {
+      setSectionSevenDataState(sectionSevenData?.getCmsRecord?.record);
+    }
+
+  }, [
+    sectionOneData,
+    sectionTwoData,
+    sectionThreeData,
+    sectionFourData,
+    sectionFiveData,
+    sectionSixData,
+    sectionSevenData,
+  ]);
 
   return (
     <>
@@ -143,6 +177,8 @@ function Home() {
             <BannerSection
               sectionTwoData={sectionTwoDatastate}
               sectionThreeData={sectionThreeDatastate}
+              sectionSevenData={sectionSevenDatastate}
+              sectionFourData={sectionFourDatastate}
             />
           )}
 
@@ -153,7 +189,7 @@ function Home() {
           {!loading4 && <BrandSection />}
         </div>
 
-        <FooterBannerSection data={sectionFourDatastate} />
+        <FooterBannerSection data={sectionFiveDatastate} />
 
         <div className={` skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
           <ElectronicCollection />
@@ -162,7 +198,7 @@ function Home() {
         </div>
         {/* <CategoryFilterSection /> */}
         {/* <AppleProducts products={bestSelling}/> */}
-        {!loading5 && <FooterBannerSection data={sectionFiveDatastate} />}
+        {!loading5 && <FooterBannerSection data={sectionSixDatastate} />}
       </main>
 
       {/* <NewsletterModal /> */}
