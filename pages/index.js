@@ -104,8 +104,6 @@ function Home() {
     variables: { input: { pageName: "Home", sectionName: "SECTION-6" } },
   });
 
-
-
   useEffect(() => {
     if (sectionOneData) {
       setSectionOneDataState(sectionOneData?.getCmsRecord?.record);
@@ -125,8 +123,6 @@ function Home() {
     if (sectionSixData) {
       setSectionSixDataState(sectionSixData?.getCmsRecord?.record);
     }
- 
-
   }, [
     sectionOneData,
     sectionTwoData,
@@ -153,11 +149,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div
-            className="homebannerpadding"
-            // style={{paddingTop:"20px", backgroundColor:"white"}}
-            // className="bg-gray"
-          >
+          <div className="homebannerpadding">
             {!loading && <HomeSection className="pb-5" data={sectionOneDatastate} />}
           </div>
         </div>
