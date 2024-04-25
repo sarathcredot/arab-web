@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useRouter } from "next/router";
+import router, { useRouter } from "next/router";
 // import { useQuery } from '@apollo/react-hooks';
 
 // Import Apollo Server and Query
@@ -100,11 +100,16 @@ function ProductDefault() {
     loading: productLoading,
     error: productError,
   } = useQuery(GET_PRODUCT, { variables: { input: { _id: id.toString() } } });
+
+
+
   useEffect(() => {
     if (productData && productData.getProduct) {
       setProduct(productData.getProduct.product);
+    } else if (productError) {
+      router.push("/pages/404");
     }
-  }, [productData]);
+  }, [productData, productError]);
 
   // console.log(product,"productdfghjklvbnm," )
 

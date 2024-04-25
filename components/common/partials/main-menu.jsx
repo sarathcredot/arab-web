@@ -31,7 +31,7 @@ export const LEVEL_CATEGORY = gql`
   }
 `;
 
-export const LEVEL2_CATEGORY = gql`
+export const GET_CHILD_CATEGORIES = gql`
   query GetActiveChildCategories($input: GetActiveChildCategoriesInput!) {
     getActiveChildCategories(input: $input) {
       records {
@@ -92,6 +92,7 @@ function MainMenu({ router }) {
   const [isLeaf, setIsLeaf] = useState("");
 
   const [brands, setBrands] = useState([]);
+  const [brandFetchToggle, setBrandFetchToggle] = useState(false);
 
 
   const [selectedcategory, setSelectedCategory] = useState("");
@@ -134,14 +135,14 @@ function MainMenu({ router }) {
 
   const [lev2catid, setLev2id] = useState("");
 
-  const [catLevel2, { loading: level2loading, error: level2error, data: level2Data }] = useLazyQuery(LEVEL2_CATEGORY);
-  const [catLevel3, { loading: level3loading, error: level3error, data: level3Data }] = useLazyQuery(LEVEL2_CATEGORY);
-  const [catLevel4, { loading: level4loading, error: level4error, data: level4Data }] = useLazyQuery(LEVEL2_CATEGORY);
-  const [catLevel5, { loading: level5loading, error: level5error, data: level5Data }] = useLazyQuery(LEVEL2_CATEGORY);
-  const [catLevel6, { loading: level6loading, error: level6error, data: level6Data }] = useLazyQuery(LEVEL2_CATEGORY);
-  const [catLevel7, { loading: level7loading, error: level7error, data: level7Data }] = useLazyQuery(LEVEL2_CATEGORY);
+  const [catLevel2, { loading: level2loading, error: level2error, data: level2Data }] = useLazyQuery(GET_CHILD_CATEGORIES, { fetchPolicy: "network-only" });
+  const [catLevel3, { loading: level3loading, error: level3error, data: level3Data }] = useLazyQuery(GET_CHILD_CATEGORIES, { fetchPolicy: "network-only" });
+  const [catLevel4, { loading: level4loading, error: level4error, data: level4Data }] = useLazyQuery(GET_CHILD_CATEGORIES, { fetchPolicy: "network-only" });
+  const [catLevel5, { loading: level5loading, error: level5error, data: level5Data }] = useLazyQuery(GET_CHILD_CATEGORIES, { fetchPolicy: "network-only" });
+  const [catLevel6, { loading: level6loading, error: level6error, data: level6Data }] = useLazyQuery(GET_CHILD_CATEGORIES, { fetchPolicy: "network-only" });
+  const [catLevel7, { loading: level7loading, error: level7error, data: level7Data }] = useLazyQuery(GET_CHILD_CATEGORIES, { fetchPolicy: "network-only" });
 
-  const [brandlist, { loading: brandloading, error: branderror, data: brandData }] = useLazyQuery(BRAND_LISTING);
+  const [brandlist, { loading: brandloading, error: branderror, data: brandData }] = useLazyQuery(BRAND_LISTING, { fetchPolicy: "network-only" });
 
   const handleLevel2category = async (id) => {
     // console.log(id);
@@ -199,7 +200,8 @@ function MainMenu({ router }) {
 
   const handleBrandList = async (id) => {
     try {
-      brandlist({ variables: { input: { categoryId: id } } });
+      await brandlist({ variables: { input: { categoryId: id } } });
+      setBrandFetchToggle(!brandFetchToggle);
     }
     catch (error) {
       console.error(error);
@@ -222,6 +224,7 @@ function MainMenu({ router }) {
 
 
 
+
   // console.log(child1, 'child1');
   // console.log(child2, 'child2');
   // console.log(child2?.length, 'child2 length');
@@ -237,7 +240,7 @@ function MainMenu({ router }) {
     if (brandData) {
       setBrands(brandData?.getBrandDetailsWithCategory?.records);
     }
-  }, [brandData]);
+  }, [brandFetchToggle]);
 
 
   return (
@@ -344,12 +347,14 @@ function MainMenu({ router }) {
                     cat3: "",
                     cat4: "",
                     cat5: "",
+                    cat6: "",
+                    cat7: "",
                   }));
                   if (item.isLeaf) {
                     handleBrandList(item?._id);
                   } else {
-                    handleLevel3category(item?._id);
                     setBrands([]);
+                    handleLevel3category(item?._id);
                   }
 
                 }}
@@ -396,8 +401,8 @@ function MainMenu({ router }) {
                     if (item.isLeaf) {
                       handleBrandList(item?._id);
                     } else {
-                      handleLevel4category(item?._id);
                       setBrands([]);
+                      handleLevel4category(item?._id);
                     }
 
                   }}
@@ -444,8 +449,8 @@ function MainMenu({ router }) {
                       if (item.isLeaf) {
                         handleBrandList(item?._id);
                       } else {
-                        handleLevel5category(item?._id);
                         setBrands([]);
+                        handleLevel5category(item?._id);
 
                       }
 
@@ -491,8 +496,8 @@ function MainMenu({ router }) {
                       if (item.isLeaf) {
                         handleBrandList(item?._id);
                       } else {
-                        handleLevel6category(item?._id);
                         setBrands([]);
+                        handleLevel6category(item?._id);
 
                       }
 
@@ -539,8 +544,9 @@ function MainMenu({ router }) {
                       if (item.isLeaf) {
                         handleBrandList(item?._id);
                       } else {
-                        handleLevel7category(item?._id);
                         setBrands([]);
+
+                        handleLevel7category(item?._id);
 
                       }
                     }}

@@ -56,12 +56,12 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData, sectionFourDat
           </div>
           <div className="col-md-4 custom-responsive-banner3">
             <img
-              src={sectionThreeData?.images && sectionThreeData?.images[0]?.fileURL}
+              src={sectionFourData?.images && sectionFourData?.images[0]?.fileURL}
               className="bannerimg"
               style={{ width: "100%", objectFit: "contain", cursor: "pointer" }}
               onClick={() => {
-                if (sectionThreeData?.buttons && sectionThreeData?.buttons.length > 0 && sectionThreeData?.buttons[0]?.redirectionURL) {
-                  router.push(sectionThreeData?.buttons[0]?.redirectionURL);
+                if (sectionFourData?.buttons && sectionFourData?.buttons.length > 0 && sectionFourData?.buttons[0]?.redirectionURL) {
+                  router.push(sectionFourData?.buttons[0]?.redirectionURL);
                 }
               }}
             />
@@ -70,14 +70,8 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData, sectionFourDat
         <div className="row pt-4">
           <div className="col-md-12">
             <img
+              src="images/home/banners/homeimage4.svg"
               className="home_banner3"
-              src={sectionFourData?.images && sectionFourData?.images[0]?.fileURL}
-              onClick={() => {
-                if (sectionFourData?.buttons && sectionFourData?.buttons.length > 0 && sectionFourData?.buttons[0]?.redirectionURL) {
-                  router.push(sectionFourData?.buttons[0]?.redirectionURL);
-                }
-              }
-              }
               style={{
                 width: "100%",
                 height: "272px",
@@ -86,9 +80,7 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData, sectionFourDat
                 cursor: "pointer",
               }}
             />
-            {/* <div className="app-downloadbtn"
-         
-            >
+            <div className="app-downloadbtn"            >
               <div><img src="/images/bannerlogo.svg" /></div>
               <div style={{ display: "flex", gap: "24px" }}>
                 <svg
@@ -341,7 +333,7 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData, sectionFourDat
                   />
                 </svg>
               </div>
-            </div> */}
+            </div>
           </div>
         </div>
       </>
