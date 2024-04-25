@@ -3,7 +3,7 @@ import Reveal from "react-awesome-reveal";
 import { fadeInUpShorter } from "../../../utils/data/keyframes";
 import { useRouter } from "next/router";
 
-function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
+function BannerSection({ offer, sectionTwoData, sectionThreeData, sectionFourData }) {
   const router = useRouter();
   return (
     // <Reveal keyframes={fadeInUpShorter} delay={200} duration={1000} triggerOnce>
@@ -56,9 +56,14 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
           </div>
           <div className="col-md-4 custom-responsive-banner3">
             <img
-              src="images/home/banners/homeimagemob3.jpg"
+              src={sectionThreeData?.images && sectionThreeData?.images[0]?.fileURL}
               className="bannerimg"
-              style={{ width: "100%" }}
+              style={{ width: "100%", objectFit: "contain", cursor: "pointer" }}
+              onClick={() => {
+                if (sectionThreeData?.buttons && sectionThreeData?.buttons.length > 0 && sectionThreeData?.buttons[0]?.redirectionURL) {
+                  router.push(sectionThreeData?.buttons[0]?.redirectionURL);
+                }
+              }}
             />
           </div>
         </div>
@@ -66,29 +71,23 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
           <div className="col-md-12">
             <img
               className="home_banner3"
-              src="images/home/banners/homeimage4.svg"
+              src={sectionFourData?.images && sectionFourData?.images[0]?.fileURL}
+              onClick={() => {
+                if (sectionFourData?.buttons && sectionFourData?.buttons.length > 0 && sectionFourData?.buttons[0]?.redirectionURL) {
+                  router.push(sectionFourData?.buttons[0]?.redirectionURL);
+                }
+              }
+              }
               style={{
                 width: "100%",
                 height: "272px",
                 objectFit: "cover",
                 position: "relative",
+                cursor: "pointer",
               }}
             />
-            <div className="app-downloadbtn"
-            // style={{
-            //   position: "absolute",
-            //   top: 0,
-            //   right: 0,
-            //   bottom: 0,
-            //   background: "black",
-            //  display:"flex",
-            //   gap: "24px",
-            //   padding: "30px 57px 30px 30px",
-            //   height: "100%",
-            //   flexDirection:"column",
-            //   alignItems:"flex-start",
-            //   justifyContent:"center"
-            // }}
+            {/* <div className="app-downloadbtn"
+         
             >
               <div><img src="/images/bannerlogo.svg" /></div>
               <div style={{ display: "flex", gap: "24px" }}>
@@ -121,8 +120,6 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
                     fill="#010202"
                   />
                 </svg>
-                {/* <button>App Store</button> */}
-                {/* <button>Google Play</button> */}
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
                   width="139"
@@ -344,7 +341,7 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
                   />
                 </svg>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </>

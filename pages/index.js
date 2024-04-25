@@ -54,6 +54,7 @@ function Home() {
   const [sectionThreeDatastate, setSectionThreeDataState] = useState({});
   const [sectionFourDatastate, setSectionFourDataState] = useState({});
   const [sectionFiveDatastate, setSectionFiveDataState] = useState({});
+  const [sectionSixDatastate, setSectionSixDataState] = useState({});
 
   const {
     data: sectionOneData,
@@ -95,6 +96,14 @@ function Home() {
     variables: { input: { pageName: "Home", sectionName: "SECTION-5" } },
   });
 
+  const {
+    data: sectionSixData,
+    loading: loading6,
+    error: error6,
+  } = useQuery(CMS, {
+    variables: { input: { pageName: "Home", sectionName: "SECTION-6" } },
+  });
+
   useEffect(() => {
     if (sectionOneData) {
       setSectionOneDataState(sectionOneData?.getCmsRecord?.record);
@@ -111,7 +120,17 @@ function Home() {
     if (sectionFiveData) {
       setSectionFiveDataState(sectionFiveData?.getCmsRecord?.record);
     }
-  }, [sectionOneData, sectionTwoData, sectionThreeData, sectionFourData, sectionFiveData]);
+    if (sectionSixData) {
+      setSectionSixDataState(sectionSixData?.getCmsRecord?.record);
+    }
+  }, [
+    sectionOneData,
+    sectionTwoData,
+    sectionThreeData,
+    sectionFourData,
+    sectionFiveData,
+    sectionSixData,
+  ]);
 
   return (
     <>
@@ -130,11 +149,7 @@ function Home() {
               </div>
             </div>
           </div>
-          <div
-            className="homebannerpadding"
-            // style={{paddingTop:"20px", backgroundColor:"white"}}
-            // className="bg-gray"
-          >
+          <div className="homebannerpadding">
             {!loading && <HomeSection className="pb-5" data={sectionOneDatastate} />}
           </div>
         </div>
@@ -143,6 +158,8 @@ function Home() {
             <BannerSection
               sectionTwoData={sectionTwoDatastate}
               sectionThreeData={sectionThreeDatastate}
+              sectionSixData={sectionSixDatastate}
+              sectionFourData={sectionFourDatastate}
             />
           )}
 
@@ -153,7 +170,7 @@ function Home() {
           {!loading4 && <BrandSection />}
         </div>
 
-        <FooterBannerSection data={sectionFourDatastate} />
+        <FooterBannerSection data={sectionFiveDatastate} />
 
         <div className={` skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
           <ElectronicCollection />
@@ -162,7 +179,7 @@ function Home() {
         </div>
         {/* <CategoryFilterSection /> */}
         {/* <AppleProducts products={bestSelling}/> */}
-        {!loading5 && <FooterBannerSection data={sectionFiveDatastate} />}
+        {!loading5 && <FooterBannerSection data={sectionSixDatastate} />}
       </main>
 
       {/* <NewsletterModal /> */}
