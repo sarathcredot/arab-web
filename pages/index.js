@@ -162,7 +162,6 @@ function Home() {
               sectionFourData={sectionFourDatastate}
             />
           )}
-
           <DealSection />
         </div>
 
