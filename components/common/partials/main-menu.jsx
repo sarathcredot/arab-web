@@ -207,7 +207,7 @@ function MainMenu({ router }) {
       console.error(error);
     }
   };
-  const mainNav = (data?.getActiveCategoryTree?.records || []).slice(0, 10);
+  const mainNav = (data?.getActiveCategoryTree?.records || []);
 
   const child1 = level2Data?.getActiveChildCategories?.records;
 
@@ -276,9 +276,9 @@ function MainMenu({ router }) {
 
               }}
             >
-              <span className="custom__menu__item-image">
+              <div className="custom__menu__item-image">
                 <img src={item.categoryImage?.fileURL} alt={item.categoryName} />
-              </span>
+              </div>
               <p className="custom__menu__item-label">{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
             </li>
           ))}
