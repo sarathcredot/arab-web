@@ -734,9 +734,8 @@ function ProductDetailOne(props) {
                               justifyContent: "center",
                               width: "63px",
                               height: "63px",
-                              backgroundColor: item?.attributeValue === selectedAttributes[item?.attributeName.toLowerCase()] ? "#ebebeb" : "transparent",
+                              backgroundColor: item?.attributeValue === selectedAttributes[item?.attributeName.toLowerCase()] ? "#ebebeb" : "#f8f8f8",
                               borderRadius: "50%",
-
                             }}
                           >
                             <a
@@ -896,6 +895,7 @@ function ProductDetailOne(props) {
                         style={{
                           color: "#000",
                           fontWeight: "500",
+                          marginBottom:"10px"
                         }}
                       >
                         {uniqueAttributeName} &nbsp;
