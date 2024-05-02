@@ -246,7 +246,7 @@ function SearchForm(props) {
 
                 >
                   <LazyLoadImage
-                    src={product.image}
+                    src={product.image ? product.image : "images/icon/search.svg"}
                     width={40}
                     height={40}
                     alt=""

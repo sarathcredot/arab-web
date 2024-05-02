@@ -96,7 +96,6 @@ function Shop() {
 
   const [sortBy, setSortBy] = useState(query.sortBy ? query.sortBy : "default");
 
-
   const products = data && data?.getProducts?.records;
   const totalPage = data
     ? parseInt(data?.getProducts?.maxRecords / perPage) +
@@ -139,9 +138,9 @@ function Shop() {
     }
   }
 
-  // if (error) {
-  //   return <div>{error.message}</div>;
-  // }
+  if (error) {
+    return <div>Something went wrong</div>;
+  }
 
   return (
     <main className="main">

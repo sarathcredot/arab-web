@@ -26,7 +26,8 @@ export const LEVEL_CATEGORY = gql`
           fileURL
           originalName
         }
-      }
+        isLeaf
+      } 
     }
   }
 `;

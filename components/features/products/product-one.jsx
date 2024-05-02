@@ -36,8 +36,8 @@ function ProductOne(props) {
     return product.price[0] !== product.price[1] && product.variants.length === 0
       ? "-" + ((100 * (product.price[1] - product.price[0])) / product.price[1]).toFixed(0) + "%"
       : product?.variants?.find((variant) => variant?.sale_price)
-      ? "Sale"
-      : false;
+        ? "Sale"
+        : false;
   }
 
   function isInWishlist() {
@@ -220,7 +220,11 @@ function ProductOne(props) {
 
           {/* <div style={{width:"70px",height:"70px",display:"flex",borderRadius:"50%",border:"1px solid red"}}>tt</div> */}
           <div style={{ width: "50%", display: "flex", justifyContent: "end" }}>
-            <div className="custom-addcart" onClick={(e) => onAddCartClick(e, product)} style={{ cursor: "pointer" }}>
+            {product?.stock > 0 && <div className="custom-addcart" onClick={(e) => {
+              if (product.stock > 0) {
+                onAddCartClick(e, product);
+              }
+            }} style={{ cursor: "pointer" }}>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="25"
@@ -243,7 +247,7 @@ function ProductOne(props) {
                   stroke-linejoin="round"
                 />
               </svg>
-            </div>
+            </div>}
           </div>
         </div>
 

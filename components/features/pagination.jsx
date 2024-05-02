@@ -6,14 +6,15 @@ import ALink from '../common/ALink';
 function Pagination ( { totalPage } ) {
     const query = useRouter().query;
     const page = query.page ? parseInt( query.page ) : 0;
+
     let indexsToShow = [];
     for ( let i = 0; i < Math.min( totalPage, 3 ); i++ ) {
-        if ( page < 4 || page > totalPage - 3 ) {
-            if ( page < 4 ) {
+        if ( page < 3 || page > totalPage - 3 ) {
+            if ( page < 3 ) {
                 indexsToShow[ i ] = i + 1;
             }
 
-            if ( totalPage > 4 && page > totalPage - 3 ) {
+            if ( totalPage > 3 && page > totalPage - 3 ) {
                 indexsToShow[ i ] = totalPage - 2 + i;
             }
         } else {

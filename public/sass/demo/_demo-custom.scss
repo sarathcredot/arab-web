@@ -240,3 +240,12 @@ span.toggle {
 .btn-address-edit:hover {
   color: #000;
 }
+
+
+input[type="radio"] {
+ accent-color: black; /* Change color of the radio button */
+}
+
+input[type="checkbox"] {
+ accent-color: black; /* Change color of the checkbox */
+}

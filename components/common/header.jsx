@@ -197,7 +197,7 @@ function Header({ adClass = "", wishlist }) {
 
               <ALink href="/" className="logo">
                 <img
-                  src="images/Logo.svg"
+                  src="images/ArabDeal.png"
                   className="w-100"
                   width="111"
                   height="44"
@@ -220,7 +220,7 @@ function Header({ adClass = "", wishlist }) {
                     style={{ marginRight: "8px" }}
                   />
 
-                </ALink>
+                </ALink> 
 
                 <span>OFFERZONE</span>
               </div>

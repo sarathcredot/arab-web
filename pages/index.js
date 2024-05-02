@@ -96,14 +96,6 @@ function Home() {
     variables: { input: { pageName: "Home", sectionName: "SECTION-5" } },
   });
 
-  const {
-    data: sectionSixData,
-    loading: loading6,
-    error: error6,
-  } = useQuery(CMS, {
-    variables: { input: { pageName: "Home", sectionName: "SECTION-6" } },
-  });
-
   useEffect(() => {
     if (sectionOneData) {
       setSectionOneDataState(sectionOneData?.getCmsRecord?.record);
@@ -120,17 +112,7 @@ function Home() {
     if (sectionFiveData) {
       setSectionFiveDataState(sectionFiveData?.getCmsRecord?.record);
     }
-    if (sectionSixData) {
-      setSectionSixDataState(sectionSixData?.getCmsRecord?.record);
-    }
-  }, [
-    sectionOneData,
-    sectionTwoData,
-    sectionThreeData,
-    sectionFourData,
-    sectionFiveData,
-    sectionSixData,
-  ]);
+  }, [sectionOneData, sectionTwoData, sectionThreeData, sectionFourData, sectionFiveData]);
 
   return (
     <>
@@ -159,7 +141,6 @@ function Home() {
               sectionTwoData={sectionTwoDatastate}
               sectionThreeData={sectionThreeDatastate}
               sectionSixData={sectionSixDatastate}
-              sectionFourData={sectionFourDatastate}
             />
           )}
           <DealSection />
@@ -169,7 +150,7 @@ function Home() {
           {!loading4 && <BrandSection />}
         </div>
 
-        <FooterBannerSection data={sectionFiveDatastate} />
+        <FooterBannerSection data={sectionFourDatastate} />
 
         <div className={` skeleton-body skel-shop-products ${false ? "" : "loaded"}`}>
           <ElectronicCollection />
@@ -178,8 +159,8 @@ function Home() {
         </div>
         {/* <CategoryFilterSection /> */}
         {/* <AppleProducts products={bestSelling}/> */}
-        {!loading5 && <FooterBannerSection data={sectionSixDatastate} />}
-      </main>
+        {!loading5 && <FooterBannerSection data={sectionFiveDatastate} />}
+      </main> 
 
       {/* <NewsletterModal /> */}
     </>

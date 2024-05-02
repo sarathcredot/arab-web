@@ -96,10 +96,12 @@ function ShopSidebarOne(props) {
     data: maxPriceData,
     loading: priceLoading,
     priceError,
-  } = useQuery(MAX_PRICE, { variables: { input: { categories: [catId] } } });
+  } = useQuery(MAX_PRICE, { variables: { input: { categories: catId ? [catId] : [] } } });
+  
   const maxpricevalue = maxPriceData?.getProductsMaxPrice?.maxPrice
     ? maxPriceData?.getProductsMaxPrice?.maxPrice
     : 1000;
+
   const {
     data: attributeData,
     loading: attributeLoading,
@@ -198,7 +200,7 @@ function ShopSidebarOne(props) {
   function handleSortOrderChange(e) {
     const selectedSortOrder = e.target.value;
     setSortOrder(selectedSortOrder);
-    const searchParams = router.query;
+    const searchParams = { ...router.query, page: 0 };
     const newSearchParams = {
       ...searchParams,
       sort_order: selectedSortOrder,

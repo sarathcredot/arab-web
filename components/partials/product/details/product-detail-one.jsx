@@ -595,7 +595,7 @@ function ProductDetailOne(props) {
                   }}
                 >
                   {" "}
-                  {product?.price?.toFixed(2)}
+                  {product?.mrp?.toFixed(2)}
                 </span>
               </>
             ) : product?.variants.length > 0 ? (
@@ -707,12 +707,9 @@ function ProductDetailOne(props) {
                     >
                       <li
                         key={`filter-color-${index}`}
-                        className={`${item?.attributeValue === selectedAttributes.color
-                          ? "active"
+                        className={` ${item?.isAvailable
+                          ? "tag-remove"
                           : ""
-                          } ${item?.isAvailable
-                            ? "tag-remove"
-                            : ""
                           }`}
                       >
                         {item?.thumb ? (
@@ -737,7 +734,7 @@ function ProductDetailOne(props) {
                               justifyContent: "center",
                               width: "63px",
                               height: "63px",
-                              backgroundColor: "#F8F8F8",
+                              backgroundColor: item?.attributeValue === selectedAttributes[item?.attributeName.toLowerCase()] ? "#ebebeb" : "transparent",
                               borderRadius: "50%",
 
                             }}
