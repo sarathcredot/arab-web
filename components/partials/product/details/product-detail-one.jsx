@@ -131,6 +131,7 @@ function ProductDetailOne(props) {
 
 
 
+
   const { refetch: wishListRefetch, } = useQuery(GET_WISH_LIST, {
     skip: !token,
   });
@@ -453,6 +454,72 @@ function ProductDetailOne(props) {
     setSelectedAttributes(defaultAttributes);
   }
 
+
+  function changeSelection(item) {
+
+    let variants = {};
+
+
+    for (let product of variData?.getVariants?.variants) {
+      (variants[product.productId] = variants[product.productId] || []).push(product);
+    }
+
+    let attrKeys = Object.keys(selectedAttributes).filter(k => k.toLowerCase() !== item.attributeName.toLowerCase());
+
+    let selected;
+
+    for (let id of Object.keys(variants)) {
+
+
+      let flag = true;
+      let v = variants[id];
+
+      for (let key of attrKeys) {
+
+        let flag2 = false;
+        for (let i of v) {
+          if (i.attributeName.toLowerCase() === key.toLowerCase() && i.attributeValue.toLowerCase() === selectedAttributes[key].toLowerCase()) {
+            flag2 = true;
+            break;
+          }
+        }
+        if (!flag2) {
+          flag = false;
+          break;
+        }
+      }
+
+      if (flag) {
+
+
+        for (let i of v) {
+
+          if (item.attributeName.toLowerCase() === i.attributeName.toLowerCase() && i.attributeValue.toLowerCase() === item.attributeValue.toLowerCase()) {
+
+            selected = id;
+            break;
+          }
+        }
+
+        if (selected) {
+          break;
+        }
+
+      }
+    }
+
+
+
+    setSelectedAttributes({});
+    router.push({
+      pathname: "/product/default/[...slug]",
+      query: { slug: [selected ? selected : item.productId] },
+    });
+
+
+  }
+
+
   // ... other code
 
   function selectAttribute(attributeType, e) {
@@ -749,11 +816,13 @@ function ProductDetailOne(props) {
                                 cursor: "pointer",
                               }}
                               onClick={(e) => {
-                                selectAttribute(item?.productId, e);
-                                updateSelectedAttributes(
-                                  item?.attributeName.toLowerCase(),
-                                  item?.attributeValue
-                                );
+                                e.preventDefault();
+                                changeSelection(item);
+                                // selectAttribute(item?.productId, e);
+                                // updateSelectedAttributes(
+                                //   item?.attributeName.toLowerCase(),
+                                //   item?.attributeValue
+                                // );
                               }}
                             ></a>
                           </div>
@@ -830,11 +899,14 @@ function ProductDetailOne(props) {
                                   href="#"
                                   className="filter-thumb p-0"
                                   onClick={(e) => {
-                                    selectAttribute(item?.productId, e);
-                                    updateSelectedAttributes(
-                                      item?.attributeName.toLowerCase(),
-                                      item?.attributeValue
-                                    );
+                                    e.preventDefault();
+                                    changeSelection(item);
+
+                                    // selectAttribute(item?.productId, e);
+                                    // updateSelectedAttributes(
+                                    //   item?.attributeName.toLowerCase(),
+                                    //   item?.attributeValue
+                                    // );
                                   }}
                                 >
                                   <LazyLoadImage
@@ -851,8 +923,10 @@ function ProductDetailOne(props) {
                                 <a
                                   href="#"
                                   className="d-flex align-items-center justify-content-center"
-                                  onClick={(e) =>
-                                    selectAttribute(item?.productId, e)
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    changeSelection(item)
+                                  }
                                   }
                                   style={{
                                     fontWeight: "600",
@@ -895,7 +969,7 @@ function ProductDetailOne(props) {
                         style={{
                           color: "#000",
                           fontWeight: "500",
-                          marginBottom:"10px"
+                          marginBottom: "10px"
                         }}
                       >
                         {uniqueAttributeName} &nbsp;
@@ -928,8 +1002,11 @@ function ProductDetailOne(props) {
                                 <a
                                   href="#"
                                   className="filter-thumb p-0"
-                                  onClick={(e) =>
-                                    selectAttribute(item?.productId, e)
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    changeSelection(item)
+                                  }
+
                                   }
                                 >
                                   <LazyLoadImage
@@ -946,8 +1023,12 @@ function ProductDetailOne(props) {
                                 <a
                                   href="#"
                                   className="d-flex align-items-center justify-content-center"
-                                  onClick={(e) =>
-                                    selectAttribute(item?.productId, e)
+
+                                  onClick={(e) => {
+                                    e.preventDefault();
+                                    changeSelection(item)
+                                  }
+
                                   }
                                   style={{
                                     fontWeight: "600",
@@ -1059,7 +1140,7 @@ function ProductDetailOne(props) {
                         : ""
                         }`}
                       title="Add To Cart"
-                      onClick={onAddCartClick}
+                      onClick={(e) => { e.preventDefault(); onAddCartClick(e); }}
                     >
                       Add to Cart
                     </a>
@@ -1125,7 +1206,7 @@ function ProductDetailOne(props) {
               className={`btn btn-dark add-cart shopping-cart mr-2 custom-detail-cart ${product.stock < 1 ? "disabled" : ""
                 }`}
               title="Add To Cart"
-              onClick={() => product.stock > 0 ? onAddCartClick : null}
+              onClick={(e) => { e.preventDefault(); product.stock > 0 ? onAddCartClick(e) : null }}
             >
               {product?.stock > 0 ? "Add To Cart" : "Out of Stock"}
             </a>
