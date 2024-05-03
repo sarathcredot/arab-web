@@ -33,14 +33,12 @@ function Qty({ max = Infinity, onChangeQty, value = 1, disabled = false }) {
     function increase() {
         if(disabled) return;
         const newCount = Math.min(max, count + 1);
-        setCount(newCount);
         onChangeQty(newCount);
     }
 
     function decrease() {
         if(disabled) return;
         const newCount = Math.max(1, count - 1); 
-        setCount(newCount);
         onChangeQty(newCount);
     }
 

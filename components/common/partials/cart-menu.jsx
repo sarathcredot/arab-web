@@ -143,7 +143,7 @@ function CartMenu({ props }) {
     error: cartError,
     refetch: cartRefetch,
   } = useQuery(GET_CART, {
-    skip: !token,
+    skip: !token, fetchPolicy: "network-only"
   });
 
 
@@ -178,6 +178,7 @@ function CartMenu({ props }) {
 
   useEffect(() => {
     const handleStorageChange = () => {
+      console.log("storage changed");
       const count = localStorage.getItem('cart');
       if (count) {
         setCartCount(parseInt(count.length));

@@ -12,6 +12,8 @@ import { gql, useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import withApollo from "../../server/apollo";
 import dayjs from "dayjs";
 import { Helmet } from "react-helmet";
+import Pagination from "../../components/features/pagination";
+import { useRouter } from "next/router";
 
 const GET_ORDERS = gql`
   query GetUserOrderProducts($input: GetUserOrderProductsInput!) {
@@ -85,6 +87,9 @@ function Orders(props) {
   const { wishlist, addToCart, removeFromWishlist, showQuickView } = props;
   const [flag, setFlag] = useState(0);
   const [orders, setOrders] = useState([]);
+  const router = useRouter();
+  const page = router.query.page ? parseInt(router.query.page) : 0;
+  const [perPage, setPerPage] = useState(5);
 
   const onMoveFromToWishlit = (e, item) => {
     setFlag(2);
@@ -117,26 +122,17 @@ function Orders(props) {
     }
   };
 
-  const {
-    data: orderData,
-    loading: orderLoading,
-    error: orderError,
-    refetch: orderRefetch,
-  } = useQuery(GET_ORDERS, {
-    variables: {
-      input: {
-        page: null,
-        size: null,
-      },
-    },
-    fetchPolicy: "network-only",
-  });
-
   const [cancelUserOrderProduct] = useMutation(CANCEL_ORDER);
   const [downloadInvoice] = useMutation(DOWNLOAD_INVOICE);
+
   const { data, loading, error, refetch } = useQuery(GET_ORDERS, {
-    variables: { input: { page: null, size: null } },
+    variables: { input: { page: page || 0, size: perPage } },
   });
+
+  const totalPage = data
+    ? parseInt(data?.getUserOrderProducts?.maxRecords / perPage) +
+      (data?.getUserOrderProducts?.maxRecords % perPage ? 1 : 0)
+    : 0; 
 
   useEffect(() => {
     if (error) {
@@ -429,6 +425,14 @@ function Orders(props) {
                   ))}
                 </tbody>
               </table>
+              {loading ||
+                (orders && orders.length && (
+                  <div className="container">
+                    <nav className="toolbox toolbox-pagination border-0">
+                      <Pagination totalPage={totalPage} />
+                    </nav>
+                  </div>
+                ))}
             </div>
           )}
         </div>

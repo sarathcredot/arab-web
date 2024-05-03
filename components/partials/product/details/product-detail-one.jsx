@@ -359,7 +359,7 @@ function ProductDetailOne(props) {
   }
 
 
-  const { data: cartData, loading: cartLoading, error: cartError, refetch: cartRefetch, } = useQuery(GET_CART, { skip: !token, });
+  const { data: cartData, loading: cartLoading, error: cartError, refetch: cartRefetch, } = useQuery(GET_CART, { skip: !token, fetchPolicy: "network-only" });
 
 
 
@@ -426,6 +426,7 @@ function ProductDetailOne(props) {
         }]));
       }
     }
+    window.dispatchEvent(new Event("storage"));
     return toast(<AddToCartPopup product={{ product }} />);
   };
 

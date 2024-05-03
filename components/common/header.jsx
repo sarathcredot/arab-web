@@ -170,7 +170,7 @@ function Header({ adClass = "", wishlist }) {
   const handleLogout = async () => {
     try {
       localStorage.clear();
-      await logout();
+      await logout(); 
       router.push('/pages/login');
     } catch (err) {
       console.error("Logout error:", err);

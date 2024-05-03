@@ -14,10 +14,52 @@ import ProductCountdown from "../product-countdown";
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { toast } from "react-toastify";
 import AddToCartPopup from "../modals/add-to-cart-popup";
-useQuery
+useQuery;
+
+
+
+
+const POST_CART = gql`
+mutation AddToCart($input: addToCartInput!) {
+  addToCart(input: $input) {
+    message
+  }
+}
+`;
+
+const GET_CART = gql`
+query GetCart {
+  getCart {
+    products {
+      _id
+      productId
+      quantity
+      name
+      shortDescription
+      stock
+      color
+      size
+      price
+      image
+      sellingPrice
+      mrp
+    }
+    grandTotal
+    subTotal
+    deliveryCharge
+  }
+}
+`;
+
 function ProductFour(props) {
   const router = useRouter();
   const { adClass = "", link = "default", product } = props;
+  const token = localStorage.getItem("arabtoken");
+
+
+  const [addToCart] = useMutation(POST_CART);
+
+  const { data: cartData, loading: cartLoading, error: cartError, refetch: cartRefetch, } = useQuery(GET_CART, { skip: !token, fetchPolicy: "network-only" });
 
   function isSale() {
     return product.price[0] !== product.price[1] &&
@@ -61,11 +103,8 @@ function ProductFour(props) {
     e.preventDefault();
     if (localStorage.getItem("arabtoken")) {
       try {
-        if (
-          product.stock > 0 &&
-          !e.currentTarget.classList.contains("disabled")
-        ) {
-          const response =  addToCart({
+        if (product.stock > 0 && !e.currentTarget.classList.contains("disabled")) {
+          const response = addToCart({
             variables: {
               input: {
                 productId: product._id,
@@ -79,7 +118,6 @@ function ProductFour(props) {
             return toast(<AddToCartPopup product={{ product }} />);
           }
         }
-
       } catch (error) {
         console.log(error);
       }
@@ -91,7 +129,8 @@ function ProductFour(props) {
           localCart[productIndex].quantity += 1;
         } else {
           localCart.push({
-            productId: product._id, quantity: 1,
+            productId: product._id,
+            quantity: 1,
             name: product.productName,
             shortDescription: product.shortDescription,
             stock: product.stock,
@@ -105,22 +144,29 @@ function ProductFour(props) {
         }
         localStorage.setItem("cart", JSON.stringify(localCart));
       } else {
-        localStorage.setItem("cart", JSON.stringify([{
-          productId: product._id, quantity: 1,
-          name: product.productName,
-          shortDescription: product.shortDescription,
-          stock: product.stock,
-          color: product.color,
-          size: product.size,
-          price: product.price,
-          image: product.images[0] && product.images[0].fileURL,
-          sellingPrice: product.sellingPrice,
-          mrp: product.mrp,
-        }]));
+        localStorage.setItem(
+          "cart",
+          JSON.stringify([
+            {
+              productId: product._id,
+              quantity: 1,
+              name: product.productName,
+              shortDescription: product.shortDescription,
+              stock: product.stock,
+              color: product.color,
+              size: product.size,
+              price: product.price,
+              image: product.images[0] && product.images[0].fileURL,
+              sellingPrice: product.sellingPrice,
+              mrp: product.mrp,
+            },
+          ])
+        );
       }
     }
     return toast(<AddToCartPopup product={{ product }} />);
-  };
+  }
+
 
   function onQuickViewClick(e) {
     e.preventDefault();
@@ -270,7 +316,14 @@ function ProductFour(props) {
               href="#"
               className="btn-icon  btn-add-cart product-type-simple "
               title="Add To Cart"
-              onClick={onAddCartClick}
+              onClick={
+
+                (e) => {
+                  e.preventDefault();
+                  product.stock > 0
+                    && onAddCartClick(e);
+                }
+              }
             >
               <span>ADD TO CART</span>
             </a>

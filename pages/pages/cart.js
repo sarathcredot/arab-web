@@ -318,7 +318,7 @@ function Cart(props) {
                             <Qty
                               disabled={isLoading}
                               value={item?.quantity}
-                              max={item?.stock || 10}
+                              max={item?.stock < 10 ? item?.stock : 10}
                               onChangeQty={(qty) => onChangeQty(item?.productId, qty)}
                             />
                           </td>

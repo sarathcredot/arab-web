@@ -16,7 +16,7 @@ import AddToCartPopup from "../modals/add-to-cart-popup";
 // Import Custom Component
 import ALink from "../../common/ALink";
 import ProductCountdown from "../product-countdown";
-import { gql, useMutation } from "@apollo/client";
+import { gql, useMutation, useQuery } from "@apollo/client";
 
 const POST_CART = gql`
   mutation AddToCart($input: addToCartInput!) {
@@ -26,11 +26,40 @@ const POST_CART = gql`
   }
 `;
 
+const GET_CART = gql`
+query GetCart {
+  getCart {
+    products {
+      _id
+      productId
+      quantity
+      name
+      shortDescription
+      stock
+      color
+      size
+      price
+      image
+      sellingPrice
+      mrp
+    }
+    grandTotal
+    subTotal
+    deliveryCharge
+  }
+}
+`;
+
 function ProductOne(props) {
   const router = useRouter();
   const { adClass = "", link = "default", product } = props;
 
   const [addToCart] = useMutation(POST_CART);
+
+  const token = localStorage.getItem("arabtoken");
+
+  const { data: cartData, loading: cartLoading, error: cartError, refetch: cartRefetch, } = useQuery(GET_CART, { skip: !token,fetchPolicy: "network-only" });
+
 
   function isSale() {
     return product.price[0] !== product.price[1] && product.variants.length === 0

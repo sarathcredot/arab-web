@@ -21,12 +21,12 @@ export const USER_DETAIL = gql`
   }
 `;
 
-
-const LOG_OUT_USER = gql`mutation LogoutUser {
-  logoutUser {
-    _id
+const LOG_OUT_USER = gql`
+  mutation LogoutUser {
+    logoutUser {
+      _id
+    }
   }
-}
 `;
 
 function Account() {
@@ -34,15 +34,16 @@ function Account() {
   const token = localStorage.getItem("arabtoken");
   const [userdetail, { loading: userloading, error: usererror, data: userData, refetch }] =
     useLazyQuery(USER_DETAIL);
-  const router = useRouter();
-  
 
+    const [logout, { loading, error }] = useMutation(LOG_OUT_USER);
+    
+  const router = useRouter();
 
   const handleLogout = async () => {
     try {
-      localStorage.clear(); 
+      localStorage.clear();
       await logout();
-      router.push('/pages/login'); 
+      router.push("/pages/login");
     } catch (err) {
       console.error("Logout error:", err);
     }
