@@ -325,7 +325,7 @@ function Cart(props) {
                           <td className="text-right">
                             <span className="subtotal-price">
                               OMR{" "}
-                              {(parseInt(item.sellingPrice) * parseInt(item.quantity)).toFixed(2)}
+                              {(Number(item.sellingPrice) * Number(item.quantity)).toFixed(2)}
                             </span>
                           </td>
                         </tr>

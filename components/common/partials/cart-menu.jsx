@@ -88,7 +88,7 @@ function CartMenu({ props }) {
     let total = 0;
     if (items) {
       for (let i = 0; i < items.length; i++) {
-        total += parseInt(items[i].quantity, 10);
+        total += Number(items[i].quantity, 10);
       }
     }
     return total;
