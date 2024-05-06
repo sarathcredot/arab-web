@@ -359,7 +359,7 @@ function Cart(props) {
                       {token && (
                         <tr>
                           <td>Total</td>
-                          <td>OMR {cartCharges.grandTotal}</td>
+                          <td>OMR {parseFloat(cartCharges.grandTotal).toFixed(2)}</td>
                         </tr>
                       )}
                     </tfoot>
