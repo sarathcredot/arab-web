@@ -181,7 +181,7 @@
 	@include css( font-size, header, dropdown, font, size );
 	@include css( font-weight, header, dropdown, font, weight );
 	line-height: 1.5;
-	padding: 9px 0;
+	padding: 9px 0px 10px 0px;
 
 	// Top Anchor
 	> a {

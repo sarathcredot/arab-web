@@ -77,7 +77,7 @@ function ElectronicCollection() {
   // const bestSelling = data && data?.specialProducts?.bestSelling;
   // const electronic = data && data?.electronic?.data;
   return (
-    <div className="container" style={{ paddingBottom: "60px" }}>
+    <div className="container" style={{ paddingBottom: "40px" }}>
       <section className="recent-products-section" >
         <Reveal
           keyframes={fadeIn}
@@ -89,8 +89,8 @@ function ElectronicCollection() {
             className="heading shop-list   mb-0 pl-0 pr-0 "
             style={{ borderBottom: "1px solid ", borderColor: "#EEEEEE" }}
           >
-            <div className="pt-5 pb-5 mt-5 d-flex align-items-center justify-content-between flex-wrap">
-              <h4 className="section-title text-transform-none mb-0 mr-0 ">
+            <div className="pt-3 pb-4  d-flex align-items-center justify-content-between flex-wrap"style={{ borderBottom: "1px solid #EEE", marginBottom: "40px" }}>
+              <h4 className="section-title text-transform-none mb-0 mr-0 " >
                 Best Selling
               </h4>
               <ALink href="/shop?bestSeller=true" style={{ color: "black", fontWeight: "600" }}>
@@ -101,20 +101,24 @@ function ElectronicCollection() {
           </div>
 
           <OwlCarousel
-            adClass="products-slider best-selling-slider nav-blackcircle pb-0"
+            adClass="products-slider best-selling-slider nav-blackcircle pb-0 m-0"
             options={{
               ...productSlider,
+              margin: 0,  
+              stagePadding: 0, 
               responsive: {
 
                 ...productSlider.responsive,
                 0: {
                   items: 2,
-                  nav: true,
+                  
+                  nav: false,
                   loop: true
+
                 },
                 576: {
                   items: 2,
-                  nav: true,
+                  nav: false,
                   loop: true,
                 },
                 768: {

@@ -239,13 +239,13 @@ header {
 				border: 5px solid #ECECEC;
 			}
 
-			&:not(.show) .header-search-wrapper {
-				display: none;
-			}
+			// &:not(.show) .header-search-wrapper {
+			// 	display: none;
+			// }
 
-			.search-toggle, .header-search-inline .btn:after {
-				display: block;
-			}
+			// .search-toggle, .header-search-inline .btn:after {
+			// 	display: block;
+			// }
 		}
 	}
 }
@@ -258,10 +258,13 @@ header {
 }
 .custom_userborder{
 	border-left: 1px solid #EBEBEB;
-    padding-left: 14px !important;
-		margin-left: 14px !important;
+    padding-left: 19px !important;
+		margin-left: 19px !important;
 }
-
+.custom_userborder-dev{/*devadd*/
+	border-left: 1px solid #EBEBEB;
+    padding-left: 14px !important;
+}
 // 2. Header Elements
 
 // 2.1) Logo
@@ -514,10 +517,14 @@ header {
 	.header-bottom {
 	  background: white;
 	}
-	.homebannerpadding{
-		padding-top: 117px;
-	}
+	// .homebannerpadding{
+	// 	padding-top: 117px;
+	// }
 	.custom_userborder{
+		border-left: none;
+		padding-left: 0
+	}
+	.custom_userborder-dev{
 		border-left: none;
 		padding-left: 0
 	}

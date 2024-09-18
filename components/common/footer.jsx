@@ -99,7 +99,7 @@ function Footer() {
                 </div> */}
 
           <div className="footer-top" style={{
-            padding: "60px 0",
+            padding: "60px 0 0 0",
           }}>
             <div className="row">
               <div className="col-md-6 col-lg-3">
@@ -130,40 +130,11 @@ function Footer() {
                 </div>
               </div>
 
-              {/* <div className="col-md-6 col-lg-3">
-              <div className="widget">
-                <h3 className="widget-title">About Us</h3>
-                <div className="widget-content">
-                  <ul>
-                    <li>
-                      <ALink href="/pages/about-us">About Us</ALink>
-                    </li>
-                    <li>
-                      <ALink href="#">Careers</ALink>
-                    </li>
-                    <li>
-                      <ALink href="#">Our Stores</ALink>
-                    </li>
-                    <li>
-                      <ALink href="#">Corporate Sales</ALink>
-                    </li>
-                    <li>
-                      <ALink href="#">Careers</ALink>
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div> */}
-
               <div className="col-md-6 col-lg-3">
-                <div className="widget">
-                  <h3 className="widget-title">More Information</h3>
+              <h3 className="widget-title">More Information</h3>
                   <div className="widget-content">
                     <ul>
-                      {/* <li>
-                      <ALink href="#">Affiliates</ALink>
-                    </li> */}
-                      <li>
+                <li>
                         <ALink href={token ? "/pages/account" : "/pages/login"}>My Profile</ALink>
                       </li>
                       <li>
@@ -177,10 +148,8 @@ function Footer() {
                       </li>
                     </ul>
                   </div>
-                </div>
-              </div>
-
-              <div className="col-md-6 col-lg-3">
+            </div> 
+            <div className="col-md-6 col-lg-3">
                 <div className="widget">
                   <h3 className="widget-title">Social Media</h3>
                   <div className="widget-content">
@@ -202,7 +171,12 @@ function Footer() {
                     </div>
                   </div>
                 </div>
-                <h3 className="widget-title" style={{ marginTop: "60px" }}>PAYMENT METHODS</h3>
+               
+              </div>
+
+              <div className="col-md-6 col-lg-3">
+                <div className="widget">
+                <h3 className="widget-title">PAYMENT METHODS</h3>
                 <div >
 
                   <div className="custom-pay" style={{ display: "flex", gap: "10px" }}>
@@ -213,8 +187,11 @@ function Footer() {
                     <ALink href="#"><img src="/images/verisign.svg" /></ALink>
                   </div>
 
+                </div>  
                 </div>
               </div>
+
+              
             </div>
           </div>
 
@@ -237,12 +214,12 @@ function Footer() {
 
               </div>
               <div className="footer-sub">
-                <h6 style={{ letterSpacing: "0.75px" }}>ABOUT US</h6>
-                <span>About us</span>
-                <span>Careers</span>
-                <span>Our Stores</span>
-                <span>Sales</span>
-                <span>Rhoncus</span>
+                <h6 style={{ letterSpacing: "0.75px" }}>More Information</h6>
+                <ALink href={token ? "/pages/account" : "/pages/login"}><span>My Profile</span></ALink>
+                <ALink href={token ? "/pages/whislist" : "/pages/login"}><span>whislist</span></ALink>
+                <ALink href= "/pages/cart"><span>Cart</span></ALink>
+                <ALink href="/pages/offers"><span>OfferZone</span></ALink>
+              
 
               </div>
 
@@ -263,7 +240,7 @@ function Footer() {
                 </div>
                 <div className="social-circle">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" viewBox="0 0 16 15" fill="none">
-                    <g clip-path="url(#clip0_198_9113)">
+                    <g clipPath="url(#clip0_198_9113)">
                       <rect width="14.8094" height="14.1923" transform="translate(0.946411 0.403931)" fill="#E9E9E9" />
                       <path d="M0.946411 2.05265C0.946411 1.57479 1.11319 1.18056 1.44673 0.869961C1.78027 0.559351 2.21388 0.404053 2.74755 0.404053C3.2717 0.404053 3.69576 0.556957 4.01978 0.862793C4.35332 1.17818 4.5201 1.58912 4.5201 2.09566C4.5201 2.5544 4.3581 2.93667 4.03408 3.24251C3.70054 3.55789 3.26216 3.71559 2.71896 3.71559H2.70467C2.18052 3.71559 1.75645 3.55789 1.43243 3.24251C1.10841 2.92713 0.946411 2.5305 0.946411 2.05265ZM1.13224 14.5963V5.02013H4.30568V14.5963H1.13224ZM6.06393 14.5963H9.23737V9.24914C9.23737 8.91463 9.27549 8.65659 9.35173 8.47502C9.48514 8.15007 9.68765 7.8753 9.95925 7.65072C10.2309 7.42612 10.5715 7.31383 10.9813 7.31383C12.0487 7.31383 12.5823 8.03539 12.5823 9.47851V14.5963H15.7558V9.10579C15.7558 7.69133 15.4222 6.61855 14.7551 5.88743C14.088 5.15632 13.2065 4.79076 12.1106 4.79076C10.8813 4.79076 9.92352 5.32118 9.23737 6.38201V6.41069H9.22307L9.23737 6.38201V5.02013H6.06393C6.08299 5.32595 6.09252 6.27688 6.09252 7.87292C6.09252 9.46895 6.08299 11.7101 6.06393 14.5963Z" fill="#121212" />
                     </g>
@@ -276,7 +253,7 @@ function Footer() {
                 </div>
                 <div className="social-circle">
                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="19" viewBox="0 0 18 19" fill="none">
-                    <g clip-path="url(#clip0_198_9118)">
+                    <g clipPath="url(#clip0_198_9118)">
                       <rect x="0.139404" y="0.82666" width="17.3462" height="17.3462" rx="8.67308" fill="#E9E9E9" />
                       <path d="M16.7628 7.84466C16.7986 6.81014 16.5723 5.78337 16.1051 4.85967C15.7881 4.48066 15.3482 4.22488 14.862 4.13692C12.8509 3.95444 10.8316 3.87965 8.81253 3.91286C6.80084 3.87814 4.78873 3.95052 2.78474 4.12969C2.38854 4.20176 2.02188 4.3876 1.72951 4.66453C1.07903 5.26442 1.00676 6.29073 0.934482 7.15804C0.829619 8.71743 0.829619 10.2821 0.934482 11.8415C0.955392 12.3297 1.02807 12.8142 1.15131 13.287C1.23846 13.6521 1.41477 13.9898 1.66447 14.27C1.95882 14.5616 2.33402 14.758 2.74137 14.8337C4.29958 15.0261 5.86962 15.1058 7.43929 15.0722C9.96894 15.1084 12.1878 15.0722 14.8114 14.8699C15.2288 14.7988 15.6145 14.6021 15.9172 14.3061C16.1196 14.1037 16.2707 13.8559 16.3581 13.5833C16.6166 12.7902 16.7435 11.9601 16.7339 11.126C16.7628 10.7212 16.7628 8.27831 16.7628 7.84466ZM7.1791 11.5596V7.08576L11.4578 9.33354C10.258 9.99847 8.6752 10.7501 7.1791 11.5596Z" fill="#121212" />
                     </g>
@@ -293,8 +270,8 @@ function Footer() {
                 <div style={{ display: "flex", gap: "10px" }}>
 
                   <div className="custom-pay">
-                    <RiVisaLine style={{ fontSize: "40px", fontWeight: "600" }} /></div>
-                  <div className="custom-pay"><FaStripe style={{ fontSize: "40px", fontWeight: "600" }} /></div>
+                    <RiVisaLine style={{ fontSize: "40px", fontWeight: "600" , fill:"black" }} /></div>
+                  <div className="custom-pay"><FaStripe style={{ fontSize: "40px", fontWeight: "600" , fill:"black" }} /></div>
                 </div>
               </div>
             </div>
@@ -304,8 +281,8 @@ function Footer() {
         </div>
       </footer>
       <footer className="footer font2" style={{ background: "#F4F4F4", marginTop: "5.5rem" }}>
-        <div className="container">
-          <div className="footer-middle">
+        <div className="">
+          <div className="footer-middle container">
             <div className="row">
               <div className="col-md-12 col-lg-8 mb-3 mb-lg-0">
                 <ul className="footer-category-list mb-0">
@@ -630,18 +607,19 @@ function Footer() {
                 </ul>
               </div>
 
-              <div className="col-md-12 offset-lg-1 col-lg-3 custom-helplineweb" >
+              <div className="col-md-12 offset-lg-1 col-lg-3 custom_userborder-dev  custom-helplineweb" >
+                <div>
 
                 <img src="images/helpline.svg" style={{ width: "30px" }} />
-                <p style={{ color: "rgba(27, 27, 27, 1)" }}>Helpline</p>
-                <h4>1800 456 84788</h4>
+                <p className="dev-helpline-p"style={{ color: "rgba(27, 27, 27, 1)" }}>Helpline</p>
+                <h4 className="dev-helpline-h4">1800 456 84788</h4></div>
               </div>
 
             </div>
           </div>
 
-          <div className="footer-bottom d-sm-flex align-items-center justify-content-center" style={{ background: "#F4F4F4" }}>
-            <span className="footer-copyright">
+          <div className="footer-bottom  d-flex align-items-center justify-content-center" style={{ background: "#F4F4F4" }}>
+            <span className="footer-copyright pb-4">
               Arab Deals © 2024. All Rights Reserved
             </span>
           </div>

@@ -70,7 +70,7 @@ export const postSlider = {
 
 export const productSlider = {
     loop: false,
-    margin: 1,
+    margin: 0,
     autoplay: false,
     dots: false,
     nav: false,
@@ -155,19 +155,20 @@ export const bannerSlider = {
 }
 
 export const brandSlider = {
-    loop: false,
-    margin: 1,
+    loop: true,
+    margin: 0,
     autoplay: false,
     dots: false,
     nav: true,
     navText: [ '<i class="icon-left-open-big">', '<i class="icon-right-open-big">' ],
     responsive: {
         0: {
-            items: 4
+            items: 5,
+            nav:false
         },
-        480: {
-            items: 4,
-        },
+        // 480: {
+        //     items: 4,
+        // },
         768: {
             items: 5
         },

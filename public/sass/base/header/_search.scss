@@ -32,12 +32,12 @@
 					weight: false
 				),
 
-				border: (
-					radius: 5rem,
-					width: 3px,
-					color: #ccc,
-					inline-width: 0,
-				),
+				// border: (
+				// 	radius: 5rem,
+				// 	width: 3px,
+				// 	color: #ccc,
+				// 	inline-width: 0,
+				// ),
 
 				select: (
 					max-width: 13rem,
@@ -58,17 +58,16 @@
 // 1. Header Search Base
 
 .header-search {
-	position: relative;
-
+// 	position: relative;
 // 1.1) Form Control
 	form {
-		margin: 0;
+		margin: 20px;
 	}
 
 	.form-control,
 	select {
 		margin: 0;
-		border: 0;
+		// border: 0;
 		color: inherit;
 		font-size: 1.3rem;
 		height: 100%;
@@ -109,59 +108,59 @@
 }
 
 // Pointer
-.search-toggle:after {
-	content: '';
-	position: absolute;
-	right: calc(50% - 10px);
-	bottom: -10px;
-	border: 10px solid transparent;
-	@include css( border-bottom-color, header, search, border, color );
+// .search-toggle:after {
+// 	content: '';
+// 	position: absolute;
+// 	right: calc(50% - 10px);
+// 	bottom: -10px;
+// 	border: 10px solid transparent;
+// 	@include css( border-bottom-color, header, search, border, color );
 
-	.header-search:not(.show) & {
-		display: none;
-	}
-}
+// 	.header-search:not(.show) & {
+// 		display: none;
+// 	}
+// }
 
 // Search Toggle
-.search-toggle i:before {
-	@include css( font-size, header, search, toggle, size );
-	@include css( font-weight, header, search, toggle, weight );
-}
+// .search-toggle i:before {
+// 	@include css( font-size, header, search, toggle, size );
+// 	@include css( font-weight, header, search, toggle, weight );
+// }
 
-.header-search-category {
-	.form-control {
-		$temp: get( header, search, border, radius ); 
-		@if ( $temp ) {
-			border-radius: $temp 0 0 $temp;
-		}
-	}
+// .header-search-category {
+// 	.form-control {
+// 		$temp: get( header, search, border, radius ); 
+// 		@if ( $temp ) {
+// 			border-radius: $temp 0 0 $temp;
+// 		}
+// 	}
 
-	.btn {
-		$temp: get( header, search, border, radius ); 
-		@if ( $temp ) {
-			border-radius: 0 $temp $temp 0;
-		}
-	}
-}
+	// .btn {
+	// 	$temp: get( header, search, border, radius ); 
+	// 	@if ( $temp ) {
+	// 		border-radius: 0 $temp $temp 0;
+	// 	}
+// 	// }
+// }
 
 // 1.4) Wrapper
 .header-search-wrapper {
 	display: flex;
 	display: -ms-flexbox;
 	position: absolute;
-	right: -2.3rem;
+	// right: -2.3rem;
 	z-index: 999;
 	margin-top: 10px;
 	color: #8d8d8d;
 	box-sizing: content-box;
 	@include css( height, header, search, height );
 	@include clearfix;
-	border-radius: get( header, search, border, radius );
-	border: get( header, search, border, width ) solid get( header, search, border, color );
+	// border-radius: get( header, search, border, radius );
+	// border: 1px solid #ECECEC;
 
-	.header-search:not(.show) & {
-		display: none;
-	}
+	// .header-search:not(.show) & {
+	// 	display: none;
+	// }
 
 	// 1.6) Select Box
 	.select-custom {
@@ -346,7 +345,7 @@
 	}
 
 	// 3.3) For Desktop
-	@include mq(lg) {
+	@include mq(md) {
 		.search-toggle,
 		.btn:after {
 			display: none;
@@ -355,7 +354,7 @@
 		&.header-search .header-search-wrapper {
 			display: flex;
 			display: -ms-flex;
-			position: static;
+			position: relative;
 			margin: 0;
 			@include css( border-width, header, search, border, inline-width );
 		}

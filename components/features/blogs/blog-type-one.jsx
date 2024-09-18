@@ -46,7 +46,7 @@ function BlogTypeOne(props) {
             {blog.picture.map((picture, index) => (
               <figure className="post-media zoom-effect" key={`Blog:${index}`}>
                 <ALink href={`/pages/blog/${blog.slug}`}>
-                  <div className="lazy-overlay"></div>
+                  {/* <div className="lazy-overlay"></div> */}
 
                   <LazyLoadImage
                     alt="post_image"

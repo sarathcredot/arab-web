@@ -190,9 +190,10 @@ function ProductOne(props) {
               src={product?.images[0]?.fileURL}
               // "images/iphone.svg"
               style={{
-                width: "130px",
+                aspectRatio:"3/2",
                 objectFit: "contain",
                 marginTop: "30px",
+                mixBlendMode:'multiply'
               }}
             />
           </span>
@@ -284,6 +285,8 @@ function ProductOne(props) {
           <ALink
             href={`/product/default/${product._id}`}
             style={{ fontWeight: "500px", fontSize: "14px" }}
+            data-toggle="tooltip" data-title="open"
+            
           >
             {product.productName}
           </ALink>

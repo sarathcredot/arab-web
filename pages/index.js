@@ -123,9 +123,9 @@ function Home() {
         <div style={{ position: "relative" }}>
           <div
             className="header-bottom d-flex"
-            style={{ zIndex: "99", position: "absolute", width: "100%" }}
+            style={{ position: "relative", width: "100%", marginBottom:"-50px"}}
           >
-            <div className="container" style={{ marginBottom: "-15px" }}>
+            <div className="container" >  
               <div>
                 <MainMenu />
               </div>
@@ -135,7 +135,7 @@ function Home() {
             {!loading && <HomeSection className="pb-5" data={sectionOneDatastate} />}
           </div>
         </div>
-        <div className={`container skeleton-body skel-shop-products pt-2 ${false ? "" : "loaded"}`}>
+        <div className={`container skeleton-body skel-shop-products mt-sm-4 ${false ? "" : "loaded"}`}>
           {!loading2 && !loading3 && (
             <BannerSection
               sectionTwoData={sectionTwoDatastate}
