@@ -607,12 +607,16 @@ hr {
 }
 
 // 2.6) Deal Product Section
+.heading-border-dev{
+    border-bottom: 1px solid #EEE;
+    margin-bottom: 50px;
+}
 .section-title {
     margin-bottom: .7rem;
     font-size: 2.2rem;
     font-weight: 600;
-    padding-bottom: 2rem;
-    padding-top: 3rem;
+    // padding-bottom: 2rem;
+    // padding-top: 4rem;
 
     i {
         margin-left: 3px;
@@ -655,8 +659,8 @@ hr {
 }
 
 .deal-products-section {
-    padding-bottom:  4.5rem;
-    padding-top: 10px;
+    // padding-bottom:  4.5rem;  /*dev-padding*/
+    // padding-top: 10px;
 
     .product-countdown-container {
         bottom: auto;
@@ -1745,8 +1749,9 @@ hr {
 
         .view-all {
             margin-right: 2px;
-            top: 2.2rem;
-            height: 100%;
+            // top: 2.2rem;
+            // height: 100%;
+            padding-bottom: 12px;
             color: black;
             font-weight: 500;
         }

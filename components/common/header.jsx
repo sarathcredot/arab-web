@@ -74,7 +74,7 @@ function Header({ adClass = "", wishlist }) {
   } = useQuery(GET_WISH_LIST, {
     skip: !token,
   });
-  const [showDropdown, setShowDropdown] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(null);
 
   const handleToggleDropdown = () => {
     setShowDropdown(prevState => !prevState);
@@ -182,18 +182,18 @@ function Header({ adClass = "", wishlist }) {
       <header
         className={`header ${adClass} sticky-header mobile-sticky desktop-sticky`}
       >
-        <div className="header-middle" style={{ paddingTop: "3rem", paddingBottom: "3rem" }}>
+        <div className="header-middle" style={{ paddingTop: "2rem", paddingBottom: "1rem" }}>
           <div className="container innercontainer">
             {/* <div className={styles.innercontainer}> */}
             <div className="header-left col-lg-2 w-auto pl-0">
-              {pathname !== "/pages/login" &&
+              {/* {pathname !== "/pages/login" &&
                 <button
                   className="mobile-menu-toggler mr-2"
                   type="button"
                   onClick={openMobileMenu}
                 >
                   <i className="fa fa-bars"></i>
-                </button>}
+                </button>} */}
 
               <ALink href="/" className="logo">
                 <img
@@ -222,18 +222,18 @@ function Header({ adClass = "", wishlist }) {
 
                 </ALink> 
 
-                <span>OFFERZONE</span>
+                <ALink href="/pages/offers"><span>OFFERZONE</span></ALink>
               </div>
-              <div className="header-dropdown-hide">
+              {/* <div1 className="header-dropdown-hide">
                 <div
                   className="header-dropdown mr-auto mr-sm-3 mr-md-2 d-sm-none d-md-flex"
                   style={{ background: "rgba(249, 249, 249, 1)" }}
                 >
                   <ALink href="#">
-                    {/* <img src="/images/uae.svg"></img>UAE */}
+                    <img src="/images/uae.svg"></img>UAE
                     <img src="/images/omn.svg" className={styles.flagimg} ></img>OMN
                   </ALink>
-                  {/* <div className="header-menu">
+                  <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#">
@@ -256,11 +256,11 @@ function Header({ adClass = "", wishlist }) {
                       </ALink>
                     </li>
                   </ul>
-                </div> */}
                 </div>
-              </div>
+                </div>
+              </div1> */}
 
-              <div className="header-dropdown-hide">
+              {/* <div1 className="header-dropdown-hide">
                 <div
                   className="header-dropdown mr-auto mr-sm-3 mr-md-0 d-sm-none d-md-flex"
                   style={{ background: "rgba(249, 249, 249, 1)", padding: "11px 0px" }}
@@ -273,7 +273,7 @@ function Header({ adClass = "", wishlist }) {
                     }}> English</span>
 
                   </ALink>
-                  {/* <div className="header-menu">
+                  <div className="header-menu">
                   <ul>
                     <li>
                       <ALink href="#" >
@@ -292,9 +292,9 @@ function Header({ adClass = "", wishlist }) {
                    
                     
                   </ul>
-                </div> */}
                 </div>
-              </div>
+                </div>
+              </div1> */}
 
 
 

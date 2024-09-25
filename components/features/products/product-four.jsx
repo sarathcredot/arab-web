@@ -176,7 +176,7 @@ function ProductFour(props) {
   return (
     <div
       className={`product-default custom-product-resp media-with-lazy ${adClass}`}
-      style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
+      style={{ border: "1px solid rgba(185, 185, 185, 1)",marginRight:"20px" }}
     >
       {/* <figure> */}
       <ALink href={`product/default/${product?._id}`}>
@@ -215,7 +215,7 @@ function ProductFour(props) {
       {/* </figure> */}
 
       <div className="product-details" style={{ alignItems: "center" }}>
-        <div className="category-wrap">
+        <div className="category-wrap"style={{  display:'flex', justifyContent: "center" }}>
           <div className="category-list">
             {/* {product */}
             {/* ? product.map((item, index) => ( */}
@@ -242,7 +242,7 @@ function ProductFour(props) {
         </div>
 
         <h3 className="product-title" style={{ justifyContent: "center" }}>
-          <ALink href={`/product/default/${product.slug}`}>
+          <ALink href={`/product/default/${product.slug}`}  >
             {product?.productName}
           </ALink>
         </h3>

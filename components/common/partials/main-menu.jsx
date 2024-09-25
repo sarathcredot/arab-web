@@ -10,6 +10,8 @@ import ALink from "../ALink";
 import ProductCountdown from "../../features/product-countdown";
 import OwlCarousel from "../../features/owl-carousel";
 import ProductThree from "../../features/products/product-three";
+import Carousel from "react-owl-carousel2";
+
 import { AiOutlineArrowLeft } from "react-icons/ai";
 // Import Utils
 import { mainMenu } from "../../../utils/data/menu";
@@ -73,6 +75,66 @@ export const VARIENT = gql`query GetVariants($input: VariantsInput!) {
     }
   }
 }`;
+const options = {
+  items: 5,
+  margin: 0,  
+  loop: true,  
+  center: false,
+  left:true,
+  mouseDrag: false,
+  touchDrag: false,
+  pullDrag: false,
+  freeDrag: false, 
+  stagePadding: 0,  
+  merge: true,
+  mergeFit: false,
+  autoWidth: true,
+  startPosition: 0,
+  URLhashListener: false,
+  nav: true,
+  rewind: false, 
+  navText: [
+      '<button style="background-color: white; border: 2px solid rgb(240, 240, 240);   margin: 10px -12px; padding:2.8px  5px; outline: none; cursor: pointer; position:relative; left:-50px;" ><i class="icon-angle-left" style="color: black;   margin: 12px ;"></i></button>',
+      '<button style="background-color: white; border: 2px solid rgb(240, 240, 240);  margin: 10px -12px; padding:2.8px  5px; outline: none; cursor: pointer;position:relative; right:-50px;" ><i class="icon-angle-right" style="color: black;   margin: 12px ;"></i></button>'
+  ],
+  slideBy: 1,
+  dots: false,
+  dotsEach: false,
+  dotData: false,
+  lazyLoad: false,
+  lazyContent: true,
+  autoplay: false,
+  // autoplayTimeout: 3000,
+  autoplayHoverPause: true,
+  smartSpeed: 250,
+  fluidSpeed: false,
+  autoplaySpeed: false,
+  navSpeed: false,
+  dotsSpeed: false,
+  dragEndSpeed: false,
+  callbacks: true,
+
+  // responsiveRefreshRate: 200,
+
+  video: false,
+  videoHeight: false,
+  videoWidth: false,
+  animateOut: false,
+  animateIn: false,
+  fallbackEasing: 'swing',
+  info: false,
+  nestedItemSelector: false,
+  itemElement: 'div',
+  stageElement: 'div',
+  navElement: 'button',
+  navContainer: false,
+  dotsContainer: false,
+  checkVisibility: false,
+  animate: false,
+  autoHeight: false,
+  lazyLoadEager: 0,
+  autoHeightClass: 'owl-height'
+};
 
 function MainMenu({ router }) {
   const { data, loading, error } = useQuery(LEVEL_CATEGORY);
@@ -253,6 +315,7 @@ function MainMenu({ router }) {
           }`}
       >
         <ul className="custom__menu w-100" >
+          <Carousel options={options}  style={{display:"grid",placeObject:"center" }}>
           {mainNav?.map((item) => (
             <li
               key={item._id}
@@ -281,8 +344,10 @@ function MainMenu({ router }) {
                 <img src={item.categoryImage?.fileURL} alt={item.categoryName} />
               </div>
               <p className="custom__menu__item-label">{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
-            </li>
-          ))}
+         
+              </li> 
+            ))}
+            </Carousel>
         </ul>
 
         {/* mobile responsive menu */}
@@ -622,14 +687,14 @@ function MainMenu({ router }) {
                   }}
                 >
                   <span className="custom__menulastchild__item-image">
-                    <img src={item?.logo?.fileURL} alt={item?.brandName} />
+                    <img src={item?.logo?.fileURL} alt={item?.brandName} style={{borderRadius:"50px"}} />
                   </span>
                   <p className="custom__menulastchild__item-label">
                     {item?.brandName}
                   </p>
                 </li>
               ))}
-              {!!!brands?.length && <p className="custom__menufirstchild__item px-2">No Brand Available</p>}
+              {!!!brands?.length && <p className=" px-2">No Brand Available</p>}
             </ul>
           </>
         ) : null}

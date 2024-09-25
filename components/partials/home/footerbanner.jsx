@@ -21,11 +21,12 @@ function FooterBannerSection({ data }) {
     autoplay: false, // Autoplay the slider
     autoplayTimeout: 3000,
     // Autoplay interval (3 seconds in this example)
-    dots: true,
+    dots: false,
+    nav:true
   };
   return (
     <div className="mt-4">
-      <OwlCarousel adClass="home-slider mb-2" options={options}>
+      <OwlCarousel adClass="home-slider nav-circle mb-2" options={options}>
         {data?.images?.map((item, imgIndex) => {
           return (
             <div key={imgIndex} style={{ maxHeight: "550px" }} className="bannerheight" style={{ cursor: "pointer" }} onClick={() => {

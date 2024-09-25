@@ -23,7 +23,7 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
       ) : ( */}
       <>
         <div className="row ">
-          <div className="col-md-8 custom-web-banner2">
+          <div className="col-md-8  pr-4 custom-web-banner2">
             <img
               src={sectionTwoData?.images && sectionTwoData?.images[0]?.fileURL}
               onClick={() => {
@@ -42,7 +42,7 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
               style={{ width: "100%" }}
             />
           </div>
-          <div className="col-md-4 custom-web-banner3">
+          <div className="col-md-4 pr-0 custom-web-banner3">
             <img
               src={sectionThreeData?.images && sectionThreeData?.images[0]?.fileURL}
               className="bannerimg"

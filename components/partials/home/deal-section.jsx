@@ -74,13 +74,13 @@ function DealSection() {
 
       </div>
       <h4 className="recommendmob">Deals of the day</h4>
-      <Reveal
+      {/* <Reveal
         keyframes={fadeInUpShorter}
         delay={100}
         duration={1000}
         triggerOnce
       // style={{ border: "1px solid rgba(185, 185, 185, 1)" }}
-      >
+      > */}
         <div className="row">
           <div className="col-lg-4 col-md-5 mb-2 mb-md-0">
             {products
@@ -115,7 +115,7 @@ function DealSection() {
                     .slice(0, 6)
                     .map((item, index) => (
                       <div
-                        className="col-xl-4 col-sm-4 col-6 customdeal-border"
+                        className="col-xl-4 col-sm-4 col-6 m-0 customdeal-border"
                         key={"All Products:" + index}
                       // style={{ border: "1px solid rgba(185, 185, 185, 1)", borderRight:"none" }}
                       >
@@ -142,7 +142,7 @@ function DealSection() {
             </div>
           </div>
         </div>
-      </Reveal>
+      {/* </Reveal> */}
     </section>
   );
 }
