@@ -4,6 +4,7 @@ import { LazyLoadImage } from 'react-lazy-load-image-component';
 import ALink from "../../components/common/ALink";
 import OwlCarousel from "../../components/features/owl-carousel";
 import { countTo } from '../../utils';
+import { Helmet } from 'react-helmet';
 
 export default function AboutUs () {
     useEffect( () => {
