@@ -8,6 +8,7 @@
     width: 100%;
     margin: auto;
     margin-top: 110px;
+    margin-bottom: 134px;
 }
 
 .container > .centered-content > img {
@@ -55,10 +56,10 @@
         font-size: 12px; 
     }
 
-    .container > .centered-content > .buttons > button {
-        min-width: auto;
-        width: 80%;
-    }
+    // .container > .centered-content > .buttons > button {
+    //     min-width: auto;
+    //     width: 80%;
+    // }
 
     .cards-container {
         flex-direction: column;
@@ -115,10 +116,10 @@
         font-size: 12px; 
     }
 
-    .container > .centered-content > .buttons > button {
-        min-width: auto;
-        width: 80%;
-    }
+    // .container > .centered-content > .buttons > button {
+    //     min-width: auto;
+    //     width: 80%;
+    // }
 
     .cards-container {
         flex-direction: column;
@@ -140,6 +141,16 @@
     }
 }
 
+
+@media screen and (max-width:480px) {
+    .container > .centered-content > .buttons > button {
+        min-width: auto;
+        width: 80%;
+    }
+    .container > .centered-content {
+        margin-bottom: 90px;
+    }
+}
 
 .hoverbtn:hover {
    

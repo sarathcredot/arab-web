@@ -23,6 +23,7 @@ const GET_ORDER_DETAILS=gql`query GetUserOrderDetails($input: GetUserOrderDetail
       firstname
       houseNumber
       streetName
+      mobile
     }
   }
 }`;
@@ -74,7 +75,7 @@ const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
     </div>
     </div> */}
 
-<div class='centered-content'  style={{textAlign:"center",marginBottom:"134px" }}>
+<div class='centered-content'  style={{textAlign:"center" }}>
             <img src='/images/thankyouIcon.svg' alt="Thank You Image" />
             <h4>Your order Was Successfully Placed</h4>
             <span style={{fontWeight:"400px",fontSize:"12px", color:"#000000"}}>Your order is confirmed. You will receive an order confirmation email/SMS shortly with the expected delivery date of your item.</span>
@@ -103,7 +104,7 @@ const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
              <div>
             <p style={{fontWeight:"400px",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.firstname}</p>
             <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.houseNumber},{data?.getUserOrderDetails?.shippingAddress?.streetName} </p>
-            <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.phoneNumber}</p>
+            <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>+971 {data?.getUserOrderDetails?.shippingAddress?.mobile}</p>
             </div>
            
            
@@ -137,7 +138,6 @@ const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
 
 
 
-    
 
 </div>
 
