@@ -102,9 +102,9 @@ const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
             <img src="/images/locationIcon.svg" alt="Card Image 1"/>
             </div>
              <div>
-            <p style={{fontWeight:"400px",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.firstname}</p>
-            <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.houseNumber},{data?.getUserOrderDetails?.shippingAddress?.streetName} </p>
-            <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>+971 {data?.getUserOrderDetails?.shippingAddress?.mobile}</p>
+            <p style={{fontWeight:"500",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.firstname}</p>
+            <p style={{fontWeight:"400",fontSize:"11px", color:"#000000"}}>{data?.getUserOrderDetails?.shippingAddress?.houseNumber},{data?.getUserOrderDetails?.shippingAddress?.streetName} </p>
+            <p style={{fontWeight:"400",fontSize:"11px", color:"#000000"}}>+971 {data?.getUserOrderDetails?.shippingAddress?.mobile}</p>
             </div>
            
            
@@ -116,14 +116,14 @@ const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
          <img src="/images/card.svg" alt="Card Image 1"/>
          </div>
           <div>
-         <p style={{fontWeight:"400px",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.paymentMode}</p>
+         <p style={{fontWeight:"500",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.paymentMode}</p>
          <div style={{display:"flex", flexDirection:"row", gap:"20px",}}>
-         <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>Subtotal</p>
-         <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>OMR {data?.getUserOrderDetails?.orderPriceInfo?.totalSellingPrice}</p>
+         <p style={{fontWeight:"400",fontSize:"11px", color:"#000000"}}>Subtotal</p>
+         <p style={{fontWeight:"300",fontSize:"11px", color:"#000000"}}>OMR {data?.getUserOrderDetails?.orderPriceInfo?.totalSellingPrice}</p>
          </div>
          <div style={{display:"flex", flexDirection:"row", gap:"20px",}}>
-         <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>Expected Delivery</p>
-         <p style={{fontWeight:"400px",fontSize:"11px", color:"#000000"}}>{expectedDeliveryDate}</p>
+         <p style={{fontWeight:"400",fontSize:"11px", color:"#000000"}}>Expected Delivery</p>
+         <p style={{fontWeight:"300",fontSize:"11px", color:"#000000"}}>{expectedDeliveryDate}</p>
          </div>
      
          </div>
