@@ -285,7 +285,7 @@ function Footer() {
           <div className="footer-middle container">
             <div className="row">
               <div className="col-md-12 col-lg-8 mb-3 mb-lg-0">
-                <ul className="footer-category-list mb-0">
+                <ul style={{paddingLeft:"25px"}} className="footer-category-list mb-0">
                   <li>
                     <h4 className="d-inline-block">Categories:</h4>{" "}
                     {categories.map((value, index) => (
