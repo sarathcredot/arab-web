@@ -110,17 +110,20 @@ const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
            
         </div>
         
-        <div class="card">
+        <div class="card  payment_card">
         
          <div style={{marginTop:"40px", marginBottom:"40px", marginLeft:"20px"}}>
          <img src="/images/card.svg" alt="Card Image 1"/>
          </div>
-          <div>
+
+         <div>
          <p style={{fontWeight:"500",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.paymentMode}</p>
+
          <div style={{display:"flex", flexDirection:"row", gap:"20px",}}>
          <p style={{fontWeight:"400",fontSize:"11px", color:"#000000"}}>Subtotal</p>
          <p style={{fontWeight:"300",fontSize:"11px", color:"#000000"}}>OMR {data?.getUserOrderDetails?.orderPriceInfo?.totalSellingPrice}</p>
          </div>
+
          <div style={{display:"flex", flexDirection:"row", gap:"20px",}}>
          <p style={{fontWeight:"400",fontSize:"11px", color:"#000000"}}>Expected Delivery</p>
          <p style={{fontWeight:"300",fontSize:"11px", color:"#000000"}}>{expectedDeliveryDate}</p>
@@ -129,7 +132,7 @@ const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
          </div>
         
         
-     </div>
+         </div>
     </div>
 
 

@@ -110,6 +110,23 @@
     line-height: 1.5;
 }
 
+// .payment_card{
+//     > div:nth-child(2){
+//         width: 75%;
+//         > div:nth-child(2){
+//            >p:nth-child(1){
+//              width: 30%;
+//            }
+//         }
+
+//         > div:nth-child(3){
+//             >p:nth-child(1){
+//               width: 30%;
+//             }
+//          }
+//     }
+// }
+
 /* Responsive Styles */
 @media screen and (max-width: 768px) {
     .container > .centered-content > span {

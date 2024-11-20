@@ -111,10 +111,7 @@ function accountdetails() {
 
   return (
     <main className="main main-test">
-      <div
-        className=" d-flex flex-column align-items-center"
-        style={{ backgroundColor: "#F9F9F9" }}
-      >
+     
         <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
           <li>
             <ALink href="/pages/account">My Account</ALink>
@@ -123,7 +120,7 @@ function accountdetails() {
             <ALink href="/pages/accountdetails">Account Details</ALink>
           </li>
         </ul>
-      </div>
+      
       <div className=" container checkout-container">
         <div className="row">
           <div className="col-lg-12">

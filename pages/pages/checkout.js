@@ -228,6 +228,7 @@ function CheckOut() {
           <ALink href="#">Order Complete</ALink>
         </li>
       </ul>
+
       <main className="main main-test">
         {isShipping ? (
           <>
@@ -362,7 +363,7 @@ function CheckOut() {
                   )}
                 </SlideToggle>
               </div> */}
-                <div className="row" style={{ marginTop: "62px" }}>
+                <div className="row" >
                   <div className="col-lg-7">
                     <div>
                       <h2 className="step-title">Select a shipping address</h2>
