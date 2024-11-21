@@ -413,14 +413,43 @@ footer {
     // border-top: 1px solid #ece8e8;
     // padding-bottom: 55px;
     // border-bottom: 1px solid #ece8e8;
-	padding: 0px 0 32px 0;
+	padding: 0px 0 0px 0;
     // border-bottom: 1px solid #f1f1f1;
     border-top: 1px solid #f1f1f1;
 
 	}
+
+	@media(max-width:769px){
+
+		.footer-socialdiv h6{
+
+			margin-top: 40px;
+	  }
+
+	  .custom-paymentdiv{
+		padding-top: 20px;	
+	}
+  
+  
+	}
+
+	.footer-bottom{
+
+		background: #fff !important ;
+	}
+
+	.footer-middle{
+
+
+		padding-bottom: 2rem;
+	} 
+	
+
+
 	.footer {
 		.container{
 			background-color: white;
+			margin-bottom: 0px !important;
 		}
 		&-top {
 			display: none;

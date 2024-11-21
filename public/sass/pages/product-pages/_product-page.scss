@@ -1010,6 +1010,16 @@ main .sticky-header {
 	}
 }
 
+
+@media(max-width:500px){
+
+	.product-single-gallery{
+
+		   padding-right: 0px;
+	}
+	   
+}
+
 .product-single-image > div {
 	position: absolute !important;
 	top: 0;

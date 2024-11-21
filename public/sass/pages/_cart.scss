@@ -248,6 +248,15 @@ i.cart-empty {
 	}
 }
 
+
+@media(max-width:769px){
+
+	  .cart-summary{
+
+		  margin-bottom: 0px;
+	  }
+}
+
 .checkout-progress-bar li a.active, .checkout-progress-bar li a:hover {
 	color: #E30613;
 	opacity: 1;
@@ -559,4 +568,21 @@ i.cart-empty {
 		max-width: none;
 		width: 100%;
 	}
+}
+
+
+
+
+@media(max-width:500px){
+
+	 .cart-container{
+
+		padding-left:40px;
+		margin-top: 30px !important;
+	 }
+
+	 .cart-price-box{
+
+		   margin-right: 30px;
+	 }
 }

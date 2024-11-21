@@ -6,6 +6,8 @@ import { IoMdHome } from "react-icons/io";
 import { gql, useMutation, useLazyQuery } from "@apollo/client";
 import withApollo from "../../server/apollo";
 import { Helmet } from "react-helmet";
+
+
 export const USER_DETAIL = gql`
   query GetUserRecord($input: userInput!) {
     getUserRecord(input: $input) {
@@ -32,10 +34,11 @@ const LOG_OUT_USER = gql`
 function Account() {
   const id = localStorage?.getItem("userId");
   const token = localStorage.getItem("arabtoken");
-  const [userdetail, { loading: userloading, error: usererror, data: userData, refetch }] =
-    useLazyQuery(USER_DETAIL);
+  const [userdetail, { loading: userloading, error: usererror, data: userData, refetch }] = useLazyQuery(USER_DETAIL);
 
     const [logout, { loading, error }] = useMutation(LOG_OUT_USER);
+
+    console.log("data",id,userData)
     
   const router = useRouter();
 
@@ -53,9 +56,15 @@ function Account() {
     if (!token) {
       router.push("/pages/login");
     }
-    userdetail({ variables: { input: { _id: id } } });
+
+    if (id) {
+      userdetail({ variables: { input: { _id: id } } });
+    }
+
+
+    // userdetail({ variables: { input: { _id: id } } });
     // setValue("firstName",userData?.getUserRecord?.record?.firstName)
-  }, [id, token]);
+  }, [id, userdetail, token]);
   return (
     <div> 
       <Helmet>
