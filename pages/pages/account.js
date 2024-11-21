@@ -57,7 +57,7 @@ function Account() {
     // setValue("firstName",userData?.getUserRecord?.record?.firstName)
   }, [id, token]);
   return (
-    <div>
+    <div> 
       <Helmet>
         <title>Account | Arab Deals</title>
       </Helmet>

@@ -17,13 +17,15 @@ export default function ContactUs () {
                                 </ALink>
                         </li>
                         <li className="breadcrumb-item active" aria-current="page">
-                            Contact Us
+                            <ALink className="activeitem" href="/pages/contact-us">
+                               Contact Us
+                            </ALink>
 						</li>
                     </ol>
                 </div>
             </nav>
 
-            <div id="map">
+            <div id="map" style={{marginTop:"16px"}}>
                 <GoogleMapReact
                     bootstrapURLKeys={ { key: 'your-api-key' } }
                     defaultCenter={ { lat: 59.95, lng: 30.33 } }
