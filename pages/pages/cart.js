@@ -234,7 +234,7 @@ function Cart(props) {
             </li>
           </ul>
         </div>
-        <div className="container" style={{ marginTop: "70px" }}>
+        <div className=" cart-container container" style={{ marginTop: "70px" }}>
           {cartList?.length === 0 ? (
             <div className="cart-table-container">
               <div className="table table-cart">
@@ -337,7 +337,7 @@ function Cart(props) {
                 </div>
               </div>
 
-              <div className="col-lg-4">
+              <div className=" cart-price-box col-lg-4">
                 <div className="cart-summary">
                   <h3>Cart Totals</h3>
 
