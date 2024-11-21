@@ -111,11 +111,7 @@ function accountdetails() {
 
   return (
     <main className="main main-test">
-<<<<<<< HEAD
-     
-=======
       
->>>>>>> b73ba1145d201d94b560e20b3721779fbac312a1
         <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
           <li>
             <ALink href="/pages/account">My Account</ALink>
