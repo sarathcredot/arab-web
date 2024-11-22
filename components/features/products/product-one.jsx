@@ -305,8 +305,8 @@ function ProductOne(props) {
             }}
           >
             {product?.sellingPrice.toFixed(2)}
-          </span>
-          <span className="old-price" style={{ marginLeft: "10px", color: "#777777" }}>
+          </span><br/><br/>
+          <span className="old-price" style={{ color: "#777777" }}>
             {product?.mrp?.toFixed(2)}
           </span>
         </div>

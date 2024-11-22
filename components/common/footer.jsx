@@ -138,7 +138,7 @@ function Footer() {
                         <ALink href={token ? "/pages/account" : "/pages/login"}>My Profile</ALink>
                       </li>
                       <li>
-                        <ALink href={token ? "/pages/wishlist" : "/pages/login"}>whislist</ALink>
+                        <ALink href={token ? "/pages/wishlist" : "/pages/login"}>wishlist</ALink>
                       </li>
                       <li>
                         <ALink href="/pages/cart">Cart</ALink>
@@ -216,7 +216,7 @@ function Footer() {
               <div className="footer-sub">
                 <h6 style={{ letterSpacing: "0.75px" }}>More Information</h6>
                 <ALink href={token ? "/pages/account" : "/pages/login"}><span>My Profile</span></ALink>
-                <ALink href={token ? "/pages/whislist" : "/pages/login"}><span>whislist</span></ALink>
+                <ALink href={token ? "/pages/whislist" : "/pages/login"}><span>wishlist</span></ALink>
                 <ALink href= "/pages/cart"><span>Cart</span></ALink>
                 <ALink href="/pages/offers"><span>OfferZone</span></ALink>
               

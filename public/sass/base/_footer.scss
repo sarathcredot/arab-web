@@ -392,7 +392,7 @@ footer {
 		margin-top: 47px;
 	}
 	.bannerheight{
-		height: 142px;
+		height: 355px;
 	}
 	.footer-sub{
 		display: flex;
@@ -472,4 +472,25 @@ footer {
     padding: 0 10px;
     border-radius: 10px;
 		}
+}
+
+
+@media(max-width:769px){
+
+	.footer-middle{
+
+		 padding-left: 3px !important;
+	}
+}
+
+
+
+@media(max-width:500px){
+
+
+
+		.bannerheight{
+			height: 142px;
+		}
+	
 }

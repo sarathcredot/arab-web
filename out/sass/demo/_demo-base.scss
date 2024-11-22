@@ -1563,7 +1563,7 @@ body {
         margin-bottom: 4px;
     }
 .custom-product-resp{
-    display: none !important
+    display: block !important
 
 }
 // .customdeal-border:nth-child(3n+3) {
@@ -1582,6 +1582,8 @@ body {
     .widget-newsletter-info {
         margin-right: 0;
     }
+
+    
 
     .top-notice {
         .container {
@@ -1630,3 +1632,5 @@ body {
         display: none;
     }
 }
+
+

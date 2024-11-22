@@ -44,7 +44,7 @@ export default function ContactUs () {
                         <h2 className="font1 font-weight-light ls-n-10"><strong>Contact</strong> Us</h2>
 
                         <form action="#">
-                            <div style={{marginLeft:"0px",marginRight:"0px"}} className="row">
+                            <div style={{marginLeft:"-9px",marginRight:"-10px"}} className="row">
                                 <div className="col-md-6">
                                     <div className="form-group required-field mb-2">
                                         <label htmlFor="contact-name">Your name</label>

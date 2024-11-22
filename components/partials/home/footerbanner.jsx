@@ -29,7 +29,7 @@ function FooterBannerSection({ data }) {
       <OwlCarousel adClass="home-slider nav-circle mb-2" options={options}>
         {data?.images?.map((item, imgIndex) => {
           return (
-            <div key={imgIndex} style={{ maxHeight: "550px" }} className="bannerheight" style={{ cursor: "pointer" }} onClick={() => {
+            <div key={imgIndex} style={{ maxHeight: "550px" ,cursor: "pointer"}} className="bannerheight"  onClick={() => {
               if (data?.buttons && data?.buttons.length > 0 && data?.buttons[0]?.redirectionURL) {
                 router.push(data?.buttons[0]?.redirectionURL);
               }
