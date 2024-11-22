@@ -90,7 +90,7 @@ align-items: center;
 
 .account-container {
 	margin-top: 4.2rem;
-	margin-bottom: 4rem;
+	margin-bottom: 4.2rem;
 }
 
 .nav-tabs.list {
@@ -138,10 +138,29 @@ align-items: center;
 }
 
 
+.dashboard-box{
+	width: 331.46px;
+	height: 276.71px;
+}
+
+@media (max-width:1024px) {
+	.dashboard-box{
+		width: 284.46px;
+		height: 276.71px;
+	}	
+}
+
+@media (max-width:768px) {
+	.dashboard-box{
+		width: 218.46px;
+		height: 223.71px;
+	}	
+}
+
 
 @include mq("sm", max) {
 	.dashboard-content {
-		padding: 0 10px;
+		// padding: 0 10px;
 		.feature-box h3 {
 			font-size: 1.3rem;
 		}
