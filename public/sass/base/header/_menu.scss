@@ -815,6 +815,7 @@
   color: white;
 }
 
+
 @media (max-width: 768px) {
   .custom__menu {
     display: none;
@@ -835,7 +836,7 @@
   }
   .custom__mobilemenu {
     display: flex;
-    padding: 5rem 0 0 0;
+    padding: 2rem 0 0 0;
     gap: 18px;
     overflow-x: scroll;
     scrollbar-width: thin;
@@ -867,6 +868,14 @@
     border-right: 0;
   }
 }
+@media (max-width:600px) {
+  .custom__mobilemenu {
+    padding: 5rem 0 0 0;
+  }
+}
+
+
+
 .custom__mobilemenu::-webkit-scrollbar {
   display: none;
 }

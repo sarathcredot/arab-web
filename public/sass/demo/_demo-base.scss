@@ -1555,12 +1555,22 @@ body {
         max-width: 101px;
     }
 
-    @media (max-width: 768px) {
+    @media (max-width:600px) {
         .header-search {
 
             .form-control,
             .select-custom {
                 margin: 10px 0;
+            }
+        }
+    }
+
+    @media (max-width: 768px) {
+        .header-search {
+
+            .form-control,
+            .select-custom {
+                // margin: 10px 0;
                 border: none;
                 background: #F5F5F5;
 

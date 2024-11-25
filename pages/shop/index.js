@@ -204,11 +204,11 @@ function Shop() {
           </p>
         </div>
 
-        <div className="row" style={{ border: "1px solid #B9B9B9" }}>
-          <div
-            className="col-lg-9 main-content"
-            style={{ padding: 0, borderLeft: "1px solid #B9B9B9" }}
-          >
+        <div className="row" style={{ border: "1px solid #B9B9B9",marginRight:"0",marginLeft:"0" }}>
+          {/* <div
+            className="col-lg-9 main-content" style={{borderLeft: "1px solid #B9B9B9" }}
+          > */}
+           <div className="col-lg-9 main-content" style={{borderLeft: "1px solid #B9B9B9",padding:"0px" }}>
             <nav className="toolbox sticky-header mobile-sticky" style={{ margin: "0" }}>
               <div className="toolbox-left">
                 <a href="#" className="sidebar-toggle" onClick={(e) => sidebarToggle(e)}>
