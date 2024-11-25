@@ -137,12 +137,6 @@ function ProductDetailOne(props) {
   });
 
 
-
-
-
-
-
-
   // console.log("dfgfff",variData);
 
   const getUniqueVariants = (data) => {

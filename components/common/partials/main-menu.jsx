@@ -383,9 +383,11 @@ function MainMenu({ router }) {
                   />
                 </span>
               </div>
-              <p
-                style={{ textAlign: "center", }}
-              >{item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}</p>
+              <p style={{ textAlign: "center" }}>
+                    {item.categoryName.length > 10
+                      ? item.categoryName.slice(0, 12) + "..."
+                      : item.categoryName.charAt(0).toUpperCase() + item.categoryName.slice(1)}
+                  </p>
             </li>
           ))}
         </ul>

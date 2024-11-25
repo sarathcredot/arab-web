@@ -41,6 +41,9 @@
 	}
 }
 
+
+
+
 .media-with-lazy {
 	&.post figure::before {
 		padding-top: 74.65%;
@@ -109,3 +112,15 @@
 // 		}
 // 	}	
 // }
+
+@media (max-width:480px) {
+	.media-with-lazy {
+		figure {
+	
+			img {
+				top: -10px;
+			}
+		}
+	
+	}
+}

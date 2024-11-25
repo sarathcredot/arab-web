@@ -67,11 +67,45 @@ const handleCloseShipping = () => {
   refetch();
 };
    const handleRemove=async(id)=>{
+    // console.log("this is id",id)
     const response=await RemoveUserShippingAddress({variables:{input:{
       _id:id
     }}})
+    console.log("remove response",response)
     refetch();
    }
+
+  // const handleRemove = async (id) => {
+  //   try {
+  //     const response = await RemoveUserShippingAddress({
+  //       variables: {
+  //         input: {
+  //           _id: id,
+  //         },
+  //       },
+  //       update(cache, { data: { removeUserShippingAddress } }) {
+  //         // Read existing data from cache
+  //         const existingData = cache.readQuery({ query: GET_ADDRESSES });
+  
+  //         // Filter out the removed address
+  //         const updatedAddresses = existingData.addresses.filter(
+  //           (address) => address._id !== id
+  //         );
+  
+  //         // Write updated data back to cache
+  //         cache.writeQuery({
+  //           query: GET_ADDRESSES,
+  //           data: { addresses: updatedAddresses },
+  //         });
+  //       },
+  //     });
+  
+  //     console.log("Remove response:", response);
+  //   } catch (error) {
+  //     console.error("Error removing address:", error);
+  //   }
+  // };
+  
    const handleDefault=async(id)=>{
     const response=await UpdateUserShippingAddressAsDefault({variables:{input:{addressId:id}}})
     refetch();

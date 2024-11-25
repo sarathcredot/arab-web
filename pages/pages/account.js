@@ -38,7 +38,7 @@ function Account() {
 
     const [logout, { loading, error }] = useMutation(LOG_OUT_USER);
 
-    console.log("data",id,userData)
+  // console.log("this is userdata",userData)
     
   const router = useRouter();
 
@@ -65,6 +65,7 @@ function Account() {
     // userdetail({ variables: { input: { _id: id } } });
     // setValue("firstName",userData?.getUserRecord?.record?.firstName)
   }, [id, userdetail, token]);
+
   return (
     <div> 
       <Helmet>
@@ -107,14 +108,14 @@ function Account() {
         </div>
       </main>
 
-      <div className="container account-container custom-account-container">
+      <div className="container  custom-account-container account-container" style={{borderBottom:"1px solid #E2E2E2"}}>
         <Tabs
           selectedTabClassName="active"
           selectedTabPanelClassName="active show"
           defaultIndex={0}
           className="tab"
         >
-          <div className="row">
+          <div className="row" style={{marginLeft:"0px", marginRight:"0px"}}>
             <div className="col-12 order-0">
               {/* StickyBox and Tab navigation code */}
               {/* Uncomment and use this code if needed */}
@@ -162,16 +163,15 @@ function Account() {
                   </p>
                   <div className="container p-md-5 p-sm-0">
                     <div className="row">
-                      <div className="col-12 col-md-4 mb-5">
+                      <div className="col-12 col-md-4 mb-3">
                         <div
-                          className="feature-box text-center justify-content-center content-box mr-sm-0 w-sm-100"
-                          style={{ width: "321.46px", height: "276.71px" }}
+                          className="feature-box dashboard-box text-center justify-content-center content-box mr-sm-0 w-sm-100"
                         >
                           <ALink href="/pages/orders">
                             <div
                               style={{
-                                width: "321.46px",
-                                height: "276.71p",
+                                // width: "321.46px",
+                                // height: "276.71px",
                                 display: "flex",
                                 justifyContent: "center",
                               }}
@@ -212,16 +212,15 @@ function Account() {
                           </ALink>
                         </div>
                       </div>
-                      <div className="col-12 col-md-4 mb-5">
+                      <div className="col-12 col-md-4 mb-3">
                         <div
-                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100 "
-                          style={{ width: "321.46px", height: "276.71px" }}
+                          className="feature-box dashboard-box text-center justify-content-center  content-box mr-sm-0 w-sm-100 "
                         >
                           <ALink href="/pages/wishlist">
                             <div
                               style={{
-                                width: "321.46px",
-                                height: "276.71p",
+                                // width: "321.46px",
+                                // height: "276.71p",
                                 display: "flex",
                                 justifyContent: "center",
                               }}
@@ -307,16 +306,16 @@ function Account() {
                           </ALink>
                         </div>
                       </div> */}
-                      <div className="col-12 col-md-4 mb-5">
+                      <div className="col-12 col-md-4 mb-3">
                         <div
-                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
-                          style={{ width: "321.46px", height: "276.71px" }}
+                          className="feature-box dashboard-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
+                          
                         >
                           <ALink href="/pages/addresses">
                             <div
                               style={{
-                                width: "321.46px",
-                                height: "276.71p",
+                                // width: "321.46px",
+                                // height: "276.71p",
                                 display: "flex",
                                 justifyContent: "center",
                               }}
@@ -357,16 +356,16 @@ function Account() {
                           </ALink>
                         </div>
                       </div>
-                      <div className="col-12 col-md-4 mb-5">
+                      <div className="col-12 col-md-4 mb-3">
                         <div
-                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
-                          style={{ width: "321.46px", height: "276.71px" }}
+                          className="feature-box dashboard-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
+                         
                         >
                           <ALink href="/pages/accountdetails">
                             <div
                               style={{
-                                width: "321.46px",
-                                height: "276.71p",
+                                // width: "321.46px",
+                                // height: "276.71p",
                                 display: "flex",
                                 justifyContent: "center",
                               }}
@@ -405,10 +404,9 @@ function Account() {
                           </ALink>
                         </div>
                       </div>
-                      <div className="col-12 col-md-4 mb-5">
+                      <div className="col-12 col-md-4 mb-3">
                         <div
-                          className="feature-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
-                          style={{ width: "321.46px", height: "276.71px" }}
+                          className="feature-box dashboard-box text-center justify-content-center  content-box mr-sm-0 w-sm-100"
                           onClick={handleLogout}
                         >
                           <div>
