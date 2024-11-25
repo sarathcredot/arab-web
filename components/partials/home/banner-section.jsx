@@ -67,6 +67,8 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
             />
           </div>
         </div>
+
+
         <div className="row pt-4">
           <div className="col-md-12">
             <img
@@ -74,7 +76,7 @@ function BannerSection({ offer, sectionTwoData, sectionThreeData }) {
               className="home_banner3"
               style={{
                 width: "100%",
-                height: "272px",
+                height: "100%",
                 objectFit: "cover",
                 position: "relative",
                 cursor: "pointer",

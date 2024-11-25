@@ -119,9 +119,9 @@ const expectedDeliveryDate = getExpectedDeliveryDate(orderDate);
          <div>
          <p style={{fontWeight:"500",fontSize:"18px", color:"#000000"}}>{data?.getUserOrderDetails?.paymentMode}</p>
 
-         <div style={{display:"flex", flexDirection:"row", gap:"20px",}}>
+         <div  style={{display:"flex", flexDirection:"row", gap:"20px",}}>
          <p style={{fontWeight:"400",fontSize:"11px", color:"#000000"}}>Subtotal</p>
-         <p style={{fontWeight:"300",fontSize:"11px", color:"#000000"}}>OMR {data?.getUserOrderDetails?.orderPriceInfo?.totalSellingPrice}</p>
+         <p className='thanks-card-p' style={{fontWeight:"300",fontSize:"11px" , color:"#000000"}}>OMR {data?.getUserOrderDetails?.orderPriceInfo?.totalSellingPrice}</p>
          </div>
 
          <div style={{display:"flex", flexDirection:"row", gap:"20px",}}>

@@ -2274,4 +2274,21 @@ color:red
             max-width: 120px;
         }
     }
+
+
+   
+}
+
+@media(max-width:769px){
+
+       .app-downloadbtn svg{
+
+        width: 60px !important;
+   }
+
+
+   .app-downloadbtn {
+
+        right: 11px;
+   }
 }

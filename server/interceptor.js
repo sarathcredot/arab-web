@@ -27,7 +27,7 @@ export const responseInterceptor = new ApolloLink(
           // localStorage.removeItem("arabtoken");
           // window.location.href="/pages/login";
         } else {
-          observer.next(result);
+          observer?.next(result);
         }
       };
 

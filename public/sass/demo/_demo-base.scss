@@ -1581,6 +1581,7 @@ body {
     .recommendmob {
         display: flex;
         font-weight: 600;
+        margin-top: 20px;
     }
 
     .custom-helpline {
@@ -1692,5 +1693,10 @@ body {
     .custom-product-resp {
 
         display: none !important
+    }
+
+    .recommendmob {
+        
+        margin-top: 0px;
     }
 }
