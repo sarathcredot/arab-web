@@ -138,7 +138,7 @@ function accountdetails() {
                   <h2 className="step-title">Account Details</h2>
                 </div>
 
-                <div className=" mx-5">
+                <div className="">
                   <form onSubmit={handleSubmit(onSubmit)} id="checkout-form">
                     <div className="row">
                       <div className="col-md-6 mb-2">
@@ -249,7 +249,7 @@ function accountdetails() {
                           </div>
                         ) : null}
                       </div>
-  <div className="col-md-12 mt-4">
+                      <div className="col-md-12 mt-4">
     
                       <p
                         style={{
@@ -276,9 +276,7 @@ function accountdetails() {
                             *
                           </ab>
                         </label>
-  </div>
-                      </div>
-                      <Controller
+                        <Controller
                         control={control}
                         name="email"
                         render={({ field: { onChange, value } }) => (
@@ -292,11 +290,15 @@ function accountdetails() {
                         )}
                         rules={fieldRules.email}
                       />
+                          </div>
+                    
                       {errors?.email ? (
                         <div style={{ color: "red", marginTop: "10px" }}>
                           {errors?.email?.message}
                         </div>
                       ) : null}
+                      </div>
+                     
                     </div>
   
                     <div

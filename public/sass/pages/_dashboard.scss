@@ -1,4 +1,17 @@
 .dashboard-content {
+	.dashboard-hello{
+		font-weight: 400;
+		font-size: 20px;
+		line-height: 20px;
+		font-family: "Poppins";
+	}
+	.dashboard-username{
+		font-size: 26px;
+		line-height: 20px;
+		font-family: "Poppins";
+		padding-left: 10px;
+		font-weight: 600;
+	}
 	.btn-link {
 		display: inline;
 		padding: 0;
@@ -143,6 +156,8 @@ align-items: center;
 	height: 276.71px;
 }
 
+
+
 @media (max-width:1024px) {
 	.dashboard-box{
 		width: 284.46px;
@@ -161,8 +176,11 @@ align-items: center;
 @include mq("sm", max) {
 	.dashboard-content {
 		// padding: 0 10px;
-		.feature-box h3 {
-			font-size: 1.3rem;
+		// .feature-box h3 {
+		// 	font-size: 1.3rem;
+		// }
+		.dashboard-username{
+			font-size: 22px;
 		}
 	}
 }

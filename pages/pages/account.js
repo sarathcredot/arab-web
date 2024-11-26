@@ -126,23 +126,12 @@ function Account() {
                 <div className="dashboard-content">
                   {/* Dashboard content */}
                   <p
-                    style={{
-                      fontWeight: "400",
-                      fontSize: "20px",
-                      lineHeight: "20px",
-                      fontFamily: "Poppins",
-                    }}
+                   className="dashboard-hello"
                   >
                     Hello
                     {userData?.getUserRecord?.record?.displayName ? (
                       <strong
-                        className="text-dark"
-                        style={{
-                          fontSize: "26px",
-                          lineHeight: "20px",
-                          fontFamily: "Poppins",
-                          paddingLeft: "10px",
-                        }}
+                        className="text-dark dashboard-username"
                       >
                         {userData?.getUserRecord?.record?.displayName}
                       </strong>
