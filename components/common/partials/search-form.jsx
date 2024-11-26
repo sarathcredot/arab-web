@@ -149,7 +149,7 @@ function SearchForm(props) {
 
   return (
     <>
-      <div className="header-icon header-search header-search-inline header-search-category w-lg-max text-right mb-0  ">
+       <div className="header-icon header-search header-search-inline header-search-category w-lg-max text-right mb-0  ">
         <a
           href="#"
           className="search-toggle"
