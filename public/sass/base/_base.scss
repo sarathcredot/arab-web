@@ -32,6 +32,7 @@ body {
 	overflow-y: scroll !important;
 }
 
+
 ::-moz-selection {
 	background-color: $primary-color;
 	color: #fff;
@@ -347,5 +348,6 @@ input::-webkit-outer-spin-button,input::-webkit-inner-spin-button {
 		  margin-right: 0px !important;
 	}
 }
+
 
 

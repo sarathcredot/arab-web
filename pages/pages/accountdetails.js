@@ -121,7 +121,7 @@ function accountdetails() {
           </li>
         </ul>
       
-      <div className=" container checkout-container">
+      <div className=" container checkout-container" style={{borderBottom:"1px solid #E2E2E2"}}>
         <div className="row">
           <div className="col-lg-12">
             <ul style={{paddingLeft:"0px"}} className="checkout-steps">

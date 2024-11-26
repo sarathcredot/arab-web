@@ -807,7 +807,7 @@ input[type="radio"]{
 }
 @media (max-width:768px) {
 	.checkout-progress-bar {
-		margin-bottom: 3.4rem;
+		margin-bottom: 3.4rem;  
 		
 	}
 }
@@ -815,7 +815,7 @@ input[type="radio"]{
 
 @media (max-width:480px) {
 	.checkout-progress-bar {
-		margin-bottom: 1.4rem;
-		margin-top: 6.4rem;
+		margin-bottom: 1.4rem; 
+		// margin-top: 6.4rem;
 	}
 }

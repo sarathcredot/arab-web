@@ -217,6 +217,7 @@ function CheckOut() {
       <Helmet>
         <title>Checkout | Arab Deals</title>
       </Helmet>
+      <div style={{marginTop:"50px"}}></div>
       <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
         <li>
           <ALink href="/pages/cart">Shopping Cart</ALink>

@@ -9,7 +9,11 @@ export default function PageNotFound () {
                     <IoMdHome style={{fontSize:"16px"}}/>
                         {/* <i className="icon-home"></i> */}
                         </ALink></li>
-                    <li className="breadcrumb-item active" aria-current="page">404</li>
+                        <li className="breadcrumb-item active" aria-current="page">
+                            <ALink className="activeitem" href="/pages/404">
+                             404
+                            </ALink>
+              </li>
                 </ol>
             </nav>
 

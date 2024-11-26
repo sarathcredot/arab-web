@@ -264,7 +264,7 @@ function Orders(props) {
         >
           <h4>Orders</h4>
         </div>
-        <div className="container" style={{}}>
+        <div className="container" style={{borderBottom:"1px solid #E2E2E2"}}>
           <div className="success-alert">
             {flag === 1 ? <p>Product successfully removed.</p> : ""}
             {flag === 2 ? <p>Product added to cart successfully.</p> : ""}
@@ -292,7 +292,7 @@ function Orders(props) {
               <table className="table table-wishlist mb-0">
                 <thead>
                   <tr>
-                    <th className="thumbnail-col">Product</th>
+                    <th className="thumbnail-col" style={{paddingLeft:"0px"}}>Product</th>
                     <th className="status-col"></th>
                     <th className="status-col">Order Id</th>
                     <th className="status-col">Date</th>
@@ -321,11 +321,17 @@ function Orders(props) {
                         </figure>
                       </td>
                       <td>
-                        <h5 className="product-title">
+                        {/* <h5 className="product-title" style={{fontWeight:"700"}}>
                           <ALink href={`/product/default/${item.productId}`}>
                             {item.productName}
                           </ALink>
-                        </h5>
+                        </h5> */}
+                        <h5 className="product-title" style={{ fontWeight: "700" }}>
+                            <ALink href={`/product/default/${item.productId}`}>
+                              {item.productName.split(" ").slice(0, 4).join(" ")}...
+                            </ALink>
+                          </h5>
+
                       </td>
                       <td style={{ color: "black" }}>{item.orderId}</td>
                       <td style={{ color: "black" }}>

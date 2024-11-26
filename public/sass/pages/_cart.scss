@@ -121,6 +121,17 @@
 	}
 }
 
+@media (max-width:480px) {
+	.table.table-cart, .table.table-wishlist {
+		
+		.product-title {
+			text-align: center;
+
+		}
+	
+	}
+}
+
 .table.table-cart {
 	.product-title a,
 	.subtotal-price {
