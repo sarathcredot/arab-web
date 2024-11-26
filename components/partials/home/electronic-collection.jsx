@@ -5,6 +5,8 @@ import Reveal from "react-awesome-reveal";
 import ALink from "../../common/ALink";
 import ProductOne from "../../features/products/product-one";
 import OwlCarousel from "../../features/owl-carousel";
+import { IoMdArrowDropright } from "react-icons/io";
+
 
 // Import Settigns
 import { fadeIn } from "../../../utils/data/keyframes";
@@ -94,7 +96,7 @@ function ElectronicCollection() {
                 Best Selling
               </h4>
               <ALink href="/shop?bestSeller=true" style={{ color: "black", fontWeight: "600" }}>
-                View All Products
+              View All <IoMdArrowDropright style={{fontSize:"20px"}}/> 
               </ALink>
             </div>
 

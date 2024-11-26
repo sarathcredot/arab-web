@@ -607,8 +607,8 @@ function Footer() {
                 </ul>
               </div>
 
-              <div className="col-md-12 offset-lg-1 col-lg-3 custom_userborder-dev  custom-helplineweb" >
-                <div>
+              <div   className="col-md-12 offset-lg-1 col-lg-3 custom_userborder-dev  custom-helplineweb  " >
+                <div  className="new-footer" >
 
                 <img src="images/helpline.svg" style={{ width: "30px" }} />
                 <p className="dev-helpline-p"style={{ color: "rgba(27, 27, 27, 1)" }}>Helpline</p>

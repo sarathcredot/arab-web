@@ -264,7 +264,7 @@ function Orders(props) {
         >
           <h4>Orders</h4>
         </div>
-        <div className="container" style={{borderBottom:"1px solid #E2E2E2"}}>
+        <div className="container" >
           <div className="success-alert">
             {flag === 1 ? <p>Product successfully removed.</p> : ""}
             {flag === 2 ? <p>Product added to cart successfully.</p> : ""}
