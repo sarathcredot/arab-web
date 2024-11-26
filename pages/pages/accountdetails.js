@@ -111,8 +111,8 @@ function accountdetails() {
 
   return (
     <main className="main main-test">
-      
-        <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap">
+        <div style={{marginTop:"50px"}}></div>
+        <ul className="checkout-progress-bar d-flex justify-content-center flex-wrap" style={{marginBottom:"0px"}}>
           <li>
             <ALink href="/pages/account">My Account</ALink>
           </li>
@@ -121,7 +121,7 @@ function accountdetails() {
           </li>
         </ul>
       
-      <div className=" container checkout-container" style={{borderBottom:"1px solid #E2E2E2"}}>
+      <div className=" container checkout-container">
         <div className="row">
           <div className="col-lg-12">
             <ul style={{paddingLeft:"0px"}} className="checkout-steps">
