@@ -1595,7 +1595,8 @@ body {
     }
 
     .custom-helpline {
-        margin-bottom: 20px
+        margin-bottom: 20px;
+        padding-left: 0px;
     }
 
     .custom-helplineweb {
@@ -1672,7 +1673,7 @@ body {
     }
 
     .header-icon:not(:last-child) {
-        margin-right: 2.2rem;
+        margin-right: 0.6rem;
     }
 }
 

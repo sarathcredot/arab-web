@@ -252,12 +252,12 @@ function Cart(props) {
             </div>
           ) : (
             <div className="row">
-              <div className="col-lg-7 mr-5">
+              <div className="col-lg-7 ">
                 <div className="cart-table-container">
                   <table className="table table-cart">
                     <thead>
                       <tr>
-                        <th className="thumbnail-col">Product</th>
+                        <th style={{paddingLeft:"0px"}} className="thumbnail-col">Product</th>
                         <th className="product-col pl-0"></th>
                         {/* <th className="price-col"></th> */}
                         <th className="price-col">Price</th>
