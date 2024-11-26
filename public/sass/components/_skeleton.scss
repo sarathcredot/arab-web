@@ -449,6 +449,7 @@
     //product magnifier, detail, tab
     .product-single-details, .product-grid, .prod-thumbnail, .vertical-thumbs,  .product-info-gallery, .product-single-tabs, .product-single-collapse, .product-single-grid .product-single-gallery {
         display: none;
+        padding-top: 20px;
     }
 
     .product-single-carousel, .product-slider-container {
@@ -474,6 +475,7 @@
     &.loaded.skel-shop-products {
         .product-single-details, .product-info-gallery, .product-single-tabs, .product-single-collapse,.product-single-grid .product-single-gallery {
             display: block;
+            // padding-top: 20px;
         }
 
         .product-single-carousel, .product-slider-container {
