@@ -11,6 +11,8 @@ import { gql, useMutation } from "@apollo/client";
 import { useQuery } from "@apollo/react-hooks";
 import withApollo from "../../server/apollo";
 import AddToCartPopup from "../../components/features/modals/add-to-cart-popup";
+import { IoMdHome } from "react-icons/io";
+
 
 import { toast } from "react-toastify";
 import { Helmet } from "react-helmet";
@@ -168,6 +170,30 @@ function Wishlist(props) {
         <title>Wishlist | Arab Deals</title>
       </Helmet>
       <main className="main">
+
+      <div className="container">
+          <nav aria-label="breadcrumb" className="breadcrumb-nav">
+            <div className="container">
+              <ol className="breadcrumb">
+                <li className="breadcrumb-item">
+                  <ALink href="/">
+                    <IoMdHome style={{ fontSize: "16px" }} />
+                    {/* <i className="icon-home" ></i> */}
+                  </ALink>
+                </li>
+                {/* <li className="breadcrumb-item active" aria-current="page">
+                  <ALink href="/pages/account">My account</ALink>
+                </li> */}
+
+                <li className="breadcrumb-item active" aria-current="page">
+                  <ALink className="activeitem" href="/pages/orders">
+                  Wishlist
+                  </ALink>
+                </li>
+              </ol>
+            </div>
+          </nav>
+        </div>
         <div className="page-header">
           <div className="container d-flex flex-column align-items-center">
             {/* <nav aria-label="breadcrumb" className="breadcrumb-nav">
@@ -185,7 +211,7 @@ function Wishlist(props) {
           </div>
         </div>
 
-        <div className="container">
+        <div className="container" style={{borderBottom:"1px solid #E2E2E2"}}>
           <div className="success-alert">
             {flag === 1 ? <p>Product successfully removed.</p> : ""}
             {flag === 2 ? <p>Product added to cart successfully.</p> : ""}
@@ -215,7 +241,7 @@ function Wishlist(props) {
               <table className="table table-wishlist mb-0">
                 <thead>
                   <tr>
-                    <th className="thumbnail-col">Product</th>
+                    <th style={{paddingLeft:"0px"}} className="thumbnail-col">Product</th>
                     <th className="product-col"></th>
                     <th className="price-col">Price</th>
                     <th className="status-col">Stock Status</th>
@@ -253,7 +279,12 @@ function Wishlist(props) {
                       <td>
                         <h5 className="product-title">
                           <ALink href={`/product/default/${item.productId}`}>
-                            {item?.productName}
+                    
+
+                            {item?.productName.length> 10
+                        ? `${item?.productName.slice(0, 15)}...`
+                        : item?.productName}
+
                           </ALink>
                         </h5>
                       </td>
